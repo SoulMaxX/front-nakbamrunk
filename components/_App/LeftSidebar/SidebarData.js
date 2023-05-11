@@ -240,6 +240,22 @@ export const SidebarData = [
     ],
   },
   {
+    title: "ธุรการ",
+    path: "/employee/employees",
+    icon: <PersonIcon />,
+    iconClosed: <KeyboardArrowRightIcon />,
+    iconOpened: <KeyboardArrowDownIcon />,
+
+    subNav: [
+
+      {
+        title: "ข้อมูลพนักงาน",
+        path: "/employee/employees",
+      },
+      
+    ],
+  },
+  {
     title: "UI Elements",
     path: "/ui-elements/alerts/",
     icon: <ViewQuiltIcon />,
