@@ -37,7 +37,7 @@ import Select from '@mui/material/Select';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
-import PrintIcon from '@mui/icons-material/Print';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 import dynamic from 'next/dynamic'
 import SearchForm from "@/components/_App/TopNavbar/SearchForm";
@@ -132,118 +132,138 @@ Product.propTypes = {
 function createData(
   id,
   // productImg,
-  shortName,
+  date,
   numFactory,
   productName,
   carBrand,
   brand,
-  buyPrice,
-  sellPrice,
+  amount,
+  status
+  // buyPrice,
+  // sellPrice,
 ) {
   return {
     id,
     // productImg,
-    shortName,
+    date,
     numFactory,
     productName,
     carBrand,
     brand,
-    buyPrice,
-    sellPrice,
+    amount,
+    status
+    // buyPrice,
+    // sellPrice,
   };
 }
 
 const rows = [
   createData(
     "1",
-    "สวปฟน",
+    "5/5/2566",
     "4.61992",
     "สวิตซ์เปิดไฟหน้า",
     "Benz IBC",
     "DT",
-    "625.00",
-    "980.00",
+    "1,000 ชิ้น",
+    "เข้า",
+    // "625.00",
+    // "980.00",
   ),
   createData(
     "2",
-    "ลกทว",
+    "5/5/2566",
     "4.50099",
     "ลูกกระทุ้งวาล์ว",
     "B422",
     "DT",
-    "128.00",
-    "200.00",
+    "500 ชิ้น",
+    "เข้า",
+
+    // "128.00",
+    // "200.00",
   ),
   createData(
     "3",
-    "กส",
+    "6/5/2566",
     "4.61904",
     "ก้านสูบ",
     "Benz IBC",
     "DT",
-    "2685.00",
-    "",
+    "100 ชิ้น",
+    "เข้า",
+
+    // "2685.00",
+    // "",
   ),
   createData(
     "4",
-    "สวปฟน",
+    "8/5/2566",
     "4.61992",
     "สวิตซ์เปิดไฟหน้า",
     "Benz IBC",
     "DT",
-    "625.00",
-    "980.00",
+    "1,000 ชิ้น",
+    "ออก",
+
+    // "625.00",
+    // "980.00",
   ),
-  createData(
-    "5",
-    "ลกทว",
-    "4.50099",
-    "ลูกกระทุ้งวาล์ว",
-    "B422",
-    "DT",
-    "128.00",
-    "200.00",
-  ),
-  createData(
-    "6",
-    "กส",
-    "4.61904",
-    "ก้านสูบ",
-    "Benz IBC",
-    "DT",
-    "2685.00",
-    "",
-  ),
-  createData(
-    "7",
-    "สวปฟน",
-    "4.61992",
-    "สวิตซ์เปิดไฟหน้า",
-    "Benz IBC",
-    "DT",
-    "625.00",
-    "980.00",
-  ),
-  createData(
-    "8",
-    "ลกทว",
-    "4.50099",
-    "ลูกกระทุ้งวาล์ว",
-    "B422",
-    "DT",
-    "128.00",
-    "200.00",
-  ),
-  createData(
-    "9",
-    "กส",
-    "4.61904",
-    "ก้านสูบ",
-    "Benz IBC",
-    "DT",
-    "2685.00",
-    "",
-  ),
+  // createData(
+  //   "5",
+  //   "ลกทว",
+  //   "4.50099",
+  //   "ลูกกระทุ้งวาล์ว",
+  //   "B422",
+  //   "DT",
+  //   "500 ชิ้น",
+  //   // "128.00",
+  //   // "200.00",
+  // ),
+  // createData(
+  //   "6",
+  //   "กส",
+  //   "4.61904",
+  //   "ก้านสูบ",
+  //   "Benz IBC",
+  //   "DT",
+  //   "100 ชิ้น",
+  //   // "2685.00",
+  //   // "",
+  // ),
+  // createData(
+  //   "7",
+  //   "สวปฟน",
+  //   "4.61992",
+  //   "สวิตซ์เปิดไฟหน้า",
+  //   "Benz IBC",
+  //   "DT",
+  //   "1,000 ชิ้น",
+  //   // "625.00",
+  //   // "980.00",
+  // ),
+  // createData(
+  //   "8",
+  //   "ลกทว",
+  //   "4.50099",
+  //   "ลูกกระทุ้งวาล์ว",
+  //   "B422",
+  //   "DT",
+  //   "500 ชิ้น",
+  //   // "128.00",
+  //   // "200.00",
+  // ),
+  // createData(
+  //   "9",
+  //   "กส",
+  //   "4.61904",
+  //   "ก้านสูบ",
+  //   "Benz IBC",
+  //   "DT",
+  //   "100 ชิ้น",
+  //   // "2685.00",
+  //   // "",
+  // ),
   // createData(
   //   "2",
   //   // "/images/product2.png",
@@ -444,12 +464,12 @@ export default function Products() {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>สินค้า</h1>
+        <h1>รายงานสินค้าเข้า-ออก</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>สินค้า</li>
+          <li>รายงานสินค้าเข้า-ออก</li>
         </ul>
       </div>
 
@@ -466,62 +486,54 @@ export default function Products() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            // paddingLeft: "510px",
             paddingBottom: "10px",
           }}
         >
-          {/* <Typography
-            as="h3"
-            sx={{
-              fontSize: 18,
-              fontWeight: 500,
-            }}
-          >
-            สินค้า
-          </Typography> */}
-
-          <Button
-            // onClick={handleOpen}
-            // href="/ecommerce/create-product"
-            variant="contained"
-            color="secondary"
-
-            sx={{
-              textTransform: "capitalize",
-              borderRadius: "8px",
-              fontWeight: "500",
-              fontSize: "13px",
-              padding: "12px 20px",
-              color: "#fff !important",
-            }}
-          >
-            <PrintIcon
-              sx={{ position: "relative", top: "-1px" }}
-              className='mr-5px'
-            />{" "}
-            พิมพ์แฟ้มสินค้า
-          </Button>
-          
           <SearchForm />
 
-          <Button
-            // onClick={handleOpen}
-            href="/ecommerce/create-product"
-            variant="contained"
-            sx={{
-              textTransform: "capitalize",
-              borderRadius: "8px",
-              fontWeight: "500",
-              fontSize: "13px",
-              padding: "12px 20px",
-              color: "#fff !important",
-            }}
-          >
-            <AddIcon
-              sx={{ position: "relative", top: "-1px" }}
-              className='mr-5px'
-            />{" "}
-            เพิ่มสินค้า
-          </Button>
+          <Box>
+            <Button
+              // onClick={handleOpen}
+              href="/ecommerce/product-in"
+              variant="contained"
+              sx={{
+                textTransform: "capitalize",
+                borderRadius: "8px",
+                fontWeight: "500",
+                fontSize: "13px",
+                padding: "12px 20px",
+                color: "#fff !important",
+                marginRight: "10px"
+              }}
+            >
+              <AddIcon
+                sx={{ position: "relative", top: "-1px" }}
+                className='mr-5px'
+              />{" "}
+              สินค้าเข้า
+            </Button>
+            <Button
+              // onClick={handleOpen}
+              href="/ecommerce/product-out"
+              variant="contained"
+              color="danger"
+              sx={{
+                textTransform: "capitalize",
+                borderRadius: "8px",
+                fontWeight: "500",
+                fontSize: "13px",
+                padding: "12px 20px",
+                color: "#fff !important",
+              }}
+            >
+              <RemoveIcon
+                sx={{ position: "relative", top: "-1px" }}
+                className='mr-5px'
+              />{" "}
+              สินค้าออก
+            </Button>
+          </Box>
         </Box>
 
         <TableContainer
@@ -551,17 +563,17 @@ export default function Products() {
                     fontSize: "13.5px",
                   }}
                 >
-                  ชื่อย่อ
+                  วันที่
                 </TableCell>
 
-                <TableCell
+                {/* <TableCell
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
                   }}
                 >
                   เบอร์โรงงาน
-                </TableCell>
+                </TableCell> */}
 
                 <TableCell
                   align="center"
@@ -592,8 +604,26 @@ export default function Products() {
                 >
                   ยี่ห้อ
                 </TableCell>
-
                 <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  จำนวนสินค้า
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  สถานะ
+                </TableCell>
+
+                {/* <TableCell
                   align="center"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -610,7 +640,7 @@ export default function Products() {
                   }}
                 >
                   ราคาขาย
-                </TableCell>
+                </TableCell> */}
 
                 <TableCell
                   align="right"
@@ -670,12 +700,12 @@ export default function Products() {
                         }}
                         className='ml-10px'
                       >
-                        {row.shortName}
+                        {row.date}
                       </Typography>
                     </Box>
                   </TableCell>
 
-                  <TableCell
+                  {/* <TableCell
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
@@ -683,7 +713,7 @@ export default function Products() {
                     }}
                   >
                     {row.numFactory}
-                  </TableCell>
+                  </TableCell> */}
 
                   <TableCell
                     // align="center"
@@ -730,6 +760,28 @@ export default function Products() {
                       fontSize: "13px",
                     }}
                   >
+                    {row.amount}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
+
+                    {row.status == "เข้า" ? <AddIcon></AddIcon> : <RemoveIcon></RemoveIcon>}
+                  </TableCell>
+
+                  {/* <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
                     {row.buyPrice}
                   </TableCell>
                   <TableCell
@@ -741,7 +793,7 @@ export default function Products() {
                     }}
                   >
                     {row.sellPrice}
-                  </TableCell>
+                  </TableCell> */}
 
                   <TableCell
                     align="right"
@@ -839,336 +891,7 @@ export default function Products() {
         </TableContainer>
       </Card>
 
-      {/* Create Product Modal */}
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <Box sx={style} className="bg-black">
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                background: "#EDEFF5",
-                borderRadius: "8px",
-                padding: "20px 20px",
-              }}
-              className="bg-black"
-            >
-              <Typography
-                id="modal-modal-title"
-                variant="h6"
-                component="h2"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "17px",
-                }}
-              >
-                Create Product
-              </Typography>
 
-              <IconButton
-                aria-label="remove"
-                size="small"
-                onClick={handleClose}
-              >
-                <ClearIcon />
-              </IconButton>
-            </Box>
-
-            <Box component="form" noValidate onSubmit={handleSubmit}>
-              <Box
-                sx={{
-                  background: "#fff",
-                  padding: "30px 20px",
-                  borderRadius: "8px",
-                }}
-                className="dark-BG-101010"
-              >
-                <Grid container alignItems="center" spacing={2}>
-                  <Grid item xs={12} md={12} lg={6}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Product Name
-                    </Typography>
-                    <TextField
-                      autoComplete="product-name"
-                      name="productName"
-                      required
-                      fullWidth
-                      id="productName"
-                      label="Product Name"
-                      autoFocus
-                      InputProps={{
-                        style: { borderRadius: 8 },
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={12} lg={6}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Short Description
-                    </Typography>
-                    <TextField
-                      autoComplete="short-description"
-                      name="Short Description"
-                      required
-                      fullWidth
-                      id="Short Description"
-                      label="Short Description"
-                      autoFocus
-                      InputProps={{
-                        style: { borderRadius: 8 },
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Category
-                    </Typography>
-
-                    <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">Select</InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={categorySelect}
-                        label="Category"
-                        onChange={handleChange}
-                      >
-                        <MenuItem value={10}>Laptop</MenuItem>
-                        <MenuItem value={20}>Camera</MenuItem>
-                        <MenuItem value={30}>Smart Watch</MenuItem>
-                        <MenuItem value={30}>iPhone</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
-
-                  <Grid item xs={12} md={12} lg={6}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Price
-                    </Typography>
-
-                    <TextField
-                      autoComplete="price"
-                      name="price"
-                      required
-                      fullWidth
-                      id="price"
-                      label="$0"
-                      type="number"
-                      autoFocus
-                      InputProps={{
-                        style: { borderRadius: 8 },
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={12} lg={6}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Discount Price
-                    </Typography>
-
-                    <TextField
-                      autoComplete="discount-price"
-                      name="DiscountPrice"
-                      required
-                      fullWidth
-                      id="DiscountPrice"
-                      label="$0"
-                      type="number"
-                      autoFocus
-                      InputProps={{
-                        style: { borderRadius: 8 },
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Stock
-                    </Typography>
-
-                    <TextField
-                      autoComplete="stock"
-                      name="stock"
-                      required
-                      fullWidth
-                      id="stock"
-                      label="5"
-                      autoFocus
-                      InputProps={{
-                        style: { borderRadius: 8 },
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Product Description
-                    </Typography>
-
-                    <RichTextEditor
-                      id="rte"
-                      controls={[
-                        ['bold', 'italic', 'underline', 'link', 'image'],
-                        ['unorderedList', 'h1', 'h2', 'h3'],
-                        ['sup', 'sub'],
-                        ['alignLeft', 'alignCenter', 'alignRight'],
-                      ]}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Product Image
-                    </Typography>
-
-                    <TextField
-                      autoComplete="product-image"
-                      name="productImage"
-                      required
-                      fullWidth
-                      id="productImage"
-                      type="file"
-                      autoFocus
-                      InputProps={{
-                        style: { borderRadius: 8 },
-                      }}
-                    />
-
-                    <Box
-                      sx={{
-                        mt: '15px'
-                      }}
-                    >
-                      <img
-                        src="/images/product1.png"
-                        alt="product"
-                        wisth="55px"
-                        className='mr-10px'
-                      />
-                    </Box>
-                  </Grid>
-
-                  <Grid item xs={12} textAlign="end">
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      sx={{
-                        textTransform: "capitalize",
-                        borderRadius: "8px",
-                        fontWeight: "500",
-                        fontSize: "13px",
-                        padding: "12px 20px",
-                        color: "#fff !important",
-                      }}
-                      onClick={handleClose}
-                      className='mr-15px'
-                    >
-                      <ClearIcon
-                        sx={{
-                          position: "relative",
-                          top: "-1px",
-                        }}
-                        className='mr-5px'
-                      />{" "}
-                      Cancel
-                    </Button>
-
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      sx={{
-                        textTransform: "capitalize",
-                        borderRadius: "8px",
-                        fontWeight: "500",
-                        fontSize: "13px",
-                        padding: "12px 20px",
-                        color: "#fff !important",
-                      }}
-                    >
-                      <AddIcon
-                        sx={{
-                          position: "relative",
-                          top: "-1px",
-                        }}
-                        className='mr-5px'
-                      />{" "}
-                      Create Product
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Box>
-          </Box>
-        </Fade>
-      </Modal>
     </>
   );
 }

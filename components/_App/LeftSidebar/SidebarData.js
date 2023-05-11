@@ -170,7 +170,7 @@ export const SidebarData = [
   //   ],
   // },
   {
-    title: "แฟ้มข้อมูลสินค้า",
+    title: "จัดการสินค้า",
     path: "/ecommerce/products/",
     icon: <ShoppingCartCheckoutIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
@@ -188,6 +188,14 @@ export const SidebarData = [
       {
         title: "เพิ่มสินค้า",
         path: "/ecommerce/create-product/",
+      },
+      {
+        title: "รายงานสินค้าคงเหลือ",
+        path: "/ecommerce/report-products-store/",
+      },
+      {
+        title: "รายงานสินค้าเข้า-ออก",
+        path: "/ecommerce/report-products-in-out/",
       },
       {
         title: "Orders List",

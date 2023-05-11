@@ -53,10 +53,13 @@ const ProductDetailsContent = () => {
           <Grid item xs={12} md={12} lg={7} xl={7}>
             <Box>
               <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-                	รหัสสินค้า : 1
+                รหัสสินค้า : 1
               </Typography>
               <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-                	ชื่อสินค้า : สวิตซ์เปิดไฟหน้า
+                หมวด : 1
+              </Typography>
+              <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
+                ชื่อสินค้า : สวิตซ์เปิดไฟหน้า
               </Typography>
 
               {/* <Box
@@ -107,20 +110,20 @@ const ProductDetailsContent = () => {
                 หน่วยย่อย:  อัน
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                หน่วยใหญ่:  
+                หน่วยใหญ่:
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                บรรจุ:  
+                บรรจุ:
               </Typography>
-             
+
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                เบอร์แท้: 
+                เบอร์แท้:
               </Typography>
-             
+
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 เบอร์โรงงาน:  4.61992
               </Typography>
-             
+
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 ทุนสุทธิ:  625.00
               </Typography>
@@ -128,15 +131,33 @@ const ProductDetailsContent = () => {
                 ราคาขาย:  980.00
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
+                ราคาขายปลีก:  900.00
+              </Typography>
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
                 ราคาขายรวมภาษี:  1050.00
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                จำนวนสินค้า:  10 ชิ้น
+                จำนวนสินค้าคงเหลือ:  10 ชิ้น
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 หมายเหตุ:
               </Typography>
 
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{
+                  textTransform: 'capitalize',
+                  borderRadius: '30px',
+                  mt: '10px',
+                  p: '10px 30px',
+                  fontSize: '14px',
+                  color: "#fff !important",
+                }}
+                className="mr-10px"
+              >
+                พิมพ์ Barcode
+              </Button>
               {/* <Typography fontSize="14px" mb="15px">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -218,7 +239,7 @@ const ProductDetailsContent = () => {
         </Box> */}
 
 
-        
+
       </Card>
     </>
   );
