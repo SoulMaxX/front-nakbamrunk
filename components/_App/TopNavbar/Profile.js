@@ -119,7 +119,7 @@ const Profile = () => {
           </Link>
         </MenuItem>
 
-        <MenuItem>
+        {/* <MenuItem>
           <ListItemIcon sx={{ mr: "-8px", mt: "-3px" }}>
             <MailOutlineIcon fontSize="small" />
           </ListItemIcon>
@@ -145,7 +145,7 @@ const Profile = () => {
           >
             Chat
           </Link>
-        </MenuItem>
+        </MenuItem> */}
 
         <MenuItem>
           <ListItemIcon sx={{ mr: "-8px", mt: "-3px" }}>
@@ -161,7 +161,7 @@ const Profile = () => {
           </Link>
         </MenuItem>
 
-        <MenuItem>
+        {/* <MenuItem>
           <ListItemIcon sx={{ mr: "-8px", mt: "-3px" }}>
             <AttachMoneyIcon fontSize="small" />
           </ListItemIcon>
@@ -173,7 +173,7 @@ const Profile = () => {
           >
             Pricing
           </Link>
-        </MenuItem>
+        </MenuItem> */}
 
         <Divider />
 

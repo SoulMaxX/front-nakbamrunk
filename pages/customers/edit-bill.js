@@ -17,7 +17,7 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-const CreateEmployee = () => {
+const CreateBill = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,12 +37,12 @@ const CreateEmployee = () => {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>เพิ่มพนักงาน</h1>
+        <h1>เพิ่มใบวางบิลลูกหนี้</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>เพิ่มพนักงาน</li>
+          <li>เพิ่มใบวางบิลลูกหนี้</li>
         </ul>
       </div>
 
@@ -92,7 +92,7 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                นามสกุล
+                จำนวนบิล
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -100,7 +100,7 @@ const CreateEmployee = () => {
                 required
                 fullWidth
                 id="productName"
-                label="นามสกุล"
+                label="จำนวนบิล"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -118,15 +118,15 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                เบอร์โทรศัพท์
+                ยอดรวม
               </Typography>
               <TextField
                 autoComplete="short-description"
-                name="เบอร์โทรศัพท์"
+                name="ยอดรวม"
                 required
                 fullWidth
                 id="Short Description"
-                label="เบอร์โทรศัพท์"
+                label="ยอดรวม"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -142,15 +142,15 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                ที่อยู่
+                ค่าขนส่ง
               </Typography>
               <TextField
                 autoComplete="short-description"
-                name="ที่อยู่"
+                name="ค่าขนส่ง"
                 required
                 fullWidth
                 id="Short Description"
-                label="ที่อยู่"
+                label="ค่าขนส่ง"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -166,23 +166,22 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                Email
+                ค่าภาษี
               </Typography>
               <TextField
                 autoComplete="short-description"
-                name="Email"
+                name="ค่าภาษี"
                 required
                 fullWidth
                 id="Short Description"
-                label="Email"
+                label="ค่าภาษี"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-
-            <Grid item xs={12}>
+            <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -191,22 +190,71 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                รูปพนักงาน
+                ยอดรวมทั่งสิ้น
               </Typography>
               <TextField
-                autoComplete="product-image"
-                name="productImage"
+                autoComplete="short-description"
+                name="ยอดรวมทั่งสิ้น"
                 required
                 fullWidth
-                id="productImage"
-                type="file"
+                id="Short Description"
+                label="ยอดรวมทั่งสิ้น"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ผู้รับบิล
+              </Typography>
+              <TextField
+                autoComplete="short-description"
+                name="ผู้รับบิล"
+                required
+                fullWidth
+                id="Short Description"
+                label="ผู้รับบิล"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                นัดชำระเงินวันที่
+              </Typography>
+              <TextField
+                autoComplete="short-description"
+                name="นัดชำระเงินวันที่"
+                required
+                fullWidth
+                id="Short Description"
+                label="นัดชำระเงินวันที่"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
 
-            </Grid> 
+           
 
 
             <Grid item xs={12} textAlign="end">
@@ -219,17 +267,27 @@ const CreateEmployee = () => {
                   fontWeight: "500",
                   fontSize: "13px",
                   padding: "12px 20px",
+                  color: "#fff !important",
+                  marginRight: "10px"
+                }}
+              >
+              บันทึก
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                color="danger"
+
+                sx={{
+                  textTransform: "capitalize",
+                  borderRadius: "8px",
+                  fontWeight: "500",
+                  fontSize: "13px",
+                  padding: "12px 20px",
                   color: "#fff !important"
                 }}
               >
-                <AddIcon
-                  sx={{
-                    position: "relative",
-                    top: "-2px",
-                  }}
-                  className='mr-5px'
-                />{" "}
-                เพิ่มพนักงาน
+                ยกเลิก
               </Button>
             </Grid>
           </Grid>
@@ -239,4 +297,4 @@ const CreateEmployee = () => {
   )
 }
 
-export default CreateEmployee;
+export default CreateBill;

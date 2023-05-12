@@ -34,15 +34,15 @@ const SignUpForm = () => {
           <Grid item xs={12} md={12} lg={12} xl={12}>
             <Box>
               <Typography as="h1" fontSize="28px" fontWeight="700" mb="5px">
-                Get’s started.{" "}
-                <img
+                สมัครสมาชิก{" "}
+                {/* <img
                   src="/images/favicon.png"
                   alt="favicon"
                   className={styles.favicon}
-                />
+                /> */}
               </Typography>
 
-              <Typography fontSize="15px" mb="30px">
+              {/* <Typography fontSize="15px" mb="30px">
                 Already have an account?{" "}
                 <Link
                   href="/authentication/sign-in/"
@@ -71,7 +71,7 @@ const SignUpForm = () => {
 
               <div className={styles.or}>
                 <span>or</span>
-              </div>
+              </div> */}
 
               <Box component="form" noValidate onSubmit={handleSubmit}>
                 <Box
@@ -84,58 +84,7 @@ const SignUpForm = () => {
                   className="bg-black"
                 >
                   <Grid container alignItems="center" spacing={2}>
-                    <Grid item xs={12}>
-                      <Typography
-                        component="label"
-                        sx={{
-                          fontWeight: "500",
-                          fontSize: "14px",
-                          mb: "10px",
-                          display: "block",
-                        }}
-                      >
-                        First Name
-                      </Typography>
-
-                      <TextField
-                        autoComplete="given-name"
-                        name="firstName"
-                        required
-                        fullWidth
-                        id="firstName"
-                        label="First Name"
-                        autoFocus
-                        InputProps={{
-                          style: { borderRadius: 8 },
-                        }}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12}>
-                      <Typography
-                        component="label"
-                        sx={{
-                          fontWeight: "500",
-                          fontSize: "14px",
-                          mb: "10px",
-                          display: "block",
-                        }}
-                      >
-                        Last Name
-                      </Typography>
-
-                      <TextField
-                        required
-                        fullWidth
-                        id="lastName"
-                        label="Last Name"
-                        name="lastName"
-                        autoComplete="family-name"
-                        InputProps={{
-                          style: { borderRadius: 8 },
-                        }}
-                      />
-                    </Grid>
+                    
 
                     <Grid item xs={12}>
                       <Typography
@@ -189,10 +138,113 @@ const SignUpForm = () => {
                         }}
                       />
                     </Grid>
+                    <Grid item xs={12}>
+                      <Typography
+                        component="label"
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "14px",
+                          mb: "10px",
+                          display: "block",
+                        }}
+                      >
+                        Confirm Password
+                      </Typography>
+
+                      <TextField
+                        required
+                        fullWidth
+                        name="password"
+                        label="Confirm Password"
+                        type="password"
+                        id="password"
+                        autoComplete="new-password"
+                        InputProps={{
+                          style: { borderRadius: 8 },
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography
+                        component="label"
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "14px",
+                          mb: "10px",
+                          display: "block",
+                        }}
+                      >
+                        ชื่อ
+                      </Typography>
+
+                      <TextField
+                        autoComplete="given-name"
+                        name="firstName"
+                        required
+                        fullWidth
+                        id="firstName"
+                        label="ชื่อ"
+                        autoFocus
+                        InputProps={{
+                          style: { borderRadius: 8 },
+                        }}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Typography
+                        component="label"
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "14px",
+                          mb: "10px",
+                          display: "block",
+                        }}
+                      >
+                        นามสกุล
+                      </Typography>
+
+                      <TextField
+                        required
+                        fullWidth
+                        id="lastName"
+                        label="นามสกุล"
+                        name="lastName"
+                        autoComplete="family-name"
+                        InputProps={{
+                          style: { borderRadius: 8 },
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography
+                        component="label"
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "14px",
+                          mb: "10px",
+                          display: "block",
+                        }}
+                      >
+                        ที่อยุ่
+                      </Typography>
+
+                      <TextField
+                        required
+                        fullWidth
+                        id="lastName"
+                        label="ที่อยุ่"
+                        name="lastName"
+                        autoComplete="family-name"
+                        InputProps={{
+                          style: { borderRadius: 8 },
+                        }}
+                      />
+                    </Grid>
                   </Grid>
                 </Box>
 
-                <Grid container alignItems="center" spacing={2}>
+                {/* <Grid container alignItems="center" spacing={2}>
                   <Grid item xs={6} sm={6}>
                     <FormControlLabel
                       control={
@@ -210,7 +262,7 @@ const SignUpForm = () => {
                       Forgot your password?
                     </Link>
                   </Grid>
-                </Grid>
+                </Grid> */}
 
                 <Button
                   type="submit"
@@ -226,7 +278,7 @@ const SignUpForm = () => {
                     color: "#fff !important",
                   }}
                 >
-                  Sign Up
+                  สมัครสมาชิก
                 </Button>
               </Box>
             </Box>

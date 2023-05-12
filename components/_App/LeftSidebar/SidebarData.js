@@ -15,6 +15,7 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import PersonIcon from '@mui/icons-material/Person';
+import StorefrontIcon from '@mui/icons-material/Storefront';
 
 export const SidebarData = [
   {
@@ -170,6 +171,36 @@ export const SidebarData = [
   //   ],
   // },
   {
+    title: "การซื้อ",
+    path: "/",
+    icon: <ShoppingCartCheckoutIcon />,
+    iconClosed: <KeyboardArrowRightIcon />,
+    iconOpened: <KeyboardArrowDownIcon />,
+
+    subNav: [
+      // {
+      //   title: "สินค้า",
+      //   path: "/ecommerce/products/",
+      // },
+    
+    ],
+  },
+  {
+    title: "การขาย",
+    path: "/",
+    icon: <ShoppingCartCheckoutIcon />,
+    iconClosed: <KeyboardArrowRightIcon />,
+    iconOpened: <KeyboardArrowDownIcon />,
+
+    subNav: [
+      // {
+      //   title: "สินค้า",
+      //   path: "/ecommerce/products/",
+      // },
+    
+    ],
+  },
+  {
     title: "จัดการสินค้า",
     path: "/ecommerce/products/",
     icon: <ShoppingCartCheckoutIcon />,
@@ -224,6 +255,21 @@ export const SidebarData = [
     ],
   },
   {
+    title: "จัดการคลังสินค้า",
+    path: "/",
+    icon: <StorefrontIcon />,
+    iconClosed: <KeyboardArrowRightIcon />,
+    iconOpened: <KeyboardArrowDownIcon />,
+
+    subNav: [
+      // {
+      //   title: "สินค้า",
+      //   path: "/ecommerce/products/",
+      // },
+    
+    ],
+  },
+  {
     title: "ลูกค้า",
     path: "/customers/customers",
     icon: <PersonIcon />,
@@ -235,6 +281,42 @@ export const SidebarData = [
       {
         title: "ข้อมูลลูกค้า",
         path: "/customers/customers",
+      },
+      {
+        title: "ใบวางบิลลูกหนี้",
+        path: "/customers/bills",
+      },
+      
+    ],
+  },
+  {
+    title: "เจ้าหนี้",
+    path: "/customers/customers",
+    icon: <PersonIcon />,
+    iconClosed: <KeyboardArrowRightIcon />,
+    iconOpened: <KeyboardArrowDownIcon />,
+
+    subNav: [
+
+      // {
+      //   title: "ข้อมูลลูกค้า",
+      //   path: "/customers/customers",
+      // },
+      
+    ],
+  },
+  {
+    title: "การเงิน",
+    path: "/finance/bookbank",
+    icon: <PersonIcon />,
+    iconClosed: <KeyboardArrowRightIcon />,
+    iconOpened: <KeyboardArrowDownIcon />,
+
+    subNav: [
+
+      {
+        title: "รายชื่อบัญชีธนาคาร",
+        path: "/finance/bookbank",
       },
       
     ],
@@ -252,6 +334,22 @@ export const SidebarData = [
         title: "ข้อมูลพนักงาน",
         path: "/employee/employees",
       },
+      
+    ],
+  },
+  {
+    title: "จัดการระบบ",
+    path: "/employee/employees",
+    icon: <PersonIcon />,
+    iconClosed: <KeyboardArrowRightIcon />,
+    iconOpened: <KeyboardArrowDownIcon />,
+
+    subNav: [
+
+      // {
+      //   title: "ข้อมูลพนักงาน",
+      //   path: "/employee/employees",
+      // },
       
     ],
   },

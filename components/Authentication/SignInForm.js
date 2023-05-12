@@ -34,25 +34,25 @@ const SignInForm = () => {
           <Grid item xs={12} md={12} lg={12} xl={12}>
             <Box>
               <Typography as="h1" fontSize="28px" fontWeight="700" mb="5px">
-                Sign In{" "}
-                <img
+                เข้าสู่ระบบ{" "}
+                {/* <img
                   src="/images/favicon.png"
                   alt="favicon"
                   className={styles.favicon}
-                />
+                /> */}
               </Typography>
 
               <Typography fontSize="15px" mb="30px">
-                Already have an account?{" "}
+                {/* คุณมีบัญชีแล้วหรือยัง?{" "} */}
                 <Link
                   href="/authentication/sign-up"
                   className="primaryColor text-decoration-none"
                 >
-                  Sign up
+                  สมัครสมาชิก
                 </Link>
               </Typography>
 
-              <Box
+              {/* <Box
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -73,7 +73,7 @@ const SignInForm = () => {
 
               <div className={styles.or}>
                 <span>or</span>
-              </div>
+              </div> */}
 
               <Box component="form" noValidate onSubmit={handleSubmit}>
                 <Box
@@ -175,7 +175,7 @@ const SignInForm = () => {
                     color: "#fff !important",
                   }}
                 >
-                  Sign In
+                  เข้าสู่ระบบ
                 </Button>
               </Box>
             </Box>
