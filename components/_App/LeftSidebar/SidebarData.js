@@ -18,32 +18,32 @@ import PersonIcon from '@mui/icons-material/Person';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 
 export const SidebarData = [
-  {
-    title: "Dashboard",
-    path: "/",
-    icon: <GridViewIcon />,
-    iconClosed: <KeyboardArrowRightIcon />,
-    iconOpened: <KeyboardArrowDownIcon />,
+  // {
+  //   title: "Dashboard",
+  //   path: "/",
+  //   icon: <GridViewIcon />,
+  //   iconClosed: <KeyboardArrowRightIcon />,
+  //   iconOpened: <KeyboardArrowDownIcon />,
 
-    subNav: [
-      {
-        title: "eCommerce",
-        path: "/ecommerce/",
-      },
-      {
-        title: "Analytics",
-        path: "/analytics/",
-      },
-      {
-        title: "Project Management",
-        path: "/project-management/",
-      },
-      {
-        title: "LMS Courses",
-        path: "/lms-courses/",
-      },
-    ],
-  },
+  //   subNav: [
+  //     {
+  //       title: "eCommerce",
+  //       path: "/ecommerce/",
+  //     },
+  //     {
+  //       title: "Analytics",
+  //       path: "/analytics/",
+  //     },
+  //     {
+  //       title: "Project Management",
+  //       path: "/project-management/",
+  //     },
+  //     {
+  //       title: "LMS Courses",
+  //       path: "/lms-courses/",
+  //     },
+  //   ],
+  // },
   // {
   //   title: "Apps",
   //   path: "/apps/file-manager/",
@@ -202,7 +202,7 @@ export const SidebarData = [
   },
   {
     title: "จัดการสินค้า",
-    path: "/ecommerce/products/",
+    path: "/products/",
     icon: <ShoppingCartCheckoutIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -210,47 +210,47 @@ export const SidebarData = [
     subNav: [
       {
         title: "สินค้า",
-        path: "/ecommerce/products/",
+        path: "/products/",
       },
-      {
-        title: "ข้อมูลสินค้า",
-        path: "/ecommerce/product-details/",
-      },
-      {
-        title: "เพิ่มสินค้า",
-        path: "/ecommerce/create-product/",
-      },
+      // {
+      //   title: "ข้อมูลสินค้า",
+      //   path: "/products/product-details/",
+      // },
+      // {
+      //   title: "เพิ่มสินค้า",
+      //   path: "/products/create-product/",
+      // },
       {
         title: "รายงานสินค้าคงเหลือ",
-        path: "/ecommerce/report-products-store/",
+        path: "/products/report-products-store/",
       },
       {
         title: "รายงานสินค้าเข้า-ออก",
-        path: "/ecommerce/report-products-in-out/",
+        path: "/products/report-products-in-out/",
       },
       {
         title: "Orders List",
-        path: "/ecommerce/orders-list/",
+        path: "/products/orders-list/",
       },
       {
         title: "Order Details",
-        path: "/ecommerce/order-details/",
+        path: "/products/order-details/",
       },
       {
         title: "Customers",
-        path: "/ecommerce/customers/",
+        path: "/products/customers/",
       },
       {
         title: "Cart",
-        path: "/ecommerce/cart/",
+        path: "/products/cart/",
       },
       {
         title: "Checkout",
-        path: "/ecommerce/checkout/",
+        path: "/products/checkout/",
       },
       {
         title: "Sellers",
-        path: "/ecommerce/sellers/",
+        path: "/products/sellers/",
       },
     ],
   },
@@ -271,7 +271,7 @@ export const SidebarData = [
   },
   {
     title: "ลูกค้า",
-    path: "/customers/customers",
+    path: "/customers/",
     icon: <PersonIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -280,11 +280,39 @@ export const SidebarData = [
 
       {
         title: "ข้อมูลลูกค้า",
-        path: "/customers/customers",
+        path: "/customers/",
       },
       {
-        title: "ใบวางบิลลูกหนี้",
+        title: "ใบวางบิลลูกหนี้ทั้งหมด",
         path: "/customers/bills",
+      },
+      {
+        title: "รายงานใบวางบิลรายเดือน",
+        path: "/customers/bills-monthly",
+      },
+      {
+        title: "รายงานใบวางบิลครบกำหนด",
+        path: "/customers/bills-complete",
+      },
+      {
+        title: "รายงานยอดรับชำระรายวัน/รายเดือน",
+        path: "/customers/bills",
+      },
+      {
+        title: "รายงานยอดลูกหนี้ค้างชำระ",
+        path: "/customers/bills-monthly",
+      },
+      {
+        title: "รายงานบิลขายค้างชำระ",
+        path: "/customers/bills-complete",
+      },
+      {
+        title: "รายงานบิลขายค้างชำระ ณ ปัจจุบัน ของเดือน",
+        path: "/customers/bills-complete",
+      },
+      {
+        title: "รายงานลูกหนี้รายเดือน",
+        path: "/customers/bills-complete",
       },
       
     ],
@@ -315,6 +343,14 @@ export const SidebarData = [
     subNav: [
 
       {
+        title: "เช็ครับ",
+        path: "/finance/bankcheck-recive",
+      },
+      {
+        title: "เช็คจ่าย",
+        path: "/finance/bankcheck-paid",
+      },
+      {
         title: "รายชื่อบัญชีธนาคาร",
         path: "/finance/bookbank",
       },
@@ -339,17 +375,21 @@ export const SidebarData = [
   },
   {
     title: "จัดการระบบ",
-    path: "/employee/employees",
+    path: "/admin/users",
     icon: <PersonIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
 
     subNav: [
 
-      // {
-      //   title: "ข้อมูลพนักงาน",
-      //   path: "/employee/employees",
-      // },
+      {
+        title: "ผู้ใช้งาน",
+        path: "/admin/users",
+      },
+      {
+        title: "บทบาท",
+        path: "/admin/roles",
+      },
       
     ],
   },
@@ -605,11 +645,11 @@ export const SidebarData = [
       },
     ],
   },
-  {
-    title: "Notification",
-    path: "/notification/",
-    icon: <NotificationsNoneIcon />,
-  },
+  // {
+  //   title: "Notification",
+  //   path: "/notification/",
+  //   icon: <NotificationsNoneIcon />,
+  // },
   {
     title: "Settings",
     path: "/settings/account/",

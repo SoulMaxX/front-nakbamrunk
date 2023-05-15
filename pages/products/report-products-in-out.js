@@ -495,7 +495,7 @@ export default function Products() {
           <Box>
             <Button
               // onClick={handleOpen}
-              href="/ecommerce/product-in"
+              href="/products/product-in"
               variant="contained"
               sx={{
                 textTransform: "capitalize",
@@ -515,7 +515,7 @@ export default function Products() {
             </Button>
             <Button
               // onClick={handleOpen}
-              href="/ecommerce/product-out"
+              href="/products/product-out"
               variant="contained"
               color="danger"
               sx={{

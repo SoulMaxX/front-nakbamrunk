@@ -265,7 +265,9 @@ const SignUpForm = () => {
                 </Grid> */}
 
                 <Button
-                  type="submit"
+                  // type="submit"
+                  
+                  href="http://localhost:3000/authentication/sign-in/"
                   fullWidth
                   variant="contained"
                   sx={{

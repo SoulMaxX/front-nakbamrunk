@@ -45,15 +45,15 @@ const Sidebar = ({ toogleActive }) => {
               }}
             >
               <Link href='/'>
-                {/* <img 
-                  src="/images/logo.png" alt="Logo" 
-                  className='black-logo' 
-                /> */}
-                <h1 >นาคบำรุงกลกาล</h1>
+                <img 
+                  src="/images/nba-logo.jpg" alt="Logo" 
+                  // className='black-logo' 
+                />
+                {/* <h1 >นาคบำรุงกลกาล</h1> */}
 
                 {/* For Dark Variation */}
                 <img 
-                  src="/images/logo-white.png" alt="Logo" 
+                  src="/images/nba-logo.jpg" alt="Logo" 
                   className='white-logo' 
                 />
               </Link>

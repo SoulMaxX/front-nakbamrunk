@@ -34,12 +34,12 @@ const SignInForm = () => {
           <Grid item xs={12} md={12} lg={12} xl={12}>
             <Box>
               <Typography as="h1" fontSize="28px" fontWeight="700" mb="5px">
-                เข้าสู่ระบบ{" "}
-                {/* <img
-                  src="/images/favicon.png"
+                <img
+                  src="/images/nba-logo.jpg"
                   alt="favicon"
-                  className={styles.favicon}
-                /> */}
+                  // className={styles.favicon}
+                />
+                เข้าสู่ระบบ{" "}
               </Typography>
 
               <Typography fontSize="15px" mb="30px">
@@ -163,6 +163,7 @@ const SignInForm = () => {
 
                 <Button
                   type="submit"
+                  href="/"
                   fullWidth
                   variant="contained"
                   sx={{

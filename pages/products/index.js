@@ -51,8 +51,8 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  height: "100%",
-  maxWidth: '700px',
+  height: "30%",
+  maxWidth: '400px',
   width: '100%',
   overflow: "auto",
   bgcolor: "background.paper",
@@ -500,12 +500,12 @@ export default function Products() {
             />{" "}
             พิมพ์แฟ้มสินค้า
           </Button>
-          
+
           <SearchForm />
 
           <Button
             // onClick={handleOpen}
-            href="/ecommerce/create-product"
+            href="/products/create-product"
             variant="contained"
             sx={{
               textTransform: "capitalize",
@@ -757,7 +757,7 @@ export default function Products() {
                     >
                       <Tooltip title="View" placement="top">
                         <IconButton
-                          href="/ecommerce/product-details"
+                          href="/products/product-details"
                           aria-label="view"
                           size="small"
                           color="info"
@@ -791,6 +791,7 @@ export default function Products() {
 
                       <Tooltip title="Remove" placement="top">
                         <IconButton
+                          onClick={handleOpen}
                           aria-label="remove"
                           size="small"
                           color="danger"
@@ -841,6 +842,127 @@ export default function Products() {
 
       {/* Create Product Modal */}
       <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={style} className="bg-black">
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                background: "#EDEFF5",
+                borderRadius: "8px",
+                padding: "20px 20px",
+              }}
+              className="bg-black"
+            >
+              <Typography
+                id="modal-modal-title"
+                variant="h6"
+                component="h2"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "17px",
+                }}
+              >
+                ลบสินค้า
+              </Typography>
+
+              <IconButton
+                aria-label="remove"
+                size="small"
+                onClick={handleClose}
+              >
+                <ClearIcon />
+              </IconButton>
+            </Box>
+
+            <Box component="form" noValidate onSubmit={handleSubmit}>
+              <Box
+                sx={{
+                  background: "#fff",
+                  padding: "30px 20px",
+                  borderRadius: "8px",
+                }}
+                className="dark-BG-101010"
+              >
+                <Grid container alignItems="center" spacing={2}>
+                  <Grid item xs={12} md={12} lg={6}>
+                    <Typography
+                      as="h5"
+                      sx={{
+                        fontWeight: "500",
+                        fontSize: "14px",
+                        mb: "12px",
+                      }}
+                    >
+                      ลบสินค้ารหัส : 123
+                    </Typography>
+                   
+                  </Grid>
+
+
+
+
+                  <Grid item xs={12} textAlign="end">
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      sx={{
+                        textTransform: "capitalize",
+                        borderRadius: "8px",
+                        fontWeight: "500",
+                        fontSize: "13px",
+                        padding: "12px 20px",
+                        color: "#fff !important",
+                      }}
+                      onClick={handleClose}
+                      className='mr-15px'
+                    >
+                      <ClearIcon
+                        sx={{
+                          position: "relative",
+                          top: "-1px",
+                        }}
+                        className='mr-5px'
+                      />{" "}
+                      Cancel
+                    </Button>
+
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="danger"
+
+                      sx={{
+                        textTransform: "capitalize",
+                        borderRadius: "8px",
+                        fontWeight: "500",
+                        fontSize: "13px",
+                        padding: "12px 20px",
+                        color: "#fff !important",
+                      }}
+                    >
+                      
+                      ลบสินค้า
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Box>
+          </Box>
+        </Fade>
+      </Modal>
+      {/* <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
@@ -1168,7 +1290,7 @@ export default function Products() {
             </Box>
           </Box>
         </Fade>
-      </Modal>
+      </Modal> */}
     </>
   );
 }

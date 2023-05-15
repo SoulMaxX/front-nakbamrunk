@@ -8,12 +8,12 @@ const Customers = () => {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>Customers</h1>
+        <h1>ลูกค้า</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>Customers</li>
+          <li>ลูกค้า</li>
         </ul>
       </div>
       
