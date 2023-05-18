@@ -232,8 +232,8 @@ export default function BillsMonthLists() {
             justifyContent: "end",
             alignItems: "center",
             borderBottom: "1px solid #EEF0F7",
-            paddingBottom: "10px",
-            mb: "20px",
+            // paddingBottom: "10px",
+            // mb: "20px",
           }}
           className="for-dark-bottom-border"
         >
@@ -247,31 +247,14 @@ export default function BillsMonthLists() {
             รายชื่อพนักงาน
           </Typography> */}
 
-          {/* <Button
-            href="/customers/create-bill"
-            // onClick={handleClickOpen}
-            variant="contained"
-            sx={{
-              textTransform: "capitalize",
-              borderRadius: "8px",
-              fontWeight: "500",
-              fontSize: "13px",
-              padding: "12px 20px",
-              color: "#fff !important",
-            }}
-          >
-            <AddIcon
-              sx={{ position: "relative", top: "-1px" }}
-              className='mr-5px'
-            />{" "}
-            เพิ่มใบวางบิลลูกหนี้
-          </Button> */}
+     
           <Box
             sx={{
               display: "flex",
               boxShadow: "none",
               borderRadius: "10px",
-              p: "25px",
+              pt: "25px",
+              pb: "25px",
               mb: "5px",
             }}
           >
@@ -314,6 +297,72 @@ export default function BillsMonthLists() {
               </Select>
             </FormControl>
           </Box>
+          <Box
+            sx={{
+              display: "flex",
+              boxShadow: "none",
+              borderRadius: "10px",
+              pt: "25px",
+              pb: "25px",
+              pr: "25px",
+              mb: "5px",
+            }}
+          >
+            <Typography
+              as="h3"
+              sx={{
+                fontSize: 18,
+                fontWeight: 500,
+                mb: '10px',
+              p: "20px",
+
+              }}
+            >
+              ปี
+            </Typography>
+
+            <FormControl fullWidth>
+              {/* <InputLabel id="demo-simple-select-label">เดือน</InputLabel> */}
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                // value={age}
+                // label="Age"
+              // onChange={handleChange}
+              
+              >
+                <MenuItem value={2566}>2566</MenuItem>
+                {/* <MenuItem value={2}>2</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
+                <MenuItem value={4}>4</MenuItem>
+                <MenuItem value={5}>5</MenuItem>
+                <MenuItem value={6}>6</MenuItem>
+                <MenuItem value={7}>7</MenuItem>
+                <MenuItem value={8}>8</MenuItem>
+                <MenuItem value={9}>9</MenuItem>
+                <MenuItem value={10}>10</MenuItem>
+                <MenuItem value={11}>11</MenuItem>
+                <MenuItem value={12}>12</MenuItem> */}
+
+              </Select>
+            </FormControl>
+          </Box>
+          <Button
+            href="/customers/create-bill"
+            // onClick={handleClickOpen}
+            variant="contained"
+            sx={{
+              textTransform: "capitalize",
+              borderRadius: "8px",
+              fontWeight: "500",
+              fontSize: "13px",
+              padding: "12px 20px",
+              color: "#fff !important",
+              marginBottom: "30px"
+            }}
+          >
+            ค้นหา
+          </Button>
         </Box>
 
         <TableContainer

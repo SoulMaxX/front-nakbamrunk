@@ -39,11 +39,14 @@ const Profile = () => {
           aria-expanded={open ? "true" : undefined}
           className="ml-2"
         >
-          <Avatar
+           <Typography sx={{ fontSize: "11px", color: "#757FEF" }}>
+              Admin
+            </Typography>
+          {/* <Avatar
             src="/images/user1.png"
             alt="Adison Jeck"
             sx={{ width: 40, height: 40 }}
-          />
+          /> */}
         </IconButton>
       </Tooltip>
 
@@ -86,12 +89,12 @@ const Profile = () => {
         className="for-dark-top-navList"
       >
         <MenuItem>
-          <Avatar src="/images/user1.png" className="mr-1" />
+          {/* <Avatar src="/images/user1.png" className="mr-1" /> */}
           <Box>
             <Typography sx={{ fontSize: "11px", color: "#757FEF" }}>
               Admin
             </Typography>
-            <Typography
+            {/* <Typography
               sx={{
                 fontSize: "13px",
                 color: "#260944",
@@ -99,7 +102,7 @@ const Profile = () => {
               }}
             >
               Adison Jeck
-            </Typography>
+            </Typography> */}
           </Box>
         </MenuItem>
 

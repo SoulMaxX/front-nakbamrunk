@@ -172,31 +172,116 @@ export const SidebarData = [
   // },
   {
     title: "การซื้อ",
-    path: "/",
+    path: "/purchase",
     icon: <ShoppingCartCheckoutIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
 
     subNav: [
-      // {
-      //   title: "สินค้า",
-      //   path: "/ecommerce/products/",
-      // },
+      {
+        title: "ใบกำกับภาษีซื้อ",
+        path: "/sell/offer-sell/",
+      },
+      {
+        title: "ใบเสนอราคาซื้อ",
+        path: "/sell/offer-sell/",
+      },
+      {
+        title: "ใบสั่งซื้อ",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "รายการซื้อรายวัน",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "รายการยอดซื้อรายเดือน",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "รายการยอดซื้อแยกพนักงาน",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "รายการยอดซื้อแยกลูกค้า",
+        path: "/sell/report-sale-employee/",
+      },
+      {
+        title: "รายการยอดซื้อแยกหมายเหตุ",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "รายการยอดซื้อแยกหมวด",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "รายการภาษีซื้อ",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "ประวัติราคาซื้อ",
+        path: "/sell/order-sell/",
+      },
+  
     
     ],
   },
   {
     title: "การขาย",
-    path: "/",
+    path: "/sell/offer-sell/",
     icon: <ShoppingCartCheckoutIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
 
     subNav: [
-      // {
-      //   title: "สินค้า",
-      //   path: "/ecommerce/products/",
-      // },
+      {
+        title: "ใบกำกับภาษีขาย",
+        path: "/sell/tax-sell/",
+      },
+      {
+        title: "ใบเสนอราคา",
+        path: "/sell/offer-sell/",
+      },
+      {
+        title: "ใบสั่งขาย",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "รายการขายรายวัน",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "รายการยอดขายรายเดือน",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "รายการยอดขายแยกพนักงาน",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "รายการยอดขายแยกลูกค้า",
+        path: "/sell/report-sale-employee/",
+      },
+      {
+        title: "รายการยอดขายแยกหมายเหตุ",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "รายการยอดขายแยกหมวด",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "รายการภาษีขาย",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "ประวัติราคาขาย",
+        path: "/sell/order-sell/",
+      },
+      {
+        title: "บันทึกการขาย ณ จุดขาย",
+        path: "/sell/order-sell/",
+      },
     
     ],
   },
@@ -256,16 +341,28 @@ export const SidebarData = [
   },
   {
     title: "จัดการคลังสินค้า",
-    path: "/",
+    path: "/warehouse/",
     icon: <StorefrontIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
 
     subNav: [
-      // {
-      //   title: "สินค้า",
-      //   path: "/ecommerce/products/",
-      // },
+      {
+        title: "คลังสินค้า",
+        path: "/warehouse/",
+      },
+      {
+        title: "ตำแหน่งสินค้า",
+        path: "/warehouse/location/",
+      },
+      {
+        title: "โอนย้ายสินค้าระหว่างคลัง",
+        path: "/warehouse/transfer/",
+      },
+      {
+        title: "สินค้าเข้า-ออกคลัง",
+        path: "/warehouse/warehouse-in-out/",
+      },
     
     ],
   },
@@ -296,23 +393,23 @@ export const SidebarData = [
       },
       {
         title: "รายงานยอดรับชำระรายวัน/รายเดือน",
-        path: "/customers/bills",
+        path: "/",
       },
       {
         title: "รายงานยอดลูกหนี้ค้างชำระ",
-        path: "/customers/bills-monthly",
+        path: "/",
       },
       {
         title: "รายงานบิลขายค้างชำระ",
-        path: "/customers/bills-complete",
+        path: "/",
       },
       {
         title: "รายงานบิลขายค้างชำระ ณ ปัจจุบัน ของเดือน",
-        path: "/customers/bills-complete",
+        path: "/",
       },
       {
         title: "รายงานลูกหนี้รายเดือน",
-        path: "/customers/bills-complete",
+        path: "/",
       },
       
     ],
@@ -645,11 +742,11 @@ export const SidebarData = [
       },
     ],
   },
-  // {
-  //   title: "Notification",
-  //   path: "/notification/",
-  //   icon: <NotificationsNoneIcon />,
-  // },
+  {
+    title: "Notification",
+    path: "/notification/",
+    icon: <NotificationsNoneIcon />,
+  },
   {
     title: "Settings",
     path: "/settings/account/",

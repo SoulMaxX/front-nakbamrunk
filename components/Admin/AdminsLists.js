@@ -267,7 +267,7 @@ export default function AdminsLists() {
           }}
         >
           <Table
-            sx={{ minWidth: 1100 }}
+            sx={{ minWidth: 800 }}
             aria-label="custom pagination table"
             className="dark-table"
           >
@@ -349,6 +349,7 @@ export default function AdminsLists() {
                       fontSize: "13px",
                       paddingTop: "13px",
                       paddingBottom: "13px",
+                      width: "100px"
                     }}
                   >
                     {row.username}

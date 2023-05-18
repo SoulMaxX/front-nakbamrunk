@@ -1,0 +1,320 @@
+import * as React from "react";
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import { Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import AddIcon from "@mui/icons-material/Add";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Link from 'next/link';
+import styles from '@/styles/PageTitle.module.css'
+import Paper from '@mui/material/Paper';
+
+
+import dynamic from 'next/dynamic'
+const RichTextEditor = dynamic(() => import('@mantine/rte'), {
+  ssr: false,
+})
+
+function createData(id, name, quantity, unit, price, discount) {
+  return { id, name, quantity, unit, price, discount };
+}
+
+const rows = [
+  createData(1, 'ถังลม 30 ลิตร', 1, "ถัง", 8500, 5),
+  createData(5, 'ค่าส่ง', 1, "", 6500, ""),
+
+];
+
+const CreateOfferSell = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
+  };
+
+  // Select dropdown
+  const [categorySelect, setCategorySelect] = React.useState('');
+  const handleChange = (event) => {
+    setCategorySelect(event.target.value);
+  };
+
+
+
+  return (
+    <>
+      {/* Page title */}
+      <div className={styles.pageTitle}>
+        <h1>โอนย้ายสินค้าระหว่างคลัง</h1>
+        <ul>
+          <li>
+            <Link href="/">Dashboard</Link>
+          </li>
+          <li>โอนย้ายสินค้าระหว่างคลัง</li>
+        </ul>
+      </div>
+
+      <Box component="form" noValidate onSubmit={handleSubmit}>
+        <Box
+          sx={{
+            background: "#fff",
+            padding: "30px 20px",
+            borderRadius: "8px",
+            mb: "15px"
+          }}
+          className="bg-black"
+        >
+          {/* <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
+            โอนย้ายสินค้าระหว่างคลัง
+          </Typography> */}
+
+          <Grid container alignItems="center" spacing={2}>
+            <Grid item xs={12} md={12} lg={4}
+              sx={{
+                boxShadow: "none",
+                borderRadius: "10px",
+                p: "25px",
+                mb: "15px",
+              }}
+            >
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                จากคลัง
+              </Typography>
+
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // value={age}
+                    // label="Age"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={12} lg={4}
+              sx={{
+                boxShadow: "none",
+                borderRadius: "10px",
+                p: "25px",
+                mb: "15px",
+              }}
+            >
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ตำแหน่ง
+              </Typography>
+
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // value={age}
+                    label="Age"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={12} lg={4}></Grid>
+
+            <Grid item xs={12} md={12} lg={4}
+              sx={{
+                boxShadow: "none",
+                borderRadius: "10px",
+                p: "25px",
+                mb: "15px",
+              }}
+            >
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                สินค้า
+              </Typography>
+
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // value={age}
+                    label="Age"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} md={12} lg={4}
+             sx={{
+              boxShadow: "none",
+              borderRadius: "10px",
+              p: "25px",
+              mb: "15px",
+            }}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                จำนวน
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="productName"
+                required
+                fullWidth
+                id="productName"
+                label="จำนวน"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={4}></Grid>
+
+            <Grid item xs={12} md={12} lg={4}
+              sx={{
+                boxShadow: "none",
+                borderRadius: "10px",
+                p: "25px",
+                mb: "15px",
+              }}
+            >
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ไปคลัง
+              </Typography>
+
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // value={age}
+                    // label="Age"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={12} lg={4}
+              sx={{
+                boxShadow: "none",
+                borderRadius: "10px",
+                p: "25px",
+                mb: "15px",
+              }}
+            >
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ตำแหน่ง
+              </Typography>
+
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // value={age}
+                    label="Age"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+
+
+
+            <Grid item xs={12} textAlign="end">
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{
+                  textTransform: "capitalize",
+                  borderRadius: "8px",
+                  fontWeight: "500",
+                  fontSize: "13px",
+                  padding: "12px 20px",
+                  color: "#fff !important"
+                }}
+              >
+
+                บันทึก
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </>
+  )
+}
+
+export default CreateOfferSell;

@@ -4,7 +4,7 @@ import { Stack, Box, Typography, Link } from "@mui/material";
 const Footer = () => {
   return (
     <>
-      <Stack
+      {/* <Stack
         sx={{
           backgroundColor: "#fff",
           p: "25px",
@@ -28,7 +28,7 @@ const Footer = () => {
             </Link>
           </Typography>
         </Box>
-      </Stack>
+      </Stack> */}
     </>
   );
 };
