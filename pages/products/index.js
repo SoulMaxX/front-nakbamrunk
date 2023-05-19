@@ -537,21 +537,21 @@ export default function Products() {
           >
             <TableHead sx={{ background: "#F7FAFF" }}>
               <TableRow>
-                <TableCell
+                {/* <TableCell
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
                   }}
                 >
                   รหัสสินค้า
-                </TableCell>
+                </TableCell> */}
                 <TableCell
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
                   }}
                 >
-                  ชื่อย่อ
+                  เบอร์แท้
                 </TableCell>
 
                 <TableCell
@@ -633,7 +633,7 @@ export default function Products() {
                 : rows
               ).map((row) => (
                 <TableRow key={row.productTitle} className={styles.Product} >
-                  <TableCell
+                  {/* <TableCell
                     // align="center"
                     sx={{
                       width: 100,
@@ -643,7 +643,7 @@ export default function Products() {
                     }}
                   >
                     {row.id}
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
@@ -670,7 +670,7 @@ export default function Products() {
                         }}
                         className='ml-10px'
                       >
-                        {row.shortName}
+                        {row.id}
                       </Typography>
                     </Box>
                   </TableCell>

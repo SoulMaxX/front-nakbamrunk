@@ -17,7 +17,7 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-const WarehouseIn = () => {
+const CreateBill = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,12 +37,12 @@ const WarehouseIn = () => {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>รับสินค้า</h1>
+        <h1>เพิ่มใบวางบิลลูกหนี้+ภาษี</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>รับสินค้า</li>
+          <li>เพิ่มใบวางบิลลูกหนี้+ภาษี</li>
         </ul>
       </div>
 
@@ -56,14 +56,10 @@ const WarehouseIn = () => {
           }}
           className="bg-black"
         >
-          {/* <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-            รับสินค้า
-          </Typography> */}
+         
 
           <Grid container alignItems="center" spacing={2}>
-            <Grid item xs={12} md={12} lg={4}
-        
-            >
+            <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -72,68 +68,7 @@ const WarehouseIn = () => {
                   mb: "12px",
                 }}
               >
-                คลัง
-              </Typography>
-
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // value={age}
-                    // label="Age"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </Grid>
-
-            <Grid item xs={12} md={12} lg={4}
-         
-            >
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                ตำแหน่ง
-              </Typography>
-
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // value={age}
-                    // label="Age"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={12} lg={3}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                รหัสสินค้า
+                รหัสใบวางบิลลูกหนี้
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -141,7 +76,219 @@ const WarehouseIn = () => {
                 required
                 fullWidth
                 id="productName"
-                label="รหัสสินค้า"
+                label="รหัสใบวางบิลลูกหนี้"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                รหัสลูกค้า
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="productName"
+                required
+                fullWidth
+                id="productName"
+                label="รหัสลูกค้า"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            
+
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ชื่อลูกคค้า :
+              </Typography>
+              
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                จำนวนบิล :
+              </Typography>
+              
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ยอดรวม :
+              </Typography>
+              
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ค่าภาษี :
+              </Typography>
+              
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ค่าขนส่ง
+              </Typography>
+              <TextField
+                autoComplete="short-description"
+                name="ค่าขนส่ง"
+                required
+                fullWidth
+                id="Short Description"
+                label="ค่าขนส่ง"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ยอดรวมทั่งสิ้น :
+              </Typography>
+              
+            </Grid>
+            
+            {/* <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ค่าภาษี
+              </Typography>
+              <TextField
+                autoComplete="short-description"
+                name="ค่าภาษี"
+                required
+                fullWidth
+                id="Short Description"
+                label="ค่าภาษี"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid> */}
+            {/* <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ยอดรวมทั่งสิ้น
+              </Typography>
+              <TextField
+                autoComplete="short-description"
+                name="ยอดรวมทั่งสิ้น"
+                required
+                fullWidth
+                id="Short Description"
+                label="ยอดรวมทั่งสิ้น"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid> */}
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ผู้รับบิล
+              </Typography>
+              <TextField
+                autoComplete="short-description"
+                name="ผู้รับบิล"
+                required
+                fullWidth
+                id="Short Description"
+                label="ผู้รับบิล"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                นัดชำระเงินวันที่
+              </Typography>
+              <TextField
+                autoComplete="short-description"
+                name="นัดชำระเงินวันที่"
+                required
+                fullWidth
+                id="Short Description"
+                label="นัดชำระเงินวันที่"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -149,80 +296,7 @@ const WarehouseIn = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={12} lg={3}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                จำนวนสินค้า
-              </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="จำนวนสินค้า"
-                required
-                fullWidth
-                id="Short Description"
-                label="จำนวนสินค้า"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} md={12} lg={3}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                วันที่รับสินค้า
-              </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="วันที่รับสินค้า"
-                required
-                fullWidth
-                id="Short Description"
-                // label="วันที่รับสินค้า"
-                type="date"
-                lang="th-TH"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} md={12} lg={3}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                หมายเหตุ
-              </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="หมายเหตุ"
-                required
-                fullWidth
-                id="Short Description"
-                label="หมายเหตุ"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
+           
 
 
             <Grid item xs={12} textAlign="end">
@@ -245,7 +319,7 @@ const WarehouseIn = () => {
                   }}
                   className='mr-5px'
                 />{" "}
-                บันทึก
+                เพิ่มใบวางบิลลูกหนี้+ภาษี
               </Button>
             </Grid>
           </Grid>
@@ -255,4 +329,4 @@ const WarehouseIn = () => {
   )
 }
 
-export default WarehouseIn;
+export default CreateBill;

@@ -75,7 +75,31 @@ const CreateOfferSell = () => {
           </Typography>
 
           <Grid container alignItems="center" spacing={2}>
-            <Grid item xs={12} md={12} lg={2}>
+            <Grid item xs={12} md={12} lg={3}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                รหัสคลังสินค้า
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="productName"
+                required
+                fullWidth
+                id="productName"
+                label="รหัสคลังสินค้า"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={3}>
               <Typography
                 as="h5"
                 sx={{
@@ -123,30 +147,7 @@ const CreateOfferSell = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={4}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                รหัสคลังสินค้า
-              </Typography>
-              <TextField
-                autoComplete="product-name"
-                name="productName"
-                required
-                fullWidth
-                id="productName"
-                label="รหัสคลังสินค้า"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
+
             {/* <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
@@ -156,7 +157,7 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                สินค้า
+                รหัสสินค้า
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -164,7 +165,7 @@ const CreateOfferSell = () => {
                 required
                 fullWidth
                 id="productName"
-                label="สินค้า"
+                label="รหัสสินค้า"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },

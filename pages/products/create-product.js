@@ -110,6 +110,7 @@ const CreateProduct = () => {
               />
             </Grid>
 
+            
             <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
@@ -152,6 +153,30 @@ const CreateProduct = () => {
                 fullWidth
                 id="Short Description"
                 label="เบอร์โรงงาน"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ขนาดสินค้า
+              </Typography>
+              <TextField
+                autoComplete="short-description"
+                name="ขนาดสินค้า"
+                required
+                fullWidth
+                id="Short Description"
+                label="ขนาดสินค้า"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -327,10 +352,9 @@ const CreateProduct = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={3}>
-            </Grid>
+          
 
-            <Grid item xs={12} md={12} lg={3}>
+            {/* <Grid item xs={12} md={12} lg={3}>
               <Typography
                 as="h5"
                 sx={{
@@ -377,7 +401,7 @@ const CreateProduct = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={12} lg={3}>
               <Typography
                 as="h5"
@@ -426,7 +450,7 @@ const CreateProduct = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={3}>
+            {/* <Grid item xs={12} md={12} lg={3}>
               <Typography
                 as="h5"
                 sx={{
@@ -449,7 +473,7 @@ const CreateProduct = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={12} lg={3}>
               <Typography
                 as="h5"

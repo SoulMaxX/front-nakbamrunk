@@ -59,7 +59,7 @@ const CreateEmployee = () => {
 
 
           <Grid container alignItems="center" spacing={2}>
-            <Grid item xs={12} md={12} lg={5}>
+            <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
                 sx={{
@@ -68,7 +68,7 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                ผังบัญชี
+                รหัสเช็ครับ
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -76,14 +76,38 @@ const CreateEmployee = () => {
                 required
                 fullWidth
                 id="productName"
-                label="ผังบัญชี"
+                label="รหัสเช็ครับ"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={5}>
+            <Grid item xs={12} md={12} lg={4}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                รหัสใบวางบิล
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="productName"
+                required
+                fullWidth
+                id="productName"
+                label="รหัสใบวางบิล"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
                 sx={{
@@ -111,7 +135,7 @@ const CreateEmployee = () => {
 
             
 
-            <Grid item xs={12} md={12} lg={5}>
+            <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
                 sx={{
@@ -135,7 +159,7 @@ const CreateEmployee = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={5}>
+            <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
                 sx={{
@@ -159,7 +183,7 @@ const CreateEmployee = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={5}>
+            <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
                 sx={{

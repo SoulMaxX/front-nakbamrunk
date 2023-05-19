@@ -133,11 +133,14 @@ function createData(
   id,
   name,
   address,
+  type
 ) {
   return {
     id,
     name,
     address,
+    type
+
   };
 }
 
@@ -146,8 +149,9 @@ const rows = [
     "1",
     "คลัง1",
     "ธนบุรี ",
+    "Vat ",
   ),
-  
+
 ]
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
@@ -295,14 +299,14 @@ export default function Warehouses() {
                 >
                   รหัสคลังสินค้า
                 </TableCell>
-          
+
 
                 <TableCell
                   align="center"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
-                    
+
                   }}
                 >
                   ชื่อคลัง
@@ -317,7 +321,16 @@ export default function Warehouses() {
                 >
                   ที่อยู่
                 </TableCell>
-                
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ประเภทคลัง
+                </TableCell>
+
 
                 <TableCell
                   align="right"
@@ -351,8 +364,8 @@ export default function Warehouses() {
                   >
                     {row.id}
                   </TableCell>
-           
-                 
+
+
 
                   <TableCell
                     align="center"
@@ -378,8 +391,21 @@ export default function Warehouses() {
                   >
                     {row.address}
                   </TableCell>
+                  <TableCell
+                    align="center"
 
-                  
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                      width: 150,
+
+                    }}
+                  >
+                    {row.type}
+                  </TableCell>
+
+
 
                   <TableCell
                     align="right"
@@ -407,7 +433,7 @@ export default function Warehouses() {
 
                       <Tooltip title="Edit" placement="top">
                         <IconButton
-                        href="/warehouse/warehouse-edit"
+                          href="/warehouse/warehouse-edit"
                           aria-label="edit"
                           size="small"
                           color="primary"
@@ -546,7 +572,7 @@ export default function Warehouses() {
                     >
                       ลบสินค้ารหัส : 123
                     </Typography>
-                   
+
                   </Grid>
 
 
@@ -591,7 +617,7 @@ export default function Warehouses() {
                         color: "#fff !important",
                       }}
                     >
-                      
+
                       ลบสินค้า
                     </Button>
                   </Grid>

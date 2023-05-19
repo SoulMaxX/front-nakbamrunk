@@ -147,7 +147,7 @@ const CreateOfferSell = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={4}>
+            {/* <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
                 sx={{
@@ -194,7 +194,7 @@ const CreateOfferSell = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
 
 
 

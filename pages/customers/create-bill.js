@@ -68,7 +68,7 @@ const CreateBill = () => {
                   mb: "12px",
                 }}
               >
-                ชื่อ
+                รหัสใบวางบิลลูกหนี้
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -76,7 +76,7 @@ const CreateBill = () => {
                 required
                 fullWidth
                 id="productName"
-                label="ชื่อ"
+                label="รหัสใบวางบิลลูกหนี้"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -92,7 +92,7 @@ const CreateBill = () => {
                   mb: "12px",
                 }}
               >
-                จำนวนบิล
+                รหัสลูกค้า
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -100,7 +100,7 @@ const CreateBill = () => {
                 required
                 fullWidth
                 id="productName"
-                label="จำนวนบิล"
+                label="รหัสลูกค้า"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -118,20 +118,48 @@ const CreateBill = () => {
                   mb: "12px",
                 }}
               >
-                ยอดรวม
+                ชื่อลูกคค้า :
               </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="ยอดรวม"
-                required
-                fullWidth
-                id="Short Description"
-                label="ยอดรวม"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
+              
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
                 }}
-              />
+              >
+                จำนวนบิล :
+              </Typography>
+              
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ยอดรวม :
+              </Typography>
+              
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ค่าภาษี :
+              </Typography>
+              
             </Grid>
             <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -166,6 +194,20 @@ const CreateBill = () => {
                   mb: "12px",
                 }}
               >
+                ยอดรวมทั่งสิ้น :
+              </Typography>
+              
+            </Grid>
+            
+            {/* <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
                 ค่าภาษี
               </Typography>
               <TextField
@@ -180,8 +222,8 @@ const CreateBill = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            </Grid> */}
+            {/* <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -204,7 +246,7 @@ const CreateBill = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"

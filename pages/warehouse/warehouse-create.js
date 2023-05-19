@@ -19,14 +19,14 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-function createData(id,name, quantity , unit, price, discount) {
-  return { id,name, quantity , unit, price, discount };
+function createData(id, name, quantity, unit, price, discount) {
+  return { id, name, quantity, unit, price, discount };
 }
 
 const rows = [
-  createData(1,'ถังลม 30 ลิตร', 1,"ถัง", 8500, 5),
-  createData(5,'ค่าส่ง', 1, "",6500, ""),
- 
+  createData(1, 'ถังลม 30 ลิตร', 1, "ถัง", 8500, 5),
+  createData(5, 'ค่าส่ง', 1, "", 6500, ""),
+
 ];
 
 const CreateOfferSell = () => {
@@ -99,7 +99,7 @@ const CreateOfferSell = () => {
                 }}
               />
             </Grid>
-        
+
             <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
@@ -124,7 +124,7 @@ const CreateOfferSell = () => {
                 }}
               />
             </Grid>
-        
+
             <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
@@ -149,8 +149,35 @@ const CreateOfferSell = () => {
                 }}
               />
             </Grid>
-            
-            
+            <Grid item xs={12} md={12} lg={4}  >
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ประเภทคลัง
+              </Typography>
+
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // value={age}
+                    // label="Age"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Vat</MenuItem>
+                    <MenuItem value={20}>ไม่Vat</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+
 
             <Grid item xs={12} textAlign="end">
               <Button

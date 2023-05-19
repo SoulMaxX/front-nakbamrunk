@@ -304,9 +304,9 @@ const OfferSellDetails = () => {
                 </Table>
               </TableContainer>
             
-              <Typography  fontSize="15px" fontWeight="500" mb="15px">
+              {/* <Typography  fontSize="15px" fontWeight="500" mb="15px">
                 ยืนราคา:  
-              </Typography>
+              </Typography> */}
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 ส่งมอบใน: 
               </Typography>

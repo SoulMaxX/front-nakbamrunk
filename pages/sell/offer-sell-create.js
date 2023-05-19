@@ -75,6 +75,30 @@ const CreateOfferSell = () => {
           </Typography>
 
           <Grid container alignItems="center" spacing={2}>
+            <Grid item xs={12} md={12} lg={2}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                รหัสใบเสนอราคา
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="productName"
+                required
+                fullWidth
+                id="productName"
+                label="รหัสใบเสนอราคา"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
             <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
@@ -99,8 +123,32 @@ const CreateOfferSell = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={12} lg={4}>
 
+            </Grid>
+            <Grid item xs={12} md={12} lg={2}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                รหัสคลัง
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="shortName"
+                required
+                fullWidth
+                id="shortName"
+                label="รหัสคลัง"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
             </Grid>
             <Grid item xs={12} md={12} lg={2}>
               <Typography
@@ -295,7 +343,7 @@ const CreateOfferSell = () => {
               </Typography>
               
             </Grid>
-            <Grid item xs={12} md={12} lg={1}>
+            {/* <Grid item xs={12} md={12} lg={1}>
               <Typography
                 as="h5"
                 sx={{
@@ -318,7 +366,7 @@ const CreateOfferSell = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={12} lg={1}>
               <Typography
                 as="h5"

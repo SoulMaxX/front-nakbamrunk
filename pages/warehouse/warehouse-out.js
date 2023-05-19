@@ -37,12 +37,12 @@ const WarehouseIn = () => {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>สินค้าออก</h1>
+        <h1>เบิกสินค้า</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>สินค้าออก</li>
+          <li>เบิกสินค้า</li>
         </ul>
       </div>
 
@@ -57,7 +57,7 @@ const WarehouseIn = () => {
           className="bg-black"
         >
           {/* <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-            สินค้าออก
+            เบิกสินค้า
           </Typography> */}
 
           <Grid container alignItems="center" spacing={2}>
@@ -190,17 +190,41 @@ const WarehouseIn = () => {
                   mb: "12px",
                 }}
               >
-                วันที่สินค้าออก
+                วันที่เบิกสินค้า
               </Typography>
               <TextField
                 autoComplete="short-description"
-                name="วันที่สินค้าออก"
+                name="วันที่เบิกสินค้า"
                 required
                 fullWidth
                 id="Short Description"
-                // label="วันที่สินค้าออก"
+                // label="วันที่เบิกสินค้า"
                 type="date"
                 lang="th-TH"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={3}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                หมายเหตุ
+              </Typography>
+              <TextField
+                autoComplete="short-description"
+                name="หมายเหตุ"
+                required
+                fullWidth
+                id="Short Description"
+                label="หมายเหตุ"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },

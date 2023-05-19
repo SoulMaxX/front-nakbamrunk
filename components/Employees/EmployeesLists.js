@@ -457,7 +457,7 @@ export default function EmployeesLists() {
           }}
         >
           <Table
-            sx={{ minWidth: 1100 }}
+            sx={{ minWidth: 800 }}
             aria-label="custom pagination table"
             className="dark-table"
           >

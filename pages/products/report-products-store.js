@@ -522,16 +522,9 @@ export default function Products() {
                     fontSize: "13.5px",
                   }}
                 >
-                  รหัสสินค้า
+                  เบอร์แท้
                 </TableCell>
-                <TableCell
-                  sx={{
-                    borderBottom: "1px solid #F7FAFF",
-                    fontSize: "13.5px",
-                  }}
-                >
-                  ชื่อย่อ
-                </TableCell>
+                
 
                 <TableCell
                   sx={{
@@ -632,7 +625,7 @@ export default function Products() {
                   >
                     {row.id}
                   </TableCell>
-                  <TableCell
+                  {/* <TableCell
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
@@ -644,12 +637,7 @@ export default function Products() {
                         alignItems: "center",
                       }}
                     >
-                      {/* <img
-                        src={row.productImg}
-                        alt="Product Img"
-                        width={50}
-                        className="borderRadius10"
-                      /> */}
+                     
                       <Typography
                         as="h4"
                         sx={{
@@ -661,7 +649,7 @@ export default function Products() {
                         {row.shortName}
                       </Typography>
                     </Box>
-                  </TableCell>
+                  </TableCell> */}
 
                   <TableCell
                     sx={{

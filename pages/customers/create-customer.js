@@ -257,7 +257,7 @@ const CreateEmployee = () => {
                 }}
               />
             </Grid>
-            
+
             <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
@@ -359,6 +359,7 @@ const CreateEmployee = () => {
             <Grid item xs={12} md={12} lg={2}>
               <FormControlLabel style={{ marginTop: "30px" }} control={<Checkbox defaultChecked />} label="ชำระสิ้นเดือน" />
             </Grid>
+            <Grid item xs={12} md={12} lg={6}></Grid>
 
             <Grid item xs={12} md={12} lg={2}>
               <Typography
@@ -385,7 +386,7 @@ const CreateEmployee = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={12} lg={6}>
+            {/* <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -408,7 +409,7 @@ const CreateEmployee = () => {
                 <FormControlLabel value="ราคาขาย4" control={<Radio />} label="ราคาขาย4" />
                 <FormControlLabel value="ราคาขาย5" control={<Radio />} label="ราคาขาย5" />
               </RadioGroup>
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"
@@ -481,6 +482,8 @@ const CreateEmployee = () => {
                 }}
               />
             </Grid>
+            <Grid item xs={12} md={12} lg={6}></Grid>
+
 
 
 

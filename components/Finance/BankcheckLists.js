@@ -142,28 +142,31 @@ BankCheckLists.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(account, bankcheck, date, amount, bank) {
+function createData(id,idbill,name, bankcheck, date, amount, bank) {
   return {
-    account, bankcheck, date, amount, bank
+    id,idbill,name, bankcheck, date, amount, bank
   };
 }
 
 const rows = [
   createData(
-    "",
+    "1",
+    "3",
+    "Tiger ",
     "123456789",
     "15/5/2566",
     "50,000.00",
     "BBL",
   ),
   createData(
-    "",
+    "2",
+    "4",
+    "Nixon",
     "124598457",
     "16/5/2566",
     "40,000.00",
     "SCB",
   ),
-
 ].sort((a, b) => (a.name < b.name ? -1 : 1));
 
 export default function BookbanksLists() {
@@ -263,17 +266,29 @@ export default function BookbanksLists() {
           }}
         >
           <Table
-            sx={{ minWidth: 1100 }}
+            sx={{ minWidth: 800 }}
             aria-label="custom pagination table"
             className="dark-table"
           >
             <TableHead sx={{ background: "#F7FAFF" }}>
               <TableRow>
+              <TableCell
+                  align="center"
+                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
+                >
+                  รหัสเช็ครับ
+                </TableCell>
                 <TableCell
                   align="center"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
-                  ผังบัญชี
+                  รหัสใบวางบิลขาย
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
+                >
+                  ชื่อลูกหนี้
                 </TableCell>
 
                 <TableCell
@@ -352,7 +367,29 @@ export default function BookbanksLists() {
                       paddingBottom: "13px",
                     }}
                   >
-                    {row.account}
+                    {row.id}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderBottom: "1px solid #F7FAFF",
+                      fontSize: "13px",
+                      paddingTop: "13px",
+                      paddingBottom: "13px",
+                    }}
+                  >
+                    {row.idbill}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderBottom: "1px solid #F7FAFF",
+                      fontSize: "13px",
+                      paddingTop: "13px",
+                      paddingBottom: "13px",
+                    }}
+                  >
+                    {row.name}
                   </TableCell>
                   <TableCell
                     align="center"

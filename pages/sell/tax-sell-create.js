@@ -19,17 +19,17 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-function createData(id,name, quantity , unit, price, discount) {
-  return { id,name, quantity , unit, price, discount };
+function createData(id, name, quantity, unit, price, discount) {
+  return { id, name, quantity, unit, price, discount };
 }
 
 const rows = [
-  createData(1,'ถังลม 30 ลิตร', 1,"ถัง", 8500, 5),
-  createData(5,'ค่าส่ง', 1, "",6500, ""),
- 
+  createData(1, 'ถังลม 30 ลิตร', 1, "ถัง", 8500, 5),
+  createData(5, 'ค่าส่ง', 1, "", 6500, ""),
+
 ];
 
-const EditOfferSell = () => {
+const CreateOfferSell = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -51,12 +51,12 @@ const EditOfferSell = () => {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>แก้ไขใบเสนอราคา</h1>
+        <h1>เพิ่มใบกำกับภาษีขาย</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>แก้ไขใบเสนอราคา</li>
+          <li>เพิ่มใบกำกับภาษีขาย</li>
         </ul>
       </div>
 
@@ -71,11 +71,37 @@ const EditOfferSell = () => {
           className="bg-black"
         >
           <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-            แก้ไขใบเสนอราคา
+            เพิ่มใบกำกับภาษีขาย
           </Typography>
 
           <Grid container alignItems="center" spacing={2}>
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={12} lg={2}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                รหัสใบกำกับภาษีขาย
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="productName"
+                required
+                fullWidth
+                id="productName"
+                // label="รหัสใบกำกับภาษีขาย"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={10}></Grid>
+
+            <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"
                 sx={{
@@ -88,19 +114,42 @@ const EditOfferSell = () => {
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="productName"
+                name="shortName"
                 required
                 fullWidth
-                id="productName"
-                label="ชื่อลูกค้า"
+                id="shortName"
+                // label="รหัสใบสั่งขาย"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={12} lg={10}></Grid>
 
+            <Grid item xs={12} md={12} lg={2}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                รหัสคลัง
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="shortName"
+                required
+                fullWidth
+                id="shortName"
+                // label="รหัสใบสั่งขาย"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
             </Grid>
             <Grid item xs={12} md={12} lg={2}>
               <Typography
@@ -119,7 +168,7 @@ const EditOfferSell = () => {
                 required
                 fullWidth
                 id="shortName"
-                label="รหัสสินค้า"
+                // label="รหัสใบสั่งขาย"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -224,7 +273,21 @@ const EditOfferSell = () => {
                 เพิ่มสินค้า
               </Button>
             </Grid>
+            <Grid item xs={12} md={12} lg={12}>
+            </Grid>
+            <Grid item xs={12} md={12} lg={12}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ชื่อลูกค้า : บจ. อุบล-เขมราฐ
+              </Typography>
 
+            </Grid>
             <Grid item xs={12} md={12} lg={12}>
             </Grid>
 
@@ -270,8 +333,8 @@ const EditOfferSell = () => {
                         <TableCell align="right">{row.unit}</TableCell>
                         <TableCell align="right">{row.price}</TableCell>
                         <TableCell align="right">{row.discount}</TableCell>
-                        <TableCell align="right">{row.price*(row.discount/100)}</TableCell>
-                        <TableCell align="right">{(row.quantity*row.price)-row.price*(row.discount/100)}</TableCell>
+                        <TableCell align="right">{row.price * (row.discount / 100)}</TableCell>
+                        <TableCell align="right">{(row.quantity * row.price) - row.price * (row.discount / 100)}</TableCell>
                         <TableCell align="center"><Button>เพิ่ม</Button><Button>ลด</Button></TableCell>
                       </TableRow>
                     ))}
@@ -291,9 +354,9 @@ const EditOfferSell = () => {
               >
                 ยอดรวมทั้งสิ้น 15000 บาท
               </Typography>
-              
+
             </Grid>
-            {/* <Grid item xs={12} md={12} lg={1}>
+             {/* <Grid item xs={12} md={12} lg={1}>
               <Typography
                 as="h5"
                 sx={{
@@ -462,31 +525,12 @@ const EditOfferSell = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> 
 
             <Grid item xs={12} textAlign="end">
-            <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                  textTransform: "capitalize",
-                  borderRadius: "8px",
-                  fontWeight: "500",
-                  fontSize: "13px",
-                  padding: "12px 20px",
-                  color: "#fff !important",
-                  marginRight: "10px"
-
-                }}
-              >
-
-                บันทึก
-              </Button>
               <Button
                 type="submit"
                 variant="contained"
-                color="danger"
-
                 sx={{
                   textTransform: "capitalize",
                   borderRadius: "8px",
@@ -496,8 +540,14 @@ const EditOfferSell = () => {
                   color: "#fff !important"
                 }}
               >
-
-                ยกเลิก
+                <AddIcon
+                  sx={{
+                    position: "relative",
+                    top: "-2px",
+                  }}
+                  className='mr-5px'
+                />{" "}
+                เพิ่มใบกำกับภาษีขาย
               </Button>
             </Grid>
           </Grid>
@@ -507,4 +557,4 @@ const EditOfferSell = () => {
   )
 }
 
-export default EditOfferSell;
+export default CreateOfferSell;

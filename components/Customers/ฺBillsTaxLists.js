@@ -73,7 +73,7 @@ BootstrapDialogTitle.propTypes = {
 };
 // End Create new Modal
 
-function RolesList(props) {
+function BillsTaxList(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -135,57 +135,50 @@ function RolesList(props) {
   );
 }
 
-RolesList.propTypes = {
+BillsTaxList.propTypes = {
   count: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(role, permission1, permission2, permission3, permission4, permission5, permission6, permission7, permission8, permission9,) {
+function createData(id, name, bill,total, date) {
   return {
-    role,
-    permission1,
-    permission2,
-    permission3,
-    permission4,
-    permission5,
-    permission6,
-    permission7,
-    permission8,
-    permission9,
-
+    id,
+    name,
+    bill,
+    total,
+    date,
   };
 }
 
 const rows = [
   createData(
-    "Sales ",
-    "1.การซื้อ  View Create Edit ",
-    "2.การชาย  View Create Edit ",
-    "3.จัดการสินค้า  View Create Edit ",
-    "4.จัดการคล้งสินค้า  View Create Edit ",
-    "5.ลูกค้า  View Create Edit ",
-    "6.เจ้าหนี้  View Create Edit ",
-
+    "1",
+    "Candice",
+    "1",
+    "12,345.00",
+    "5/4/2560",
   ),
   createData(
-    "Admin",
-    "1.การซื้อ  View Create Edit Delete",
-    "2.การชาย  View Create Edit Delete",
-    "3.จัดการสินค้า  View Create Edit Delete",
-    "4.จัดการคล้งสินค้า  View Create Edit Delete",
-    "5.ลูกค้า  View Create Edit Delete",
-    "6.เจ้าหนี้  View Create Edit Delete",
-    "7.การเงิน  View Create Edit Delete",
-    "8.ธุรการ  View Create Edit Delete",
-    "9.จัดการระบบ  View Create Edit Delete",
-
+    "2",
+    "max",
+    "1",
+    "50,345.00",
+    "5/4/2560",
   ),
+  createData(
+    "3",
+    "mai",
+    "2",
+    "60,345.00",
+    "5/4/2560",
+  ),
+ 
+ 
+].sort((a, b) => (a.id < b.id ? -1 : 1));
 
-].sort((a, b) => (a.username < b.username ? -1 : 1));
-
-export default function RolesLists() {
+export default function BillsTaxLists() {
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -236,7 +229,7 @@ export default function RolesLists() {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "end",
             alignItems: "center",
             borderBottom: "1px solid #EEF0F7",
             paddingBottom: "10px",
@@ -244,17 +237,18 @@ export default function RolesLists() {
           }}
           className="for-dark-bottom-border"
         >
-          <Typography
+          {/* <Typography
             as="h3"
             sx={{
               fontSize: 18,
               fontWeight: 500,
             }}
           >
-          </Typography>
+            รายชื่อพนักงาน
+          </Typography> */}
 
           <Button
-            href="/admin/create-role"
+            href="/customers/create-bill-tax"
             // onClick={handleClickOpen}
             variant="contained"
             sx={{
@@ -270,7 +264,7 @@ export default function RolesLists() {
               sx={{ position: "relative", top: "-1px" }}
               className='mr-5px'
             />{" "}
-            เพิ่มบทบาท
+            เพิ่มใบวางบิลลูกหนี้+ภาษี
           </Button>
         </Box>
 
@@ -281,7 +275,7 @@ export default function RolesLists() {
           }}
         >
           <Table
-            sx={{ minWidth: 800 }}
+            sx={{ minWidth: 1100 }}
             aria-label="custom pagination table"
             className="dark-table"
           >
@@ -289,31 +283,39 @@ export default function RolesLists() {
               <TableRow>
                 <TableCell
                   align="center"
+
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
-                  บทบาท
+                  รหัสใบวางบิล
+                </TableCell>
+                <TableCell
+                  align="center"
+
+                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
+                >
+                  ชื่อ
                 </TableCell>
 
                 <TableCell
                   align="center"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
-                  สิทธิการใช้งาน
+                  จำนวนบิล
                 </TableCell>
 
-                {/* <TableCell
+                <TableCell
                   align="center"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
-                  Role
-                </TableCell> */}
+                  ยอดรวม
+                </TableCell>
 
-                {/* <TableCell
+                <TableCell
                   align="center"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
-                  ที่อยุ่
-                </TableCell> */}
+                  วันที่เอกสาร
+                </TableCell>
 
                 {/* <TableCell
                   align="center"
@@ -354,52 +356,87 @@ export default function RolesLists() {
                 : rows
               ).map((row) => (
                 <TableRow key={row.name}>
-
-
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      fontSize: "13px",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                    }}
-                  >
-                    {row.role}
-                  </TableCell>
-                  <TableCell
-                    align="start"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      fontSize: "13px",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                    }}
-                  >
-                    {row.permission1}<br />
-                    {row.permission2}<br />
-                    {row.permission3}<br />
-                    {row.permission4}<br />
-                    {row.permission5}<br />
-                    {row.permission6}<br />
-                    {row.permission7}<br />
-                    {row.permission8}<br />
-                    {row.permission9}<br />
-                  </TableCell>
-
                   {/* <TableCell
-                    align="center"
                     style={{
+                      width: 250,
                       borderBottom: "1px solid #F7FAFF",
                       paddingTop: "13px",
                       paddingBottom: "13px",
-                      fontSize: "13px",
+                      display: "flex",
+                      alignItems: "center",
                     }}
                   >
-                    {row.role}
+                    <Checkbox {...label} size="small" />
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        ml: '10px'
+                      }}
+                    >
+                     
+                      <Box className='ml-10px'>
+                        <Typography
+                          as="h5"
+                          sx={{
+                            fontWeight: "500",
+                            fontSize: "13.5px",
+                          }}
+                        >
+                          {row.id}
+                        </Typography>
+
+                       
+                      </Box>
+                    </Box>
                   </TableCell> */}
 
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderBottom: "1px solid #F7FAFF",
+                      fontSize: "13px",
+                      paddingTop: "13px",
+                      paddingBottom: "13px",
+                    }}
+                  >
+                    {row.id}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderBottom: "1px solid #F7FAFF",
+                      fontSize: "13px",
+                      paddingTop: "13px",
+                      paddingBottom: "13px",
+                    }}
+                  >
+                    {row.name}
+                  </TableCell>
 
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderBottom: "1px solid #F7FAFF",
+                      paddingTop: "13px",
+                      paddingBottom: "13px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.bill}
+                  </TableCell>
+
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderBottom: "1px solid #F7FAFF",
+                      paddingTop: "13px",
+                      paddingBottom: "13px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.total}
+                  </TableCell>
 
                   {/* <TableCell
                     align="center"
@@ -425,7 +462,17 @@ export default function RolesLists() {
                     <span className={row.badgeClass}>{row.status}</span>
                   </TableCell> */}
 
-
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderBottom: "1px solid #F7FAFF",
+                      paddingTop: "13px",
+                      paddingBottom: "13px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.date}
+                  </TableCell>
 
                   <TableCell
                     align="right"
@@ -436,18 +483,6 @@ export default function RolesLists() {
                         display: "inline-block",
                       }}
                     >
-
-                      <Tooltip title="Rename" placement="top">
-                        <IconButton
-                          href="/admin/edit-user"
-                          aria-label="rename"
-                          size="small"
-                          color="primary"
-                          className="primary"
-                        >
-                          <DriveFileRenameOutlineIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
                       <Tooltip title="Remove" placement="top">
                         <IconButton
                           aria-label="remove"
@@ -456,6 +491,18 @@ export default function RolesLists() {
                           className="danger"
                         >
                           <DeleteIcon fontSize="inherit" />
+                        </IconButton>
+                      </Tooltip>
+
+                      <Tooltip title="Rename" placement="top">
+                        <IconButton
+                          href="/customers/edit-bill"
+                          aria-label="rename"
+                          size="small"
+                          color="primary"
+                          className="primary"
+                        >
+                          <DriveFileRenameOutlineIcon fontSize="inherit" />
                         </IconButton>
                       </Tooltip>
                     </Box>
@@ -489,7 +536,7 @@ export default function RolesLists() {
                   }}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={RolesList}
+                  ActionsComponent={BillsTaxList}
                   style={{ borderBottom: "none" }}
                 />
               </TableRow>

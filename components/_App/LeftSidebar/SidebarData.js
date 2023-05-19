@@ -178,50 +178,50 @@ export const SidebarData = [
     iconOpened: <KeyboardArrowDownIcon />,
 
     subNav: [
-      {
-        title: "ใบกำกับภาษีซื้อ",
-        path: "/sell/offer-sell/",
-      },
-      {
-        title: "ใบเสนอราคาซื้อ",
-        path: "/sell/offer-sell/",
-      },
-      {
-        title: "ใบสั่งซื้อ",
-        path: "/sell/order-sell/",
-      },
-      {
-        title: "รายการซื้อรายวัน",
-        path: "/sell/order-sell/",
-      },
-      {
-        title: "รายการยอดซื้อรายเดือน",
-        path: "/sell/order-sell/",
-      },
-      {
-        title: "รายการยอดซื้อแยกพนักงาน",
-        path: "/sell/order-sell/",
-      },
-      {
-        title: "รายการยอดซื้อแยกลูกค้า",
-        path: "/sell/report-sale-employee/",
-      },
-      {
-        title: "รายการยอดซื้อแยกหมายเหตุ",
-        path: "/sell/order-sell/",
-      },
-      {
-        title: "รายการยอดซื้อแยกหมวด",
-        path: "/sell/order-sell/",
-      },
-      {
-        title: "รายการภาษีซื้อ",
-        path: "/sell/order-sell/",
-      },
-      {
-        title: "ประวัติราคาซื้อ",
-        path: "/sell/order-sell/",
-      },
+      // {
+      //   title: "ใบกำกับภาษีซื้อ",
+      //   path: "/sell/offer-sell/",
+      // },
+      // {
+      //   title: "ใบเสนอราคาซื้อ",
+      //   path: "/sell/offer-sell/",
+      // },
+      // {
+      //   title: "ใบสั่งซื้อ",
+      //   path: "/sell/order-sell/",
+      // },
+      // {
+      //   title: "รายงานซื้อรายวัน",
+      //   path: "/sell/order-sell/",
+      // },
+      // {
+      //   title: "รายงานยอดซื้อรายเดือน",
+      //   path: "/sell/order-sell/",
+      // },
+      // {
+      //   title: "รายงานยอดซื้อแยกพนักงาน",
+      //   path: "/sell/order-sell/",
+      // },
+      // {
+      //   title: "รายงานยอดซื้อแยกลูกค้า",
+      //   path: "/sell/report-sale-employee/",
+      // },
+      // {
+      //   title: "รายงานยอดซื้อแยกหมายเหตุ",
+      //   path: "/sell/order-sell/",
+      // },
+      // {
+      //   title: "รายงานยอดซื้อแยกหมวด",
+      //   path: "/sell/order-sell/",
+      // },
+      // {
+      //   title: "รายงานภาษีซื้อ",
+      //   path: "/sell/order-sell/",
+      // },
+      // {
+      //   title: "ประวัติราคาซื้อ",
+      //   path: "/sell/order-sell/",
+      // },
   
     
     ],
@@ -234,10 +234,7 @@ export const SidebarData = [
     iconOpened: <KeyboardArrowDownIcon />,
 
     subNav: [
-      {
-        title: "ใบกำกับภาษีขาย",
-        path: "/sell/tax-sell/",
-      },
+   
       {
         title: "ใบเสนอราคา",
         path: "/sell/offer-sell/",
@@ -247,31 +244,35 @@ export const SidebarData = [
         path: "/sell/order-sell/",
       },
       {
-        title: "รายการขายรายวัน",
+        title: "ใบกำกับภาษีขาย",
+        path: "/sell/tax-sell/",
+      },
+      {
+        title: "รายงานขายรายวัน",
         path: "/sell/order-sell/",
       },
       {
-        title: "รายการยอดขายรายเดือน",
+        title: "รายงานยอดขายรายเดือน",
         path: "/sell/order-sell/",
       },
       {
-        title: "รายการยอดขายแยกพนักงาน",
+        title: "รายงานยอดขายแยกพนักงาน",
         path: "/sell/order-sell/",
       },
       {
-        title: "รายการยอดขายแยกลูกค้า",
+        title: "รายงานยอดขายแยกลูกค้า",
         path: "/sell/report-sale-employee/",
       },
       {
-        title: "รายการยอดขายแยกหมายเหตุ",
+        title: "รายงานยอดขายแยกหมายเหตุ",
         path: "/sell/order-sell/",
       },
       {
-        title: "รายการยอดขายแยกหมวด",
+        title: "รายงานยอดขายแยกหมวด",
         path: "/sell/order-sell/",
       },
       {
-        title: "รายการภาษีขาย",
+        title: "รายงานภาษีขาย",
         path: "/sell/order-sell/",
       },
       {
@@ -310,33 +311,37 @@ export const SidebarData = [
         path: "/products/report-products-store/",
       },
       {
-        title: "รายงานสินค้าเข้า-ออก",
-        path: "/products/report-products-in-out/",
+        title: "รายงานสินค้า+Vatคงเหลือ",
+        path: "/products/report-products-store-vat/",
       },
-      {
-        title: "Orders List",
-        path: "/products/orders-list/",
-      },
-      {
-        title: "Order Details",
-        path: "/products/order-details/",
-      },
-      {
-        title: "Customers",
-        path: "/products/customers/",
-      },
-      {
-        title: "Cart",
-        path: "/products/cart/",
-      },
-      {
-        title: "Checkout",
-        path: "/products/checkout/",
-      },
-      {
-        title: "Sellers",
-        path: "/products/sellers/",
-      },
+      // {
+      //   title: "รายงานสินค้าเข้า-ออก",
+      //   path: "/products/report-products-in-out/",
+      // },
+      // {
+      //   title: "Orders List",
+      //   path: "/products/orders-list/",
+      // },
+      // {
+      //   title: "Order Details",
+      //   path: "/products/order-details/",
+      // },
+      // {
+      //   title: "Customers",
+      //   path: "/products/customers/",
+      // },
+      // {
+      //   title: "Cart",
+      //   path: "/products/cart/",
+      // },
+      // {
+      //   title: "Checkout",
+      //   path: "/products/checkout/",
+      // },
+      // {
+      //   title: "Sellers",
+      //   path: "/products/sellers/",
+      // },
     ],
   },
   {
@@ -355,10 +360,10 @@ export const SidebarData = [
         title: "ตำแหน่งสินค้า",
         path: "/warehouse/location/",
       },
-      {
-        title: "โอนย้ายสินค้าระหว่างคลัง",
-        path: "/warehouse/transfer/",
-      },
+      // {
+      //   title: "โอนย้ายสินค้าระหว่างคลัง",
+      //   path: "/warehouse/transfer/",
+      // },
       {
         title: "สินค้าเข้า-ออกคลัง",
         path: "/warehouse/warehouse-in-out/",
@@ -380,8 +385,12 @@ export const SidebarData = [
         path: "/customers/",
       },
       {
-        title: "ใบวางบิลลูกหนี้ทั้งหมด",
+        title: "ใบวางบิลลูกหนี้",
         path: "/customers/bills",
+      },
+      {
+        title: "ใบวางบิลลูกหนี้+ภาษี",
+        path: "/customers/bills-tax",
       },
       {
         title: "รายงานใบวางบิลรายเดือน",

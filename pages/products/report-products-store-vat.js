@@ -37,7 +37,6 @@ import Select from '@mui/material/Select';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
-import RemoveIcon from '@mui/icons-material/Remove';
 
 import dynamic from 'next/dynamic'
 import SearchForm from "@/components/_App/TopNavbar/SearchForm";
@@ -131,49 +130,287 @@ Product.propTypes = {
 
 function createData(
   id,
-  date,
-  warehouse,
-  location,
+  // productImg,
+  shortName,
+  numFactory,
   productName,
-  amount,
-  status
-
+  carBrand,
+  brand,
+  amount
+  // buyPrice,
+  // sellPrice,
 ) {
   return {
     id,
-    date,
-    warehouse,
-    location,
+    // productImg,
+    shortName,
+    numFactory,
     productName,
-    amount,
-    status
+    carBrand,
+    brand,
+    amount
+    // buyPrice,
+    // sellPrice,
   };
 }
 
 const rows = [
   createData(
     "1",
-    "5/5/2566",
-    "คลัง1",
-    "5",
+    "สวปฟน",
+    "4.61992",
     "สวิตซ์เปิดไฟหน้า",
+    "Benz IBC",
+    "DT",
     "1,000 ชิ้น",
-    "เข้า",
-    
+    // "625.00",
+    // "980.00",
   ),
   createData(
     "2",
-    "10/5/2566",
-    "คลัง1",
-    "5",
+    "ลกทว",
+    "4.50099",
     "ลูกกระทุ้งวาล์ว",
+    "B422",
+    "DT",
     "500 ชิ้น",
-    "ออก",
+    // "128.00",
+    // "200.00",
   ),
-  
- 
+  createData(
+    "3",
+    "กส",
+    "4.61904",
+    "ก้านสูบ",
+    "Benz IBC",
+    "DT",
+    "100 ชิ้น",
+    // "2685.00",
+    // "",
+  ),
+  createData(
+    "4",
+    "สวปฟน",
+    "4.61992",
+    "สวิตซ์เปิดไฟหน้า",
+    "Benz IBC",
+    "DT",
+    "1,000 ชิ้น",
+    // "625.00",
+    // "980.00",
+  ),
+  createData(
+    "5",
+    "ลกทว",
+    "4.50099",
+    "ลูกกระทุ้งวาล์ว",
+    "B422",
+    "DT",
+    "500 ชิ้น",
+    // "128.00",
+    // "200.00",
+  ),
+  createData(
+    "6",
+    "กส",
+    "4.61904",
+    "ก้านสูบ",
+    "Benz IBC",
+    "DT",
+    "100 ชิ้น",
+    // "2685.00",
+    // "",
+  ),
+  createData(
+    "7",
+    "สวปฟน",
+    "4.61992",
+    "สวิตซ์เปิดไฟหน้า",
+    "Benz IBC",
+    "DT",
+    "1,000 ชิ้น",
+    // "625.00",
+    // "980.00",
+  ),
+  createData(
+    "8",
+    "ลกทว",
+    "4.50099",
+    "ลูกกระทุ้งวาล์ว",
+    "B422",
+    "DT",
+    "500 ชิ้น",
+    // "128.00",
+    // "200.00",
+  ),
+  createData(
+    "9",
+    "กส",
+    "4.61904",
+    "ก้านสูบ",
+    "Benz IBC",
+    "DT",
+    "100 ชิ้น",
+    // "2685.00",
+    // "",
+  ),
+  // createData(
+  //   "2",
+  //   // "/images/product2.png",
+  //   "Smart Camera XD6",
+  //   "Camera",
+  //   "$189.50",
+  //   "50",
+  //   "Out of Stock",
+  //   "5.0 (40 votes)"
+  // ),
+  // createData(
+  //   "3",
+  //   "/images/product3.png",
+  //   // "Pixi 8 Wireless Airphone",
+  //   "Phone",
+  //   "$250.50",
+  //   "45",
+  //   "400",
+  //   "5.0 (15 votes)"
+  // ),
+  // createData(
+  //   "/images/product4.png",
+  //   "Jebble Smart Watch",
+  //   "Watch",
+  //   "$289.50",
+  //   "100",
+  //   "200",
+  //   "5.0 (99 votes)"
+  // ),
+  // createData(
+  //   "/images/product5.png",
+  //   "Admas Airpod x-Zon",
+  //   "Airpod",
+  //   "$289.50",
+  //   "120",
+  //   "Out of Stock",
+  //   "5.0 (150 votes)"
+  // ),
+  // createData(
+  //   "/images/product6.png",
+  //   "Smart Watch F8 Pro",
+  //   "Watch",
+  //   "$289.50",
+  //   "20",
+  //   "100",
+  //   "5.0 (5 votes)"
+  // ),
+  // createData(
+  //   "/images/product7.png",
+  //   "Nord Fold ZL",
+  //   "Pone",
+  //   "$289.50",
+  //   "55",
+  //   "108",
+  //   "5.0 (11 votes)"
+  // ),
+  // createData(
+  //   "/images/product8.png",
+  //   "Wall Clock Cimbina",
+  //   "Clock",
+  //   "$289.50",
+  //   "40",
+  //   "100",
+  //   "5.0 (4 votes)"
+  // ),
+  // createData(
+  //   "/images/product9.png",
+  //   "Galaxo T6 Munsun",
+  //   "Smart Phone",
+  //   "$289.50",
+  //   "50",
+  //   "130",
+  //   "5.0 (55 votes)"
+  // ),
+  // createData(
+  //   "/images/product1.png",
+  //   "Macbook Pro",
+  //   "Laptop",
+  //   "$1,299.00",
+  //   "120",
+  //   "1500",
+  //   "5.0 (150 votes)"
+  // ),
+  // createData(
+  //   "/images/product2.png",
+  //   "iphone 14 pro max",
+  //   "Phone",
+  //   "$1029",
+  //   "200",
+  //   "599",
+  //   "5.0 (200 votes)"
+  // ),
+  // createData(
+  //   "/images/product3.png",
+  //   "HeadPhone",
+  //   "HeadPhone",
+  //   "$100.50",
+  //   "25",
+  //   "50",
+  //   "5.0 (61 votes)"
+  // ),
+  // createData(
+  //   "/images/product4.png",
+  //   "Superstar shoes",
+  //   "shoes",
+  //   "$59.50",
+  //   "45",
+  //   "50",
+  //   "5.0 (45 votes)"
+  // ),
+  // createData(
+  //   "/images/product5.png",
+  //   "Nike shirts",
+  //   "Shirts",
+  //   "$30.50",
+  //   "32",
+  //   "40",
+  //   "5.0 (22 votes)"
+  // ),
+  // createData(
+  //   "/images/product6.png",
+  //   "Nike caps",
+  //   "Caps",
+  //   "$15.50",
+  //   "33",
+  //   "50",
+  //   "5.0 (3 votes)"
+  // ),
+  // createData(
+  //   "/images/product7.png",
+  //   "Hoodie (Blue)",
+  //   "Hoodie",
+  //   "$59.50",
+  //   "30",
+  //   "55",
+  //   "5.0 (44 votes)"
+  // ),
+  // createData(
+  //   "/images/product8.png",
+  //   "Wall Clock China",
+  //   "Clock",
+  //   "$100.50",
+  //   "30",
+  //   "230",
+  //   "5.0 (45 votes)"
+  // ),
+  // createData(
+  //   "/images/product9.png",
+  //   "Galaxo T6 Munsun 2",
+  //   "Phone",
+  //   "$220.50",
+  //   "22",
+  //   "50",
+  //   "5.0 (24 votes)"
+  // ),
 ]
-// .sort((a, b) => (a.date < b.date ? -1 : 1));
+// .sort((a, b) => (a.category < b.category ? -1 : 1));
 
 export default function Products() {
   // Table
@@ -217,12 +454,12 @@ export default function Products() {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>สินค้าเข้า-ออกคลัง</h1>
+        <h1>รายงานสินค้า+Vatคงเหลือ</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>สินค้าเข้า-ออกคลัง</li>
+          <li>รายงานสินค้า+Vatคงเหลือ</li>
         </ul>
       </div>
 
@@ -239,55 +476,32 @@ export default function Products() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            // paddingLeft: "510px",
+            paddingLeft: "510px",
             paddingBottom: "10px",
           }}
         >
           <SearchForm />
-
-          <Box>
-            <Button
-              onClick={handleOpen}
-              href="/warehouse/warehouse-in"
-              variant="contained"
-              sx={{
-                textTransform: "capitalize",
-                borderRadius: "8px",
-                fontWeight: "500",
-                fontSize: "13px",
-                padding: "12px 20px",
-                color: "#fff !important",
-                marginRight: "10px"
-              }}
-            >
-              {/* <AddIcon
-                sx={{ position: "relative", top: "-1px" }}
-                className='mr-5px'
-              />{" "} */}
-              รับสินค้า
-            </Button>
-            <Button
-              // onClick={handleOpen}
-              href="/warehouse/warehouse-out"
-              variant="contained"
-              color="danger"
-              sx={{
-                textTransform: "capitalize",
-                borderRadius: "8px",
-                fontWeight: "500",
-                fontSize: "13px",
-                padding: "12px 20px",
-                color: "#fff !important",
-              }}
-            >
-              {/* <RemoveIcon
-                sx={{ position: "relative", top: "-1px" }}
-                className='mr-5px'
-              />{" "} */}
-              เบิกสินค้า
-            </Button>
-          </Box>
+          {/* <Button
+            // onClick={handleOpen}
+            href="/ecommerce/create-product"
+            variant="contained"
+            sx={{
+              textTransform: "capitalize",
+              borderRadius: "8px",
+              fontWeight: "500",
+              fontSize: "13px",
+              padding: "12px 20px",
+              color: "#fff !important",
+            }}
+          >
+            <AddIcon
+              sx={{ position: "relative", top: "-1px" }}
+              className='mr-5px'
+            />{" "}
+            เพิ่มสินค้า
+          </Button> */}
         </Box>
+        
 
         <TableContainer
           component={Paper}
@@ -302,44 +516,34 @@ export default function Products() {
           >
             <TableHead sx={{ background: "#F7FAFF" }}>
               <TableRow>
+                <TableCell
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  เบอร์แท้
+                </TableCell>
                 
-                <TableCell
-                  sx={{
-                    borderBottom: "1px solid #F7FAFF",
-                    fontSize: "13.5px",
-                  }}
-                >
-                  วันที่
-                </TableCell>
-                <TableCell
-                    align="center"
 
-                  sx={{
-                    borderBottom: "1px solid #F7FAFF",
-                    fontSize: "13.5px",
-                  }}
-                >
-                  คลัง
-                </TableCell>
-                {/* <TableCell
+                <TableCell
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
                   }}
                 >
                   เบอร์โรงงาน
-                </TableCell> */}
-
-                <TableCell
-                  align="center"
-                  sx={{
-                    borderBottom: "1px solid #F7FAFF",
-                    fontSize: "13.5px",
-                  }}
-                >
-                  ตำแหน่ง
                 </TableCell>
 
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ชื่อสินค้า
+                </TableCell>
 
                 <TableCell
                   align="center"
@@ -348,7 +552,17 @@ export default function Products() {
                     fontSize: "13.5px",
                   }}
                 >
-                  สินค้า
+                  รุ่น
+                </TableCell>
+
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ยี่ห้อ
                 </TableCell>
                 <TableCell
                   align="center"
@@ -357,16 +571,7 @@ export default function Products() {
                     fontSize: "13.5px",
                   }}
                 >
-                  จำนวนสินค้า
-                </TableCell>
-                <TableCell
-                  align="center"
-                  sx={{
-                    borderBottom: "1px solid #F7FAFF",
-                    fontSize: "13.5px",
-                  }}
-                >
-                  สถานะ
+                  จำนวนสินค้าคงเหลือ
                 </TableCell>
 
                 {/* <TableCell
@@ -388,7 +593,7 @@ export default function Products() {
                   ราคาขาย
                 </TableCell> */}
 
-                {/* <TableCell
+                <TableCell
                   align="right"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -396,7 +601,7 @@ export default function Products() {
                   }}
                 >
                   Actions
-                </TableCell> */}
+                </TableCell>
               </TableRow>
             </TableHead>
 
@@ -408,7 +613,7 @@ export default function Products() {
                 )
                 : rows
               ).map((row) => (
-                <TableRow key={row.id} className={styles.Product} >
+                <TableRow key={row.productTitle} className={styles.Product} >
                   <TableCell
                     // align="center"
                     sx={{
@@ -418,35 +623,44 @@ export default function Products() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.date}
+                    {row.id}
                   </TableCell>
-              
+                  {/* <TableCell
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                     
+                      <Typography
+                        as="h4"
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "13px",
+                        }}
+                        className='ml-10px'
+                      >
+                        {row.shortName}
+                      </Typography>
+                    </Box>
+                  </TableCell> */}
 
                   <TableCell
-                    align="center"
-
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
                     }}
                   >
-                    {row.warehouse}
+                    {row.numFactory}
                   </TableCell>
 
-                  <TableCell
-                    align="center"
-
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                      width: 150,
-
-                    }}
-                  >
-                    {row.location}
-                  </TableCell>
                   <TableCell
                     // align="center"
 
@@ -461,7 +675,28 @@ export default function Products() {
                     {row.productName}
                   </TableCell>
 
-                  
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+
+                    }}
+                  >
+                    {row.carBrand}
+                  </TableCell>
+
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.brand}
+                  </TableCell>
 
                   <TableCell
                     align="center"
@@ -472,17 +707,6 @@ export default function Products() {
                     }}
                   >
                     {row.amount}
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                    }}
-                  >
-
-                    {row.status == "เข้า" ? <AddIcon></AddIcon> : <RemoveIcon></RemoveIcon>}
                   </TableCell>
 
                   {/* <TableCell
@@ -506,7 +730,7 @@ export default function Products() {
                     {row.sellPrice}
                   </TableCell> */}
 
-                  {/* <TableCell
+                  <TableCell
                     align="right"
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
@@ -541,7 +765,16 @@ export default function Products() {
                         </IconButton>
                       </Tooltip>
 
-                  
+                      {/* <Tooltip title="Add To Cart" placement="top">
+                        <IconButton
+                          aria-label="Add To Cart"
+                          size="small"
+                          color="success"
+                          className="success"
+                        >
+                          <ShoppingCartIcon fontSize="inherit" />
+                        </IconButton>
+                      </Tooltip> */}
 
                       <Tooltip title="Remove" placement="top">
                         <IconButton
@@ -554,7 +787,7 @@ export default function Products() {
                         </IconButton>
                       </Tooltip>
                     </Box>
-                  </TableCell> */}
+                  </TableCell>
                 </TableRow>
               ))}
 
@@ -593,7 +826,7 @@ export default function Products() {
         </TableContainer>
       </Card>
 
-
+      
     </>
   );
 }

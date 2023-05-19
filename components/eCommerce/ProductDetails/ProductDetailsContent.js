@@ -52,9 +52,7 @@ const ProductDetailsContent = () => {
 
           <Grid item xs={12} md={12} lg={7} xl={7}>
             <Box>
-              <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-                รหัสสินค้า : 1
-              </Typography>
+             
               <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
                 หมวด : 1
               </Typography>
@@ -62,37 +60,7 @@ const ProductDetailsContent = () => {
                 ชื่อสินค้า : สวิตซ์เปิดไฟหน้า
               </Typography>
 
-              {/* <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  mb: "15px",
-                }}
-              >
-                <StarIcon sx={{ color: "#FFBC2B", fontSize: 18 }} />
-                <StarIcon sx={{ color: "#FFBC2B", fontSize: 18 }} />
-                <StarIcon sx={{ color: "#FFBC2B", fontSize: 18 }} />
-                <StarIcon sx={{ color: "#FFBC2B", fontSize: 18 }} />
-                <StarIcon sx={{ color: "#FFBC2B", fontSize: 18 }} />
-
-                <Typography as="h4" fontSize="13px" className="ml-1">
-                  5.0 (61 votes)
-                </Typography>
-              </Box> */}
-
-              {/* <Typography fontSize="15px" fontWeight="500" mb="15px">
-                Price:{" "}
-                <del
-                  style={{
-                    fontSize: "12px",
-                    color: "#95959d",
-                  }}
-                  className='mr-5px ml-5px'
-                >
-                  $200
-                </del>{" "}
-                $150
-              </Typography> */}
+            
 
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 รุ่น:  Benz IBC
@@ -117,9 +85,13 @@ const ProductDetailsContent = () => {
               </Typography>
 
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                เบอร์แท้:
+                ขนาดสินค้า:
               </Typography>
 
+              <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
+                เบอร์แท้ : 1
+              </Typography>
+              
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 เบอร์โรงงาน:  4.61992
               </Typography>
@@ -139,6 +111,10 @@ const ProductDetailsContent = () => {
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 จำนวนสินค้าคงเหลือ:  10 ชิ้น
               </Typography>
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
+                ที่เก็บ: คลัง1
+              </Typography>
+              
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 หมายเหตุ:
               </Typography>

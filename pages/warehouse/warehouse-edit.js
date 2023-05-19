@@ -149,7 +149,34 @@ const CreateOfferSell = () => {
                 }}
               />
             </Grid>
-            
+            <Grid item xs={12} md={12} lg={4}  >
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ประเภทคลัง
+              </Typography>
+
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // value={age}
+                    // label="Age"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Vat</MenuItem>
+                    <MenuItem value={20}>ไม่Vat</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
             
 
             <Grid item xs={12} textAlign="end">
