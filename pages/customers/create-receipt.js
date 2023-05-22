@@ -17,7 +17,7 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-const CreateBill = () => {
+const CreateReceipt = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,12 +37,12 @@ const CreateBill = () => {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>เพิ่มใบวางบิลลูกหนี้</h1>
+        <h1>เพิ่มใบสำคัญรับ</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>เพิ่มใบวางบิลลูกหนี้</li>
+          <li>เพิ่มใบสำคัญรับ</li>
         </ul>
       </div>
 
@@ -68,6 +68,32 @@ const CreateBill = () => {
                   mb: "12px",
                 }}
               >
+                รหัสใบสำคัญรับ
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="productName"
+                required
+                fullWidth
+                id="productName"
+                label="รหัสใบสำคัญรับ"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+           
+
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
                 รหัสใบวางบิลลูกหนี้
               </Typography>
               <TextField
@@ -83,7 +109,7 @@ const CreateBill = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            {/* <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -106,7 +132,7 @@ const CreateBill = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
             
 
             <Grid item xs={12} md={12} lg={6}>
@@ -118,7 +144,7 @@ const CreateBill = () => {
                   mb: "12px",
                 }}
               >
-                ชื่อลูกค้า :
+                ชื่อลูกคค้า :
               </Typography>
               
             </Grid>
@@ -161,7 +187,7 @@ const CreateBill = () => {
               </Typography>
               
             </Grid>
-            <Grid item xs={12} md={12} lg={6}>
+            {/* <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -184,7 +210,7 @@ const CreateBill = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
@@ -247,7 +273,7 @@ const CreateBill = () => {
                 }}
               />
             </Grid> */}
-            <Grid item xs={12} md={12} lg={6}>
+            {/* <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -294,7 +320,7 @@ const CreateBill = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
 
            
 
@@ -319,7 +345,7 @@ const CreateBill = () => {
                   }}
                   className='mr-5px'
                 />{" "}
-                เพิ่มใบวางบิลลูกหนี้
+                เพิ่มใบสำคัญรับ
               </Button>
             </Grid>
           </Grid>
@@ -329,4 +355,4 @@ const CreateBill = () => {
   )
 }
 
-export default CreateBill;
+export default CreateReceipt;

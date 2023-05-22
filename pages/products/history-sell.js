@@ -45,7 +45,7 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-// Create OrderSell Modal Style
+// Create HistorySell Modal Style
 const style = {
   position: "absolute",
   top: "50%",
@@ -60,7 +60,7 @@ const style = {
   borderRadius: "8px",
 };
 
-function OrderSell(props) {
+function HistorySell(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -122,7 +122,7 @@ function OrderSell(props) {
   );
 }
 
-OrderSell.propTypes = {
+HistorySell.propTypes = {
   count: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
@@ -130,31 +130,34 @@ OrderSell.propTypes = {
 };
 
 function createData(
+  
   id,
   date,
-  name,
-  amount,
+  sellPrice,
 ) {
   return {
     id,
     date,
-    name,
-    amount,
+    sellPrice,
   };
 }
 
 const rows = [
   createData(
     "1",
-    "16/5/2566",
-    "บจ. อุบล-เขมราฐ",
-    "8500.00",
+    "15/5/2566",
+    "900.00",
+  ),
+  createData(
+    "2",
+    "23/5/2566",
+    "1050.00",
   ),
   
 ]
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
-export default function OrderSells() {
+export default function HistorySells() {
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -172,7 +175,7 @@ export default function OrderSells() {
     setPage(0);
   };
 
-  // Create OrderSell Modal & Form
+  // Create HistorySell Modal & Form
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -196,12 +199,12 @@ export default function OrderSells() {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>ใบกำกับภาษีขาย</h1>
+        <h1>ประวัติการขายสินค้า</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>ใบกำกับภาษีขาย</li>
+          <li>ประวัติการขายสินค้า</li>
         </ul>
       </div>
 
@@ -231,48 +234,7 @@ export default function OrderSells() {
             สินค้า
           </Typography> */}
 
-          {/* <Button
-            onClick={handleOpen}
-            variant="contained"
-            color="secondary"
-
-            sx={{
-              textTransform: "capitalize",
-              borderRadius: "8px",
-              fontWeight: "500",
-              fontSize: "13px",
-              padding: "12px 20px",
-              color: "#fff !important",
-            }}
-          >
-            <PrintIcon
-              sx={{ position: "relative", top: "-1px" }}
-              className='mr-5px'
-            />{" "}
-            พิมพ์แฟ้มสินค้า
-          </Button> */}
-
-          <SearchForm />
-
-          <Button
-            // onClick={handleOpen}
-            href="/sell/tax-sell-create/"
-            variant="contained"
-            sx={{
-              textTransform: "capitalize",
-              borderRadius: "8px",
-              fontWeight: "500",
-              fontSize: "13px",
-              padding: "12px 20px",
-              color: "#fff !important",
-            }}
-          >
-            <AddIcon
-              sx={{ position: "relative", top: "-1px" }}
-              className='mr-5px'
-            />{" "}
-            เพิ่มใบกำกับภาษีขาย
-          </Button>
+         
         </Box>
 
         <TableContainer
@@ -288,24 +250,40 @@ export default function OrderSells() {
           >
             <TableHead sx={{ background: "#F7FAFF" }}>
               <TableRow>
-                <TableCell
-                  align="center"
+                {/* <TableCell
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
-                    width: "170px"
                   }}
                 >
-                  รหัสใบกำกับภาษีขาย
+                  รหัสสินค้า
+                </TableCell> */}
+                <TableCell
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                 วันที่
                 </TableCell>
+
                 <TableCell
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ราคาขาย
+                </TableCell>
+
+                {/* <TableCell
                   align="center"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
                   }}
                 >
-                  วันที่
+                  ชื่อสินค้า
                 </TableCell>
 
                 <TableCell
@@ -313,10 +291,9 @@ export default function OrderSells() {
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
-                    
                   }}
                 >
-                  ชื่อลูกค้า
+                  รุ่น
                 </TableCell>
 
                 <TableCell
@@ -326,9 +303,27 @@ export default function OrderSells() {
                     fontSize: "13.5px",
                   }}
                 >
-                  ยอดรวมทั้งสิ้น
+                  ยี่ห้อ
                 </TableCell>
-                
+
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ทุนสุทธิ
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ราคาขาย
+                </TableCell>
 
                 <TableCell
                   align="right"
@@ -338,7 +333,7 @@ export default function OrderSells() {
                   }}
                 >
                   Actions
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             </TableHead>
 
@@ -350,9 +345,9 @@ export default function OrderSells() {
                 )
                 : rows
               ).map((row) => (
-                <TableRow key={row.id} className={styles.OrderSell} >
-                  <TableCell
-                    align="center"
+                <TableRow key={row.id} className={styles.HistorySell} >
+                  {/* <TableCell
+                    // align="center"
                     sx={{
                       width: 100,
                       borderBottom: "1px solid #F7FAFF",
@@ -361,33 +356,49 @@ export default function OrderSells() {
                     }}
                   >
                     {row.id}
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell
-                    align="center"
                     sx={{
-                      width: 100,
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      {/* <img
+                        src={row.HistorySellImg}
+                        alt="HistorySell Img"
+                        width={50}
+                        className="borderRadius10"
+                      /> */}
+                      <Typography
+                        as="h4"
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "13px",
+                        }}
+                        className='ml-10px'
+                      >
+                        {row.date}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+
+                  <TableCell
+                    sx={{
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
                     }}
                   >
-                    {row.date}
-                  </TableCell>
-                 
-
-                  <TableCell
-                    align="center"
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.name}
+                    {row.sellPrice}
                   </TableCell>
 
-                  <TableCell
-                    align="center"
+                  {/* <TableCell
 
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
@@ -397,12 +408,54 @@ export default function OrderSells() {
 
                     }}
                   >
-                    {row.amount}
+                    {row.HistorySellName}
                   </TableCell>
 
-                  
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+
+                    }}
+                  >
+                    {row.carBrand}
+                  </TableCell>
 
                   <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.brand}
+                  </TableCell>
+
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.sellPrice}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.sellPrice}
+                  </TableCell> */}
+
+                  {/* <TableCell
                     align="right"
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
@@ -416,7 +469,7 @@ export default function OrderSells() {
                     >
                       <Tooltip title="View" placement="top">
                         <IconButton
-                          href="/sell/tax-sell-details"
+                          href="/HistorySells/HistorySell-details"
                           aria-label="view"
                           size="small"
                           color="info"
@@ -428,7 +481,6 @@ export default function OrderSells() {
 
                       <Tooltip title="Edit" placement="top">
                         <IconButton
-                        href="/sell/tax-sell-edit"
                           aria-label="edit"
                           size="small"
                           color="primary"
@@ -438,16 +490,7 @@ export default function OrderSells() {
                         </IconButton>
                       </Tooltip>
 
-                      {/* <Tooltip title="Add To Cart" placement="top">
-                        <IconButton
-                          aria-label="Add To Cart"
-                          size="small"
-                          color="success"
-                          className="success"
-                        >
-                          <ShoppingCartIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip> */}
+                
 
                       <Tooltip title="Remove" placement="top">
                         <IconButton
@@ -461,7 +504,7 @@ export default function OrderSells() {
                         </IconButton>
                       </Tooltip>
                     </Box>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
 
@@ -491,7 +534,7 @@ export default function OrderSells() {
                   }}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={OrderSell}
+                  ActionsComponent={HistorySell}
                   style={{ borderBottom: "none" }}
                 />
               </TableRow>
@@ -500,7 +543,7 @@ export default function OrderSells() {
         </TableContainer>
       </Card>
 
-      {/* Create OrderSell Modal */}
+      {/* Create HistorySell Modal */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -655,7 +698,7 @@ export default function OrderSells() {
                   fontSize: "17px",
                 }}
               >
-                Create OrderSell
+                Create HistorySell
               </Typography>
 
               <IconButton
@@ -686,15 +729,15 @@ export default function OrderSells() {
                         mb: "12px",
                       }}
                     >
-                      OrderSell Name
+                      HistorySell Name
                     </Typography>
                     <TextField
-                      autoComplete="OrderSell-name"
-                      name="OrderSellName"
+                      autoComplete="HistorySell-name"
+                      name="HistorySellName"
                       required
                       fullWidth
-                      id="OrderSellName"
-                      label="OrderSell Name"
+                      id="HistorySellName"
+                      label="HistorySell Name"
                       autoFocus
                       InputProps={{
                         style: { borderRadius: 8 },
@@ -845,7 +888,7 @@ export default function OrderSells() {
                         mb: "12px",
                       }}
                     >
-                      OrderSell Description
+                      HistorySell Description
                     </Typography>
 
                     <RichTextEditor
@@ -868,15 +911,15 @@ export default function OrderSells() {
                         mb: "12px",
                       }}
                     >
-                      OrderSell Image
+                      HistorySell Image
                     </Typography>
 
                     <TextField
-                      autoComplete="OrderSell-image"
-                      name="OrderSellImage"
+                      autoComplete="HistorySell-image"
+                      name="HistorySellImage"
                       required
                       fullWidth
-                      id="OrderSellImage"
+                      id="HistorySellImage"
                       type="file"
                       autoFocus
                       InputProps={{
@@ -890,8 +933,8 @@ export default function OrderSells() {
                       }}
                     >
                       <img
-                        src="/images/OrderSell1.png"
-                        alt="OrderSell"
+                        src="/images/HistorySell1.png"
+                        alt="HistorySell"
                         wisth="55px"
                         className='mr-10px'
                       />
@@ -942,7 +985,7 @@ export default function OrderSells() {
                         }}
                         className='mr-5px'
                       />{" "}
-                      Create OrderSell
+                      Create HistorySell
                     </Button>
                   </Grid>
                 </Grid>

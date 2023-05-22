@@ -1,23 +1,23 @@
 import React from 'react';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
-import CustomersLists from '@/components/Customers/CustomersLists';
+import CreditorsLists from '@/components/Creditor/CreditorsLists';
 
 const Customers = () => {
   return (
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>ลูกค้า</h1>
+        <h1>เจ้าหนี้</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>ลูกค้า</li>
+          <li>เจ้าหนี้</li>
         </ul>
       </div>
       
-      <CustomersLists />
+      <CreditorsLists />
     </>
   )
 }

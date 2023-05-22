@@ -1,25 +1,23 @@
 import React from 'react';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
-import CustomersLists from '@/components/Customers/CustomersLists';
-
-const Customers = () => {
+import OrderBuyDetails from '@/components/Buy/OrderBuyDetails/OrderBuyDetails';
+  
+export default function ProductDetails() {
   return (
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>ลูกค้า</h1>
+        <h1>ข้อมูลใบเสนอซื้อ</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>ลูกค้า</li>
+          <li>ข้อมูลใบเสนอซื้อ</li>
         </ul>
       </div>
-      
-      <CustomersLists />
-    </>
-  )
-}
 
-export default Customers;
+      <OrderBuyDetails />
+    </>
+  );
+}

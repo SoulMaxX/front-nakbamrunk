@@ -1,25 +1,25 @@
 import React from 'react';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
-import CustomersLists from '@/components/Customers/CustomersLists';
+import ReceiptsLists from '@/components/Customers/ReceiptsLists';
 
-const Customers = () => {
+const Receipts = () => {
   return (
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>ลูกค้า</h1>
+        <h1>ใบสำคัญรับ</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>ลูกค้า</li>
+          <li>ใบสำคัญรับ</li>
         </ul>
       </div>
       
-      <CustomersLists />
+      <ReceiptsLists />
     </>
   )
 }
 
-export default Customers;
+export default Receipts;

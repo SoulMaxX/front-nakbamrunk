@@ -73,7 +73,7 @@ BootstrapDialogTitle.propTypes = {
 };
 // End Create new Modal
 
-function BillsList(props) {
+function PaymentsList(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -135,16 +135,17 @@ function BillsList(props) {
   );
 }
 
-BillsList.propTypes = {
+PaymentsList.propTypes = {
   count: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(id, name, bill,total, date) {
+function createData(id,idBill, name, bill,total, date) {
   return {
     id,
+    idBill,
     name,
     bill,
     total,
@@ -155,6 +156,7 @@ function createData(id, name, bill,total, date) {
 const rows = [
   createData(
     "1",
+    "1",
     "Candice",
     "1",
     "12,345.00",
@@ -162,12 +164,14 @@ const rows = [
   ),
   createData(
     "2",
+    "2",
     "max",
     "1",
     "50,345.00",
     "5/4/2560",
   ),
   createData(
+    "3",
     "3",
     "mai",
     "2",
@@ -178,7 +182,7 @@ const rows = [
  
 ].sort((a, b) => (a.id < b.id ? -1 : 1));
 
-export default function BillsLists() {
+export default function PaymentsLists() {
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -248,7 +252,7 @@ export default function BillsLists() {
           </Typography> */}
 
           <Button
-            href="/customers/create-bill"
+            href="/creditor/create-payment"
             // onClick={handleClickOpen}
             variant="contained"
             sx={{
@@ -264,7 +268,7 @@ export default function BillsLists() {
               sx={{ position: "relative", top: "-1px" }}
               className='mr-5px'
             />{" "}
-            เพิ่มใบวางบิลลูกหนี้
+            เพิ่มใบสำคัญจ่าย
           </Button>
         </Box>
 
@@ -281,6 +285,13 @@ export default function BillsLists() {
           >
             <TableHead sx={{ background: "#F7FAFF" }}>
               <TableRow>
+                <TableCell
+                  align="center"
+
+                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
+                >
+                  รหัสใบสำคัญจ่าย
+                </TableCell>
                 <TableCell
                   align="center"
 
@@ -411,6 +422,17 @@ export default function BillsLists() {
                       paddingBottom: "13px",
                     }}
                   >
+                    {row.idBill}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderBottom: "1px solid #F7FAFF",
+                      fontSize: "13px",
+                      paddingTop: "13px",
+                      paddingBottom: "13px",
+                    }}
+                  >
                     {row.name}
                   </TableCell>
 
@@ -496,7 +518,7 @@ export default function BillsLists() {
 
                       <Tooltip title="Rename" placement="top">
                         <IconButton
-                          href="/customers/edit-bill"
+                          href="/customers/edit-receipt"
                           aria-label="rename"
                           size="small"
                           color="primary"
@@ -536,7 +558,7 @@ export default function BillsLists() {
                   }}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={BillsList}
+                  ActionsComponent={PaymentsList}
                   style={{ borderBottom: "none" }}
                 />
               </TableRow>

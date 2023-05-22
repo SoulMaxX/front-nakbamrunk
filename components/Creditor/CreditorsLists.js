@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Fade, Modal, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
@@ -29,9 +29,25 @@ import Checkbox from '@mui/material/Checkbox';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from '@mui/icons-material/Close'; 
+import VisibilityIcon from '@mui/icons-material/Visibility';
+
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  height: "30%",
+  maxWidth: '400px',
+  width: '100%',
+  overflow: "auto",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  borderRadius: "8px",
+};
 
 // Create new Modal
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -73,7 +89,7 @@ BootstrapDialogTitle.propTypes = {
 };
 // End Create new Modal
 
-function BillsList(props) {
+function CreditorsLists(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -135,50 +151,54 @@ function BillsList(props) {
   );
 }
 
-BillsList.propTypes = {
+CreditorsLists.propTypes = {
   count: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(id, name, bill,total, date) {
+function createData(id,name, address, companyCode,  phone,email) {
   return {
     id,
     name,
-    bill,
-    total,
-    date,
+    address,
+    companyCode,
+    phone,
+    email,
+   
   };
 }
 
 const rows = [
   createData(
     "1",
-    "Candice",
-    "1",
-    "12,345.00",
-    "5/4/2560",
+    "Evangelina",
+    "กรุงเทพ",
+    "1234567890",
+    "085058877",
+    "jordansteve@gmail.com",
   ),
   createData(
     "2",
-    "max",
-    "1",
-    "50,345.00",
-    "5/4/2560",
+    "Mcclain",
+    "กรุงเทพ",
+    "1111111111",
+    "085058877",
+    "steve@gmail.com",
   ),
   createData(
     "3",
-    "mai",
-    "2",
-    "60,345.00",
-    "5/4/2560",
+    "test",
+    "กรุงเทพ",
+    "9876546541",
+    "085058877",
+    "jordan@gmail.com",
   ),
- 
- 
-].sort((a, b) => (a.id < b.id ? -1 : 1));
+  
+].sort((a, b) => (a.name < b.name ? -1 : 1));
 
-export default function BillsLists() {
+export default function CreditorsListss() {
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -195,7 +215,7 @@ export default function BillsLists() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
+ 
   // Create new modal
   const [open, setOpen] = React.useState(false);
 
@@ -205,7 +225,7 @@ export default function BillsLists() {
   const handleClose = () => {
     setOpen(false);
   };
-
+ 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -229,7 +249,7 @@ export default function BillsLists() {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "end",
+            justifyContent: "space-between",
             alignItems: "center",
             borderBottom: "1px solid #EEF0F7",
             paddingBottom: "10px",
@@ -237,19 +257,19 @@ export default function BillsLists() {
           }}
           className="for-dark-bottom-border"
         >
-          {/* <Typography
+          <Typography
             as="h3"
             sx={{
               fontSize: 18,
               fontWeight: 500,
             }}
           >
-            รายชื่อพนักงาน
-          </Typography> */}
+            รายชื่อเจ้าหนี้
+          </Typography>
 
           <Button
-            href="/customers/create-bill"
             // onClick={handleClickOpen}
+            href="/creditor/create-creditor"
             variant="contained"
             sx={{
               textTransform: "capitalize",
@@ -264,7 +284,7 @@ export default function BillsLists() {
               sx={{ position: "relative", top: "-1px" }}
               className='mr-5px'
             />{" "}
-            เพิ่มใบวางบิลลูกหนี้
+            เพิ่มข้อมูลเจ้าหนี้
           </Button>
         </Box>
 
@@ -274,69 +294,54 @@ export default function BillsLists() {
             boxShadow: "none",
           }}
         >
-          <Table
-            sx={{ minWidth: 800 }}
+          <Table 
+            sx={{ minWidth:800 }} 
             aria-label="custom pagination table"
             className="dark-table"
           >
             <TableHead sx={{ background: "#F7FAFF" }}>
               <TableRow>
                 <TableCell
-                  align="center"
-
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
-                  รหัสใบวางบิล
+                  รหัสเจ้าหนี้
                 </TableCell>
                 <TableCell
-                  align="center"
-
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
                   ชื่อ
                 </TableCell>
 
+               
+
                 <TableCell
                   align="center"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
-                  จำนวนบิล
+                  ที่อยุ่
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
+                >
+                  เลขประจำตัวผู้เสียภาษี
                 </TableCell>
 
                 <TableCell
                   align="center"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
-                  ยอดรวม
+                  เบอร์โทรศัพท์
                 </TableCell>
 
                 <TableCell
                   align="center"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
-                  วันที่เอกสาร
+                  Email
                 </TableCell>
 
-                {/* <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  Orders
-                </TableCell> */}
-
-                {/* <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  สถานะ
-                </TableCell> */}
-
-                {/* <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  วันที่เริ่มงาน
-                </TableCell> */}
+                
 
                 <TableCell
                   align="right"
@@ -350,46 +355,13 @@ export default function BillsLists() {
             <TableBody>
               {(rowsPerPage > 0
                 ? rows.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
                 : rows
               ).map((row) => (
                 <TableRow key={row.name}>
-                  {/* <TableCell
-                    style={{
-                      width: 250,
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Checkbox {...label} size="small" />
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        ml: '10px'
-                      }}
-                    >
-                     
-                      <Box className='ml-10px'>
-                        <Typography
-                          as="h5"
-                          sx={{
-                            fontWeight: "500",
-                            fontSize: "13.5px",
-                          }}
-                        >
-                          {row.id}
-                        </Typography>
-
-                       
-                      </Box>
-                    </Box>
-                  </TableCell> */}
+                  
 
                   <TableCell
                     align="center"
@@ -402,6 +374,7 @@ export default function BillsLists() {
                   >
                     {row.id}
                   </TableCell>
+
                   <TableCell
                     align="center"
                     style={{
@@ -418,12 +391,12 @@ export default function BillsLists() {
                     align="center"
                     style={{
                       borderBottom: "1px solid #F7FAFF",
+                      fontSize: "13px",
                       paddingTop: "13px",
                       paddingBottom: "13px",
-                      fontSize: "13px",
                     }}
                   >
-                    {row.bill}
+                    {row.address}
                   </TableCell>
 
                   <TableCell
@@ -435,32 +408,8 @@ export default function BillsLists() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.total}
+                    {row.companyCode}
                   </TableCell>
-
-                  {/* <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.orders}
-                  </TableCell> */}
-
-                  {/* <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    <span className={row.badgeClass}>{row.status}</span>
-                  </TableCell> */}
 
                   <TableCell
                     align="center"
@@ -471,8 +420,24 @@ export default function BillsLists() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.date}
+                    {row.phone}
                   </TableCell>
+
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderBottom: "1px solid #F7FAFF",
+                      paddingTop: "13px",
+                      paddingBottom: "13px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.email}
+                  </TableCell>
+
+            
+
+           
 
                   <TableCell
                     align="right"
@@ -483,20 +448,21 @@ export default function BillsLists() {
                         display: "inline-block",
                       }}
                     >
-                      <Tooltip title="Remove" placement="top">
+                       <Tooltip title="View" placement="top">
                         <IconButton
-                          aria-label="remove"
+                          href="/ecommerce/product-details"
+                          aria-label="view"
                           size="small"
-                          color="danger"
-                          className="danger"
+                          color="info"
+                          className="info"
                         >
-                          <DeleteIcon fontSize="inherit" />
+                          <VisibilityIcon fontSize="inherit" />
                         </IconButton>
                       </Tooltip>
-
+                      
+                    
                       <Tooltip title="Rename" placement="top">
                         <IconButton
-                          href="/customers/edit-bill"
                           aria-label="rename"
                           size="small"
                           color="primary"
@@ -505,6 +471,19 @@ export default function BillsLists() {
                           <DriveFileRenameOutlineIcon fontSize="inherit" />
                         </IconButton>
                       </Tooltip>
+
+                      <Tooltip title="Remove" placement="top">
+                        <IconButton
+                        onClick={handleClickOpen}
+                          aria-label="remove"
+                          size="small"
+                          color="danger"
+                          className="danger"
+                        >
+                          <DeleteIcon fontSize="inherit" />
+                        </IconButton>
+                      </Tooltip>
+                      
                     </Box>
                   </TableCell>
                 </TableRow>
@@ -536,7 +515,7 @@ export default function BillsLists() {
                   }}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={BillsList}
+                  ActionsComponent={CreditorsLists}
                   style={{ borderBottom: "none" }}
                 />
               </TableRow>
@@ -545,231 +524,127 @@ export default function BillsLists() {
         </TableContainer>
       </Card>
 
-      {/* Create new modal */}
-      <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
         open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        // BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
       >
-        <Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              background: "#EDEFF5",
-              borderRadius: "8px",
-              padding: "20px 20px",
-            }}
-          >
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              sx={{
-                fontWeight: "500",
-                fontSize: "18px",
-              }}
-            >
-              Create New
-            </Typography>
-
-            <IconButton
-              aria-label="remove"
-              size="small"
-              onClick={handleClose}
-            >
-              <ClearIcon />
-            </IconButton>
-          </Box>
-
-          <Box component="form" noValidate onSubmit={handleSubmit}>
+        <Fade in={open}>
+          <Box sx={style} className="bg-black">
             <Box
               sx={{
-                background: "#fff",
-                padding: "20px 20px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                background: "#EDEFF5",
                 borderRadius: "8px",
+                padding: "20px 20px",
               }}
+              className="bg-black"
             >
-              <Grid container alignItems="center" spacing={2}>
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Image
-                  </Typography>
-                  <TextField
-                    autoComplete="image"
-                    name="image"
-                    required
-                    fullWidth
-                    id="image"
-                    type="file"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+              <Typography
+                id="modal-modal-title"
+                variant="h6"
+                component="h2"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "17px",
+                }}
+              >
+                ลบรายชื่อเจ้าหนี้
+              </Typography>
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Name
-                  </Typography>
-                  <TextField
-                    autoComplete="name"
-                    name="name"
-                    required
-                    fullWidth
-                    id="name"
-                    label="Name"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+              <IconButton
+                aria-label="remove"
+                size="small"
+                onClick={handleClose}
+              >
+                <ClearIcon />
+              </IconButton>
+            </Box>
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    User Name
-                  </Typography>
-                  <TextField
-                    autoComplete="user-name"
-                    name="userName"
-                    required
-                    fullWidth
-                    id="userName"
-                    label="User Name"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Email
-                  </Typography>
-                  <TextField
-                    autoComplete="email"
-                    name="email"
-                    required
-                    fullWidth
-                    id="email"
-                    label="example@info.com"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Phone Number
-                  </Typography>
-                  <TextField
-                    autoComplete="phone"
-                    name="phone"
-                    required
-                    fullWidth
-                    id="phone"
-                    label="0018 5054 8877"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Balance
-                  </Typography>
-                  <TextField
-                    autoComplete="balance"
-                    name="balance"
-                    required
-                    fullWidth
-                    id="balance"
-                    label="Balance"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
-
-                <Grid item xs={12} textAlign="end">
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    sx={{
-                      mt: 1,
-                      textTransform: "capitalize",
-                      borderRadius: "8px",
-                      fontWeight: "500",
-                      fontSize: "13px",
-                      padding: "12px 20px",
-                    }}
-                  >
-                    <AddIcon
+            <Box component="form" noValidate onSubmit={handleSubmit}>
+              <Box
+                sx={{
+                  background: "#fff",
+                  padding: "30px 20px",
+                  borderRadius: "8px",
+                }}
+                className="dark-BG-101010"
+              >
+                <Grid container alignItems="center" spacing={2}>
+                  <Grid item xs={12} md={12} lg={6}>
+                    <Typography
+                      as="h5"
                       sx={{
-                        position: "relative",
-                        top: "-2px",
+                        fontWeight: "500",
+                        fontSize: "14px",
+                        mb: "12px",
                       }}
-                      className='mr-5px'
-                    />{" "}
-                    Create New
-                  </Button>
+                    >
+                      ลบรายชื่อเจ้าหนี้รหัส : 123
+                    </Typography>
+                   
+                  </Grid>
+
+
+
+
+                  <Grid item xs={12} textAlign="end">
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      sx={{
+                        textTransform: "capitalize",
+                        borderRadius: "8px",
+                        fontWeight: "500",
+                        fontSize: "13px",
+                        padding: "12px 20px",
+                        color: "#fff !important",
+                      }}
+                      onClick={handleClose}
+                      className='mr-15px'
+                    >
+                      <ClearIcon
+                        sx={{
+                          position: "relative",
+                          top: "-1px",
+                        }}
+                        className='mr-5px'
+                      />{" "}
+                      ยกเลิก
+                    </Button>
+
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="danger"
+
+                      sx={{
+                        textTransform: "capitalize",
+                        borderRadius: "8px",
+                        fontWeight: "500",
+                        fontSize: "13px",
+                        padding: "12px 20px",
+                        color: "#fff !important",
+                      }}
+                    >
+                      
+                      ลบรายชื่อเจ้าหนี้
+                    </Button>
+                  </Grid>
                 </Grid>
-              </Grid>
+              </Box>
             </Box>
           </Box>
-        </Box>
-      </BootstrapDialog>
-    </>
+        </Fade>
+      </Modal>
+      </>
   );
 }

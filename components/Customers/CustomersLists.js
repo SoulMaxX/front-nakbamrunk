@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Fade, Modal, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
@@ -30,8 +30,24 @@ import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close'; 
+import VisibilityIcon from '@mui/icons-material/Visibility';
+
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  height: "30%",
+  maxWidth: '400px',
+  width: '100%',
+  overflow: "auto",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  borderRadius: "8px",
+};
 
 // Create new Modal
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -142,239 +158,44 @@ CustomersList.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(name, image, userName, email, phone, balance, orders, status, badgeClass, joiningDate, projects) {
+function createData(id,name, address, companyCode,  phone,email) {
   return {
+    id,
     name,
-    image,
-    userName,
-    email,
+    address,
+    companyCode,
     phone,
-    balance,
-    orders,
-    status,
-    badgeClass,
-    joiningDate,
-    projects,
+    email,
+   
   };
 }
 
 const rows = [
   createData(
-    "Evangelina Mcclain",
-    "/images/user1.png",
-    "@jstevenson5c",
+    "1",
+    "Evangelina",
+    "กรุงเทพ",
+    "1234567890",
+    "085058877",
     "jordansteve@gmail.com",
-    "0018 5054 8877",
-    "$3365.12",
-    "165",
-    "Active",
-    "successBadge",
-    "Jan 1, 2023",
   ),
   createData(
-    "Candice Munoz",
-    "/images/user2.png",
-    "@candice3unoz",
-    "candicemunoz@gmail.com",
-    "0018 5054 7532",
-    "$3550",
-    "112",
-    "Active",
-    "successBadge",
-    "Jan 2, 2023",
+    "2",
+    "Mcclain",
+    "กรุงเทพ",
+    "1111111111",
+    "085058877",
+    "steve@gmail.com",
   ),
   createData(
-    "Mike Mcclain",
-    "/images/user3.png",
-    "@mike4mcclain",
-    "mikemcclain@gmail.com",
-    "0018 3567 8422",
-    "$3928",
-    "240",
-    "Deactivate",
-    "dangerBadge",
-    "Jan 3, 2023",
+    "3",
+    "test",
+    "กรุงเทพ",
+    "9876546541",
+    "085058877",
+    "jordan@gmail.com",
   ),
-  createData(
-    "Bernard Langley",
-    "/images/user4.png",
-    "@bernardlangley",
-    "bernardlangley@gmail.com",
-    "0018 9382 4820",
-    "$4932",
-    "350",
-    "Active",
-    "successBadge",
-    "Jan 4, 2023",
-  ),
-  createData(
-    "Kristie Hall",
-    "/images/user5.png",
-    "@kristie7hall",
-    "kristiehall@gmail.com",
-    "0018 4663 5732",
-    "$4922",
-    "384",
-    "Active",
-    "successBadge",
-    "Jan 5, 2023",
-  ),
-  createData(
-    "Bolton Obrien",
-    "/images/user6.png",
-    "@bolton4obrien",
-    "boltonobrien@gmail.com",
-    "0018 5743 5657",
-    "$4663.12",
-    "145",
-    "Active",
-    "successBadge",
-    "Jan 6, 2023",
-  ),
-  createData(
-    "Dee Alvarado",
-    "/images/user7.png",
-    "@dee3alvarado",
-    "deealvarado@gmail.com",
-    "0018 4532 6666",
-    "$2343.12",
-    "435",
-    "Active",
-    "successBadge",
-    "Jan 7, 2023",
-  ),
-  createData(
-    "Cervantes Kramer",
-    "/images/user8.png",
-    "@cervantes4kramer",
-    "cervantes4kramer@gmail.com",
-    "0018 54545 7878",
-    "$345",
-    "24",
-    "Active",
-    "successBadge",
-    "Jan 8, 2023",
-  ),
-  createData(
-    "Dejesus Michael",
-    "/images/user9.png",
-    "@dejesus1michael",
-    "dejesusmichael@gmail.com",
-    "0018 3552 6678",
-    "$3365.12",
-    "56",
-    "Active",
-    "successBadge",
-    "Jan 9, 2023",
-  ),
-  createData(
-    "Alissa Nelson",
-    "/images/user10.png",
-    "@alissa1nelson",
-    "alissa1nelson@gmail.com",
-    "0018 3354 6822",
-    "$3522.12",
-    "165",
-    "Active",
-    "successBadge",
-    "Jan 10, 2023",
-  ),
-  createData(
-    "Milton",
-    "/images/user11.png",
-    "@milton",
-    "milton@gmail.com",
-    "0018 366 2232",
-    "$3434",
-    "222",
-    "Active",
-    "successBadge",
-    "Jan 11, 2023",
-  ),
-  createData(
-    "Claude",
-    "/images/user12.png",
-    "@claude",
-    "claude@gmail.com",
-    "0018 4614 23211",
-    "$4554.12",
-    "673",
-    "Active",
-    "successBadge",
-    "Jan 12, 2023",
-  ),
-  createData(
-    "Joshua",
-    "/images/user13.png",
-    "@joshua",
-    "joshua@gmail.com",
-    "0018 3354 2532",
-    "$2434.12",
-    "463",
-    "Active",
-    "successBadge",
-    "Jan 13, 2023",
-  ),
-  createData(
-    "Harvey",
-    "/images/user14.png",
-    "@harvey",
-    "harvey@gmail.com",
-    "0018 3331 2224",
-    "$453.12",
-    "445",
-    "Active",
-    "successBadge",
-    "Jan 14, 2023",
-  ),
-  createData(
-    "Antonio",
-    "/images/user15.png",
-    "@antonio",
-    "antonio@gmail.com",
-    "0018 3354 6822",
-    "$3522.12",
-    "165",
-    "Active",
-    "successBadge",
-    "Jan 15, 2023",
-  ),
-  createData(
-    "Julian",
-    "/images/user16.png",
-    "@julian",
-    "julian@gmail.com",
-    "0018 4322 1231",
-    "$455.12",
-    "165",
-    "Active",
-    "successBadge",
-    "Jan 16, 2023",
-  ),
-  createData(
-    "Harold",
-    "/images/user17.png",
-    "@harold",
-    "harold@gmail.com",
-    "0018 455 3323",
-    "$3422.12",
-    "564",
-    "Active",
-    "successBadge",
-    "Jan 17, 2023",
-  ),
-  createData(
-    "Kingston",
-    "/images/user18.png",
-    "@kingston",
-    "kingston@info.com",
-    "0018 3453 4325",
-    "$442.12",
-    "6776",
-    "Active",
-    "successBadge",
-    "Jan 18, 2023",
-  ),
+  
 ].sort((a, b) => (a.name < b.name ? -1 : 1));
 
 export default function CustomersLists() {
@@ -443,11 +264,12 @@ export default function CustomersLists() {
               fontWeight: 500,
             }}
           >
-            Customers Lists
+            รายชื่อลูกค้า
           </Typography>
 
           <Button
-            onClick={handleClickOpen}
+            // onClick={handleClickOpen}
+            href="/customers/create-customer"
             variant="contained"
             sx={{
               textTransform: "capitalize",
@@ -462,7 +284,7 @@ export default function CustomersLists() {
               sx={{ position: "relative", top: "-1px" }}
               className='mr-5px'
             />{" "}
-            Create New
+            เพิ่มข้อมูลลูกค้า
           </Button>
         </Box>
 
@@ -473,7 +295,7 @@ export default function CustomersLists() {
           }}
         >
           <Table 
-            sx={{ minWidth: 1100 }} 
+            sx={{ minWidth: 800 }} 
             aria-label="custom pagination table"
             className="dark-table"
           >
@@ -482,7 +304,34 @@ export default function CustomersLists() {
                 <TableCell
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
-                  Name
+                  รหัสลูกค้า
+                </TableCell>
+                <TableCell
+                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
+                >
+                  ชื่อ
+                </TableCell>
+
+               
+
+                <TableCell
+                  align="center"
+                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
+                >
+                  ที่อยุ่
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
+                >
+                  เลขประจำตัวผู้เสียภาษี
+                </TableCell>
+
+                <TableCell
+                  align="center"
+                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
+                >
+                  เบอร์โทรศัพท์
                 </TableCell>
 
                 <TableCell
@@ -492,40 +341,7 @@ export default function CustomersLists() {
                   Email
                 </TableCell>
 
-                <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  Phone
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  Balance
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  Orders
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  Status
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  Joining Date
-                </TableCell>
+                
 
                 <TableCell
                   align="right"
@@ -545,52 +361,18 @@ export default function CustomersLists() {
                 : rows
               ).map((row) => (
                 <TableRow key={row.name}>
+                  
+
                   <TableCell
+                    align="center"
                     style={{
-                      width: 250,
                       borderBottom: "1px solid #F7FAFF",
+                      fontSize: "13px",
                       paddingTop: "13px",
                       paddingBottom: "13px",
-                      display: "flex",
-                      alignItems: "center",
                     }}
                   >
-                    <Checkbox {...label} size="small" />
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        ml: '10px'
-                      }}
-                    >
-                      <img
-                        src={row.image}
-                        alt="User"
-                        width={40}
-                        height={40}
-                        className="borRadius100"
-                      />
-                      <Box className='ml-10px'>
-                        <Typography
-                          as="h5"
-                          sx={{
-                            fontWeight: "500",
-                            fontSize: "13.5px",
-                          }}
-                        >
-                          {row.name}
-                        </Typography>
-
-                        <Typography
-                          sx={{
-                            fontSize: "12px",
-                            color: "#A9A9C8",
-                          }}
-                        >
-                          {row.userName}
-                        </Typography>
-                      </Box>
-                    </Box>
+                    {row.id}
                   </TableCell>
 
                   <TableCell
@@ -602,7 +384,31 @@ export default function CustomersLists() {
                       paddingBottom: "13px",
                     }}
                   >
-                    {row.email}
+                    {row.name}
+                  </TableCell>
+
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderBottom: "1px solid #F7FAFF",
+                      fontSize: "13px",
+                      paddingTop: "13px",
+                      paddingBottom: "13px",
+                    }}
+                  >
+                    {row.address}
+                  </TableCell>
+
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderBottom: "1px solid #F7FAFF",
+                      paddingTop: "13px",
+                      paddingBottom: "13px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.companyCode}
                   </TableCell>
 
                   <TableCell
@@ -626,44 +432,12 @@ export default function CustomersLists() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.balance}
+                    {row.email}
                   </TableCell>
 
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.orders}
-                  </TableCell>
+            
 
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    <span className={row.badgeClass}>{row.status}</span>
-                  </TableCell>
-
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.joiningDate}
-                  </TableCell>
+           
 
                   <TableCell
                     align="right"
@@ -674,17 +448,19 @@ export default function CustomersLists() {
                         display: "inline-block",
                       }}
                     >
-                      <Tooltip title="Remove" placement="top">
+                       <Tooltip title="View" placement="top">
                         <IconButton
-                          aria-label="remove"
+                          href="/ecommerce/product-details"
+                          aria-label="view"
                           size="small"
-                          color="danger"
-                          className="danger"
+                          color="info"
+                          className="info"
                         >
-                          <DeleteIcon fontSize="inherit" />
+                          <VisibilityIcon fontSize="inherit" />
                         </IconButton>
                       </Tooltip>
-
+                      
+                    
                       <Tooltip title="Rename" placement="top">
                         <IconButton
                           aria-label="rename"
@@ -695,6 +471,19 @@ export default function CustomersLists() {
                           <DriveFileRenameOutlineIcon fontSize="inherit" />
                         </IconButton>
                       </Tooltip>
+
+                      <Tooltip title="Remove" placement="top">
+                        <IconButton
+                        onClick={handleClickOpen}
+                          aria-label="remove"
+                          size="small"
+                          color="danger"
+                          className="danger"
+                        >
+                          <DeleteIcon fontSize="inherit" />
+                        </IconButton>
+                      </Tooltip>
+                      
                     </Box>
                   </TableCell>
                 </TableRow>
@@ -735,231 +524,127 @@ export default function CustomersLists() {
         </TableContainer>
       </Card>
 
-      {/* Create new modal */}
-      <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
         open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        // BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
       >
-        <Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              background: "#EDEFF5",
-              borderRadius: "8px",
-              padding: "20px 20px",
-            }}
-          >
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              sx={{
-                fontWeight: "500",
-                fontSize: "18px",
-              }}
-            >
-              Create New
-            </Typography>
-
-            <IconButton
-              aria-label="remove"
-              size="small"
-              onClick={handleClose}
-            >
-              <ClearIcon />
-            </IconButton>
-          </Box>
-
-          <Box component="form" noValidate onSubmit={handleSubmit}>
+        <Fade in={open}>
+          <Box sx={style} className="bg-black">
             <Box
               sx={{
-                background: "#fff",
-                padding: "20px 20px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                background: "#EDEFF5",
                 borderRadius: "8px",
+                padding: "20px 20px",
               }}
+              className="bg-black"
             >
-              <Grid container alignItems="center" spacing={2}>
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Image
-                  </Typography>
-                  <TextField
-                    autoComplete="image"
-                    name="image"
-                    required
-                    fullWidth
-                    id="image"
-                    type="file"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+              <Typography
+                id="modal-modal-title"
+                variant="h6"
+                component="h2"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "17px",
+                }}
+              >
+                ลบรายชื่อลูกค้า
+              </Typography>
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Name
-                  </Typography>
-                  <TextField
-                    autoComplete="name"
-                    name="name"
-                    required
-                    fullWidth
-                    id="name"
-                    label="Name"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+              <IconButton
+                aria-label="remove"
+                size="small"
+                onClick={handleClose}
+              >
+                <ClearIcon />
+              </IconButton>
+            </Box>
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    User Name
-                  </Typography>
-                  <TextField
-                    autoComplete="user-name"
-                    name="userName"
-                    required
-                    fullWidth
-                    id="userName"
-                    label="User Name"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Email
-                  </Typography>
-                  <TextField
-                    autoComplete="email"
-                    name="email"
-                    required
-                    fullWidth
-                    id="email"
-                    label="example@info.com"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Phone Number
-                  </Typography>
-                  <TextField
-                    autoComplete="phone"
-                    name="phone"
-                    required
-                    fullWidth
-                    id="phone"
-                    label="0018 5054 8877"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Balance
-                  </Typography>
-                  <TextField
-                    autoComplete="balance"
-                    name="balance"
-                    required
-                    fullWidth
-                    id="balance"
-                    label="Balance"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
-
-                <Grid item xs={12} textAlign="end">
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    sx={{
-                      mt: 1,
-                      textTransform: "capitalize",
-                      borderRadius: "8px",
-                      fontWeight: "500",
-                      fontSize: "13px",
-                      padding: "12px 20px",
-                    }}
-                  >
-                    <AddIcon
+            <Box component="form" noValidate onSubmit={handleSubmit}>
+              <Box
+                sx={{
+                  background: "#fff",
+                  padding: "30px 20px",
+                  borderRadius: "8px",
+                }}
+                className="dark-BG-101010"
+              >
+                <Grid container alignItems="center" spacing={2}>
+                  <Grid item xs={12} md={12} lg={6}>
+                    <Typography
+                      as="h5"
                       sx={{
-                        position: "relative",
-                        top: "-2px",
+                        fontWeight: "500",
+                        fontSize: "14px",
+                        mb: "12px",
                       }}
-                      className='mr-5px'
-                    />{" "}
-                    Create New
-                  </Button>
+                    >
+                      ลบรายชื่อลูกค้ารหัส : 123
+                    </Typography>
+                   
+                  </Grid>
+
+
+
+
+                  <Grid item xs={12} textAlign="end">
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      sx={{
+                        textTransform: "capitalize",
+                        borderRadius: "8px",
+                        fontWeight: "500",
+                        fontSize: "13px",
+                        padding: "12px 20px",
+                        color: "#fff !important",
+                      }}
+                      onClick={handleClose}
+                      className='mr-15px'
+                    >
+                      <ClearIcon
+                        sx={{
+                          position: "relative",
+                          top: "-1px",
+                        }}
+                        className='mr-5px'
+                      />{" "}
+                      ยกเลิก
+                    </Button>
+
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="danger"
+
+                      sx={{
+                        textTransform: "capitalize",
+                        borderRadius: "8px",
+                        fontWeight: "500",
+                        fontSize: "13px",
+                        padding: "12px 20px",
+                        color: "#fff !important",
+                      }}
+                    >
+                      
+                      ลบรายชื่อลูกค้า
+                    </Button>
+                  </Grid>
                 </Grid>
-              </Grid>
+              </Box>
             </Box>
           </Box>
-        </Box>
-      </BootstrapDialog>
-    </>
+        </Fade>
+      </Modal>
+      </>
   );
 }

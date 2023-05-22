@@ -248,7 +248,7 @@ export default function BillsLists() {
           </Typography> */}
 
           <Button
-            href="/customers/create-bill"
+            href="/creditor/create-bill"
             // onClick={handleClickOpen}
             variant="contained"
             sx={{
@@ -264,7 +264,7 @@ export default function BillsLists() {
               sx={{ position: "relative", top: "-1px" }}
               className='mr-5px'
             />{" "}
-            เพิ่มใบวางบิลลูกหนี้
+            เพิ่มใบวางบิลเจ้าหนี้
           </Button>
         </Box>
 
@@ -496,7 +496,7 @@ export default function BillsLists() {
 
                       <Tooltip title="Rename" placement="top">
                         <IconButton
-                          href="/customers/edit-bill"
+                          href="/creditor/edit-bill"
                           aria-label="rename"
                           size="small"
                           color="primary"

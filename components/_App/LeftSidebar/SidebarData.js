@@ -16,6 +16,7 @@ import ViewQuiltIcon from "@mui/icons-material/ViewQuilt";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import PersonIcon from '@mui/icons-material/Person';
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
 export const SidebarData = [
   // {
@@ -172,24 +173,25 @@ export const SidebarData = [
   // },
   {
     title: "การซื้อ",
-    path: "/purchase",
+    path: "/buy/offer-buy/",
     icon: <ShoppingCartCheckoutIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
 
     subNav: [
-      // {
-      //   title: "ใบกำกับภาษีซื้อ",
-      //   path: "/sell/offer-sell/",
-      // },
-      // {
-      //   title: "ใบเสนอราคาซื้อ",
-      //   path: "/sell/offer-sell/",
-      // },
-      // {
-      //   title: "ใบสั่งซื้อ",
-      //   path: "/sell/order-sell/",
-      // },
+      
+      {
+        title: "ใบเสนอราคาซื้อ",
+        path: "/buy/offer-buy/",
+      },
+      {
+        title: "ใบสั่งซื้อ",
+        path: "/buy/order-buy/",
+      },
+      {
+        title: "ใบกำกับภาษีซื้อ",
+        path: "/buy/tax-buy/",
+      },
       // {
       //   title: "รายงานซื้อรายวัน",
       //   path: "/sell/order-sell/",
@@ -393,6 +395,10 @@ export const SidebarData = [
         path: "/customers/bills-tax",
       },
       {
+        title: "ใบสำคัญรับ",
+        path: "/customers/receipt",
+      },
+      {
         title: "รายงานใบวางบิลรายเดือน",
         path: "/customers/bills-monthly",
       },
@@ -425,41 +431,53 @@ export const SidebarData = [
   },
   {
     title: "เจ้าหนี้",
-    path: "/customers/customers",
+    path: "/creditor/",
     icon: <PersonIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
 
     subNav: [
 
-      // {
-      //   title: "ข้อมูลลูกค้า",
-      //   path: "/customers/customers",
-      // },
+      {
+        title: "ข้อมูลเจ้าหนี้",
+        path: "/creditor/",
+      },
+      {
+        title: "ใบวางบิลเจ้าหนี้",
+        path: "/creditor/bills",
+      },
+      {
+        title: "ใบวางบิลเจ้าหนี้+ภาษี",
+        path: "/creditor/bills-tax",
+      },
+      {
+        title: "ใบสำคํญจ่าย",
+        path: "/creditor/payment",
+      },
       
     ],
   },
   {
     title: "การเงิน",
-    path: "/finance/bookbank",
-    icon: <PersonIcon />,
+    path: "/finance/bookbank/",
+    icon: <AccountBalanceIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
 
     subNav: [
-
+      {
+        title: "รายชื่อบัญชีธนาคาร",
+        path: "/finance/bookbank/",
+      },
       {
         title: "เช็ครับ",
-        path: "/finance/bankcheck-recive",
+        path: "/finance/bankcheck-recive/",
       },
       {
         title: "เช็คจ่าย",
-        path: "/finance/bankcheck-paid",
+        path: "/finance/bankcheck-paid/",
       },
-      {
-        title: "รายชื่อบัญชีธนาคาร",
-        path: "/finance/bookbank",
-      },
+    
       
     ],
   },
@@ -482,7 +500,7 @@ export const SidebarData = [
   {
     title: "จัดการระบบ",
     path: "/admin/users",
-    icon: <PersonIcon />,
+    icon: <SettingsIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
 

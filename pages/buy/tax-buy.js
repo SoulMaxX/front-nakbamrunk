@@ -196,12 +196,12 @@ export default function OrderSells() {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>ใบกำกับภาษีขาย</h1>
+        <h1>ใบกำกับภาษีซื้อ</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>ใบกำกับภาษีขาย</li>
+          <li>ใบกำกับภาษีซื้อ</li>
         </ul>
       </div>
 
@@ -256,7 +256,7 @@ export default function OrderSells() {
 
           <Button
             // onClick={handleOpen}
-            href="/sell/tax-sell-create/"
+            href="/buy/tax-buy-create/"
             variant="contained"
             sx={{
               textTransform: "capitalize",
@@ -271,7 +271,7 @@ export default function OrderSells() {
               sx={{ position: "relative", top: "-1px" }}
               className='mr-5px'
             />{" "}
-            เพิ่มใบกำกับภาษีขาย
+            เพิ่มใบกำกับภาษีซื้อ
           </Button>
         </Box>
 
@@ -296,7 +296,7 @@ export default function OrderSells() {
                     width: "170px"
                   }}
                 >
-                  รหัสใบกำกับภาษีขาย
+                  รหัสใบกำกับภาษีซื้อ
                 </TableCell>
                 <TableCell
                   align="center"
@@ -416,7 +416,7 @@ export default function OrderSells() {
                     >
                       <Tooltip title="View" placement="top">
                         <IconButton
-                          href="/sell/tax-sell-details"
+                          href="/buy/tax-buy-details"
                           aria-label="view"
                           size="small"
                           color="info"
@@ -428,7 +428,7 @@ export default function OrderSells() {
 
                       <Tooltip title="Edit" placement="top">
                         <IconButton
-                        href="/sell/tax-sell-edit"
+                        href="/buy/tax-buy-edit"
                           aria-label="edit"
                           size="small"
                           color="primary"

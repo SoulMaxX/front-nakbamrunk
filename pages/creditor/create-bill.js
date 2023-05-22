@@ -37,12 +37,12 @@ const CreateBill = () => {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>เพิ่มใบวางบิลลูกหนี้</h1>
+        <h1>เพิ่มใบวางบิลเจ้าหนี้</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>เพิ่มใบวางบิลลูกหนี้</li>
+          <li>เพิ่มใบวางบิลเจ้าหนี้</li>
         </ul>
       </div>
 
@@ -68,7 +68,7 @@ const CreateBill = () => {
                   mb: "12px",
                 }}
               >
-                รหัสใบวางบิลลูกหนี้
+                รหัสใบวางบิลเจ้าหนี้
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -76,7 +76,7 @@ const CreateBill = () => {
                 required
                 fullWidth
                 id="productName"
-                label="รหัสใบวางบิลลูกหนี้"
+                label="รหัสใบวางบิลเจ้าหนี้"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -92,7 +92,7 @@ const CreateBill = () => {
                   mb: "12px",
                 }}
               >
-                รหัสลูกค้า
+                รหัสเจ้าหนี้
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -100,7 +100,7 @@ const CreateBill = () => {
                 required
                 fullWidth
                 id="productName"
-                label="รหัสลูกค้า"
+                label="รหัสเจ้าหนี้"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -118,7 +118,7 @@ const CreateBill = () => {
                   mb: "12px",
                 }}
               >
-                ชื่อลูกค้า :
+                ชื่อเจ้าหนี้ :
               </Typography>
               
             </Grid>
@@ -319,7 +319,7 @@ const CreateBill = () => {
                   }}
                   className='mr-5px'
                 />{" "}
-                เพิ่มใบวางบิลลูกหนี้
+                เพิ่มใบวางบิลเจ้าหนี้
               </Button>
             </Grid>
           </Grid>

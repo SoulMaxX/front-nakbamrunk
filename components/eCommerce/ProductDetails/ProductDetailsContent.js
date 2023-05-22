@@ -122,6 +122,38 @@ const ProductDetailsContent = () => {
               <Button
                 variant="contained"
                 color="primary"
+                href="/products/history-buy"
+                sx={{
+                  textTransform: 'capitalize',
+                  borderRadius: '30px',
+                  mt: '10px',
+                  p: '10px 30px',
+                  fontSize: '14px',
+                  color: "#fff !important",
+                }}
+                className="mr-10px"
+              >
+                ประวัติราคาซื้อ
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                href="/products/history-sell"
+                sx={{
+                  textTransform: 'capitalize',
+                  borderRadius: '30px',
+                  mt: '10px',
+                  p: '10px 30px',
+                  fontSize: '14px',
+                  color: "#fff !important",
+                }}
+                className="mr-10px"
+              >
+                ประวัติราคาขาย
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
                 sx={{
                   textTransform: 'capitalize',
                   borderRadius: '30px',
