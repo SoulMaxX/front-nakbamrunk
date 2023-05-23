@@ -45,7 +45,7 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-// Create ReportSaleEmployeee Modal Style
+// Create ReportReamrk Modal Style
 const style = {
   position: "absolute",
   top: "50%",
@@ -60,7 +60,7 @@ const style = {
   borderRadius: "8px",
 };
 
-function ReportSaleEmployeee(props) {
+function ReportReamrk(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -122,7 +122,7 @@ function ReportSaleEmployeee(props) {
   );
 }
 
-ReportSaleEmployeee.propTypes = {
+ReportReamrk.propTypes = {
   count: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
@@ -142,11 +142,7 @@ function createData(
 }
 
 const rows = [
-  createData(
-    "1",
-    "บจ. อุบล-เขมราฐ",
-    "8,500.00",
-  ),
+
   createData(
     "1",
     "test",
@@ -156,7 +152,7 @@ const rows = [
 ]
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
-export default function ReportSaleEmployeees() {
+export default function ReportReamrks() {
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -174,7 +170,7 @@ export default function ReportSaleEmployeees() {
     setPage(0);
   };
 
-  // Create ReportSaleEmployeee Modal & Form
+  // Create ReportReamrk Modal & Form
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -198,12 +194,12 @@ export default function ReportSaleEmployeees() {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>รายงานยอดขายแยกพนักงาน</h1>
+        <h1>รายงานยอดขายแยกหมายเหตุ</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>รายงานยอดขายแยกพนักงาน</li>
+          <li>รายงานยอดขายแยกหมายเหตุ</li>
         </ul>
       </div>
 
@@ -448,7 +444,7 @@ export default function ReportSaleEmployeees() {
                     fontSize: "13.5px",
                   }}
                 >
-                  ชื่อพนักงาน
+                  หมายเหตุ
                 </TableCell>
 
                 <TableCell
@@ -462,7 +458,7 @@ export default function ReportSaleEmployeees() {
                 </TableCell>
 
 
-                <TableCell
+                {/* <TableCell
                   align="right"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -470,7 +466,7 @@ export default function ReportSaleEmployeees() {
                   }}
                 >
                   Actions
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             </TableHead>
 
@@ -482,7 +478,7 @@ export default function ReportSaleEmployeees() {
                 )
                 : rows
               ).map((row) => (
-                <TableRow key={row.name} className={styles.ReportSaleEmployeee} >
+                <TableRow key={row.name} className={styles.ReportReamrk} >
                   {/* <TableCell
                     align="center"
                     sx={{
@@ -534,7 +530,7 @@ export default function ReportSaleEmployeees() {
 
 
 
-                  <TableCell
+                  {/* <TableCell
                     align="right"
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
@@ -558,7 +554,7 @@ export default function ReportSaleEmployeees() {
                         </IconButton>
                       </Tooltip>
 
-                      {/* <Tooltip title="Edit" placement="top">
+                      <Tooltip title="Edit" placement="top">
                         <IconButton
                           href="/sell/order-sell-edit"
                           aria-label="edit"
@@ -568,20 +564,11 @@ export default function ReportSaleEmployeees() {
                         >
                           <DriveFileRenameOutlineIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip> */}
+                      </Tooltip>
 
-                      {/* <Tooltip title="Add To Cart" placement="top">
-                        <IconButton
-                          aria-label="Add To Cart"
-                          size="small"
-                          color="success"
-                          className="success"
-                        >
-                          <ShoppingCartIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip> */}
+               
 
-                      {/* <Tooltip title="Remove" placement="top">
+                      <Tooltip title="Remove" placement="top">
                         <IconButton
                           onClick={handleOpen}
                           aria-label="remove"
@@ -591,9 +578,9 @@ export default function ReportSaleEmployeees() {
                         >
                           <DeleteIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip> */}
+                      </Tooltip>
                     </Box>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
 
@@ -623,7 +610,7 @@ export default function ReportSaleEmployeees() {
                   }}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={ReportSaleEmployeee}
+                  ActionsComponent={ReportReamrk}
                   style={{ borderBottom: "none" }}
                 />
               </TableRow>
@@ -632,7 +619,7 @@ export default function ReportSaleEmployeees() {
         </TableContainer>
       </Card>
 
-      {/* Create ReportSaleEmployeee Modal */}
+      {/* Create ReportReamrk Modal */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -787,7 +774,7 @@ export default function ReportSaleEmployeees() {
                   fontSize: "17px",
                 }}
               >
-                Create ReportSaleEmployeee
+                Create ReportReamrk
               </Typography>
 
               <IconButton
@@ -818,15 +805,15 @@ export default function ReportSaleEmployeees() {
                         mb: "12px",
                       }}
                     >
-                      ReportSaleEmployeee Name
+                      ReportReamrk Name
                     </Typography>
                     <TextField
-                      autoComplete="ReportSaleEmployeee-name"
-                      name="ReportSaleEmployeeeName"
+                      autoComplete="ReportReamrk-name"
+                      name="ReportReamrkName"
                       required
                       fullWidth
-                      id="ReportSaleEmployeeeName"
-                      label="ReportSaleEmployeee Name"
+                      id="ReportReamrkName"
+                      label="ReportReamrk Name"
                       autoFocus
                       InputProps={{
                         style: { borderRadius: 8 },
@@ -977,7 +964,7 @@ export default function ReportSaleEmployeees() {
                         mb: "12px",
                       }}
                     >
-                      ReportSaleEmployeee Description
+                      ReportReamrk Description
                     </Typography>
 
                     <RichTextEditor
@@ -1000,15 +987,15 @@ export default function ReportSaleEmployeees() {
                         mb: "12px",
                       }}
                     >
-                      ReportSaleEmployeee Image
+                      ReportReamrk Image
                     </Typography>
 
                     <TextField
-                      autoComplete="ReportSaleEmployeee-image"
-                      name="ReportSaleEmployeeeImage"
+                      autoComplete="ReportReamrk-image"
+                      name="ReportReamrkImage"
                       required
                       fullWidth
-                      id="ReportSaleEmployeeeImage"
+                      id="ReportReamrkImage"
                       type="file"
                       autoFocus
                       InputProps={{
@@ -1022,8 +1009,8 @@ export default function ReportSaleEmployeees() {
                       }}
                     >
                       <img
-                        src="/images/ReportSaleEmployeee1.png"
-                        alt="ReportSaleEmployeee"
+                        src="/images/ReportReamrk1.png"
+                        alt="ReportReamrk"
                         wisth="55px"
                         className='mr-10px'
                       />
@@ -1074,7 +1061,7 @@ export default function ReportSaleEmployeees() {
                         }}
                         className='mr-5px'
                       />{" "}
-                      Create ReportSaleEmployeee
+                      Create ReportReamrk
                     </Button>
                   </Grid>
                 </Grid>

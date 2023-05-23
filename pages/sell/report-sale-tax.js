@@ -144,12 +144,12 @@ function createData(
 const rows = [
   createData(
     "1",
-    "บจ. อุบล-เขมราฐ",
+    "20/5/2566",
     "8,500.00",
   ),
   createData(
     "1",
-    "test",
+    "21/5/2566",
     "10,000.00",
   ),
 
@@ -198,12 +198,12 @@ export default function ReportSaleEmployeees() {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>รายงานยอดขายแยกพนักงาน</h1>
+        <h1>รายงานภาษีขาย</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>รายงานยอดขายแยกพนักงาน</li>
+          <li>รายงานภาษีขาย</li>
         </ul>
       </div>
 
@@ -289,6 +289,55 @@ export default function ReportSaleEmployeees() {
           </Button> */}
 
 
+            <Box
+              sx={{
+                display: "flex",
+                boxShadow: "none",
+                borderRadius: "10px",
+                pt: "25px",
+                pb: "25px",
+                mb: "5px",
+              }}
+            >
+              <Typography
+                as="h3"
+                sx={{
+                  fontSize: 18,
+                  fontWeight: 500,
+                  mb: '10px',
+                  p: "20px",
+
+                }}
+              >
+                วัน
+              </Typography>
+
+              <FormControl fullWidth>
+                {/* <InputLabel id="demo-simple-select-label">เดือน</InputLabel> */}
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                // value={age}
+                // label="Age"
+                // onChange={handleChange}
+
+                >
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
+                  <MenuItem value={5}>5</MenuItem>
+                  <MenuItem value={6}>6</MenuItem>
+                  <MenuItem value={7}>7</MenuItem>
+                  <MenuItem value={8}>8</MenuItem>
+                  <MenuItem value={9}>9</MenuItem>
+                  <MenuItem value={10}>10</MenuItem>
+                  <MenuItem value={11}>11</MenuItem>
+                  <MenuItem value={12}>12</MenuItem>
+
+                </Select>
+              </FormControl>
+            </Box>
             <Box
               sx={{
                 display: "flex",
@@ -448,7 +497,7 @@ export default function ReportSaleEmployeees() {
                     fontSize: "13.5px",
                   }}
                 >
-                  ชื่อพนักงาน
+                  วันที่
                 </TableCell>
 
                 <TableCell
@@ -462,7 +511,7 @@ export default function ReportSaleEmployeees() {
                 </TableCell>
 
 
-                <TableCell
+                {/* <TableCell
                   align="right"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -470,7 +519,7 @@ export default function ReportSaleEmployeees() {
                   }}
                 >
                   Actions
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             </TableHead>
 
@@ -534,7 +583,7 @@ export default function ReportSaleEmployeees() {
 
 
 
-                  <TableCell
+                  {/* <TableCell
                     align="right"
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
@@ -558,7 +607,7 @@ export default function ReportSaleEmployeees() {
                         </IconButton>
                       </Tooltip>
 
-                      {/* <Tooltip title="Edit" placement="top">
+                      <Tooltip title="Edit" placement="top">
                         <IconButton
                           href="/sell/order-sell-edit"
                           aria-label="edit"
@@ -568,20 +617,11 @@ export default function ReportSaleEmployeees() {
                         >
                           <DriveFileRenameOutlineIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip> */}
+                      </Tooltip>
 
-                      {/* <Tooltip title="Add To Cart" placement="top">
-                        <IconButton
-                          aria-label="Add To Cart"
-                          size="small"
-                          color="success"
-                          className="success"
-                        >
-                          <ShoppingCartIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip> */}
+              
 
-                      {/* <Tooltip title="Remove" placement="top">
+                      <Tooltip title="Remove" placement="top">
                         <IconButton
                           onClick={handleOpen}
                           aria-label="remove"
@@ -591,9 +631,9 @@ export default function ReportSaleEmployeees() {
                         >
                           <DeleteIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip> */}
+                      </Tooltip>
                     </Box>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
 

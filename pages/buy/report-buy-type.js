@@ -144,13 +144,13 @@ function createData(
 const rows = [
   createData(
     "1",
-    "บจ. อุบล-เขมราฐ",
+    "1",
     "8,500.00",
   ),
   createData(
-    "1",
-    "test",
-    "10,000.00",
+    "2",
+    "2",
+    "5,000.00",
   ),
 
 ]
@@ -198,12 +198,12 @@ export default function ReportSaleEmployeees() {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>รายงานยอดขายแยกพนักงาน</h1>
+        <h1>รายงานยอดซื้อแยกหมวด</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>รายงานยอดขายแยกพนักงาน</li>
+          <li>รายงานยอดซื้อแยกหมวด</li>
         </ul>
       </div>
 
@@ -448,7 +448,7 @@ export default function ReportSaleEmployeees() {
                     fontSize: "13.5px",
                   }}
                 >
-                  ชื่อพนักงาน
+                  หมวด
                 </TableCell>
 
                 <TableCell
@@ -462,7 +462,7 @@ export default function ReportSaleEmployeees() {
                 </TableCell>
 
 
-                <TableCell
+                {/* <TableCell
                   align="right"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -470,7 +470,7 @@ export default function ReportSaleEmployeees() {
                   }}
                 >
                   Actions
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             </TableHead>
 
@@ -534,7 +534,7 @@ export default function ReportSaleEmployeees() {
 
 
 
-                  <TableCell
+                  {/* <TableCell
                     align="right"
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
@@ -558,7 +558,7 @@ export default function ReportSaleEmployeees() {
                         </IconButton>
                       </Tooltip>
 
-                      {/* <Tooltip title="Edit" placement="top">
+                      <Tooltip title="Edit" placement="top">
                         <IconButton
                           href="/sell/order-sell-edit"
                           aria-label="edit"
@@ -568,20 +568,11 @@ export default function ReportSaleEmployeees() {
                         >
                           <DriveFileRenameOutlineIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip> */}
+                      </Tooltip>
 
-                      {/* <Tooltip title="Add To Cart" placement="top">
-                        <IconButton
-                          aria-label="Add To Cart"
-                          size="small"
-                          color="success"
-                          className="success"
-                        >
-                          <ShoppingCartIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip> */}
+                
 
-                      {/* <Tooltip title="Remove" placement="top">
+                      <Tooltip title="Remove" placement="top">
                         <IconButton
                           onClick={handleOpen}
                           aria-label="remove"
@@ -591,9 +582,9 @@ export default function ReportSaleEmployeees() {
                         >
                           <DeleteIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip> */}
+                      </Tooltip>
                     </Box>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
 

@@ -144,12 +144,12 @@ function createData(
 const rows = [
   createData(
     "1",
-    "บจ. อุบล-เขมราฐ",
+    "20/5/2566",
     "8,500.00",
   ),
   createData(
     "1",
-    "test",
+    "21/5/2566",
     "10,000.00",
   ),
 
@@ -198,12 +198,12 @@ export default function ReportSaleEmployeees() {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>รายงานยอดขายแยกพนักงาน</h1>
+        <h1>รายงานค่าใช้จ่ายรายเดือน</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>รายงานยอดขายแยกพนักงาน</li>
+          <li>รายงานค่าใช้จ่ายรายเดือน</li>
         </ul>
       </div>
 
@@ -289,6 +289,7 @@ export default function ReportSaleEmployeees() {
           </Button> */}
 
 
+           
             <Box
               sx={{
                 display: "flex",
@@ -448,7 +449,7 @@ export default function ReportSaleEmployeees() {
                     fontSize: "13.5px",
                   }}
                 >
-                  ชื่อพนักงาน
+                  วันที่
                 </TableCell>
 
                 <TableCell
@@ -462,7 +463,7 @@ export default function ReportSaleEmployeees() {
                 </TableCell>
 
 
-                <TableCell
+                {/* <TableCell
                   align="right"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -470,7 +471,7 @@ export default function ReportSaleEmployeees() {
                   }}
                 >
                   Actions
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             </TableHead>
 
@@ -534,7 +535,7 @@ export default function ReportSaleEmployeees() {
 
 
 
-                  <TableCell
+                  {/* <TableCell
                     align="right"
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
@@ -558,7 +559,7 @@ export default function ReportSaleEmployeees() {
                         </IconButton>
                       </Tooltip>
 
-                      {/* <Tooltip title="Edit" placement="top">
+                      <Tooltip title="Edit" placement="top">
                         <IconButton
                           href="/sell/order-sell-edit"
                           aria-label="edit"
@@ -568,20 +569,11 @@ export default function ReportSaleEmployeees() {
                         >
                           <DriveFileRenameOutlineIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip> */}
+                      </Tooltip>
 
-                      {/* <Tooltip title="Add To Cart" placement="top">
-                        <IconButton
-                          aria-label="Add To Cart"
-                          size="small"
-                          color="success"
-                          className="success"
-                        >
-                          <ShoppingCartIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip> */}
+              
 
-                      {/* <Tooltip title="Remove" placement="top">
+                      <Tooltip title="Remove" placement="top">
                         <IconButton
                           onClick={handleOpen}
                           aria-label="remove"
@@ -591,9 +583,9 @@ export default function ReportSaleEmployeees() {
                         >
                           <DeleteIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip> */}
+                      </Tooltip>
                     </Box>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
 

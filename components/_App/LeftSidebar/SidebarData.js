@@ -192,34 +192,30 @@ export const SidebarData = [
         title: "ใบกำกับภาษีซื้อ",
         path: "/buy/tax-buy/",
       },
-      // {
-      //   title: "รายงานซื้อรายวัน",
-      //   path: "/sell/order-sell/",
-      // },
-      // {
-      //   title: "รายงานยอดซื้อรายเดือน",
-      //   path: "/sell/order-sell/",
-      // },
-      // {
-      //   title: "รายงานยอดซื้อแยกพนักงาน",
-      //   path: "/sell/order-sell/",
-      // },
-      // {
-      //   title: "รายงานยอดซื้อแยกลูกค้า",
-      //   path: "/sell/report-sale-employee/",
-      // },
-      // {
-      //   title: "รายงานยอดซื้อแยกหมายเหตุ",
-      //   path: "/sell/order-sell/",
-      // },
-      // {
-      //   title: "รายงานยอดซื้อแยกหมวด",
-      //   path: "/sell/order-sell/",
-      // },
-      // {
-      //   title: "รายงานภาษีซื้อ",
-      //   path: "/sell/order-sell/",
-      // },
+      {
+        title: "รายงานยอดซื้อ",
+        path: "/buy/report-buy/",
+      },
+      {
+        title: "รายงานยอดซื้อแยกSupplier",
+        path: "/buy/report-buy-supplier/",
+      },
+      {
+        title: "รายงานยอดซื้อแยกหมายเหตุ",
+        path: "/buy/report-buy-remark/",
+      },
+      {
+        title: "รายงานยอดซื้อแยกหมวด",
+        path: "/buy/report-buy-type/",
+      },
+      {
+        title: "รายงานค่าใช้จ่ายรายเดือน",
+        path: "/buy/report-expenses/",
+      },
+      {
+        title: "รายงานภาษีซื้อ",
+        path: "/buy/report-buy-tax/",
+      },
       // {
       //   title: "ประวัติราคาซื้อ",
       //   path: "/sell/order-sell/",
@@ -250,37 +246,37 @@ export const SidebarData = [
         path: "/sell/tax-sell/",
       },
       {
-        title: "รายงานขายรายวัน",
-        path: "/sell/order-sell/",
+        title: "รายงานยอดขาย",
+        path: "/sell/report-sale/",
       },
-      {
-        title: "รายงานยอดขายรายเดือน",
-        path: "/sell/order-sell/",
-      },
+      // {
+      //   title: "รายงานยอดขายรายเดือน",
+      //   path: "/sell/order-sell/",
+      // },
       {
         title: "รายงานยอดขายแยกพนักงาน",
-        path: "/sell/order-sell/",
-      },
-      {
-        title: "รายงานยอดขายแยกลูกค้า",
         path: "/sell/report-sale-employee/",
       },
       {
+        title: "รายงานยอดขายแยกลูกค้า",
+        path: "/sell/report-sale-customer/",
+      },
+      {
         title: "รายงานยอดขายแยกหมายเหตุ",
-        path: "/sell/order-sell/",
+        path: "/sell/report-sale-remark/",
       },
       {
         title: "รายงานยอดขายแยกหมวด",
-        path: "/sell/order-sell/",
+        path: "/sell/report-sale-type/",
       },
       {
         title: "รายงานภาษีขาย",
-        path: "/sell/order-sell/",
+        path: "/sell/report-sale-tax/",
       },
-      {
-        title: "ประวัติราคาขาย",
-        path: "/sell/order-sell/",
-      },
+      // {
+      //   title: "ประวัติราคาขาย",
+      //   path: "/sell/order-sell/",
+      // },
       {
         title: "บันทึกการขาย ณ จุดขาย",
         path: "/sell/order-sell/",
@@ -388,40 +384,40 @@ export const SidebarData = [
       },
       {
         title: "ใบวางบิลลูกหนี้",
-        path: "/customers/bills",
+        path: "/customers/bills/",
       },
       {
         title: "ใบวางบิลลูกหนี้+ภาษี",
-        path: "/customers/bills-tax",
+        path: "/customers/bills-tax/",
       },
       {
         title: "ใบสำคัญรับ",
-        path: "/customers/receipt",
+        path: "/customers/receipt/",
       },
       {
         title: "รายงานใบวางบิลรายเดือน",
-        path: "/customers/bills-monthly",
+        path: "/customers/bills-monthly/",
       },
       {
         title: "รายงานใบวางบิลครบกำหนด",
-        path: "/customers/bills-complete",
+        path: "/customers/bills-complete/",
       },
       {
         title: "รายงานยอดรับชำระรายวัน/รายเดือน",
-        path: "/",
+        path: "/customers/report-received",
       },
       {
         title: "รายงานยอดลูกหนี้ค้างชำระ",
-        path: "/",
+        path: "/customers/report-customer",
       },
       {
         title: "รายงานบิลขายค้างชำระ",
-        path: "/",
+        path: "/customers/report-bill",
       },
-      {
-        title: "รายงานบิลขายค้างชำระ ณ ปัจจุบัน ของเดือน",
-        path: "/",
-      },
+      // {
+      //   title: "รายงานบิลขายค้างชำระ ณ ปัจจุบัน ของเดือน",
+      //   path: "/",
+      // },
       {
         title: "รายงานลูกหนี้รายเดือน",
         path: "/",
@@ -444,17 +440,32 @@ export const SidebarData = [
       },
       {
         title: "ใบวางบิลเจ้าหนี้",
-        path: "/creditor/bills",
+        path: "/creditor/bills/",
       },
       {
         title: "ใบวางบิลเจ้าหนี้+ภาษี",
-        path: "/creditor/bills-tax",
+        path: "/creditor/bills-tax/",
       },
       {
         title: "ใบสำคํญจ่าย",
-        path: "/creditor/payment",
+        path: "/creditor/payment/",
       },
-      
+      {
+        title: "รายงานยอดจ่ายชำระรายวัน/รายเดือน",
+        path: "/creditor/report-payment",
+      },
+      {
+        title: "รายงานยอดค้างชำระเจ้าหนี้",
+        path: "/creditor/report-creditor",
+      },
+      {
+        title: "รายงานบิลซื้อค้างชำระ",
+        path: "/creditor/report-bill",
+      },
+      {
+        title: "รายงานเข้าหนี้ค้างรายเดือน",
+        path: "/",
+      },
     ],
   },
   {
@@ -483,7 +494,7 @@ export const SidebarData = [
   },
   {
     title: "ธุรการ",
-    path: "/employee/employees",
+    path: "/employee/employees/",
     icon: <PersonIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -492,14 +503,14 @@ export const SidebarData = [
 
       {
         title: "ข้อมูลพนักงาน",
-        path: "/employee/employees",
+        path: "/employee/employees/",
       },
       
     ],
   },
   {
     title: "จัดการระบบ",
-    path: "/admin/users",
+    path: "/admin/users/",
     icon: <SettingsIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -508,11 +519,11 @@ export const SidebarData = [
 
       {
         title: "ผู้ใช้งาน",
-        path: "/admin/users",
+        path: "/admin/users/",
       },
       {
         title: "บทบาท",
-        path: "/admin/roles",
+        path: "/admin/roles/",
       },
       
     ],
