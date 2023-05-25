@@ -12,19 +12,19 @@ const NavBar = () => {
         <ul>
           <li className={router.pathname == "/settings/account" ? styles.active : ""}>
             <Link href="/settings/account">
-              Account
+              บัญชี
             </Link>
           </li>
           <li className={router.pathname == "/settings/security" ? styles.active : ""}>
             <Link href="/settings/security">
-              Security
+              ความปลอดภัย
             </Link>
           </li>
-          <li className={router.pathname == "/settings/privacy-policy" ? styles.active : ""}>
+          {/* <li className={router.pathname == "/settings/privacy-policy" ? styles.active : ""}>
             <Link href="/settings/privacy-policy">
               Privacy Policy
             </Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </>

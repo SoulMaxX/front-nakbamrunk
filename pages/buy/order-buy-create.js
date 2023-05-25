@@ -108,7 +108,7 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ชื่อลูกค้า
+                รหัสSupplier
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -116,7 +116,7 @@ const CreateOfferSell = () => {
                 required
                 fullWidth
                 id="productName"
-                label="ชื่อลูกค้า"
+                label="รหัสSupplier"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -124,7 +124,7 @@ const CreateOfferSell = () => {
               />
             </Grid>
             <Grid item xs={12} md={12} lg={4}></Grid>
-            <Grid item xs={12} md={12} lg={2}>
+            {/* <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"
                 sx={{
@@ -147,7 +147,7 @@ const CreateOfferSell = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"
@@ -205,7 +205,7 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ส่วนลด
+                ราคา
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -213,14 +213,14 @@ const CreateOfferSell = () => {
                 required
                 fullWidth
                 id="shortName"
-                label="ส่วนลด"
+                label="ราคา"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={1}>
+            {/* <Grid item xs={12} md={12} lg={1}>
               <Typography
                 as="h5"
                 sx={{
@@ -243,7 +243,7 @@ const CreateOfferSell = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} md={12} lg={3} >
 
@@ -296,8 +296,8 @@ const CreateOfferSell = () => {
                       <TableCell align="right">จำนวน</TableCell>
                       <TableCell align="right">หน่วย</TableCell>
                       <TableCell align="right">ราคา</TableCell>
-                      <TableCell align="right">ส่วนลด</TableCell>
-                      <TableCell align="right">ลดรวม</TableCell>
+                      {/* <TableCell align="right">ส่วนลด</TableCell>
+                      <TableCell align="right">ลดรวม</TableCell> */}
                       <TableCell align="right">จำนวนเงิน</TableCell>
                       <TableCell align="center">Actions</TableCell>
                     </TableRow>
@@ -315,9 +315,10 @@ const CreateOfferSell = () => {
                         <TableCell align="right">{row.quantity}</TableCell>
                         <TableCell align="right">{row.unit}</TableCell>
                         <TableCell align="right">{row.price}</TableCell>
-                        <TableCell align="right">{row.discount}</TableCell>
-                        <TableCell align="right">{row.price*(row.discount/100)}</TableCell>
-                        <TableCell align="right">{(row.quantity*row.price)-row.price*(row.discount/100)}</TableCell>
+                        {/* <TableCell align="right">{row.discount}</TableCell>
+                        <TableCell align="right">{row.price*(row.discount/100)}</TableCell> */}
+                        {/* <TableCell align="right">{(row.quantity*row.price)-row.price*(row.discount/100)}</TableCell> */}
+                        <TableCell align="right">{(row.quantity*row.price)}</TableCell>
                         <TableCell align="center"><Button>เพิ่ม</Button><Button>ลด</Button></TableCell>
                       </TableRow>
                     ))}
@@ -363,7 +364,7 @@ const CreateOfferSell = () => {
                 }}
               />
             </Grid> */}
-            <Grid item xs={12} md={12} lg={1}>
+            {/* <Grid item xs={12} md={12} lg={1}>
               <Typography
                 as="h5"
                 sx={{
@@ -459,7 +460,7 @@ const CreateOfferSell = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"

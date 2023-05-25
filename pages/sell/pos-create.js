@@ -19,17 +19,17 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-function createData(id,name, quantity , unit, price, discount) {
-  return { id,name, quantity , unit, price, discount };
+function createData(id, name, quantity, unit, price, discount) {
+  return { id, name, quantity, unit, price, discount };
 }
 
 const rows = [
-  createData(1,'ถังลม 30 ลิตร', 1,"ถัง", 8500, 5),
-  createData(5,'ค่าส่ง', 1, "",6500, ""),
- 
+  createData(1, 'ถังลม 30 ลิตร', 1, "ถัง", 8500, 5),
+  createData(5, 'ค่าส่ง', 1, "", 6500, ""),
+
 ];
 
-const EditOfferSell = () => {
+const CreateOfferSell = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -51,14 +51,51 @@ const EditOfferSell = () => {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>แก้ไขใบสั่งซื้อ</h1>
+        <h1>ขายเงินสด</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>แก้ไขใบสั่งซื้อ</li>
+          <li>ขายเงินสด</li>
         </ul>
       </div>
+      <Grid container spacing={1} justifyContent={"end"}>
+
+        <Grid sx={{
+          background: "black",
+          padding: "30px 20px",
+          borderRadius: "8px",
+          mb: "15px"
+        }}
+          className="bg-black"
+          item xs={12} md={12} lg={5}
+          >
+          <Typography
+            as="h5"
+            sx={{
+              fontWeight: "500",
+              fontSize: "15px",
+              mb: "12px",
+              color: "#FFFFFF"
+              
+            }}
+          >
+            รวมบาท  
+          </Typography>
+          <Typography
+            as="h5"
+            sx={{
+              fontWeight: "500",
+              fontSize: "45px",
+              mb: "12px",
+              color: "#FF00FF"
+            }}
+            textAlign={"end"}
+          >
+               14,575.00
+          </Typography>
+        </Grid>
+      </Grid>
 
       <Box component="form" noValidate onSubmit={handleSubmit}>
         <Box
@@ -70,11 +107,35 @@ const EditOfferSell = () => {
           }}
           className="bg-black"
         >
-          <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-            แก้ไขใบสั่งซื้อ
-          </Typography>
+          {/* <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
+            เพิ่มใบสั่งขาย
+          </Typography> */}
 
           <Grid container alignItems="center" spacing={2}>
+            <Grid item xs={12} md={12} lg={2}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                รหัสใบสั่งขาย
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="productName"
+                required
+                fullWidth
+                id="productName"
+                label="รหัสใบสั่งขาย"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
             <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
@@ -84,7 +145,7 @@ const EditOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                รหัสSupplier
+                ชื่อลูกค้า
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -92,15 +153,37 @@ const EditOfferSell = () => {
                 required
                 fullWidth
                 id="productName"
-                label="รหัสSupplier"
+                label="ชื่อลูกค้า"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={6}>
-
+            <Grid item xs={12} md={12} lg={4}></Grid>
+            <Grid item xs={12} md={12} lg={2}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                รหัสคลัง
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="shortName"
+                required
+                fullWidth
+                id="shortName"
+                label="รหัสคลัง"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
             </Grid>
             <Grid item xs={12} md={12} lg={2}>
               <Typography
@@ -270,8 +353,8 @@ const EditOfferSell = () => {
                         <TableCell align="right">{row.unit}</TableCell>
                         <TableCell align="right">{row.price}</TableCell>
                         <TableCell align="right">{row.discount}</TableCell>
-                        <TableCell align="right">{row.price*(row.discount/100)}</TableCell>
-                        <TableCell align="right">{(row.quantity*row.price)-row.price*(row.discount/100)}</TableCell>
+                        <TableCell align="right">{row.price * (row.discount / 100)}</TableCell>
+                        <TableCell align="right">{(row.quantity * row.price) - row.price * (row.discount / 100)}</TableCell>
                         <TableCell align="center"><Button>เพิ่ม</Button><Button>ลด</Button></TableCell>
                       </TableRow>
                     ))}
@@ -280,7 +363,7 @@ const EditOfferSell = () => {
               </TableContainer>
             </Grid>
 
-            <Grid item xs={12} md={12} lg={12}>
+            {/* <Grid item xs={12} md={12} lg={12} >
               <Typography
                 as="h5"
                 sx={{
@@ -288,36 +371,33 @@ const EditOfferSell = () => {
                   fontSize: "14px",
                   mb: "12px",
                 }}
+                 style={{display: "flex",
+                  justifyContent: "flex-end"}}
               >
-                ยอดรวมทั้งสิ้น 15000 บาท
+                ส่วนลดรวม 425 บาท
               </Typography>
               
-            </Grid>
-            {/* <Grid item xs={12} md={12} lg={1}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                ยืนราคา
-              </Typography>
-              <TextField
-                autoComplete="product-name"
-                name="shortName"
-                required
-                fullWidth
-                id="shortName"
-                // label="ยืนราคา"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
             </Grid> */}
-            <Grid item xs={12} md={12} lg={1}>
+            <Grid item xs={12} md={12} lg={12} >
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end"
+                }}
+              >
+                ยอดรวมทั้งสิ้น 14575 บาท
+              </Typography>
+
+            </Grid>
+
+
+            <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"
                 sx={{
@@ -326,7 +406,7 @@ const EditOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ส่งมอบใน
+                เงินสด
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -334,7 +414,7 @@ const EditOfferSell = () => {
                 required
                 fullWidth
                 id="shortName"
-                label="วัน"
+                label="เงินสด"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -350,7 +430,7 @@ const EditOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                เงื่อนไขการชำระ
+                โอน
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -358,56 +438,7 @@ const EditOfferSell = () => {
                 required
                 fullWidth
                 id="shortName"
-                // label="เงื่อนไขการชำระ"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={12} lg={1}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                เครดิต
-              </Typography>
-              <TextField
-                autoComplete="product-name"
-                name="shortName"
-                required
-                fullWidth
-                id="shortName"
-                label="วัน"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} md={12} lg={1}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                รับประกัน
-              </Typography>
-              <TextField
-                autoComplete="product-name"
-                name="shortName"
-                required
-                fullWidth
-                id="shortName"
-                // label="วัน"
+                label="โอน"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -423,7 +454,7 @@ const EditOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ชื่อผู้เสนอ
+                พนักงาน
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -431,7 +462,7 @@ const EditOfferSell = () => {
                 required
                 fullWidth
                 id="shortName"
-                label="ชื่อผู้เสนอ"
+                label="พนักงาน"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -439,54 +470,12 @@ const EditOfferSell = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={12} lg={12}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                หมายเหตุ
-              </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="หมายเหตุ"
-                required
-                fullWidth
-                id="Short Description"
-                label="หมายเหตุ"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
+
 
             <Grid item xs={12} textAlign="end">
-            <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                  textTransform: "capitalize",
-                  borderRadius: "8px",
-                  fontWeight: "500",
-                  fontSize: "13px",
-                  padding: "12px 20px",
-                  color: "#fff !important",
-                  marginRight: "10px"
-
-                }}
-              >
-
-                บันทึก
-              </Button>
               <Button
                 type="submit"
                 variant="contained"
-                color="danger"
-
                 sx={{
                   textTransform: "capitalize",
                   borderRadius: "8px",
@@ -496,8 +485,14 @@ const EditOfferSell = () => {
                   color: "#fff !important"
                 }}
               >
-
-                ยกเลิก
+                <AddIcon
+                  sx={{
+                    position: "relative",
+                    top: "-2px",
+                  }}
+                  className='mr-5px'
+                />{" "}
+                บันทึก
               </Button>
             </Grid>
           </Grid>
@@ -507,4 +502,4 @@ const EditOfferSell = () => {
   )
 }
 
-export default EditOfferSell;
+export default CreateOfferSell;

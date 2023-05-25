@@ -25,7 +25,7 @@ export default function Account() {
           }}
           className="for-dark-bottom-border"
         >
-          Settings
+          ตั้งค่า
         </Typography>
 
         {/* NavBar */}

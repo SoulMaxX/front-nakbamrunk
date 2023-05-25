@@ -110,7 +110,7 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ชื่อลูกค้า
+                รหัสSupplier
               </Typography>
               <TextField
                 autoComplete="product-name"

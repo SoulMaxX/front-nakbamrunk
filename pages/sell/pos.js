@@ -196,12 +196,12 @@ export default function OrderSells() {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>ใบกำกับภาษีซื้อ</h1>
+        <h1>บันทึกการขาย ณ จุดขาย</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>ใบกำกับภาษีซื้อ</li>
+          <li>บันทึกการขาย ณ จุดขาย</li>
         </ul>
       </div>
 
@@ -256,7 +256,7 @@ export default function OrderSells() {
 
           <Button
             // onClick={handleOpen}
-            href="/buy/tax-buy-create/"
+            href="/sell/pos-create/"
             variant="contained"
             sx={{
               textTransform: "capitalize",
@@ -271,7 +271,7 @@ export default function OrderSells() {
               sx={{ position: "relative", top: "-1px" }}
               className='mr-5px'
             />{" "}
-            เพิ่มใบกำกับภาษีซื้อ
+            ขายเงินสด
           </Button>
         </Box>
 
@@ -293,10 +293,10 @@ export default function OrderSells() {
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
-                    width: "170px"
+                    width: "150px"
                   }}
                 >
-                  รหัสใบกำกับภาษีซื้อ
+                  รหัสใบสั่งขาย
                 </TableCell>
                 <TableCell
                   align="center"
@@ -313,10 +313,9 @@ export default function OrderSells() {
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
-                    
                   }}
                 >
-                  ชื่อSupplier
+                  ชื่อลูกค้า
                 </TableCell>
 
                 <TableCell
@@ -416,7 +415,7 @@ export default function OrderSells() {
                     >
                       <Tooltip title="View" placement="top">
                         <IconButton
-                          href="/buy/tax-buy-details"
+                          href="/sell/order-sell-details"
                           aria-label="view"
                           size="small"
                           color="info"
@@ -428,7 +427,7 @@ export default function OrderSells() {
 
                       <Tooltip title="Edit" placement="top">
                         <IconButton
-                        href="/buy/tax-buy-edit"
+                        href="/sell/order-sell-edit"
                           aria-label="edit"
                           size="small"
                           color="primary"

@@ -315,7 +315,7 @@ export default function OrderSells() {
                     fontSize: "13.5px",
                   }}
                 >
-                  ชื่อลูกค้า
+                  ชื่อSupplier
                 </TableCell>
 
                 <TableCell

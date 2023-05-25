@@ -26,12 +26,12 @@ export default function Profile() {
           className="for-dark-bottom-border"
         >
           <Typography component="h1" fontWeight="500" fontSize="18px">
-            Profile
+            โปรไฟล์
           </Typography>
 
-          <Typography fontSize="13px">
+          {/* <Typography fontSize="13px">
             Update your photo and personal details here.
-          </Typography>
+          </Typography> */}
         </Box>
 
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -46,13 +46,13 @@ export default function Profile() {
                   display: "block",
                 }}
               >
-                First Name
+                ชื่อ
               </Typography>
               <TextField
                 autoComplete="given-name"
                 name="firstName"
                 fullWidth
-                id="firstName" 
+                id="firstName"
                 autoFocus
               />
             </Grid>
@@ -67,7 +67,7 @@ export default function Profile() {
                   display: "block",
                 }}
               >
-                Last Name
+                นามสกุล
               </Typography>
 
               <TextField
@@ -88,7 +88,7 @@ export default function Profile() {
                   display: "block",
                 }}
               >
-                Email Address
+                ที่อยุ่
               </Typography>
 
               <TextField
@@ -99,7 +99,7 @@ export default function Profile() {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <Typography
                 component="label"
                 sx={{
@@ -130,7 +130,7 @@ export default function Profile() {
                   height="50px"
                 />
               </Box>
-            </Grid>
+            </Grid> */}
           </Grid>
 
           <Button
@@ -146,10 +146,10 @@ export default function Profile() {
               color: "#fff !important"
             }}
           >
-            Update
+            บันทึก
           </Button>
         </Box>
-      </Box> 
-    </> 
+      </Box>
+    </>
   );
 }

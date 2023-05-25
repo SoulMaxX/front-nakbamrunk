@@ -39,7 +39,7 @@ const Profile = () => {
           aria-expanded={open ? "true" : undefined}
           className="ml-2"
         >
-           <Typography sx={{ fontSize: "11px", color: "#757FEF" }}>
+           <Typography sx={{ fontSize: "20px", color: "#757FEF" }}>
               Admin
             </Typography>
           {/* <Avatar
@@ -88,13 +88,13 @@ const Profile = () => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         className="for-dark-top-navList"
       >
-        <MenuItem>
-          {/* <Avatar src="/images/user1.png" className="mr-1" /> */}
+        {/* <MenuItem>
+          <Avatar src="/images/user1.png" className="mr-1" />
           <Box>
             <Typography sx={{ fontSize: "11px", color: "#757FEF" }}>
               Admin
             </Typography>
-            {/* <Typography
+            <Typography
               sx={{
                 fontSize: "13px",
                 color: "#260944",
@@ -102,13 +102,13 @@ const Profile = () => {
               }}
             >
               Adison Jeck
-            </Typography> */}
+            </Typography>
           </Box>
         </MenuItem>
 
-        <Divider />
+        <Divider /> */}
 
-        <MenuItem>
+        {/* <MenuItem>
           <ListItemIcon sx={{ mr: "-8px", mt: "-3px" }}>
             <PersonIcon fontSize="small" />
           </ListItemIcon>
@@ -120,7 +120,7 @@ const Profile = () => {
           >
             Profile
           </Link>
-        </MenuItem>
+        </MenuItem> */}
 
         {/* <MenuItem>
           <ListItemIcon sx={{ mr: "-8px", mt: "-3px" }}>
@@ -160,7 +160,7 @@ const Profile = () => {
             color="inherit"
             underline="none"
           >
-            Settings
+            ตั้งค่า
           </Link>
         </MenuItem>
 
@@ -191,7 +191,7 @@ const Profile = () => {
             color="inherit"
             underline="none"
           >
-            Logout
+            ออกจากระบบ
           </Link>
         </MenuItem>
       </Menu>

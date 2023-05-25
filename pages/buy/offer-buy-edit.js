@@ -84,7 +84,7 @@ const EditOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ชื่อลูกค้า
+                รหัสSupplier
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -92,7 +92,7 @@ const EditOfferSell = () => {
                 required
                 fullWidth
                 id="productName"
-                label="ชื่อลูกค้า"
+                label="รหัสSupplier"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },

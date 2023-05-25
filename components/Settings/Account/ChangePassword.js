@@ -25,13 +25,13 @@ export default function ChangePassword() {
           }}
           className="for-dark-bottom-border"
         >
-          <Typography component="h1" fontWeight="500" fontSize="18px">
+          {/* <Typography component="h1" fontWeight="500" fontSize="18px">
             Security
-          </Typography>
+          </Typography> */}
 
-          <Typography fontSize="13px">
+          {/* <Typography fontSize="13px">
             Update your password here.
-          </Typography>
+          </Typography> */}
         </Box>
 
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -102,7 +102,7 @@ export default function ChangePassword() {
               />
             </Grid>
   
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <Typography
                 component="label"
                 sx={{
@@ -122,7 +122,7 @@ export default function ChangePassword() {
                 type="email"
                 autoComplete="email"
               />
-            </Grid>
+            </Grid> */}
           </Grid>
 
           <Button
