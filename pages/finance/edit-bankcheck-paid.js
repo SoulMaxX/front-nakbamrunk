@@ -40,7 +40,7 @@ const CreateEmployee = () => {
         <h1>แก้ไขเช็คจ่าย</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>แก้ไขเช็คจ่าย</li>
         </ul>

@@ -40,7 +40,7 @@ const CreateRole = () => {
         <h1>เพิ่มบทบาท</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>เพิ่มบทบาท</li>
         </ul>

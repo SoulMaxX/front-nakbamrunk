@@ -52,15 +52,22 @@ const ProductDetailsContent = () => {
 
           <Grid item xs={12} md={12} lg={7} xl={7}>
             <Box>
-             
-              <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
+
+
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
+                เบอร์โรงงาน:  4.61992
+              </Typography>
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
+                เบอร์แท้ : 1
+              </Typography>
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
                 หมวด : 1
               </Typography>
-              <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
                 ชื่อสินค้า : สวิตซ์เปิดไฟหน้า
               </Typography>
 
-            
+
 
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 รุ่น:  Benz IBC
@@ -88,13 +95,6 @@ const ProductDetailsContent = () => {
                 ขนาดสินค้า:
               </Typography>
 
-              <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-                เบอร์แท้ : 1
-              </Typography>
-              
-              <Typography fontSize="15px" fontWeight="500" mb="15px">
-                เบอร์โรงงาน:  4.61992
-              </Typography>
 
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 ทุนสุทธิ:  625.00
@@ -114,7 +114,7 @@ const ProductDetailsContent = () => {
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 ที่เก็บ: คลัง1
               </Typography>
-              
+
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 หมายเหตุ:
               </Typography>

@@ -40,7 +40,7 @@ const CreateBill = () => {
         <h1>เพิ่มใบวางบิลลูกหนี้+ภาษี</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>เพิ่มใบวางบิลลูกหนี้+ภาษี</li>
         </ul>

@@ -54,7 +54,7 @@ const CreateOfferSell = () => {
         <h1>โอนย้ายสินค้าระหว่างคลัง</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>โอนย้ายสินค้าระหว่างคลัง</li>
         </ul>

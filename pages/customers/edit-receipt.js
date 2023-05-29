@@ -40,7 +40,7 @@ const CreateReceipt = () => {
         <h1>เพิ่มใบสำคัญรับ</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>เพิ่มใบสำคัญรับ</li>
         </ul>

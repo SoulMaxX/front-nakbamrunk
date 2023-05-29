@@ -341,7 +341,7 @@ const OfferBuyDetails = () => {
                 }}
                 className="mr-10px"
               >
-                พิมพ์ใบเสนอขาย
+                พิมพ์ใบเสนอซื้อ
               </Button>
              
             </Box>

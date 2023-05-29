@@ -11,7 +11,7 @@ export default function ProductDetails() {
         <h1>ข้อมูลใบกำกับภาษีขาย</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>ข้อมูลใบกำกับภาษีขาย</li>
         </ul>

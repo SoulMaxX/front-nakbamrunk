@@ -11,7 +11,7 @@ const BillsMonth = () => {
         <h1>รายงานใบวางบิลครบกำหมด</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>รายงานใบวางบิลครบกำหมด</li>
         </ul>

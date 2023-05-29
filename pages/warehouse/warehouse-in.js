@@ -40,7 +40,7 @@ const WarehouseIn = () => {
         <h1>รับสินค้า</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>รับสินค้า</li>
         </ul>
@@ -124,7 +124,7 @@ const WarehouseIn = () => {
                 </FormControl>
               </Box>
             </Grid>
-            <Grid item xs={12} md={12} lg={3}>
+            <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
                 sx={{
@@ -193,6 +193,30 @@ const WarehouseIn = () => {
                 // label="วันที่รับสินค้า"
                 type="date"
                 lang="th-TH"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={3}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ชื่อผู้รับ
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="productName"
+                required
+                fullWidth
+                id="productName"
+                label="ชื่อผู้รับ"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },

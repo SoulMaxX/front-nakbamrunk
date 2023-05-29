@@ -11,7 +11,7 @@ const BankCheck = () => {
         <h1>เช็คจ่าย</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>เช็คจ่าย</li>
         </ul>

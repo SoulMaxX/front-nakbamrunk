@@ -40,7 +40,7 @@ const WarehouseIn = () => {
         <h1>เบิกสินค้า</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>เบิกสินค้า</li>
         </ul>
@@ -201,6 +201,30 @@ const WarehouseIn = () => {
                 // label="วันที่เบิกสินค้า"
                 type="date"
                 lang="th-TH"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={3}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ชื่อผู้เบิก
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="productName"
+                required
+                fullWidth
+                id="productName"
+                label="ชื่อผู้เบิก"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },

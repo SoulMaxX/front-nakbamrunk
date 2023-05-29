@@ -201,7 +201,7 @@ export default function ReportSaleCustomers() {
         <h1>รายงานยอดค้างชำระเจ้าหนี้</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>รายงานยอดค้างชำระเจ้าหนี้</li>
         </ul>

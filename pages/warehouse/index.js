@@ -200,7 +200,7 @@ export default function Warehouses() {
         <h1>คลังสินค้า</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>คลังสินค้า</li>
         </ul>

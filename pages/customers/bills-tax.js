@@ -11,7 +11,7 @@ const Bills = () => {
         <h1>ใบวางบิลลูกหนี้+ภาษี</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>ใบวางบิลลูกหนี้+ภาษี</li>
         </ul>

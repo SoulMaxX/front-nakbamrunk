@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, colors } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -19,14 +19,14 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-function createData(id,name, quantity , unit, price, discount) {
-  return { id,name, quantity , unit, price, discount };
+function createData(id, name, quantity, unit, warehouse, price, discount) {
+  return { id, name, quantity, unit, warehouse, price, discount };
 }
 
 const rows = [
-  createData(1,'ถังลม 30 ลิตร', 1,"ถัง", 8500, 5),
-  createData(5,'ค่าส่ง', 1, "",6500, ""),
- 
+  createData(1, 'ถังลม 30 ลิตร', 1, "ถัง", 5, 8500, 5),
+  createData(5, 'ค่าส่ง', 1, "", "", 6500, ""),
+
 ];
 
 const CreateOfferSell = () => {
@@ -54,7 +54,7 @@ const CreateOfferSell = () => {
         <h1>เพิ่มใบสั่งขาย</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>เพิ่มใบสั่งขาย</li>
         </ul>
@@ -108,7 +108,7 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                รหัสลูกค้า
+                ชื่อลูกค้า
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -116,15 +116,43 @@ const CreateOfferSell = () => {
                 required
                 fullWidth
                 id="productName"
-                label="รหัสลูกค้า"
+                label="ชื่อลูกค้า"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={4}></Grid>
+            <Grid item xs={12} md={12} lg={4}>
+            </Grid>
             <Grid item xs={12} md={12} lg={2}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                รหัสใบPO
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="shortName"
+                required
+                fullWidth
+                id="shortName"
+                label="รหัสใบPO"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={10}>
+            </Grid>
+            <Grid item xs={12} md={12} lg={2}>
+
               <Typography
                 as="h5"
                 sx={{
@@ -295,6 +323,7 @@ const CreateOfferSell = () => {
                       <TableCell align="right">รายการ</TableCell>
                       <TableCell align="right">จำนวน</TableCell>
                       <TableCell align="right">หน่วย</TableCell>
+                      <TableCell align="right">คลัง</TableCell>
                       <TableCell align="right">ราคา</TableCell>
                       <TableCell align="right">ส่วนลด</TableCell>
                       <TableCell align="right">ลดรวม</TableCell>
@@ -314,11 +343,12 @@ const CreateOfferSell = () => {
                         <TableCell align="right">{row.name}</TableCell>
                         <TableCell align="right">{row.quantity}</TableCell>
                         <TableCell align="right">{row.unit}</TableCell>
+                        <TableCell align="right" style={{ ...row.warehouse <= 10 ? { color: "red" } : "" }} >{row.warehouse}</TableCell>
                         <TableCell align="right">{row.price}</TableCell>
                         <TableCell align="right">{row.discount}</TableCell>
-                        <TableCell align="right">{row.price*(row.discount/100)}</TableCell>
-                        <TableCell align="right">{(row.quantity*row.price)-row.price*(row.discount/100)}</TableCell>
-                        <TableCell align="center"><Button>เพิ่ม</Button><Button>ลด</Button></TableCell>
+                        <TableCell align="right">{row.price * (row.discount / 100)}</TableCell>
+                        <TableCell align="right">{(row.quantity * row.price) - row.price * (row.discount / 100)}</TableCell>
+                        <TableCell align="center" ><Button>เพิ่ม</Button><Button>ลด</Button></TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -337,7 +367,7 @@ const CreateOfferSell = () => {
               >
                 ยอดรวมทั้งสิ้น 15000 บาท
               </Typography>
-              
+
             </Grid>
             {/* <Grid item xs={12} md={12} lg={1}>
               <Typography

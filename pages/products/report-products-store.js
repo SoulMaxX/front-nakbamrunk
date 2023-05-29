@@ -457,7 +457,7 @@ export default function Products() {
         <h1>รายงานสินค้าคงเหลือ</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>รายงานสินค้าคงเหลือ</li>
         </ul>

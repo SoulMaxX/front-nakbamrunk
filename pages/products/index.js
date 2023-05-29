@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box } from "@mui/material";
+import { Box, Collapse } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import { Typography } from "@mui/material";
@@ -38,9 +38,11 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 import PrintIcon from '@mui/icons-material/Print';
-
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import dynamic from 'next/dynamic'
 import SearchForm from "@/components/_App/TopNavbar/SearchForm";
+import ProductDetailsContent from "@/components/eCommerce/ProductDetails/ProductDetailsContent";
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
@@ -59,6 +61,179 @@ const style = {
   boxShadow: 24,
   borderRadius: "8px",
 };
+
+function Row(props) {
+  const { row } = props;
+  // console.log(row.productName)
+  const [open2, setOpen2] = React.useState(false);
+  return (
+    <>
+      <TableRow key={row.id} className={styles.Product}>
+        <TableCell width={"50px"} sx={{
+          borderBottom: "1px solid #F7FAFF",
+          padding: "8px 10px",
+        }}>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen2(!open2)}
+          >
+            {open2 ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+        <TableCell
+          sx={{
+            borderBottom: "1px solid #F7FAFF",
+            padding: "8px 10px",
+            fontSize: "13px",
+          }}
+        >
+          {row.id}
+        </TableCell>
+        <TableCell
+          sx={{
+            borderBottom: "1px solid #F7FAFF",
+            padding: "8px 10px",
+            fontSize: "13px",
+          }}
+        >
+          {row.numFactory}
+        </TableCell>
+
+        <TableCell
+          // align="center"
+
+          sx={{
+            borderBottom: "1px solid #F7FAFF",
+            padding: "8px 10px",
+            fontSize: "13px",
+            width: 150,
+
+          }}
+        >
+          {row.productName}
+        </TableCell>
+
+        <TableCell
+          align="center"
+          sx={{
+            borderBottom: "1px solid #F7FAFF",
+            padding: "8px 10px",
+            fontSize: "13px",
+
+          }}
+        >
+          {row.carBrand}
+        </TableCell>
+
+        <TableCell
+          align="center"
+          sx={{
+            borderBottom: "1px solid #F7FAFF",
+            padding: "8px 10px",
+            fontSize: "13px",
+          }}
+        >
+          {row.brand}
+        </TableCell>
+
+        <TableCell
+          align="center"
+          sx={{
+            borderBottom: "1px solid #F7FAFF",
+            padding: "8px 10px",
+            fontSize: "13px",
+          }}
+        >
+          {row.buyPrice}
+        </TableCell>
+        <TableCell
+          align="center"
+          sx={{
+            borderBottom: "1px solid #F7FAFF",
+            padding: "8px 10px",
+            fontSize: "13px",
+          }}
+        >
+          {row.sellPrice}
+        </TableCell>
+
+        <TableCell
+          align="right"
+          sx={{
+            borderBottom: "1px solid #F7FAFF",
+            padding: "8px 10px",
+          }}
+        >
+          <Box
+            sx={{
+              display: "inline-block",
+            }}
+          >
+            {/* <Tooltip title="View" placement="top">
+          <IconButton
+            href="/products/product-details"
+            aria-label="view"
+            size="small"
+            color="info"
+            className="info"
+          >
+            <VisibilityIcon fontSize="inherit" />
+          </IconButton>
+        </Tooltip> */}
+
+            <Tooltip title="Edit" placement="top">
+              <IconButton
+                aria-label="edit"
+                size="small"
+                color="primary"
+                className="primary"
+              >
+                <DriveFileRenameOutlineIcon fontSize="inherit" />
+              </IconButton>
+            </Tooltip>
+
+
+
+            <Tooltip title="Remove" placement="top">
+              <IconButton
+                // onClick={handleOpen}
+                aria-label="remove"
+                size="small"
+                color="danger"
+                className="danger"
+              >
+                <DeleteIcon fontSize="inherit" />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6} sx={{
+          borderBottom: "1px solid #F7FAFF",
+          padding: "8px 10px",
+        }}>
+          <Collapse in={open2} timeout="auto" unmountOnExit>
+            <Box sx={{ margin: 1 }}>
+              <Typography variant="h6" gutterBottom component="div">
+                ข้อมูลสินค้า
+              </Typography>
+
+              {/* {rows.map((data) => (
+                <Typography key={row.id} variant="h6" gutterBottom component="div" >
+                  {row.productName}
+                </Typography>
+              ))} */}
+              <ProductDetailsContent />
+
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </>
+  );
+}
 
 function Product(props) {
   const theme = useTheme();
@@ -244,161 +419,7 @@ const rows = [
     "2685.00",
     "",
   ),
-  // createData(
-  //   "2",
-  //   // "/images/product2.png",
-  //   "Smart Camera XD6",
-  //   "Camera",
-  //   "$189.50",
-  //   "50",
-  //   "Out of Stock",
-  //   "5.0 (40 votes)"
-  // ),
-  // createData(
-  //   "3",
-  //   "/images/product3.png",
-  //   // "Pixi 8 Wireless Airphone",
-  //   "Phone",
-  //   "$250.50",
-  //   "45",
-  //   "400",
-  //   "5.0 (15 votes)"
-  // ),
-  // createData(
-  //   "/images/product4.png",
-  //   "Jebble Smart Watch",
-  //   "Watch",
-  //   "$289.50",
-  //   "100",
-  //   "200",
-  //   "5.0 (99 votes)"
-  // ),
-  // createData(
-  //   "/images/product5.png",
-  //   "Admas Airpod x-Zon",
-  //   "Airpod",
-  //   "$289.50",
-  //   "120",
-  //   "Out of Stock",
-  //   "5.0 (150 votes)"
-  // ),
-  // createData(
-  //   "/images/product6.png",
-  //   "Smart Watch F8 Pro",
-  //   "Watch",
-  //   "$289.50",
-  //   "20",
-  //   "100",
-  //   "5.0 (5 votes)"
-  // ),
-  // createData(
-  //   "/images/product7.png",
-  //   "Nord Fold ZL",
-  //   "Pone",
-  //   "$289.50",
-  //   "55",
-  //   "108",
-  //   "5.0 (11 votes)"
-  // ),
-  // createData(
-  //   "/images/product8.png",
-  //   "Wall Clock Cimbina",
-  //   "Clock",
-  //   "$289.50",
-  //   "40",
-  //   "100",
-  //   "5.0 (4 votes)"
-  // ),
-  // createData(
-  //   "/images/product9.png",
-  //   "Galaxo T6 Munsun",
-  //   "Smart Phone",
-  //   "$289.50",
-  //   "50",
-  //   "130",
-  //   "5.0 (55 votes)"
-  // ),
-  // createData(
-  //   "/images/product1.png",
-  //   "Macbook Pro",
-  //   "Laptop",
-  //   "$1,299.00",
-  //   "120",
-  //   "1500",
-  //   "5.0 (150 votes)"
-  // ),
-  // createData(
-  //   "/images/product2.png",
-  //   "iphone 14 pro max",
-  //   "Phone",
-  //   "$1029",
-  //   "200",
-  //   "599",
-  //   "5.0 (200 votes)"
-  // ),
-  // createData(
-  //   "/images/product3.png",
-  //   "HeadPhone",
-  //   "HeadPhone",
-  //   "$100.50",
-  //   "25",
-  //   "50",
-  //   "5.0 (61 votes)"
-  // ),
-  // createData(
-  //   "/images/product4.png",
-  //   "Superstar shoes",
-  //   "shoes",
-  //   "$59.50",
-  //   "45",
-  //   "50",
-  //   "5.0 (45 votes)"
-  // ),
-  // createData(
-  //   "/images/product5.png",
-  //   "Nike shirts",
-  //   "Shirts",
-  //   "$30.50",
-  //   "32",
-  //   "40",
-  //   "5.0 (22 votes)"
-  // ),
-  // createData(
-  //   "/images/product6.png",
-  //   "Nike caps",
-  //   "Caps",
-  //   "$15.50",
-  //   "33",
-  //   "50",
-  //   "5.0 (3 votes)"
-  // ),
-  // createData(
-  //   "/images/product7.png",
-  //   "Hoodie (Blue)",
-  //   "Hoodie",
-  //   "$59.50",
-  //   "30",
-  //   "55",
-  //   "5.0 (44 votes)"
-  // ),
-  // createData(
-  //   "/images/product8.png",
-  //   "Wall Clock China",
-  //   "Clock",
-  //   "$100.50",
-  //   "30",
-  //   "230",
-  //   "5.0 (45 votes)"
-  // ),
-  // createData(
-  //   "/images/product9.png",
-  //   "Galaxo T6 Munsun 2",
-  //   "Phone",
-  //   "$220.50",
-  //   "22",
-  //   "50",
-  //   "5.0 (24 votes)"
-  // ),
+
 ]
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
@@ -439,7 +460,7 @@ export default function Products() {
   const handleChange = (event) => {
     setCategorySelect(event.target.value);
   };
-
+  const [open2, setOpen2] = React.useState(false);
   return (
     <>
       {/* Page title */}
@@ -447,7 +468,7 @@ export default function Products() {
         <h1>สินค้า</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>สินค้า</li>
         </ul>
@@ -537,14 +558,14 @@ export default function Products() {
           >
             <TableHead sx={{ background: "#F7FAFF" }}>
               <TableRow>
-                {/* <TableCell
+                <TableCell
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
                   }}
                 >
-                  รหัสสินค้า
-                </TableCell> */}
+
+                </TableCell>
                 <TableCell
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -632,178 +653,10 @@ export default function Products() {
                 )
                 : rows
               ).map((row) => (
-                <TableRow key={row.productTitle} className={styles.Product} >
-                  {/* <TableCell
-                    // align="center"
-                    sx={{
-                      width: 100,
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.id}
-                  </TableCell> */}
-                  <TableCell
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      {/* <img
-                        src={row.productImg}
-                        alt="Product Img"
-                        width={50}
-                        className="borderRadius10"
-                      /> */}
-                      <Typography
-                        as="h4"
-                        sx={{
-                          fontWeight: "500",
-                          fontSize: "13px",
-                        }}
-                        className='ml-10px'
-                      >
-                        {row.id}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-
-                  <TableCell
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.numFactory}
-                  </TableCell>
-
-                  <TableCell
-                    // align="center"
-
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                      width: 150,
-
-                    }}
-                  >
-                    {row.productName}
-                  </TableCell>
-
-                  <TableCell
-                    align="center"
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-
-                    }}
-                  >
-                    {row.carBrand}
-                  </TableCell>
-
-                  <TableCell
-                    align="center"
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.brand}
-                  </TableCell>
-
-                  <TableCell
-                    align="center"
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.buyPrice}
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.sellPrice}
-                  </TableCell>
-
-                  <TableCell
-                    align="right"
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        display: "inline-block",
-                      }}
-                    >
-                      <Tooltip title="View" placement="top">
-                        <IconButton
-                          href="/products/product-details"
-                          aria-label="view"
-                          size="small"
-                          color="info"
-                          className="info"
-                        >
-                          <VisibilityIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
-
-                      <Tooltip title="Edit" placement="top">
-                        <IconButton
-                          aria-label="edit"
-                          size="small"
-                          color="primary"
-                          className="primary"
-                        >
-                          <DriveFileRenameOutlineIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
-
-                      {/* <Tooltip title="Add To Cart" placement="top">
-                        <IconButton
-                          aria-label="Add To Cart"
-                          size="small"
-                          color="success"
-                          className="success"
-                        >
-                          <ShoppingCartIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip> */}
-
-                      <Tooltip title="Remove" placement="top">
-                        <IconButton
-                          onClick={handleOpen}
-                          aria-label="remove"
-                          size="small"
-                          color="danger"
-                          className="danger"
-                        >
-                          <DeleteIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
-                    </Box>
-                  </TableCell>
-                </TableRow>
+                <Row key={row.id} row={row} />
               ))}
+
+
 
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>
@@ -907,7 +760,7 @@ export default function Products() {
                     >
                       ลบสินค้ารหัส : 123
                     </Typography>
-                   
+
                   </Grid>
 
 
@@ -952,7 +805,7 @@ export default function Products() {
                         color: "#fff !important",
                       }}
                     >
-                      
+
                       ลบสินค้า
                     </Button>
                   </Grid>

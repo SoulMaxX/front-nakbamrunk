@@ -201,7 +201,7 @@ export default function ReportSaleEmployeees() {
         <h1>รายงานภาษีซื้อ</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>รายงานภาษีซื้อ</li>
         </ul>

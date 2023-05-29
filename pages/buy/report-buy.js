@@ -203,7 +203,7 @@ export default function ReportSaleEmployeees() {
         <h1>รายงานยอดซื้อ</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>รายงานยอดซื้อ</li>
         </ul>

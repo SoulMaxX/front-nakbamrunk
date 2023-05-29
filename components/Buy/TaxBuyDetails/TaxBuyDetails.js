@@ -341,7 +341,7 @@ const TaxBuyDetails = () => {
                 }}
                 className="mr-10px"
               >
-                พิมพ์ใบเสนอขาย
+                พิมพ์ใบกำกับภาษีซื้อ
               </Button>
              
             </Box>

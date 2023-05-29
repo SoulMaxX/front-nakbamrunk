@@ -201,7 +201,7 @@ export default function ReportSaleCustomers() {
         <h1>รายงานยอดบิลซื้อค้างชำระ</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>รายงานยอดบิลซื้อค้างชำระ</li>
         </ul>

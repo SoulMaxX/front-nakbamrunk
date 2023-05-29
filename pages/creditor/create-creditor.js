@@ -40,7 +40,7 @@ const CreateCreditor = () => {
         <h1>เพิ่มข้อมูลเจ้าหนี้</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>เพิ่มข้อมูลเจ้าหนี้</li>
         </ul>

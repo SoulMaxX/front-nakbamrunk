@@ -54,7 +54,7 @@ const CreateOfferSell = () => {
         <h1>เพิ่มใบเสนอราคา</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>เพิ่มใบเสนอราคา</li>
         </ul>
@@ -108,7 +108,7 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                รหัสลูกค้า
+                ชื่อลูกค้า
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -116,7 +116,7 @@ const CreateOfferSell = () => {
                 required
                 fullWidth
                 id="productName"
-                label="รหัสลูกค้า"
+                label="ชื่อลูกค้า"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },

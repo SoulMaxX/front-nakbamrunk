@@ -54,7 +54,7 @@ const CreateOfferSell = () => {
         <h1>แก้ไขใบกำกับภาษีซื้อ</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>แก้ไขใบกำกับภาษีซื้อ</li>
         </ul>

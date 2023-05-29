@@ -40,7 +40,7 @@ const CreateReceipt = () => {
         <h1>เพิ่มใบสำคัญรับ</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>เพิ่มใบสำคัญรับ</li>
         </ul>
@@ -224,7 +224,62 @@ const CreateReceipt = () => {
               </Typography>
               
             </Grid>
-            
+
+            <Grid item xs={12} md={12} lg={6} >
+            </Grid>
+            <Grid item xs={12} md={12} lg={2} >
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                การชำระ
+              </Typography>
+
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // value={age}
+                    // label="Age"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={1}>เงินสด</MenuItem>
+                    <MenuItem value={2}>โอน</MenuItem>
+                    <MenuItem value={3}>เช็ค</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                เลขที่เช็ค
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="productName"
+                required
+                fullWidth
+                id="productName"
+                label="เลขที่เช็ค"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
             {/* <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"

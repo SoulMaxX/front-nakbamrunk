@@ -199,7 +199,7 @@ export default function OfferSells() {
         <h1>ใบเสนอราคาซื้่อ</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>ใบเสนอราคาซื้่อ</li>
         </ul>

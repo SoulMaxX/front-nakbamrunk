@@ -11,7 +11,7 @@ export default function ProductDetails() {
         <h1>ข้อมูลสินค้า</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>ข้อมูลสินค้า</li>
         </ul>

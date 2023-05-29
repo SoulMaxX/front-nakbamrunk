@@ -40,7 +40,7 @@ const CreateEmployee = () => {
         <h1>เพิ่มบัญชีธนาคาร</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>เพิ่มบัญชีธนาคาร</li>
         </ul>

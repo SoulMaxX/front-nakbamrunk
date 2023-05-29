@@ -11,7 +11,7 @@ const Payments = () => {
         <h1>ใบสำคัญจ่าย</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>ใบสำคัญจ่าย</li>
         </ul>

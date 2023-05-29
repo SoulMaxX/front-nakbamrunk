@@ -203,7 +203,7 @@ export default function ReportSaleEmployeees() {
         <h1>รายงานยอดจ่ายชำระรายวัน/รายเดือน</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>รายงานยอดจ่ายชำระรายวัน/รายเดือน</li>
         </ul>

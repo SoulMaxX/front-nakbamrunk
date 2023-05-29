@@ -40,7 +40,7 @@ const CreateEmployee = () => {
         <h1>เพิ่มพนักงาน</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>เพิ่มพนักงาน</li>
         </ul>

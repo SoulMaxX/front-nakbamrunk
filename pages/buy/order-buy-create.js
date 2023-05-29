@@ -54,7 +54,7 @@ const CreateOfferSell = () => {
         <h1>เพิ่มใบสั่งซื้อ</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>เพิ่มใบสั่งซื้อ</li>
         </ul>

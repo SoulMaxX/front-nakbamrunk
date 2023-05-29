@@ -11,7 +11,7 @@ const Customers = () => {
         <h1>ลูกค้า</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>ลูกค้า</li>
         </ul>

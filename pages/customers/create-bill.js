@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box } from "@mui/material";
+import { Box, Checkbox, FormControlLabel } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -32,7 +32,7 @@ const CreateBill = () => {
   const handleChange = (event) => {
     setCategorySelect(event.target.value);
   };
-
+const bill = ["รหัสบิล"+1+" ยอดรวม 5,000 บาท","รหัสบิล"+2+" ยอดรวม 15,000 บาท"]
   return (
     <>
       {/* Page title */}
@@ -40,7 +40,7 @@ const CreateBill = () => {
         <h1>เพิ่มใบวางบิลลูกหนี้</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>เพิ่มใบวางบิลลูกหนี้</li>
         </ul>
@@ -56,7 +56,7 @@ const CreateBill = () => {
           }}
           className="bg-black"
         >
-         
+
 
           <Grid container alignItems="center" spacing={2}>
             <Grid item xs={12} md={12} lg={6}>
@@ -92,7 +92,7 @@ const CreateBill = () => {
                   mb: "12px",
                 }}
               >
-                รหัสลูกค้า
+                ชื่อลูกค้า
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -100,16 +100,16 @@ const CreateBill = () => {
                 required
                 fullWidth
                 id="productName"
-                label="รหัสลูกค้า"
+                label="ชื่อลูกค้า"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-            
 
-            <Grid item xs={12} md={12} lg={6}>
+
+            {/* <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -121,6 +121,25 @@ const CreateBill = () => {
                 ชื่อลูกค้า :
               </Typography>
               
+            </Grid> */}
+          
+           
+          
+            <Grid item xs={12} md={12} lg={12}>
+            <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                รหัสบิล :
+              </Typography>
+              {bill.map((bill)=><FormControlLabel control={<Checkbox  />} label={bill} />)}
+            {/* <FormControlLabel control={<Checkbox  />} label="1" />
+            <FormControlLabel control={<Checkbox  />} label="2" />
+            <FormControlLabel control={<Checkbox  />} label="3" /> */}
             </Grid>
             <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -133,7 +152,7 @@ const CreateBill = () => {
               >
                 จำนวนบิล :
               </Typography>
-              
+
             </Grid>
             <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -146,7 +165,7 @@ const CreateBill = () => {
               >
                 ยอดรวม :
               </Typography>
-              
+
             </Grid>
             <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -159,7 +178,7 @@ const CreateBill = () => {
               >
                 ค่าภาษี :
               </Typography>
-              
+
             </Grid>
             <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -196,9 +215,9 @@ const CreateBill = () => {
               >
                 ยอดรวมทั่งสิ้น :
               </Typography>
-              
+
             </Grid>
-            
+
             {/* <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
@@ -296,7 +315,7 @@ const CreateBill = () => {
               />
             </Grid>
 
-           
+
 
 
             <Grid item xs={12} textAlign="end">

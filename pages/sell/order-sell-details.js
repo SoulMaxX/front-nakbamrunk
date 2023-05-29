@@ -8,12 +8,12 @@ export default function ProductDetails() {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>ข้อมูลใบเสนอขาย</h1>
+        <h1>ข้อมูลใบสั่งขาย</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>ข้อมูลใบเสนอขาย</li>
+          <li>ข้อมูลใบสั่งขาย</li>
         </ul>
       </div>
 

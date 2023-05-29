@@ -54,7 +54,7 @@ const EditOfferSell = () => {
         <h1>แก้ไขใบสั่งขาย</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>แก้ไขใบสั่งขาย</li>
         </ul>

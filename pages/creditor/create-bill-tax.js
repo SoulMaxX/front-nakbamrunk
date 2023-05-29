@@ -40,7 +40,7 @@ const CreateBill = () => {
         <h1>เพิ่มใบวางบิลเจ้าหนี้</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>เพิ่มใบวางบิลเจ้าหนี้</li>
         </ul>

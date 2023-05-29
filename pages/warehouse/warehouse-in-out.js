@@ -220,7 +220,7 @@ export default function Products() {
         <h1>สินค้าเข้า-ออกคลัง</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>สินค้าเข้า-ออกคลัง</li>
         </ul>

@@ -197,7 +197,7 @@ export default function ReportReamrks() {
         <h1>รายงานยอดซื้อแยกหมายเหตุ</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>รายงานยอดซื้อแยกหมายเหตุ</li>
         </ul>
