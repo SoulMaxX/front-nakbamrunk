@@ -29,8 +29,9 @@ const CreateReceipt = () => {
 
   // Select dropdown
   const [categorySelect, setCategorySelect] = React.useState('');
+  const [bankCheck, setBankCheck] = React.useState(0);
   const handleChange = (event) => {
-    setCategorySelect(event.target.value);
+    setBankCheck(event.target.value);
   };
 
   return (
@@ -56,7 +57,7 @@ const CreateReceipt = () => {
           }}
           className="bg-black"
         >
-         
+
 
           <Grid container alignItems="center" spacing={2}>
             <Grid item xs={12} md={12} lg={6}>
@@ -83,7 +84,7 @@ const CreateReceipt = () => {
                 }}
               />
             </Grid>
-           
+
 
             <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -133,7 +134,7 @@ const CreateReceipt = () => {
                 }}
               />
             </Grid> */}
-            
+
 
             <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -146,7 +147,7 @@ const CreateReceipt = () => {
               >
                 ชื่อลูกคค้า :
               </Typography>
-              
+
             </Grid>
             <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -159,7 +160,7 @@ const CreateReceipt = () => {
               >
                 จำนวนบิล :
               </Typography>
-              
+
             </Grid>
             <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -172,7 +173,7 @@ const CreateReceipt = () => {
               >
                 ยอดรวม :
               </Typography>
-              
+
             </Grid>
             <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -185,7 +186,7 @@ const CreateReceipt = () => {
               >
                 ค่าภาษี :
               </Typography>
-              
+
             </Grid>
             {/* <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -222,7 +223,7 @@ const CreateReceipt = () => {
               >
                 ยอดรวมทั่งสิ้น :
               </Typography>
-              
+
             </Grid>
 
             <Grid item xs={12} md={12} lg={6} >
@@ -256,6 +257,155 @@ const CreateReceipt = () => {
                 </FormControl>
               </Box>
             </Grid>
+            {
+              bankCheck == 3 ?
+                <>
+                  <Grid item xs={12} md={12} lg={6}>
+                    <Typography
+                      as="h5"
+                      sx={{
+                        fontWeight: "500",
+                        fontSize: "14px",
+                        mb: "12px",
+                      }}
+                    >
+                      เลขที่เช็ค
+                    </Typography>
+                    <TextField
+                      autoComplete="product-name"
+                      name="productName"
+                      required
+                      fullWidth
+                      id="productName"
+                      label="เลขที่เช็ค"
+                      autoFocus
+                      InputProps={{
+                        style: { borderRadius: 8 },
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={12} lg={4}>
+                    <Typography
+                      as="h5"
+                      sx={{
+                        fontWeight: "500",
+                        fontSize: "14px",
+                        mb: "12px",
+                      }}
+                    >
+                      ลงวันที่
+                    </Typography>
+                    <TextField
+                      autoComplete="short-description"
+                      name="ลงวันที่"
+                      required
+                      fullWidth
+                      id="Short Description"
+                      label="ลงวันที่"
+                      autoFocus
+                      InputProps={{
+                        style: { borderRadius: 8 },
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={12} lg={4}>
+                    <Typography
+                      as="h5"
+                      sx={{
+                        fontWeight: "500",
+                        fontSize: "14px",
+                        mb: "12px",
+                      }}
+                    >
+                      จำนวนเงิน
+                    </Typography>
+                    <TextField
+                      autoComplete="short-description"
+                      name="จำนวนเงิน"
+                      required
+                      fullWidth
+                      id="Short Description"
+                      label="จำนวนเงิน"
+                      autoFocus
+                      InputProps={{
+                        style: { borderRadius: 8 },
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={12} lg={4}>
+                    <Typography
+                      as="h5"
+                      sx={{
+                        fontWeight: "500",
+                        fontSize: "14px",
+                        mb: "12px",
+                      }}
+                    >
+                      ธนาคาร
+                    </Typography>
+                    <TextField
+                      autoComplete="short-description"
+                      name="ธนาคาร"
+                      required
+                      fullWidth
+                      id="Short Description"
+                      label="ธนาคาร"
+                      autoFocus
+                      InputProps={{
+                        style: { borderRadius: 8 },
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={12} lg={4}>
+                    <Typography
+                      as="h5"
+                      sx={{
+                        fontWeight: "500",
+                        fontSize: "14px",
+                        mb: "12px",
+                      }}
+                    >
+                      สาขา
+                    </Typography>
+                    <TextField
+                      autoComplete="short-description"
+                      name="สาขา"
+                      required
+                      fullWidth
+                      id="Short Description"
+                      label="สาขา"
+                      autoFocus
+                      InputProps={{
+                        style: { borderRadius: 8 },
+                      }}
+                    />
+                  </Grid>
+                </>
+                : <Grid item xs={12} md={12} lg={6}>
+                  <Typography
+                    as="h5"
+                    sx={{
+                      fontWeight: "500",
+                      fontSize: "14px",
+                      mb: "12px",
+                    }}
+                  >
+                    จำนวนเงิน
+                  </Typography>
+                  <TextField
+                    autoComplete="product-name"
+                    name="productName"
+                    required
+                    fullWidth
+                    id="productName"
+                    label="จำนวนเงิน"
+                    autoFocus
+                    InputProps={{
+                      style: { borderRadius: 8 },
+                    }}
+                  />
+                </Grid>
+            }
             <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
@@ -265,20 +415,9 @@ const CreateReceipt = () => {
                   mb: "12px",
                 }}
               >
-                เลขที่เช็ค
+                ยอดคงเหลือ:
               </Typography>
-              <TextField
-                autoComplete="product-name"
-                name="productName"
-                required
-                fullWidth
-                id="productName"
-                label="เลขที่เช็ค"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
+
             </Grid>
             {/* <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -377,7 +516,7 @@ const CreateReceipt = () => {
               />
             </Grid> */}
 
-           
+
 
 
             <Grid item xs={12} textAlign="end">

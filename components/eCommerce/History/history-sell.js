@@ -45,7 +45,7 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-// Create Product Modal Style
+// Create HistorySell Modal Style
 const style = {
   position: "absolute",
   top: "50%",
@@ -60,7 +60,7 @@ const style = {
   borderRadius: "8px",
 };
 
-function Product(props) {
+function HistorySell(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -122,7 +122,7 @@ function Product(props) {
   );
 }
 
-Product.propTypes = {
+HistorySell.propTypes = {
   count: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
@@ -130,34 +130,34 @@ Product.propTypes = {
 };
 
 function createData(
-  
+
   id,
   date,
-  buyPrice,
+  sellPrice,
 ) {
   return {
     id,
     date,
-    buyPrice,
+    sellPrice,
   };
 }
 
 const rows = [
   createData(
     "1",
-    "10/5/2566",
-    "625.00",
+    "15/5/2566",
+    "900.00",
   ),
   createData(
     "2",
-    "22/5/2566",
-    "700.00",
+    "23/5/2566",
+    "1050.00",
   ),
-  
+
 ]
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
-export default function Products() {
+const History_Sells = () => {
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -175,7 +175,7 @@ export default function Products() {
     setPage(0);
   };
 
-  // Create Product Modal & Form
+  // Create HistorySell Modal & Form
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -197,16 +197,6 @@ export default function Products() {
 
   return (
     <>
-      {/* Page title */}
-      <div className={styles.pageTitle}>
-        <h1>ประวัติการซื้อสินค้า</h1>
-        <ul>
-          <li>
-            <Link href="/">Dashboard</Link>
-          </li>
-          <li>ประวัติการซื้อสินค้า</li>
-        </ul>
-      </div>
 
       <Card
         sx={{
@@ -224,17 +214,17 @@ export default function Products() {
             paddingBottom: "10px",
           }}
         >
-          {/* <Typography
+          <Typography
             as="h3"
             sx={{
               fontSize: 18,
               fontWeight: 500,
             }}
           >
-            สินค้า
-          </Typography> */}
+            ประวัติการขาย
+          </Typography>
 
-         
+
         </Box>
 
         <TableContainer
@@ -264,7 +254,7 @@ export default function Products() {
                     fontSize: "13.5px",
                   }}
                 >
-                 วันที่
+                  วันที่
                 </TableCell>
 
                 <TableCell
@@ -273,7 +263,7 @@ export default function Products() {
                     fontSize: "13.5px",
                   }}
                 >
-                  ราคาซื้อ
+                  ราคาขาย
                 </TableCell>
 
                 {/* <TableCell
@@ -345,7 +335,7 @@ export default function Products() {
                 )
                 : rows
               ).map((row) => (
-                <TableRow key={row.id} className={styles.Product} >
+                <TableRow key={row.id} className={styles.HistorySell} >
                   {/* <TableCell
                     // align="center"
                     sx={{
@@ -370,8 +360,8 @@ export default function Products() {
                       }}
                     >
                       {/* <img
-                        src={row.productImg}
-                        alt="Product Img"
+                        src={row.HistorySellImg}
+                        alt="HistorySell Img"
                         width={50}
                         className="borderRadius10"
                       /> */}
@@ -395,7 +385,7 @@ export default function Products() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.buyPrice}
+                    {row.sellPrice}
                   </TableCell>
 
                   {/* <TableCell
@@ -408,7 +398,7 @@ export default function Products() {
 
                     }}
                   >
-                    {row.productName}
+                    {row.HistorySellName}
                   </TableCell>
 
                   <TableCell
@@ -442,7 +432,7 @@ export default function Products() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.buyPrice}
+                    {row.sellPrice}
                   </TableCell>
                   <TableCell
                     align="center"
@@ -469,7 +459,7 @@ export default function Products() {
                     >
                       <Tooltip title="View" placement="top">
                         <IconButton
-                          href="/products/product-details"
+                          href="/HistorySells/HistorySell-details"
                           aria-label="view"
                           size="small"
                           color="info"
@@ -534,7 +524,7 @@ export default function Products() {
                   }}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={Product}
+                  ActionsComponent={HistorySell}
                   style={{ borderBottom: "none" }}
                 />
               </TableRow>
@@ -543,7 +533,7 @@ export default function Products() {
         </TableContainer>
       </Card>
 
-      {/* Create Product Modal */}
+      {/* Create HistorySell Modal */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -610,7 +600,7 @@ export default function Products() {
                     >
                       ลบสินค้ารหัส : 123
                     </Typography>
-                   
+
                   </Grid>
 
 
@@ -655,7 +645,7 @@ export default function Products() {
                         color: "#fff !important",
                       }}
                     >
-                      
+
                       ลบสินค้า
                     </Button>
                   </Grid>
@@ -698,7 +688,7 @@ export default function Products() {
                   fontSize: "17px",
                 }}
               >
-                Create Product
+                Create HistorySell
               </Typography>
 
               <IconButton
@@ -729,15 +719,15 @@ export default function Products() {
                         mb: "12px",
                       }}
                     >
-                      Product Name
+                      HistorySell Name
                     </Typography>
                     <TextField
-                      autoComplete="product-name"
-                      name="productName"
+                      autoComplete="HistorySell-name"
+                      name="HistorySellName"
                       required
                       fullWidth
-                      id="productName"
-                      label="Product Name"
+                      id="HistorySellName"
+                      label="HistorySell Name"
                       autoFocus
                       InputProps={{
                         style: { borderRadius: 8 },
@@ -888,7 +878,7 @@ export default function Products() {
                         mb: "12px",
                       }}
                     >
-                      Product Description
+                      HistorySell Description
                     </Typography>
 
                     <RichTextEditor
@@ -911,15 +901,15 @@ export default function Products() {
                         mb: "12px",
                       }}
                     >
-                      Product Image
+                      HistorySell Image
                     </Typography>
 
                     <TextField
-                      autoComplete="product-image"
-                      name="productImage"
+                      autoComplete="HistorySell-image"
+                      name="HistorySellImage"
                       required
                       fullWidth
-                      id="productImage"
+                      id="HistorySellImage"
                       type="file"
                       autoFocus
                       InputProps={{
@@ -933,8 +923,8 @@ export default function Products() {
                       }}
                     >
                       <img
-                        src="/images/product1.png"
-                        alt="product"
+                        src="/images/HistorySell1.png"
+                        alt="HistorySell"
                         wisth="55px"
                         className='mr-10px'
                       />
@@ -985,7 +975,7 @@ export default function Products() {
                         }}
                         className='mr-5px'
                       />{" "}
-                      Create Product
+                      Create HistorySell
                     </Button>
                   </Grid>
                 </Grid>
@@ -997,3 +987,5 @@ export default function Products() {
     </>
   );
 }
+
+export default History_Sells;

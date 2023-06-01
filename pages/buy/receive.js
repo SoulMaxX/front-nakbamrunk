@@ -45,7 +45,7 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-// Create OfferSell Modal Style
+// Create Product Modal Style
 const style = {
   position: "absolute",
   top: "50%",
@@ -60,7 +60,7 @@ const style = {
   borderRadius: "8px",
 };
 
-function OfferSell(props) {
+function Product(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -122,7 +122,7 @@ function OfferSell(props) {
   );
 }
 
-OfferSell.propTypes = {
+Product.propTypes = {
   count: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
@@ -130,31 +130,39 @@ OfferSell.propTypes = {
 };
 
 function createData(
+  
   id,
   date,
-  name,
-  amount,
+  quantity,
+  idOrder
+
 ) {
   return {
     id,
     date,
-    name,
-    amount,
+    quantity,
+    idOrder
   };
 }
 
 const rows = [
   createData(
     "1",
-    "16/5/2566",
-    "บจ. อุบล-เขมราฐ",
-    "8500.00",
+    "10/5/2566",
+    "2",
+    "5"
+  ),
+  createData(
+    "2",
+    "22/5/2566",
+    "10",
+    "8"
   ),
   
 ]
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
-export default function OfferSells() {
+export default function Products() {
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -172,7 +180,7 @@ export default function OfferSells() {
     setPage(0);
   };
 
-  // Create OfferSell Modal & Form
+  // Create Product Modal & Form
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -196,12 +204,12 @@ export default function OfferSells() {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>ใบเสนอราคาซื้อ</h1>
+        <h1>ค้างรับ</h1>
         <ul>
           <li>
             <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>ใบเสนอราคาซื้อ</li>
+          <li>ค้างรับ</li>
         </ul>
       </div>
 
@@ -231,48 +239,7 @@ export default function OfferSells() {
             สินค้า
           </Typography> */}
 
-          {/* <Button
-            onClick={handleOpen}
-            variant="contained"
-            color="secondary"
-
-            sx={{
-              textTransform: "capitalize",
-              borderRadius: "8px",
-              fontWeight: "500",
-              fontSize: "13px",
-              padding: "12px 20px",
-              color: "#fff !important",
-            }}
-          >
-            <PrintIcon
-              sx={{ position: "relative", top: "-1px" }}
-              className='mr-5px'
-            />{" "}
-            พิมพ์แฟ้มสินค้า
-          </Button> */}
-
-          <SearchForm />
-
-          <Button
-            // onClick={handleOpen}
-            href="/buy/offer-buy-create/"
-            variant="contained"
-            sx={{
-              textTransform: "capitalize",
-              borderRadius: "8px",
-              fontWeight: "500",
-              fontSize: "13px",
-              padding: "12px 20px",
-              color: "#fff !important",
-            }}
-          >
-            <AddIcon
-              sx={{ position: "relative", top: "-1px" }}
-              className='mr-5px'
-            />{" "}
-            เพิ่มใบเสนอราคา
-          </Button>
+         
         </Box>
 
         <TableContainer
@@ -288,56 +255,49 @@ export default function OfferSells() {
           >
             <TableHead sx={{ background: "#F7FAFF" }}>
               <TableRow>
-                <TableCell
-                  align="center"
-                  sx={{
-                    borderBottom: "1px solid #F7FAFF",
-                    fontSize: "13.5px",
-                    width: "150px"
-                  }}
-                >
-                  รหัสใบเสนอราคา
-                </TableCell>
-                <TableCell
-                  align="center"
+                {/* <TableCell
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
                   }}
                 >
-                  วันที่
+                  รหัสสินค้า
+                </TableCell> */}
+                <TableCell
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                 กำหนดส่ง
                 </TableCell>
 
-                <TableCell
-                  align="center"
+                {/* <TableCell
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
                   }}
                 >
-                  ชื่อSupplier
+                 จำนวน
+                </TableCell> */}
+                <TableCell
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                 รหัสใบสั่งซื้อ
+                </TableCell>
+                <TableCell
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                 Actions
                 </TableCell>
 
-                <TableCell
-                  align="center"
-                  sx={{
-                    borderBottom: "1px solid #F7FAFF",
-                    fontSize: "13.5px",
-                  }}
-                >
-                  ยอดรวมทั้งสิ้น
-                </TableCell>
-                
-
-                <TableCell
-                  align="right"
-                  sx={{
-                    borderBottom: "1px solid #F7FAFF",
-                    fontSize: "13.5px",
-                  }}
-                >
-                  Actions
-                </TableCell>
+               
               </TableRow>
             </TableHead>
 
@@ -349,9 +309,9 @@ export default function OfferSells() {
                 )
                 : rows
               ).map((row) => (
-                <TableRow key={row.id} className={styles.OfferSell} >
-                  <TableCell
-                    align="center"
+                <TableRow key={row.id} className={styles.Product} >
+                  {/* <TableCell
+                    // align="center"
                     sx={{
                       width: 100,
                       borderBottom: "1px solid #F7FAFF",
@@ -360,33 +320,62 @@ export default function OfferSells() {
                     }}
                   >
                     {row.id}
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell
-                    align="center"
                     sx={{
-                      width: 100,
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      {/* <img
+                        src={row.productImg}
+                        alt="Product Img"
+                        width={50}
+                        className="borderRadius10"
+                      /> */}
+                      <Typography
+                        as="h4"
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "13px",
+                        }}
+                        className='ml-10px'
+                      >
+                        {row.date}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+
+                  {/* <TableCell
+                    sx={{
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
                     }}
                   >
-                    {row.date}
-                  </TableCell>
-                 
-
+                    {row.quantity}
+                  </TableCell> */}
                   <TableCell
-                    align="center"
+                  
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
                     }}
                   >
-                    {row.name}
+                    <a href={`/products/${row.idOrder}`}>
+
+                    {row.idOrder}
+                    </a>
                   </TableCell>
 
-                  <TableCell
-                    align="center"
+                  {/* <TableCell
 
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
@@ -396,10 +385,52 @@ export default function OfferSells() {
 
                     }}
                   >
-                    {row.amount}
+                    {row.productName}
                   </TableCell>
 
-                  
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+
+                    }}
+                  >
+                    {row.carBrand}
+                  </TableCell>
+
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.brand}
+                  </TableCell>
+
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.buyPrice}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.sellPrice}
+                  </TableCell> */}
 
                   <TableCell
                     align="right"
@@ -415,7 +446,7 @@ export default function OfferSells() {
                     >
                       <Tooltip title="View" placement="top">
                         <IconButton
-                          href="/buy/offer-buy-details"
+                          href="/buy/receive-details"
                           aria-label="view"
                           size="small"
                           color="info"
@@ -424,10 +455,10 @@ export default function OfferSells() {
                           <VisibilityIcon fontSize="inherit" />
                         </IconButton>
                       </Tooltip>
-
+{/* 
                       <Tooltip title="Edit" placement="top">
                         <IconButton
-                        href="/buy/offer-buy-edit"
+                        href="/sell/send-status"
                           aria-label="edit"
                           size="small"
                           color="primary"
@@ -435,20 +466,11 @@ export default function OfferSells() {
                         >
                           <DriveFileRenameOutlineIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip>
-
-                      {/* <Tooltip title="Add To Cart" placement="top">
-                        <IconButton
-                          aria-label="Add To Cart"
-                          size="small"
-                          color="success"
-                          className="success"
-                        >
-                          <ShoppingCartIcon fontSize="inherit" />
-                        </IconButton>
                       </Tooltip> */}
 
-                      <Tooltip title="Remove" placement="top">
+                
+
+                      {/* <Tooltip title="Remove" placement="top">
                         <IconButton
                           onClick={handleOpen}
                           aria-label="remove"
@@ -458,7 +480,7 @@ export default function OfferSells() {
                         >
                           <DeleteIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip>
+                      </Tooltip> */}
                     </Box>
                   </TableCell>
                 </TableRow>
@@ -490,7 +512,7 @@ export default function OfferSells() {
                   }}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={OfferSell}
+                  ActionsComponent={Product}
                   style={{ borderBottom: "none" }}
                 />
               </TableRow>
@@ -499,7 +521,7 @@ export default function OfferSells() {
         </TableContainer>
       </Card>
 
-      {/* Create OfferSell Modal */}
+      {/* Create Product Modal */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -654,7 +676,7 @@ export default function OfferSells() {
                   fontSize: "17px",
                 }}
               >
-                Create OfferSell
+                Create Product
               </Typography>
 
               <IconButton
@@ -685,15 +707,15 @@ export default function OfferSells() {
                         mb: "12px",
                       }}
                     >
-                      OfferSell Name
+                      Product Name
                     </Typography>
                     <TextField
-                      autoComplete="OfferSell-name"
-                      name="OfferSellName"
+                      autoComplete="product-name"
+                      name="productName"
                       required
                       fullWidth
-                      id="OfferSellName"
-                      label="OfferSell Name"
+                      id="productName"
+                      label="Product Name"
                       autoFocus
                       InputProps={{
                         style: { borderRadius: 8 },
@@ -844,7 +866,7 @@ export default function OfferSells() {
                         mb: "12px",
                       }}
                     >
-                      OfferSell Description
+                      Product Description
                     </Typography>
 
                     <RichTextEditor
@@ -867,15 +889,15 @@ export default function OfferSells() {
                         mb: "12px",
                       }}
                     >
-                      OfferSell Image
+                      Product Image
                     </Typography>
 
                     <TextField
-                      autoComplete="OfferSell-image"
-                      name="OfferSellImage"
+                      autoComplete="product-image"
+                      name="productImage"
                       required
                       fullWidth
-                      id="OfferSellImage"
+                      id="productImage"
                       type="file"
                       autoFocus
                       InputProps={{
@@ -889,8 +911,8 @@ export default function OfferSells() {
                       }}
                     >
                       <img
-                        src="/images/OfferSell1.png"
-                        alt="OfferSell"
+                        src="/images/product1.png"
+                        alt="product"
                         wisth="55px"
                         className='mr-10px'
                       />
@@ -941,7 +963,7 @@ export default function OfferSells() {
                         }}
                         className='mr-5px'
                       />{" "}
-                      Create OfferSell
+                      Create Product
                     </Button>
                   </Grid>
                 </Grid>

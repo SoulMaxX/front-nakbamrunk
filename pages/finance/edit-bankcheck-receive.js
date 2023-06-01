@@ -183,6 +183,30 @@ const CreateEmployee = () => {
                 }}
               />
             </Grid>
+            <Grid item xs={12} md={12} lg={5}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                สาขา
+              </Typography>
+              <TextField
+                autoComplete="short-description"
+                name="สาขา"
+                required
+                fullWidth
+                id="Short Description"
+                label="สาขา"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
             {/* <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"

@@ -63,9 +63,14 @@ const style = {
 };
 
 function Row(props) {
-  const { row } = props;
+  const { row, open3 } = props;
   // console.log(row.productName)
   const [open2, setOpen2] = React.useState(false);
+  // const [open3, setOpen3] = React.useState(false);
+
+  // const handleOpenprice = (e) => {
+  //   setOpen3(!open3);
+  // }
   return (
     <>
       <TableRow key={row.id} className={styles.Product}>
@@ -145,7 +150,7 @@ function Row(props) {
             fontSize: "13px",
           }}
         >
-          {row.buyPrice}
+          {open3 ? row.buyPrice : ""}
         </TableCell>
         <TableCell
           align="center"
@@ -461,6 +466,13 @@ export default function Products() {
     setCategorySelect(event.target.value);
   };
   const [open2, setOpen2] = React.useState(false);
+  const [open3, setOpen3] = React.useState(false);
+ 
+  const handleOpenprice = (e)=>{
+    setOpen3(!open3);
+  }
+
+
   return (
     <>
       {/* Page title */}
@@ -524,6 +536,20 @@ export default function Products() {
 
           <SearchForm />
 
+          <Button
+            onClick={handleOpenprice}
+            variant="contained"
+            sx={{
+              textTransform: "capitalize",
+              borderRadius: "8px",
+              fontWeight: "500",
+              fontSize: "13px",
+              padding: "12px 20px",
+              color: "#fff !important",
+            }}
+          >
+            ราคาทุน
+          </Button>
           <Button
             // onClick={handleOpen}
             href="/products/create-product"
@@ -614,7 +640,7 @@ export default function Products() {
                   ยี่ห้อ
                 </TableCell>
 
-                <TableCell
+                 <TableCell
                   align="center"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -623,6 +649,7 @@ export default function Products() {
                 >
                   ทุนสุทธิ
                 </TableCell>
+                  
                 <TableCell
                   align="center"
                   sx={{
@@ -653,7 +680,7 @@ export default function Products() {
                 )
                 : rows
               ).map((row) => (
-                <Row key={row.id} row={row} />
+                <Row key={row.id} row={row} open3={open3} />
               ))}
 
 

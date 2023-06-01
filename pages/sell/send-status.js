@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box } from "@mui/material";
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -11,13 +11,25 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
+import Paper from '@mui/material/Paper';
+
 
 import dynamic from 'next/dynamic'
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-const CreateEmployee = () => {
+function createData(id, name, quantity, unit, price, discount) {
+  return { id, name, quantity, unit, price, discount };
+}
+
+const rows = [
+  createData(1, 'ถังลม 30 ลิตร', 1, "ถัง", 8500, 5),
+  createData(5, 'ค่าส่ง', 1, "", 6500, ""),
+
+];
+
+const CreateOfferSell = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -33,16 +45,18 @@ const CreateEmployee = () => {
     setCategorySelect(event.target.value);
   };
 
+
+
   return (
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>เพิ่มบัญชีธนาคาร</h1>
+        <h1>ค้างส่ง</h1>
         <ul>
           <li>
             <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>เพิ่มบัญชีธนาคาร</li>
+          <li>ค้างส่ง</li>
         </ul>
       </div>
 
@@ -56,10 +70,12 @@ const CreateEmployee = () => {
           }}
           className="bg-black"
         >
-
+          {/* <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
+            เพิ่มคลังสินค้า
+          </Typography> */}
 
           <Grid container alignItems="center" spacing={2}>
-            <Grid item xs={12} md={12} lg={5}>
+            {/* <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"
                 sx={{
@@ -68,7 +84,7 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                ชื่อบัญชี
+                รหัสคลังสินค้า
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -76,14 +92,15 @@ const CreateEmployee = () => {
                 required
                 fullWidth
                 id="productName"
-                label="ชื่อบัญชี"
+                label="รหัสคลังสินค้า"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={5}>
+
+            <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
                 sx={{
@@ -92,7 +109,7 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                ชื่อธนาคาร
+                ชื่อคลังสินค้า
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -100,14 +117,15 @@ const CreateEmployee = () => {
                 required
                 fullWidth
                 id="productName"
-                label="ชื่อธนาคาร"
+                label="ชื่อคลังสินค้า"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={5}>
+
+            <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -116,24 +134,22 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                สาขา
+                ที่อยู่
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="productName"
+                name="shortName"
                 required
                 fullWidth
-                id="productName"
-                label="สาขา"
+                id="shortName"
+                label="ที่อยู่"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
-
-
-            <Grid item xs={12} md={12} lg={2}>
+            </Grid> */}
+            <Grid item xs={12} md={12} lg={4}  >
               <Typography
                 as="h5"
                 sx={{
@@ -142,106 +158,25 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                ประเภทบัญชี
+                สถานะ
               </Typography>
-              {/* <TextField
-                autoComplete="short-description"
-                name="ประเภทบัญชี"
-                required
-                fullWidth
-                id="Short Description"
-                label="ประเภทบัญชี"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              /> */}
-              {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                defaultValue={1}
-                onChange={handleChange}
-              >
-                <MenuItem value={1}>ออมทรัพย์</MenuItem>
-                <MenuItem value={2}>กระแสรายวัน</MenuItem>
-              </Select>
-            </Grid>
 
-            <Grid item xs={12} md={12} lg={5}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                เลขบัญชีธนาคาร
-              </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="เลขบัญชีธนาคาร"
-                required
-                fullWidth
-                id="Short Description"
-                label="เลขบัญชีธนาคาร"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // value={age}
+                    // label="Age"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>สำเร็จ</MenuItem>
+                    <MenuItem value={20}>ไม่สำเร็จ</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
             </Grid>
-            {/* <Grid item xs={12} md={12} lg={6}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                Email
-              </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="Email"
-                required
-                fullWidth
-                id="Short Description"
-                label="Email"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                รูปพนักงาน
-              </Typography>
-              <TextField
-                autoComplete="product-image"
-                name="productImage"
-                required
-                fullWidth
-                id="productImage"
-                type="file"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-
-            </Grid>  */}
 
 
             <Grid item xs={12} textAlign="end">
@@ -257,14 +192,14 @@ const CreateEmployee = () => {
                   color: "#fff !important"
                 }}
               >
-                <AddIcon
+                {/* <AddIcon
                   sx={{
                     position: "relative",
                     top: "-2px",
                   }}
                   className='mr-5px'
-                />{" "}
-                เพิ่มบัญชีธนาคาร
+                />{" "} */}
+                บันทึก
               </Button>
             </Grid>
           </Grid>
@@ -274,4 +209,4 @@ const CreateEmployee = () => {
   )
 }
 
-export default CreateEmployee;
+export default CreateOfferSell;

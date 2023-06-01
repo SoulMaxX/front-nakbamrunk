@@ -202,7 +202,7 @@ export default function HistorySells() {
         <h1>ประวัติการขายสินค้า</h1>
         <ul>
           <li>
-            <Link href="/">Dashboard</Link>
+            <Link href="/">หน้าหลัก</Link>
           </li>
           <li>ประวัติการขายสินค้า</li>
         </ul>

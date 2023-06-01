@@ -122,7 +122,7 @@ const ProductDetailsContent = () => {
               <Button
                 variant="contained"
                 color="primary"
-                href="/products/history-buy"
+                href="/products/history"
                 sx={{
                   textTransform: 'capitalize',
                   borderRadius: '30px',
@@ -133,9 +133,9 @@ const ProductDetailsContent = () => {
                 }}
                 className="mr-10px"
               >
-                ประวัติราคาซื้อ
+                ประวัติราคาซื้อ-ขาย
               </Button>
-              <Button
+              {/* <Button
                 variant="contained"
                 color="primary"
                 href="/products/history-sell"
@@ -150,7 +150,40 @@ const ProductDetailsContent = () => {
                 className="mr-10px"
               >
                 ประวัติราคาขาย
+              </Button> */}
+              {/* <br/>
+              <Button
+                variant="contained"
+                color="primary"
+                href="/products/"
+                sx={{
+                  textTransform: 'capitalize',
+                  borderRadius: '30px',
+                  mt: '10px',
+                  p: '10px 30px',
+                  fontSize: '14px',
+                  color: "#fff !important",
+                }}
+                className="mr-10px"
+              >
+                ค้างรับ
               </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                href="/products/send"
+                sx={{
+                  textTransform: 'capitalize',
+                  borderRadius: '30px',
+                  mt: '10px',
+                  p: '10px 30px',
+                  fontSize: '14px',
+                  color: "#fff !important",
+                }}
+                className="mr-10px"
+              >
+                ค้างส่ง
+              </Button> */}
               <Button
                 variant="contained"
                 color="primary"

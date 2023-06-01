@@ -133,13 +133,15 @@ function createData(
   id,
   date,
   name,
-  amount,
+  product,
+  product2,
 ) {
   return {
     id,
     date,
     name,
-    amount,
+    product,
+    product2,
   };
 }
 
@@ -148,7 +150,8 @@ const rows = [
     "1",
     "16/5/2566",
     "บจ. อุบล-เขมราฐ",
-    "8500.00",
+    "1.จานเบรค",
+    "2.ไฟหน้า",
   ),
   
 ]
@@ -305,7 +308,7 @@ export default function OrderSells() {
                     fontSize: "13.5px",
                   }}
                 >
-                  วันที่
+                  กำหนดส่ง
                 </TableCell>
 
                 <TableCell
@@ -325,7 +328,7 @@ export default function OrderSells() {
                     fontSize: "13.5px",
                   }}
                 >
-                  ยอดรวมทั้งสิ้น
+                  รายการสินค้า
                 </TableCell>
                 
 
@@ -386,7 +389,7 @@ export default function OrderSells() {
                   </TableCell>
 
                   <TableCell
-                    align="center"
+                    align="start"
 
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
@@ -396,7 +399,9 @@ export default function OrderSells() {
 
                     }}
                   >
-                    {row.amount}
+                    {row.product}
+                    <br/>
+                    {row.product2}
                   </TableCell>
 
                   

@@ -142,10 +142,11 @@ EmployeesList.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(name, bank, type, bookbank) {
+function createData(name, bank,branch, type, bookbank) {
   return {
     name,
     bank,
+    branch,
     type,
     bookbank,
   };
@@ -155,12 +156,14 @@ const rows = [
   createData(
     "Evangelina ",
     "BBL",
+    "สาทร",
     "ออมทรัพย์",
     "1234567890",
   ),
   createData(
     "Mcclain",
     "SCB",
+    "บางนา",
     "กระแสรายวัน",
     "1111111111",
   ),
@@ -283,6 +286,12 @@ export default function BookbanksLists() {
                 >
                   ชื่อธนาคาร
                 </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
+                >
+                  สาขา
+                </TableCell>
 
                 <TableCell
                   align="center"
@@ -358,6 +367,17 @@ export default function BookbanksLists() {
                     }}
                   >
                     {row.bank}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderBottom: "1px solid #F7FAFF",
+                      fontSize: "13px",
+                      paddingTop: "13px",
+                      paddingBottom: "13px",
+                    }}
+                  >
+                    {row.branch}
                   </TableCell>
 
                   <TableCell

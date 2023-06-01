@@ -239,7 +239,7 @@ export default function BookbanksLists() {
           </Typography>
 
           <Button
-            href="/finance/create-bankcheck-recive"
+            href="/finance/create-bankcheck-receive"
             // onClick={handleClickOpen}
             variant="contained"
             sx={{
@@ -486,7 +486,7 @@ export default function BookbanksLists() {
 
                       <Tooltip title="Rename" placement="top">
                         <IconButton
-                          href="/finance/edit-bankcheck-recive"
+                          href="/finance/edit-bankcheck-receive"
                           aria-label="rename"
                           size="small"
                           color="primary"
