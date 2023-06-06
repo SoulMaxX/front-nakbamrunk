@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, colors } from "@mui/material";
+import { Box, Fade, IconButton, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, colors } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -12,9 +12,26 @@ import Select from '@mui/material/Select';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 import Paper from '@mui/material/Paper';
+import ClearIcon from "@mui/icons-material/Clear";
 
 
 import dynamic from 'next/dynamic'
+import ProductsOrder from "@/components/Sells/ProductsOrder/ProductsOrder";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  height: "90%",
+  maxWidth: '90%',
+  width: '100%',
+  overflow: "auto",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  borderRadius: "8px",
+};
+
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
@@ -30,6 +47,13 @@ const rows = [
 ];
 
 const CreateOfferSell = () => {
+  const [open, setOpen] = React.useState(false);
+  const handlerOpen = (e) => {
+    setOpen(true);
+  }
+  const handlerClose = (e) => {
+    setOpen(false);
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -151,7 +175,7 @@ const CreateOfferSell = () => {
             </Grid>
             <Grid item xs={12} md={12} lg={10}>
             </Grid>
-            <Grid item xs={12} md={12} lg={2}>
+            {/* <Grid item xs={12} md={12} lg={2}>
 
               <Typography
                 as="h5"
@@ -271,12 +295,14 @@ const CreateOfferSell = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} md={12} lg={3} >
 
               <Button
-                type="submit"
+                // href="/sell/sell-products"
+                // type="submit"
+                onClick={handlerOpen}
                 variant="contained"
                 sx={{
                   textTransform: "capitalize",
@@ -566,6 +592,56 @@ const CreateOfferSell = () => {
           </Grid>
         </Box>
       </Box>
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handlerClose}
+        closeAfterTransition
+        // BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={style}>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                background: "#EDEFF5",
+                borderRadius: "8px",
+                padding: "20px 20px",
+              }}
+              className="bg-black"
+            >
+              <Typography
+                id="modal-modal-title"
+                variant="h6"
+                component="h2"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "17px",
+                }}
+              >
+                สินค้า
+              </Typography>
+              <IconButton
+                aria-label="remove"
+                size="small"
+                onClick={handlerClose}
+              >
+                <ClearIcon />
+              </IconButton>
+              
+            </Box>
+            <ProductsOrder></ProductsOrder>
+          </Box>
+        </Fade>
+      </Modal>
     </>
   )
 }

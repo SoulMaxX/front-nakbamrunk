@@ -22,6 +22,7 @@ const nextConfig = {
 	// 			? "https://admash-admin.envytheme.com/"
 	// 			: "http://localhost:3000",
 	// },
+  output: 'export',
 }
 
 module.exports = nextConfig

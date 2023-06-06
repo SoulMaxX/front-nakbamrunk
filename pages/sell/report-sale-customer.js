@@ -548,7 +548,7 @@ export default function ReportSaleCustomers() {
                     >
                       <Tooltip title="View" placement="top">
                         <IconButton
-                          href="/sell/order-sell-details"
+                          href="/sell/report-sale-customer-details"
                           aria-label="view"
                           size="small"
                           color="info"
