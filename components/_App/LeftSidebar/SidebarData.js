@@ -174,7 +174,7 @@ export const SidebarData = [
   // },
   {
     title: "การซื้อ",
-    path: "/buy/offer-buy/",
+    path: "",
     icon: <ShoppingCartIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -231,7 +231,7 @@ export const SidebarData = [
   },
   {
     title: "การขาย",
-    path: "/sell/offer-sell/",
+    path: "",
     icon: <ShoppingCartIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -253,6 +253,10 @@ export const SidebarData = [
       {
         title: "ใบกำกับภาษีขาย",
         path: "/sell/tax-sell/",
+      },
+      {
+        title: "ใบลดหนี้ขาย",
+        path: "/sell/credit-note/",
       },
       {
         title: "สินค้าค้างส่ง",
@@ -299,7 +303,7 @@ export const SidebarData = [
   },
   {
     title: "จัดการสินค้า",
-    path: "/products/",
+    path: "",
     icon: <StorefrontIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -357,7 +361,7 @@ export const SidebarData = [
   },
   {
     title: "จัดการคลังสินค้า",
-    path: "/warehouse/",
+    path: "",
     icon: <StorefrontIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -384,7 +388,7 @@ export const SidebarData = [
   },
   {
     title: "ลูกค้า",
-    path: "/customers/",
+    path: "",
     icon: <PersonIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -440,7 +444,7 @@ export const SidebarData = [
   },
   {
     title: "เจ้าหนี้",
-    path: "/creditor/",
+    path: "",
     icon: <PersonIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -483,7 +487,7 @@ export const SidebarData = [
   },
   {
     title: "การเงิน",
-    path: "/finance/bookbank/",
+    path: "",
     icon: <AccountBalanceIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -507,7 +511,7 @@ export const SidebarData = [
   },
   {
     title: "ธุรการ",
-    path: "/employee/employees/",
+    path: "",
     icon: <PersonIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -523,7 +527,7 @@ export const SidebarData = [
   },
   {
     title: "จัดการระบบ",
-    path: "/admin/users/",
+    path: "",
     icon: <SettingsIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,

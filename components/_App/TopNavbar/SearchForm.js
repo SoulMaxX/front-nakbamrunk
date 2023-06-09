@@ -52,10 +52,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchForm(props) {
-  const { rows } = props;
+  const { rows ,setResult} = props;
 
   const [search, setSearch] = React.useState("")
-  const [result, setResult] = React.useState("")
+  // const [result, setResult] = React.useState(rows)
   if(rows){
 
     const fil = rows.filter(val => {
@@ -72,7 +72,7 @@ export default function SearchForm(props) {
       
     },[search])
     
-    console.log(result)
+    // console.log(result)
   }
   // console.log(result)
   return (

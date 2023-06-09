@@ -68,8 +68,28 @@ const CreateOfferSell = () => {
   const handleChange = (event) => {
     setCategorySelect(event.target.value);
   };
+  const [discount, setDiscount] = React.useState('');
+  const [total, setTotal] = React.useState(0);
 
+  const handleDiscount = (event, id) => {
+    let name = "dc" + id
+    setDiscount({
+      ...discount,
+      [name]: event.target.value
+    })
+  };
+  if (typeof window != "undefined") {
+    let table =  document.getElementById('item');
+    let sum = 0
 
+    React.useEffect(() => {
+    for (let index = 1; index < table.rows.length; index++) {
+      sum = Number(table.rows[index].cells[8].innerText) + sum;
+    }
+    // console.log(sum)
+    setTotal(sum)
+    }, [discount])
+  }
 
   return (
     <>
@@ -342,7 +362,7 @@ const CreateOfferSell = () => {
               </Typography>
 
               <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table" className="dark-table">
+                <Table sx={{ minWidth: 650 }} aria-label="simple table" className="dark-table" id="item">
                   <TableHead>
                     <TableRow>
                       <TableCell>รหัสสินค้า</TableCell>
@@ -371,9 +391,21 @@ const CreateOfferSell = () => {
                         <TableCell align="right">{row.unit}</TableCell>
                         <TableCell align="right" style={{ ...row.warehouse <= 10 ? { color: "red" } : "" }} >{row.warehouse}</TableCell>
                         <TableCell align="right">{row.price}</TableCell>
-                        <TableCell align="right">{row.discount}</TableCell>
-                        <TableCell align="right">{row.price * (row.discount / 100)}</TableCell>
-                        <TableCell align="right">{(row.quantity * row.price) - row.price * (row.discount / 100)}</TableCell>
+                        <TableCell align="right" sx={{ width: "100px" }}> <TextField
+                          name={"discount" + row.id}
+                          id="discount"
+                          type="number"
+                          InputProps={{
+                            style: { borderRadius: 8 },
+                            inputProps: { min: 0, max: 100 }
+                          }}
+                          onChange={event => handleDiscount(event, row.id)}
+                        /></TableCell>
+
+
+                        {/* {typeof window !== "undefined" ? document.getElementsByName("discount" + row.id)[0].value : ""} */}
+                        <TableCell align="right">{(((typeof window !== "undefined") ? document.getElementsByName("discount" + row.id)[0].value / 100 : 0) * row.price).toFixed(2)}</TableCell>
+                        <TableCell align="right">{((row.quantity * row.price) - row.price * ((typeof window !== "undefined") ? document.getElementsByName("discount" + row.id)[0].value / 100 : 0)).toFixed(2)}</TableCell>
                         <TableCell align="center" ><Button>เพิ่ม</Button><Button>ลด</Button></TableCell>
                       </TableRow>
                     ))}
@@ -391,7 +423,7 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ยอดรวมทั้งสิ้น 15000 บาท
+                ยอดรวมทั้งสิ้น {total} บาท
               </Typography>
 
             </Grid>
@@ -636,7 +668,7 @@ const CreateOfferSell = () => {
               >
                 <ClearIcon />
               </IconButton>
-              
+
             </Box>
             <ProductsOrder></ProductsOrder>
           </Box>

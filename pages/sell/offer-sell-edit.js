@@ -102,7 +102,7 @@ const EditOfferSell = () => {
             <Grid item xs={12} md={12} lg={6}>
 
             </Grid>
-            <Grid item xs={12} md={12} lg={2}>
+            {/* <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"
                 sx={{
@@ -197,7 +197,7 @@ const EditOfferSell = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} md={12} lg={3} >
 

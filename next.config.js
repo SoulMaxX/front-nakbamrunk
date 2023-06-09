@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   trailingSlash: true,
   eslint: {
     // Warning: This allows production builds to successfully complete even if
@@ -22,7 +22,6 @@ const nextConfig = {
 	// 			? "https://admash-admin.envytheme.com/"
 	// 			: "http://localhost:3000",
 	// },
-  output: 'export',
 }
 
 module.exports = nextConfig
