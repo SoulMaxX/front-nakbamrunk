@@ -4,17 +4,46 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import axios from 'axios';
+import { Modal } from '@mui/material';
 
-export default function Profile() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+export default function Profile(props) {
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
   };
 
+  const { user, setUser } = props
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => setOpen(false);
+
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = (event) => {
+    
+    event.preventDefault();
+
+    axios.put(`${process.env.NEXT_PUBLIC_API}/auth/update_user`, user, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(()=>setOpen(true))
+
+
+  };
   return (
     <>
       <Box>
@@ -49,10 +78,12 @@ export default function Profile() {
                 ชื่อ
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={user.name ? user.name : ""}
                 autoComplete="given-name"
-                name="firstName"
+                name="name"
                 fullWidth
-                id="firstName"
+                id="name"
                 autoFocus
               />
             </Grid>
@@ -71,9 +102,13 @@ export default function Profile() {
               </Typography>
 
               <TextField
+                onChange={handleChange}
+
+                value={user.lastname ? user.lastname : ""}
+
                 fullWidth
-                id="lastName"
-                name="lastName"
+                id="lastname"
+                name="lastname"
                 autoComplete="family-name"
               />
             </Grid>
@@ -92,45 +127,18 @@ export default function Profile() {
               </Typography>
 
               <TextField
+                onChange={handleChange}
+
+                value={user.address ? user.address : ""}
+
                 fullWidth
-                id="email"
-                name="email"
-                autoComplete="email"
+                id="address"
+                name="address"
+                autoComplete="address"
               />
             </Grid>
 
-            {/* <Grid item xs={12}>
-              <Typography
-                component="label"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "10px",
-                  display: "block",
-                }}
-              >
-                Upload Image
-              </Typography>
-              
-              <TextField
-                required
-                fullWidth
-                name="file"
-                type="file"
-                id="file"
-                autoComplete="file"
-              />
-
-              <Box mt={1}>
-                <img 
-                  src="/images/user1.png" 
-                  alt="profile" 
-                  className="borRadius100"
-                  width="50px"
-                  height="50px"
-                />
-              </Box>
-            </Grid> */}
+            
           </Grid>
 
           <Button
@@ -150,6 +158,20 @@ export default function Profile() {
           </Button>
         </Box>
       </Box>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+          อัพเดทข้อมูลเรียบร้อย
+          </Typography>
+          
+        </Box>
+      </Modal>
     </>
   );
 }
