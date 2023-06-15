@@ -70,6 +70,7 @@ const CreateOfferSell = () => {
   };
   const [discount, setDiscount] = React.useState('');
   const [total, setTotal] = React.useState(0);
+  const [tax, setTax] = React.useState(0);
 
   const handleDiscount = (event, id) => {
     let name = "dc" + id
@@ -79,15 +80,15 @@ const CreateOfferSell = () => {
     })
   };
   if (typeof window != "undefined") {
-    let table =  document.getElementById('item');
+    let table = document.getElementById('item');
     let sum = 0
 
     React.useEffect(() => {
-    for (let index = 1; index < table.rows.length; index++) {
-      sum = Number(table.rows[index].cells[8].innerText) + sum;
-    }
-    // console.log(sum)
-    setTotal(sum)
+      for (let index = 1; index < table.rows.length; index++) {
+        sum = Number(table.rows[index].cells[8].innerText) + sum;
+      }
+      // console.log(sum)
+      setTotal(sum)
     }, [discount])
   }
 
@@ -119,7 +120,7 @@ const CreateOfferSell = () => {
           </Typography>
 
           <Grid container alignItems="center" spacing={2}>
-            <Grid item xs={12} md={12} lg={2}>
+            {/* <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"
                 sx={{
@@ -142,7 +143,7 @@ const CreateOfferSell = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
@@ -167,8 +168,8 @@ const CreateOfferSell = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={4}>
-            </Grid>
+            {/* <Grid item xs={12} md={12} lg={4}>
+            </Grid> */}
             <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"
@@ -291,31 +292,8 @@ const CreateOfferSell = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
-            <Grid item xs={12} md={12} lg={1}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                ภาษี
-              </Typography>
-              <TextField
-                autoComplete="product-name"
-                name="shortName"
-                required
-                fullWidth
-                id="shortName"
-                label="ภาษี"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid> */}
+            </Grid>*/}
+
 
             <Grid item xs={12} md={12} lg={3} >
 
@@ -413,7 +391,6 @@ const CreateOfferSell = () => {
                 </Table>
               </TableContainer>
             </Grid>
-
             <Grid item xs={12} md={12} lg={12}>
               <Typography
                 as="h5"
@@ -423,7 +400,45 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ยอดรวมทั้งสิ้น {total} บาท
+                ยอดรวม {total.toFixed(2)} บาท
+              </Typography>
+
+            </Grid>
+            <Grid item xs={12} md={12} lg={1}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ภาษี
+              </Typography>
+              <TextField
+                onChange={(e) => setTax(e.target.value)}
+                autoComplete="product-name"
+                name="shortName"
+                fullWidth
+                id="shortName"
+                label="ภาษี %"
+                type="number"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={12}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ยอดรวมทั้งสิ้น {(((tax / 100)+1) * total).toFixed(2)} บาท
               </Typography>
 
             </Grid>
@@ -465,7 +480,6 @@ const CreateOfferSell = () => {
               <TextField
                 autoComplete="product-name"
                 name="shortName"
-                required
                 fullWidth
                 id="shortName"
                 label="วัน"
@@ -489,7 +503,6 @@ const CreateOfferSell = () => {
               <TextField
                 autoComplete="product-name"
                 name="shortName"
-                required
                 fullWidth
                 id="shortName"
                 // label="เงื่อนไขการชำระ"

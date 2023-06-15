@@ -313,29 +313,7 @@ export default function Locations() {
           >
             <TableHead sx={{ background: "#F7FAFF" }}>
               <TableRow>
-                <TableCell
-                  align="center"
-                  sx={{
-                    borderBottom: "1px solid #F7FAFF",
-                    fontSize: "13.5px",
-                    width: "170px"
-                  }}
-                >
-                  รหัสตำแหน่งสินค้า
-                </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{
-                    borderBottom: "1px solid #F7FAFF",
-                    fontSize: "13.5px",
-
-                  }}
-                >
-                  ชื่อตำแหน่งสินค้า
-                </TableCell>
-
-                <TableCell
+              <TableCell
                   align="center"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -345,6 +323,29 @@ export default function Locations() {
                 >
                   ชื่อคลัง
                 </TableCell>
+                
+
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+
+                  }}
+                >
+                  ตำแหน่งสินค้า
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                    width: "170px"
+                  }}
+                >
+                  รหัสสินค้า
+                </TableCell>
+               
                 <TableCell
                   align="center"
                   sx={{
@@ -394,7 +395,7 @@ export default function Locations() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.id}
+                    {row.warehouse}
                   </TableCell>
 
 
@@ -420,7 +421,7 @@ export default function Locations() {
 
                     }}
                   >
-                    {row.warehouse}
+                    {row.id}
                   </TableCell>
                   <TableCell
                     align="center"

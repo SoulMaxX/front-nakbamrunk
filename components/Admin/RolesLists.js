@@ -30,6 +30,8 @@ import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -185,14 +187,17 @@ const rows = [
 
 ].sort((a, b) => (a.username < b.username ? -1 : 1));
 
-export default function RolesLists() {
+export default function RolesLists(props) {
+  const { datas } = props;
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const router = useRouter();
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datas.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -205,6 +210,7 @@ export default function RolesLists() {
 
   // Create new modal
   const [open, setOpen] = React.useState(false);
+  const [id, setId] = React.useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -213,14 +219,25 @@ export default function RolesLists() {
     setOpen(false);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const handleDelete = () => {
+
+    axios.delete(`${process.env.NEXT_PUBLIC_API}/role/delete_role/` + id, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(() => router.reload())
+
   };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get("email"),
+  //     password: data.get("password"),
+  //   });
+  // };
   // End Create new Modal
 
   return (
@@ -301,43 +318,9 @@ export default function RolesLists() {
                   สิทธิการใช้งาน
                 </TableCell>
 
-                {/* <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  Role
-                </TableCell> */}
-
-                {/* <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  ที่อยุ่
-                </TableCell> */}
-
-                {/* <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  Orders
-                </TableCell> */}
-
-                {/* <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  สถานะ
-                </TableCell> */}
-
-                {/* <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  วันที่เริ่มงาน
-                </TableCell> */}
 
                 <TableCell
-                  align="right"
+                  align="center"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
                   Action
@@ -347,11 +330,11 @@ export default function RolesLists() {
 
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(
+                ? datas.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-                : rows
+                : datas
               ).map((row) => (
                 <TableRow key={row.name}>
 
@@ -365,10 +348,10 @@ export default function RolesLists() {
                       paddingBottom: "13px",
                     }}
                   >
-                    {row.role}
+                    {row.name}
                   </TableCell>
                   <TableCell
-                    align="start"
+                    align="left"
                     style={{
                       borderBottom: "1px solid #F7FAFF",
                       fontSize: "13px",
@@ -376,54 +359,18 @@ export default function RolesLists() {
                       paddingBottom: "13px",
                     }}
                   >
-                    {row.permission1}<br />
-                    {row.permission2}<br />
-                    {row.permission3}<br />
-                    {row.permission4}<br />
-                    {row.permission5}<br />
-                    {row.permission6}<br />
-                    {row.permission7}<br />
-                    {row.permission8}<br />
-                    {row.permission9}<br />
+                    เมนูการซื้อ: {row.menuBuy.view == 1 ? "view" : ""} {row.menuBuy.create == 1 ? "create" : ""} {row.menuBuy.edit == 1 ? "edit" : ""} {row.menuBuy.delete == 1 ? "delete" : ""}<br />
+                    เมนูการขาย: {row.menuSell.view == 1 ? "view" : ""} {row.menuSell.create == 1 ? "create" : ""} {row.menuSell.edit == 1 ? "edit" : ""} {row.menuSell.delete == 1 ? "delete" : ""}<br />
+                    เมนูจัดการสินค้า: {row.menuProduct.view == 1 ? "view" : ""} {row.menuProduct.create == 1 ? "create" : ""} {row.menuProduct.edit == 1 ? "edit" : ""} {row.menuProduct.delete == 1 ? "delete" : ""}<br />
+                    เมนูจัดการคลังสินค้า: {row.menuWarehouse.view == 1 ? "view" : ""} {row.menuWarehouse.create == 1 ? "create" : ""} {row.menuWarehouse.edit == 1 ? "edit" : ""} {row.menuWarehouse.delete == 1 ? "delete" : ""}<br />
+                    เมนูลูกค้า: {row.menuCustomer.view == 1 ? "view" : ""} {row.menuCustomer.create == 1 ? "create" : ""} {row.menuCustomer.edit == 1 ? "edit" : ""} {row.menuCustomer.delete == 1 ? "delete" : ""}<br />
+                    เมนูเจ้าหนี้: {row.menuCreditor.view == 1 ? "view" : ""} {row.menuCreditor.create == 1 ? "create" : ""} {row.menuCreditor.edit == 1 ? "edit" : ""} {row.menuCreditor.delete == 1 ? "delete" : ""}<br />
+                    เมนูการเงิน: {row.menuFinance.view == 1 ? "view" : ""} {row.menuFinance.create == 1 ? "create" : ""} {row.menuFinance.edit == 1 ? "edit" : ""} {row.menuFinance.delete == 1 ? "delete" : ""}<br />
+                    เมนูธุรการ: {row.menuEmployee.view == 1 ? "view" : ""} {row.menuEmployee.create == 1 ? "create" : ""} {row.menuEmployee.edit == 1 ? "edit" : ""} {row.menuEmployee.delete == 1 ? "delete" : ""}<br />
+                    เมนูจัดการระบบ: {row.menuSystem.view == 1 ? "view" : ""} {row.menuSystem.create == 1 ? "create" : ""} {row.menuSystem.edit == 1 ? "edit" : ""} {row.menuSystem.delete == 1 ? "delete" : ""}<br />
+
                   </TableCell>
 
-                  {/* <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.role}
-                  </TableCell> */}
-
-
-
-                  {/* <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.orders}
-                  </TableCell> */}
-
-                  {/* <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    <span className={row.badgeClass}>{row.status}</span>
-                  </TableCell> */}
 
 
 
@@ -439,7 +386,7 @@ export default function RolesLists() {
 
                       <Tooltip title="Rename" placement="top">
                         <IconButton
-                          href="/admin/edit-user"
+                          href={"/admin/edit-role/" + row.id}
                           aria-label="rename"
                           size="small"
                           color="primary"
@@ -450,6 +397,7 @@ export default function RolesLists() {
                       </Tooltip>
                       <Tooltip title="Remove" placement="top">
                         <IconButton
+                          onClick={() => { setOpen(true), setId(row.id) }}
                           aria-label="remove"
                           size="small"
                           color="danger"
@@ -478,7 +426,7 @@ export default function RolesLists() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                   colSpan={8}
-                  count={rows.length}
+                  count={datas.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{
@@ -524,7 +472,7 @@ export default function RolesLists() {
                 fontSize: "18px",
               }}
             >
-              Create New
+              ต้องการลบบทบาทนี้?
             </Typography>
 
             <IconButton
@@ -536,7 +484,7 @@ export default function RolesLists() {
             </IconButton>
           </Box>
 
-          <Box component="form" noValidate onSubmit={handleSubmit}>
+          <Box >
             <Box
               sx={{
                 background: "#fff",
@@ -544,180 +492,45 @@ export default function RolesLists() {
                 borderRadius: "8px",
               }}
             >
-              <Grid container alignItems="center" spacing={2}>
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Image
-                  </Typography>
-                  <TextField
-                    autoComplete="image"
-                    name="image"
-                    required
-                    fullWidth
-                    id="image"
-                    type="file"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+              <Grid item xs={12} textAlign="center">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="danger"
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Name
-                  </Typography>
-                  <TextField
-                    autoComplete="name"
-                    name="name"
-                    required
-                    fullWidth
-                    id="name"
-                    label="Name"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                  sx={{
+                    textTransform: "capitalize",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    fontSize: "13px",
+                    padding: "12px 20px",
+                    color: "#fff !important",
+                  }}
+                  className='mr-15px'
+                  onClick={handleDelete}
+                >
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    User Name
-                  </Typography>
-                  <TextField
-                    autoComplete="user-name"
-                    name="userName"
-                    required
-                    fullWidth
-                    id="userName"
-                    label="User Name"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                  ลบ
+                </Button>
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Email
-                  </Typography>
-                  <TextField
-                    autoComplete="email"
-                    name="email"
-                    required
-                    fullWidth
-                    id="email"
-                    label="example@info.com"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{
+                    textTransform: "capitalize",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    fontSize: "13px",
+                    padding: "12px 20px",
+                    color: "#fff !important",
+                  }}
+                  onClick={handleClose}
+                >
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Phone Number
-                  </Typography>
-                  <TextField
-                    autoComplete="phone"
-                    name="phone"
-                    required
-                    fullWidth
-                    id="phone"
-                    label="0018 5054 8877"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                  ยกเลิก
+                </Button>
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Balance
-                  </Typography>
-                  <TextField
-                    autoComplete="balance"
-                    name="balance"
-                    required
-                    fullWidth
-                    id="balance"
-                    label="Balance"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
 
-                <Grid item xs={12} textAlign="end">
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    sx={{
-                      mt: 1,
-                      textTransform: "capitalize",
-                      borderRadius: "8px",
-                      fontWeight: "500",
-                      fontSize: "13px",
-                      padding: "12px 20px",
-                    }}
-                  >
-                    <AddIcon
-                      sx={{
-                        position: "relative",
-                        top: "-2px",
-                      }}
-                      className='mr-5px'
-                    />{" "}
-                    Create New
-                  </Button>
-                </Grid>
               </Grid>
             </Box>
           </Box>

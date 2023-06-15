@@ -217,7 +217,7 @@ export default function AdminsLists(props) {
   // console.log(datas);
   // console.log(rows);
   const handleDelete = () => {
-    axios.delete(`${process.env.NEXT_PUBLIC_API}/auth//delete_user/` + id, {
+    axios.delete(`${process.env.NEXT_PUBLIC_API}/auth/delete_user/` + id, {
       headers: {
         Authorization: `Bearer ${token}`
       }
