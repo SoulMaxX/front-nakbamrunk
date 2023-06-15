@@ -3,16 +3,41 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography'; 
+import Typography from '@mui/material/Typography';
+import axios from 'axios';
+import { Modal } from '@mui/material';
 
 export default function ChangePassword() {
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => setOpen(false);
+  const [data, setData] = React.useState("")
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value })
+  }
+  // console.log(data)
   const handleSubmit = (event) => {
+   
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    axios.post(`${process.env.NEXT_PUBLIC_API}/auth/changepassword`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(()=>setOpen(true)).catch((err)=> alert(err.response.data))
+   
   };
 
   return (
@@ -49,10 +74,11 @@ export default function ChangePassword() {
                 Old Password
               </Typography>
               <TextField
+                onChange={handleChange}
                 autoComplete="old-password*"
-                name="oldPassword*"
+                name="oldPassword"
                 fullWidth
-                id="oldPassword" 
+                id="oldPassword"
                 type="password"
                 autoFocus
               />
@@ -71,10 +97,12 @@ export default function ChangePassword() {
                 New Password
               </Typography>
               <TextField
-                autoComplete="new-password*"
-                name="newPassword*"
+              required
+                onChange={handleChange}
+                autoComplete="new-password"
+                name="newPassword"
                 fullWidth
-                id="newPassword" 
+                id="newPassword"
                 type="password"
                 autoFocus
               />
@@ -93,15 +121,16 @@ export default function ChangePassword() {
                 Confirm Password
               </Typography>
               <TextField
-                autoComplete="confirm-password*"
-                name="confirmPassword*"
+                onChange={handleChange}
+                autoComplete="confirm-password"
+                name="confirmPassword"
                 fullWidth
-                id="confirmPassword" 
+                id="confirmPassword"
                 type="password"
                 autoFocus
               />
             </Grid>
-  
+
             {/* <Grid item xs={12}>
               <Typography
                 component="label"
@@ -141,7 +170,21 @@ export default function ChangePassword() {
             Change Password
           </Button>
         </Box>
-      </Box> 
-    </> 
+      </Box>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+          อัพเดทข้อมูลเรียบร้อย
+          </Typography>
+          
+        </Box>
+      </Modal>
+    </>
   );
 }

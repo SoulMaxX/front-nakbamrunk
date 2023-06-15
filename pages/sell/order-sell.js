@@ -296,7 +296,7 @@ export default function OrderSells() {
                     width: "150px"
                   }}
                 >
-                  รหัสใบสั่งขาย
+                  รหัสบิล
                 </TableCell>
                 <TableCell
                   align="center"

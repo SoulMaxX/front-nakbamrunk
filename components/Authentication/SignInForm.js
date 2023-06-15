@@ -8,16 +8,38 @@ import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import styles from "@/components/Authentication/Authentication.module.css";
+import axios from 'axios';
 
 const SignInForm = () => {
-  const handleSubmit = (event) => {
+  const [datas, setDatas] = React.useState("");
+
+  const handleChange = (e) => {
+
+    setDatas({ ...datas, [e.target.name]: e.target.value })
+  }
+  // console.log(datas)
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    axios.post(`${process.env.NEXT_PUBLIC_API}/auth/login`, datas)
+      .then(response => {
+        if (response.status == 200) {
+          console.log(response.data)
+          localStorage.setItem("token",response.data[0])
+          localStorage.setItem("role",response.data[1])
+          localStorage.setItem("email",response.data[2])
+          localStorage.setItem("name",response.data[3])
+          window.location.href = '/'
+        }
+      }
+      )
+      .catch(e => {
+        // console.log(e.response.data.error);
+        if (e.response.status == 400) { alert(e.response.data.error) }
+      })
+
+
   };
+
 
   return (
     <>
@@ -37,7 +59,7 @@ const SignInForm = () => {
                 <img
                   src="/images/nba-logo.jpg"
                   alt="favicon"
-                  // className={styles.favicon}
+                // className={styles.favicon}
                 />
                 เข้าสู่ระบบ{" "}
               </Typography>
@@ -100,6 +122,7 @@ const SignInForm = () => {
                       </Typography>
 
                       <TextField
+                        onChange={handleChange}
                         required
                         fullWidth
                         id="email"
@@ -126,6 +149,7 @@ const SignInForm = () => {
                       </Typography>
 
                       <TextField
+                        onChange={handleChange}
                         required
                         fullWidth
                         name="password"
@@ -163,7 +187,6 @@ const SignInForm = () => {
 
                 <Button
                   type="submit"
-                  href="/"
                   fullWidth
                   variant="contained"
                   sx={{

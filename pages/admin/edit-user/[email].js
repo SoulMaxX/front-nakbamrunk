@@ -13,26 +13,56 @@ import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 
 import dynamic from 'next/dynamic'
+import axios from "axios";
+import { useRouter } from "next/router";
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
+const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
 
 const CreateEmployee = () => {
+  const router = useRouter()
+  const { email } = router.query
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    axios.put(`${process.env.NEXT_PUBLIC_API}/auth/update_role_by_email`,{email,roleSelect}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(()=> router.back())
+   
   };
 
+
+
+  
   // Select dropdown
-  const [categorySelect, setCategorySelect] = React.useState('');
+  const [roleSelect, setRoleSelect] = React.useState('');
+  const [datas, setDatas] = React.useState('');
+  const [roles, setRoles] = React.useState([]);
   const handleChange = (event) => {
-    setCategorySelect(event.target.value);
+    // setRoleSelect({...roleSelect,[event.target.name]:event.target.value});
+    setRoleSelect(event.target.value);
   };
+  console.log(roleSelect)
 
+  React.useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/auth/getoneuser/` + email, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => {setDatas(result.data)
+      // ,setRoleSelect(result.data)
+    })
+  }, [email])
+  React.useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/role/get_all_role`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setRoles(result.data) )
+  }, [])
   return (
     <>
       {/* Page title */}
@@ -68,20 +98,20 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                Username
+                Name: {datas.name}
               </Typography>
-              <TextField
+              {/* <TextField
                 autoComplete="product-name"
                 name="productName"
                 required
                 fullWidth
                 id="productName"
-                label="Username"
+                label="Name"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
-              />
+              /> */}
             </Grid>
 
 
@@ -94,9 +124,9 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                Email
+                Email: {datas.email}
               </Typography>
-              <TextField
+              {/* <TextField
                 autoComplete="short-description"
                 name="Email"
                 required
@@ -107,9 +137,9 @@ const CreateEmployee = () => {
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
-              />
+              /> */}
             </Grid>
-           
+
             <Grid item xs={12} md={12} lg={1}>
 
               <Typography
@@ -124,18 +154,25 @@ const CreateEmployee = () => {
               </Typography>
 
               <Box sx={{ minWidth: 120 }}>
+
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                  {/* <InputLabel id="demo-simple-select-label">Role</InputLabel> */}
+
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    // value={age}
                     label="Age"
-                    // onChange={handleChange}
+                    value={roleSelect}
+                    // defaultValue={roleSelect}
+                    onChange={handleChange}
+                    name="role"
                   >
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
+                    {roles.map(result => (
+
+                      <MenuItem key={result.id} value={result.id}>{result.id}</MenuItem>
+                    ))}
+                    {/* <MenuItem value={2}>2</MenuItem>
+                    <MenuItem value={3}>3</MenuItem> */}
                   </Select>
                 </FormControl>
               </Box>

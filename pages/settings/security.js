@@ -4,6 +4,7 @@ import { Typography } from "@mui/material";
 import ChangePassword from "@/components/Settings/Account/ChangePassword";
 
 export default function Account() {
+
   return (
     <>
       <Card

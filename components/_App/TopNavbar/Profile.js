@@ -17,9 +17,11 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import Logout from "@mui/icons-material/Logout";
+import { redirect } from 'next/navigation'
 
 const Profile = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [name, setName] = React.useState("");
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -27,6 +29,20 @@ const Profile = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  React.useEffect(() => {
+    const name = localStorage.getItem("name")
+    setName(name)
+    
+    const token = localStorage.getItem("token")
+    if(!token){
+    window.location.href = `${process.env.NEXT_PUBLIC_IP}/authentication/sign-in/`
+    }
+  })
+
+  const handleLogout = ()=>{
+    localStorage.clear()
+    window.location.href = 'authentication/sign-in/'
+  }
   return (
     <>
       <Tooltip title="Account settings">
@@ -39,9 +55,9 @@ const Profile = () => {
           aria-expanded={open ? "true" : undefined}
           className="ml-2"
         >
-           <Typography sx={{ fontSize: "20px", color: "#757FEF" }}>
-              Admin
-            </Typography>
+          <Typography sx={{ fontSize: "20px", color: "#757FEF" }}>
+            {name}
+          </Typography>
           {/* <Avatar
             src="/images/user1.png"
             alt="Adison Jeck"
@@ -186,7 +202,7 @@ const Profile = () => {
           </ListItemIcon>
 
           <Link
-            href="/authentication/logout/"
+            onClick={handleLogout}
             fontSize="13px"
             color="inherit"
             underline="none"

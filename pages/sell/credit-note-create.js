@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, colors } from "@mui/material";
+import { Box, Fade, IconButton, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, colors } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -12,9 +12,26 @@ import Select from '@mui/material/Select';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 import Paper from '@mui/material/Paper';
+import ClearIcon from "@mui/icons-material/Clear";
 
 
 import dynamic from 'next/dynamic'
+import ProductsOrder from "@/components/Sells/ProductsOrder/ProductsOrder";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  height: "90%",
+  maxWidth: '90%',
+  width: '100%',
+  overflow: "auto",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  borderRadius: "8px",
+};
+
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
@@ -24,12 +41,19 @@ function createData(id, name, quantity, unit, warehouse, price, discount) {
 }
 
 const rows = [
-  createData(1, 'ถังลม 30 ลิตร', 1, "ถัง", 5, 8500, 5),
-  createData(5, 'ค่าส่ง', 1, "", "", 6500, ""),
+  createData(1, 'ถังลม 30 ลิตร', -1, "ถัง", 5, 8500, 5),
+  createData(5, 'ค่าส่ง', -1, "", "", 6500, ""),
 
 ];
 
 const CreateOfferSell = () => {
+  const [open, setOpen] = React.useState(false);
+  const handlerOpen = (e) => {
+    setOpen(true);
+  }
+  const handlerClose = (e) => {
+    setOpen(false);
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -44,6 +68,8 @@ const CreateOfferSell = () => {
   const handleChange = (event) => {
     setCategorySelect(event.target.value);
   };
+  const [discount, setDiscount] = React.useState('');
+  const [total, setTotal] = React.useState(0);
 
 
 
@@ -51,12 +77,12 @@ const CreateOfferSell = () => {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>เพิ่มใบPO</h1>
+        <h1>เพิ่มใบลดหนี้ขาย</h1>
         <ul>
           <li>
             <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>เพิ่มใบPO</li>
+          <li>เพิ่มใบลดหนี้ขาย</li>
         </ul>
       </div>
 
@@ -71,7 +97,7 @@ const CreateOfferSell = () => {
           className="bg-black"
         >
           <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-            เพิ่มใบPO
+            เพิ่มใบลดหนี้ขาย
           </Typography>
 
           <Grid container alignItems="center" spacing={2}>
@@ -84,7 +110,7 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                รหัสใบสั่งPO
+                รหัสใบลดหนี้ขาย
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -92,7 +118,31 @@ const CreateOfferSell = () => {
                 required
                 fullWidth
                 id="productName"
-                label="รหัสใบสั่งPO"
+                label="รหัสใบลดหนี้ขาย"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={2}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                อ้างถึงรหัสใบสั่งขาย
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="productName"
+                required
+                fullWidth
+                id="productName"
+                label="อ้างถึงรหัสใบสั่งขาย"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -123,9 +173,10 @@ const CreateOfferSell = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={4}>
+           
+            <Grid item xs={12} md={12} lg={2}>
             </Grid>
-            {/* <Grid item xs={12} md={12} lg={2}>
+            <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"
                 sx={{
@@ -134,9 +185,9 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                รหัสใบPO
+                จำนวนเงินตามบิลเดิม 14575 บาท
               </Typography>
-              <TextField
+              {/* <TextField
                 autoComplete="product-name"
                 name="shortName"
                 required
@@ -147,10 +198,10 @@ const CreateOfferSell = () => {
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
-              />
-            </Grid> */}
-            {/* <Grid item xs={12} md={12} lg={10}>
-            </Grid> */}
+              /> */}
+            </Grid>
+            <Grid item xs={12} md={12} lg={10}>
+            </Grid>
             {/* <Grid item xs={12} md={12} lg={2}>
 
               <Typography
@@ -175,8 +226,8 @@ const CreateOfferSell = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid> */}
-            {/* <Grid item xs={12} md={12} lg={2}>
+            </Grid>
+            <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"
                 sx={{
@@ -276,7 +327,9 @@ const CreateOfferSell = () => {
             <Grid item xs={12} md={12} lg={3} >
 
               <Button
-                type="submit"
+                // href="/sell/sell-products"
+                // type="submit"
+                onClick={handlerOpen}
                 variant="contained"
                 sx={{
                   textTransform: "capitalize",
@@ -315,20 +368,20 @@ const CreateOfferSell = () => {
                 สินค้า
               </Typography>
 
-              <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table" className="dark-table">
+              <TableContainer>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table" className="dark-table" id="item">
                   <TableHead>
                     <TableRow>
                       <TableCell>รหัสสินค้า</TableCell>
                       <TableCell align="right">รายการ</TableCell>
                       <TableCell align="right">จำนวน</TableCell>
                       <TableCell align="right">หน่วย</TableCell>
-                      <TableCell align="right">คลัง</TableCell>
+                      {/* <TableCell align="right">คลัง</TableCell> */}
                       <TableCell align="right">ราคา</TableCell>
                       <TableCell align="right">ส่วนลด</TableCell>
                       <TableCell align="right">ลดรวม</TableCell>
                       <TableCell align="right">จำนวนเงิน</TableCell>
-                      <TableCell align="center">Actions</TableCell>
+                      {/* <TableCell align="center">Actions</TableCell> */}
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -343,19 +396,45 @@ const CreateOfferSell = () => {
                         <TableCell align="right">{row.name}</TableCell>
                         <TableCell align="right">{row.quantity}</TableCell>
                         <TableCell align="right">{row.unit}</TableCell>
-                        <TableCell align="right" style={{ ...row.warehouse <= 10 ? { color: "red" } : "" }} >{row.warehouse}</TableCell>
+                        {/* <TableCell align="right" style={{ ...row.warehouse <= 10 ? { color: "red" } : "" }} >{row.warehouse}</TableCell> */}
                         <TableCell align="right">{row.price}</TableCell>
-                        <TableCell align="right">{row.discount}</TableCell>
-                        <TableCell align="right">{row.price * (row.discount / 100)}</TableCell>
-                        <TableCell align="right">{(row.quantity * row.price) - row.price * (row.discount / 100)}</TableCell>
-                        <TableCell align="center" ><Button>เพิ่ม</Button><Button>ลด</Button></TableCell>
+                        <TableCell align="right" sx={{ width: "100px" }}> {row.discount}</TableCell>
+
+
+                        {/* {typeof window !== "undefined" ? document.getElementsByName("discount" + row.id)[0].value : ""} */}
+                        <TableCell align="right">{(row.discount/100) * row.price}</TableCell>
+                        <TableCell align="right">{(row.quantity * row.price) - row.price * (row.discount/100)}</TableCell>
+                        {/* <TableCell align="center" ><Button>เพิ่ม</Button><Button>ลด</Button></TableCell> */}
                       </TableRow>
                     ))}
                   </TableBody>
                 </Table>
               </TableContainer>
             </Grid>
-
+            <Grid item xs={12} md={12} lg={2}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ภาษี
+              </Typography>
+              <TextField
+                autoComplete="product-name"
+                name="shortName"
+                required
+                fullWidth
+                id="shortName"
+                label="ภาษี"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
             <Grid item xs={12} md={12} lg={12}>
               <Typography
                 as="h5"
@@ -365,7 +444,7 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ยอดรวมทั้งสิ้น 15000 บาท
+                ยอดรวมทั้งสิ้น -14575 บาท
               </Typography>
 
             </Grid>
@@ -393,7 +472,7 @@ const CreateOfferSell = () => {
                 }}
               />
             </Grid> */}
-            <Grid item xs={12} md={12} lg={1}>
+            {/* <Grid item xs={12} md={12} lg={1}>
               <Typography
                 as="h5"
                 sx={{
@@ -499,7 +578,7 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ชื่อพนักงาน
+                ชื่อผู้เสนอ
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -507,50 +586,13 @@ const CreateOfferSell = () => {
                 required
                 fullWidth
                 id="shortName"
-                label="ชื่อพนักงาน"
+                label="ชื่อผู้เสนอ"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                รูปใบPO
-              </Typography>
-              <TextField
-                autoComplete="product-image"
-                name="productImage"
-                required
-                fullWidth
-                id="productImage"
-                type="file"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-
-              {/* <Box 
-                sx={{
-                  mt: '15px'
-                }}
-              >
-                <img 
-                  src="/images/product1.png" 
-                  alt="product" 
-                  wisth="55px"
-                  className='mr-10px'
-                />
-              </Box> */}
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} md={12} lg={12}>
               <Typography
@@ -597,12 +639,62 @@ const CreateOfferSell = () => {
                   }}
                   className='mr-5px'
                 />{" "}
-                เพิ่มใบPO
+                เพิ่มใบลดหนี้ขาย
               </Button>
             </Grid>
           </Grid>
         </Box>
       </Box>
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handlerClose}
+        closeAfterTransition
+        // BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={style}>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                background: "#EDEFF5",
+                borderRadius: "8px",
+                padding: "20px 20px",
+              }}
+              className="bg-black"
+            >
+              <Typography
+                id="modal-modal-title"
+                variant="h6"
+                component="h2"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "17px",
+                }}
+              >
+                สินค้า
+              </Typography>
+              <IconButton
+                aria-label="remove"
+                size="small"
+                onClick={handlerClose}
+              >
+                <ClearIcon />
+              </IconButton>
+
+            </Box>
+            <ProductsOrder></ProductsOrder>
+          </Box>
+        </Fade>
+      </Modal>
     </>
   )
 }

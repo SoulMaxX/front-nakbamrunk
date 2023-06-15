@@ -8,15 +8,34 @@ import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import styles from "@/components/Authentication/Authentication.module.css";
+import axios from 'axios';
+
 
 const SignUpForm = () => {
+  const [datas, setDatas] = React.useState("");
+  const handleChange = (e) => {
+    setDatas({ ...datas, [e.target.name]: e.target.value })
+  }
+  // console.log(datas)
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    if (!datas.password || !datas.confirmpassword) {
+      alert("กรุณากรอกรหัสผ่าน")
+    }
+    if (datas.password !== datas.confirmpassword) {
+      alert("รหัสผ่านไม่เหมือนกัน")
+    } else {
+      axios.post(`${process.env.NEXT_PUBLIC_API}/auth/register`, datas)
+        .then(result => {
+          // console.log(result)
+          window.location.href = `${process.env.NEXT_PUBLIC_IP}/authentication/sign-in/`
+        }
+        )
+        .catch(e => { if (e.response.status == 400) { alert(e.response.data.error) } }
+        )
+    }
+
   };
 
   return (
@@ -84,7 +103,7 @@ const SignUpForm = () => {
                   className="bg-black"
                 >
                   <Grid container alignItems="center" spacing={2}>
-                    
+
 
                     <Grid item xs={12}>
                       <Typography
@@ -100,6 +119,7 @@ const SignUpForm = () => {
                       </Typography>
 
                       <TextField
+                        onChange={handleChange}
                         required
                         fullWidth
                         id="email"
@@ -126,6 +146,7 @@ const SignUpForm = () => {
                       </Typography>
 
                       <TextField
+                        onChange={handleChange}
                         required
                         fullWidth
                         name="password"
@@ -152,13 +173,14 @@ const SignUpForm = () => {
                       </Typography>
 
                       <TextField
+                        onChange={handleChange}
                         required
                         fullWidth
-                        name="password"
+                        name="confirmpassword"
                         label="Confirm Password"
                         type="password"
-                        id="password"
-                        autoComplete="new-password"
+                        id="confirmpassword"
+                        // autoComplete="new-password"
                         InputProps={{
                           style: { borderRadius: 8 },
                         }}
@@ -178,11 +200,12 @@ const SignUpForm = () => {
                       </Typography>
 
                       <TextField
+                        onChange={handleChange}
                         autoComplete="given-name"
-                        name="firstName"
+                        name="name"
                         required
                         fullWidth
-                        id="firstName"
+                        id="name"
                         label="ชื่อ"
                         autoFocus
                         InputProps={{
@@ -205,11 +228,12 @@ const SignUpForm = () => {
                       </Typography>
 
                       <TextField
+                        onChange={handleChange}
                         required
                         fullWidth
-                        id="lastName"
+                        id="lastname"
                         label="นามสกุล"
-                        name="lastName"
+                        name="lastname"
                         autoComplete="family-name"
                         InputProps={{
                           style: { borderRadius: 8 },
@@ -230,11 +254,12 @@ const SignUpForm = () => {
                       </Typography>
 
                       <TextField
+                        onChange={handleChange}
                         required
                         fullWidth
-                        id="lastName"
+                        id="address"
                         label="ที่อยุ่"
-                        name="lastName"
+                        name="address"
                         autoComplete="family-name"
                         InputProps={{
                           style: { borderRadius: 8 },
@@ -265,9 +290,7 @@ const SignUpForm = () => {
                 </Grid> */}
 
                 <Button
-                  // type="submit"
-                  
-                  href="http://localhost:3000/authentication/sign-in/"
+                  type="submit"
                   fullWidth
                   variant="contained"
                   sx={{

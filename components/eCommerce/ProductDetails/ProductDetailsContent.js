@@ -114,6 +114,9 @@ const ProductDetailsContent = () => {
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 ที่เก็บ: คลัง1
               </Typography>
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
+                ตำแหน่งสินค้า: 1
+              </Typography>
 
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 หมายเหตุ:

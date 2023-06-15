@@ -51,15 +51,39 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchForm() {
+export default function SearchForm(props) {
+  const { rows ,setResult} = props;
+
+  const [search, setSearch] = React.useState("")
+  // const [result, setResult] = React.useState(rows)
+  if(rows){
+
+    const fil = rows.filter(val => {
+      if (val.id.includes(search) || val.brand.toUpperCase().includes(search.toUpperCase()) || val.productName.includes(search) || val.carBrand.toUpperCase().includes(search.toUpperCase())) {
+        
+        const newobj = { id: val.id }
+        return newobj;
+      }
+    })
+    
+    React.useEffect(()=>{
+      
+      setResult(fil)
+      
+    },[search])
+    
+    // console.log(result)
+  }
+  // console.log(result)
   return (
     <>
       <Search className="search-form">
-        <SearchIconWrapper sx={{display: { xs: 'none', sm: 'inline-flex' }}}>
+        <SearchIconWrapper sx={{ display: { xs: 'none', sm: 'inline-flex' } }}>
           <SearchIcon />
         </SearchIconWrapper>
 
         <StyledInputBase
+          onChange={(e) => setSearch(e.target.value)}
           placeholder="Search here.."
           inputProps={{ "aria-label": "search" }}
         />

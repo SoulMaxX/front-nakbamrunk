@@ -16,6 +16,7 @@ const Layout = ({ children }) => {
     setActive(!active);
   };
 
+  
   return (
     <>
       <Head>

@@ -21,6 +21,7 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 import Layout from "@/components/_App/Layout";
 
 function MyApp({ Component, pageProps }) {
+  
   return (
     <>
       <ThemeProvider theme={theme}>

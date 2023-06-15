@@ -30,6 +30,8 @@ import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
+import axios from 'axios';
+import { useRouter } from "next/router";
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -147,7 +149,7 @@ function createData(username, email, role) {
     username,
     email,
     role,
-   
+
   };
 }
 
@@ -166,19 +168,23 @@ const rows = [
     "Mike",
     "mikemcclain@gmail.com",
     "Sales"
-    
+
   ),
- 
+
 ].sort((a, b) => (a.username < b.username ? -1 : 1));
 
-export default function AdminsLists() {
+export default function AdminsLists(props) {
+  const { datas } = props;
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  // const [datas, setDatas] = React.useState("");
+  const router = useRouter();
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datas.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -191,6 +197,7 @@ export default function AdminsLists() {
 
   // Create new modal
   const [open, setOpen] = React.useState(false);
+  const [id, setId] = React.useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -198,15 +205,35 @@ export default function AdminsLists() {
   const handleClose = () => {
     setOpen(false);
   };
+  // React.useEffect(() => {
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  //   axios.get(`${process.env.NEXT_PUBLIC_API}/auth/getalluser`, {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //   }).then(result => setDatas(result.data))
+
+  // }, [])
+  // console.log(datas);
+  // console.log(rows);
+  const handleDelete = () => {
+    axios.delete(`${process.env.NEXT_PUBLIC_API}/auth/delete_user/` + id, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(() => router.reload())
+
   };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get("email"),
+  //     password: data.get("password"),
+  //   });
+  // };
   // End Create new Modal
 
   return (
@@ -277,7 +304,7 @@ export default function AdminsLists() {
                   align="center"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
-                  Username
+                  Name
                 </TableCell>
 
                 <TableCell
@@ -333,14 +360,14 @@ export default function AdminsLists() {
 
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(
+                ? datas.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-                : rows
+                : datas
               ).map((row) => (
-                <TableRow key={row.name}>
-                  
+                <TableRow key={row.email}>
+
 
                   <TableCell
                     align="center"
@@ -352,7 +379,7 @@ export default function AdminsLists() {
                       width: "100px"
                     }}
                   >
-                    {row.username}
+                    {row.name}
                   </TableCell>
                   <TableCell
                     align="center"
@@ -375,10 +402,10 @@ export default function AdminsLists() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.role}
+                    {row.roleId}
                   </TableCell>
 
-                  
+
 
                   {/* <TableCell
                     align="center"
@@ -404,7 +431,7 @@ export default function AdminsLists() {
                     <span className={row.badgeClass}>{row.status}</span>
                   </TableCell> */}
 
-            
+
 
                   <TableCell
                     align="right"
@@ -418,7 +445,7 @@ export default function AdminsLists() {
 
                       <Tooltip title="Rename" placement="top">
                         <IconButton
-                          href="/admin/edit-user"
+                          href={"/admin/edit-user/" + row.email}
                           aria-label="rename"
                           size="small"
                           color="primary"
@@ -429,6 +456,7 @@ export default function AdminsLists() {
                       </Tooltip>
                       <Tooltip title="Remove" placement="top">
                         <IconButton
+                          onClick={() => {setOpen(true),setId(row.email)}}
                           aria-label="remove"
                           size="small"
                           color="danger"
@@ -440,7 +468,9 @@ export default function AdminsLists() {
                     </Box>
                   </TableCell>
                 </TableRow>
-              ))}
+              )
+              )
+              }
 
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>
@@ -457,7 +487,7 @@ export default function AdminsLists() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                   colSpan={8}
-                  count={rows.length}
+                  count={datas.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{
@@ -503,7 +533,7 @@ export default function AdminsLists() {
                 fontSize: "18px",
               }}
             >
-              Create New
+              ต้องการลบบัญชีผู้ใช้นี้?
             </Typography>
 
             <IconButton
@@ -515,7 +545,7 @@ export default function AdminsLists() {
             </IconButton>
           </Box>
 
-          <Box component="form" noValidate onSubmit={handleSubmit}>
+          <Box >
             <Box
               sx={{
                 background: "#fff",
@@ -523,180 +553,45 @@ export default function AdminsLists() {
                 borderRadius: "8px",
               }}
             >
-              <Grid container alignItems="center" spacing={2}>
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Image
-                  </Typography>
-                  <TextField
-                    autoComplete="image"
-                    name="image"
-                    required
-                    fullWidth
-                    id="image"
-                    type="file"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+              <Grid item xs={12} textAlign="center">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="danger"
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Name
-                  </Typography>
-                  <TextField
-                    autoComplete="name"
-                    name="name"
-                    required
-                    fullWidth
-                    id="name"
-                    label="Name"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                  sx={{
+                    textTransform: "capitalize",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    fontSize: "13px",
+                    padding: "12px 20px",
+                    color: "#fff !important",
+                  }}
+                  className='mr-15px'
+                  onClick={handleDelete}
+                >
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    User Name
-                  </Typography>
-                  <TextField
-                    autoComplete="user-name"
-                    name="userName"
-                    required
-                    fullWidth
-                    id="userName"
-                    label="User Name"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                  ลบสินค้า
+                </Button>
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Email
-                  </Typography>
-                  <TextField
-                    autoComplete="email"
-                    name="email"
-                    required
-                    fullWidth
-                    id="email"
-                    label="example@info.com"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{
+                    textTransform: "capitalize",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    fontSize: "13px",
+                    padding: "12px 20px",
+                    color: "#fff !important",
+                  }}
+                  onClick={handleClose}
+                >
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Phone Number
-                  </Typography>
-                  <TextField
-                    autoComplete="phone"
-                    name="phone"
-                    required
-                    fullWidth
-                    id="phone"
-                    label="0018 5054 8877"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                  ยกเลิก
+                </Button>
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Balance
-                  </Typography>
-                  <TextField
-                    autoComplete="balance"
-                    name="balance"
-                    required
-                    fullWidth
-                    id="balance"
-                    label="Balance"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
 
-                <Grid item xs={12} textAlign="end">
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    sx={{
-                      mt: 1,
-                      textTransform: "capitalize",
-                      borderRadius: "8px",
-                      fontWeight: "500",
-                      fontSize: "13px",
-                      padding: "12px 20px",
-                    }}
-                  >
-                    <AddIcon
-                      sx={{
-                        position: "relative",
-                        top: "-2px",
-                      }}
-                      className='mr-5px'
-                    />{" "}
-                    Create New
-                  </Button>
-                </Grid>
               </Grid>
             </Box>
           </Box>
@@ -704,4 +599,4 @@ export default function AdminsLists() {
       </BootstrapDialog>
     </>
   );
-}
+};

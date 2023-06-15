@@ -39,6 +39,10 @@ import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 import PrintIcon from '@mui/icons-material/Print';
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 import dynamic from 'next/dynamic'
 import SearchForm from "@/components/_App/TopNavbar/SearchForm";
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
@@ -132,11 +136,17 @@ ReportSaleEmployeee.propTypes = {
 function createData(
   id,
   name,
+  bill,
+  cash,
+  credit,
   amount,
 ) {
   return {
     id,
     name,
+    bill,
+    cash,
+    credit,
     amount,
   };
 }
@@ -144,13 +154,19 @@ function createData(
 const rows = [
   createData(
     "1",
-    "บจ. อุบล-เขมราฐ",
+    "A",
+    "9",
+    "10,500.00",
     "8,500.00",
+    "19,000.00",
   ),
   createData(
-    "1",
-    "test",
+    "2",
+    "B",
+    "20",
+    "50,500.00",
     "10,000.00",
+    "60,500.00",
   ),
 
 ]
@@ -176,6 +192,8 @@ export default function ReportSaleEmployeees() {
 
   // Create ReportSaleEmployeee Modal & Form
   const [open, setOpen] = React.useState(false);
+  const [date, setDate] = React.useState('');
+  const [date2, setDate2] = React.useState('');
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -193,7 +211,7 @@ export default function ReportSaleEmployeees() {
   const handleChange = (event) => {
     setCategorySelect(event.target.value);
   };
-
+ console.log({date,date2})
   return (
     <>
       {/* Page title */}
@@ -224,8 +242,29 @@ export default function ReportSaleEmployeees() {
           paddingBottom: "10px",
 
         }}>
-          <SearchForm />
-
+          {/* <SearchForm /> */}
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Typography
+            as="h3"
+            sx={{
+              fontSize: 18,
+              fontWeight: 500,
+            }}
+          >
+            จากวันที่
+          </Typography>
+            <DatePicker value={date} renderInput={(props) => <TextField {...props} />} onChange={(e)=>setDate(e.$d)} />
+            <Typography
+            as="h3"
+            sx={{
+              fontSize: 18,
+              fontWeight: 500,
+            }}
+          >
+            ถึงวันที่
+          </Typography>
+            <DatePicker value={date2} renderInput={(props) => <TextField {...props} />} onChange={(e)=>setDate2(e.$d)} />
+          </LocalizationProvider>
           <Box
             sx={{
               display: "flex",
@@ -289,7 +328,7 @@ export default function ReportSaleEmployeees() {
           </Button> */}
 
 
-            <Box
+            {/* <Box
               sx={{
                 display: "flex",
                 boxShadow: "none",
@@ -313,13 +352,10 @@ export default function ReportSaleEmployeees() {
               </Typography>
 
               <FormControl fullWidth>
-                {/* <InputLabel id="demo-simple-select-label">เดือน</InputLabel> */}
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                // value={age}
-                // label="Age"
-                // onChange={handleChange}
+               
 
                 >
                   <MenuItem value={1}>1</MenuItem>
@@ -363,33 +399,20 @@ export default function ReportSaleEmployeees() {
               </Typography>
 
               <FormControl fullWidth>
-                {/* <InputLabel id="demo-simple-select-label">เดือน</InputLabel> */}
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                // value={age}
-                // label="Age"
-                // onChange={handleChange}
+             
 
                 >
                   <MenuItem value={2566}>2566</MenuItem>
-                  {/* <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
-                <MenuItem value={6}>6</MenuItem>
-                <MenuItem value={7}>7</MenuItem>
-                <MenuItem value={8}>8</MenuItem>
-                <MenuItem value={9}>9</MenuItem>
-                <MenuItem value={10}>10</MenuItem>
-                <MenuItem value={11}>11</MenuItem>
-                <MenuItem value={12}>12</MenuItem> */}
+       
 
                 </Select>
               </FormControl>
-            </Box>
+            </Box> */}
             <Button
-              href="/customers/create-bill"
+              // href="/customers/create-bill"
               // onClick={handleClickOpen}
               variant="contained"
               sx={{
@@ -450,6 +473,33 @@ export default function ReportSaleEmployeees() {
                 >
                   ชื่อพนักงาน
                 </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  บิล
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ชำระเงินสด
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ลงบัญชี
+                </TableCell>
 
                 <TableCell
                   align="center"
@@ -458,11 +508,11 @@ export default function ReportSaleEmployeees() {
                     fontSize: "13.5px",
                   }}
                 >
-                  ยอดรวมทั้งสิ้น
+                  รวม
                 </TableCell>
 
 
-                <TableCell
+                {/* <TableCell
                   align="right"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -470,7 +520,7 @@ export default function ReportSaleEmployeees() {
                   }}
                 >
                   Actions
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             </TableHead>
 
@@ -525,7 +575,42 @@ export default function ReportSaleEmployeees() {
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
-                      width: 150,
+
+                    }}
+                  >
+                    {row.bill}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+
+                    }}
+                  >
+                    {row.cash}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+
+                    }}
+                  >
+                    {row.credit}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
 
                     }}
                   >
@@ -534,7 +619,7 @@ export default function ReportSaleEmployeees() {
 
 
 
-                  <TableCell
+                  {/* <TableCell
                     align="right"
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
@@ -558,7 +643,7 @@ export default function ReportSaleEmployeees() {
                         </IconButton>
                       </Tooltip>
 
-                      {/* <Tooltip title="Edit" placement="top">
+                       <Tooltip title="Edit" placement="top">
                         <IconButton
                           href="/sell/order-sell-edit"
                           aria-label="edit"
@@ -568,9 +653,9 @@ export default function ReportSaleEmployeees() {
                         >
                           <DriveFileRenameOutlineIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip> */}
+                      </Tooltip> 
 
-                      {/* <Tooltip title="Add To Cart" placement="top">
+                       <Tooltip title="Add To Cart" placement="top">
                         <IconButton
                           aria-label="Add To Cart"
                           size="small"
@@ -579,9 +664,9 @@ export default function ReportSaleEmployeees() {
                         >
                           <ShoppingCartIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip> */}
+                      </Tooltip> 
 
-                      {/* <Tooltip title="Remove" placement="top">
+                       <Tooltip title="Remove" placement="top">
                         <IconButton
                           onClick={handleOpen}
                           aria-label="remove"
@@ -591,9 +676,9 @@ export default function ReportSaleEmployeees() {
                         >
                           <DeleteIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip> */}
+                      </Tooltip> 
                     </Box>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
 
@@ -631,7 +716,172 @@ export default function ReportSaleEmployeees() {
           </Table>
         </TableContainer>
       </Card>
+      <Card>
+        <TableContainer
+          component={Paper}
+          sx={{
+            boxShadow: "none",
+          }}
+        >
+          <Table
+            sx={{ minWidth: 850 }}
+            aria-label="custom pagination table"
+            className="dark-table"
+          >
+            <TableHead sx={{ background: "#F7FAFF" }}>
+              <TableRow>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                    width: "150px"
+                  }}
+                >
+                  จากวันที่
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ถึงวันที่
+                </TableCell>
 
+
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  บิล
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ชำระเงินสด
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ลงบัญชี
+                </TableCell>
+
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  รวม
+                </TableCell>
+
+
+                {/* <TableCell
+                  align="right"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  Actions
+                </TableCell> */}
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+
+              <TableRow className={styles.ReportSaleEmployeee} >
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    padding: "8px 10px",
+                    fontSize: "13px",
+                  }}
+                >
+                  01/05/2566
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    padding: "8px 10px",
+                    fontSize: "13px",
+                  }}
+                >
+                  31/05/2566
+                </TableCell>
+
+
+
+
+                <TableCell
+                  align="center"
+
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    padding: "8px 10px",
+                    fontSize: "13px",
+
+                  }}
+                >
+                  28
+                </TableCell>
+                <TableCell
+                  align="center"
+
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    padding: "8px 10px",
+                    fontSize: "13px",
+
+                  }}
+                >
+                  10000
+                </TableCell>
+                <TableCell
+                  align="center"
+
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    padding: "8px 10px",
+                    fontSize: "13px",
+
+                  }}
+                >
+                  100000
+                </TableCell>
+                <TableCell
+                  align="center"
+
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    padding: "8px 10px",
+                    fontSize: "13px",
+
+                  }}
+                >
+                  100000
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Card>
       {/* Create ReportSaleEmployeee Modal */}
       <Modal
         aria-labelledby="transition-modal-title"

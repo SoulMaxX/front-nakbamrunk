@@ -45,7 +45,7 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-// Create ReportSaleCustomer Modal Style
+// Create OrderSell Modal Style
 const style = {
   position: "absolute",
   top: "50%",
@@ -60,7 +60,7 @@ const style = {
   borderRadius: "8px",
 };
 
-function ReportSaleCustomer(props) {
+function OrderSell(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -122,7 +122,7 @@ function ReportSaleCustomer(props) {
   );
 }
 
-ReportSaleCustomer.propTypes = {
+OrderSell.propTypes = {
   count: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
@@ -131,11 +131,15 @@ ReportSaleCustomer.propTypes = {
 
 function createData(
   id,
+  idbill,
+  date,
   name,
   amount,
 ) {
   return {
     id,
+    idbill,
+    date,
     name,
     amount,
   };
@@ -144,19 +148,16 @@ function createData(
 const rows = [
   createData(
     "1",
+    "9",
+    "16/5/2566",
     "บจ. อุบล-เขมราฐ",
-    "8,500.00",
-  ),
-  createData(
-    "1",
-    "test",
-    "10,000.00",
+    "14575.00",
   ),
 
 ]
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
-export default function ReportSaleCustomers() {
+export default function OrderSells() {
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -174,7 +175,7 @@ export default function ReportSaleCustomers() {
     setPage(0);
   };
 
-  // Create ReportSaleCustomer Modal & Form
+  // Create OrderSell Modal & Form
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -198,12 +199,12 @@ export default function ReportSaleCustomers() {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>รายงานยอดขายแยกลูกค้า</h1>
+        <h1>ใบลดหนี้ขาย</h1>
         <ul>
           <li>
             <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>รายงานยอดขายแยกลูกค้า</li>
+          <li>ใบลดหนี้ขาย</li>
         </ul>
       </div>
 
@@ -213,30 +214,17 @@ export default function ReportSaleCustomers() {
           borderRadius: "10px",
           p: "25px 25px 10px",
           mb: "15px",
-          justifyContent: "space-between",
-
         }}
       >
-        <Box sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          paddingBottom: "10px",
-
-        }}>
-          <SearchForm />
-
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              paddingBottom: "10px",
-              justifyContent: "end",
-
-            }}
-          >
-            {/* <Typography
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            paddingBottom: "10px",
+          }}
+        >
+          {/* <Typography
             as="h3"
             sx={{
               fontSize: 18,
@@ -246,7 +234,7 @@ export default function ReportSaleCustomers() {
             สินค้า
           </Typography> */}
 
-            {/* <Button
+          {/* <Button
             onClick={handleOpen}
             variant="contained"
             color="secondary"
@@ -267,10 +255,11 @@ export default function ReportSaleCustomers() {
             พิมพ์แฟ้มสินค้า
           </Button> */}
 
+          <SearchForm />
 
-            {/* <Button
-            onClick={handleOpen}
-            href="/sell/order-sell-create/"
+          <Button
+            // onClick={handleOpen}
+            href="/sell/credit-note-create/"
             variant="contained"
             sx={{
               textTransform: "capitalize",
@@ -285,128 +274,9 @@ export default function ReportSaleCustomers() {
               sx={{ position: "relative", top: "-1px" }}
               className='mr-5px'
             />{" "}
-            เพิ่มรายงานยอดขายแยกลูกค้า
-          </Button> */}
-
-
-            <Box
-              sx={{
-                display: "flex",
-                boxShadow: "none",
-                borderRadius: "10px",
-                pt: "25px",
-                pb: "25px",
-                mb: "5px",
-              }}
-            >
-              <Typography
-                as="h3"
-                sx={{
-                  fontSize: 18,
-                  fontWeight: 500,
-                  mb: '10px',
-                  p: "20px",
-
-                }}
-              >
-                เดือน
-              </Typography>
-
-              <FormControl fullWidth>
-                {/* <InputLabel id="demo-simple-select-label">เดือน</InputLabel> */}
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                // value={age}
-                // label="Age"
-                // onChange={handleChange}
-
-                >
-                  <MenuItem value={1}>1</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
-                  <MenuItem value={4}>4</MenuItem>
-                  <MenuItem value={5}>5</MenuItem>
-                  <MenuItem value={6}>6</MenuItem>
-                  <MenuItem value={7}>7</MenuItem>
-                  <MenuItem value={8}>8</MenuItem>
-                  <MenuItem value={9}>9</MenuItem>
-                  <MenuItem value={10}>10</MenuItem>
-                  <MenuItem value={11}>11</MenuItem>
-                  <MenuItem value={12}>12</MenuItem>
-
-                </Select>
-              </FormControl>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                boxShadow: "none",
-                borderRadius: "10px",
-                pt: "25px",
-                pb: "25px",
-                pr: "25px",
-                mb: "5px",
-              }}
-            >
-              <Typography
-                as="h3"
-                sx={{
-                  fontSize: 18,
-                  fontWeight: 500,
-                  mb: '10px',
-                  p: "20px",
-
-                }}
-              >
-                ปี
-              </Typography>
-
-              <FormControl fullWidth>
-                {/* <InputLabel id="demo-simple-select-label">เดือน</InputLabel> */}
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                // value={age}
-                // label="Age"
-                // onChange={handleChange}
-
-                >
-                  <MenuItem value={2566}>2566</MenuItem>
-                  {/* <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
-                <MenuItem value={6}>6</MenuItem>
-                <MenuItem value={7}>7</MenuItem>
-                <MenuItem value={8}>8</MenuItem>
-                <MenuItem value={9}>9</MenuItem>
-                <MenuItem value={10}>10</MenuItem>
-                <MenuItem value={11}>11</MenuItem>
-                <MenuItem value={12}>12</MenuItem> */}
-
-                </Select>
-              </FormControl>
-            </Box>
-            <Button
-              href="/customers/create-bill"
-              // onClick={handleClickOpen}
-              variant="contained"
-              sx={{
-                textTransform: "capitalize",
-                borderRadius: "8px",
-                fontWeight: "500",
-                fontSize: "13px",
-                padding: "12px 20px",
-                color: "#fff !important",
-                marginBottom: "30px"
-              }}
-            >
-              ค้นหา
-            </Button>
-          </Box>
+            เพิ่มใบลดหนี้ขาย
+          </Button>
         </Box>
-
 
         <TableContainer
           component={Paper}
@@ -421,7 +291,7 @@ export default function ReportSaleCustomers() {
           >
             <TableHead sx={{ background: "#F7FAFF" }}>
               <TableRow>
-                {/* <TableCell
+                <TableCell
                   align="center"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -429,9 +299,19 @@ export default function ReportSaleCustomers() {
                     width: "150px"
                   }}
                 >
-                  รหัสรายงานยอดขายแยกลูกค้า
-                </TableCell> */}
-                {/* <TableCell
+                  รหัสใบลดหนี้ขาย
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                    width: "150px"
+                  }}
+                >
+                  รหัสใบสั่งขาย
+                </TableCell>
+                <TableCell
                   align="center"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -439,7 +319,7 @@ export default function ReportSaleCustomers() {
                   }}
                 >
                   วันที่
-                </TableCell> */}
+                </TableCell>
 
                 <TableCell
                   align="center"
@@ -482,8 +362,8 @@ export default function ReportSaleCustomers() {
                 )
                 : rows
               ).map((row) => (
-                <TableRow key={row.name} className={styles.ReportSaleCustomer} >
-                  {/* <TableCell
+                <TableRow key={row.id} className={styles.OrderSell} >
+                  <TableCell
                     align="center"
                     sx={{
                       width: 100,
@@ -493,8 +373,19 @@ export default function ReportSaleCustomers() {
                     }}
                   >
                     {row.id}
-                  </TableCell> */}
-                  {/* <TableCell
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      width: 100,
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.idbill}
+                  </TableCell>
+                  <TableCell
                     align="center"
                     sx={{
                       width: 100,
@@ -504,7 +395,7 @@ export default function ReportSaleCustomers() {
                     }}
                   >
                     {row.date}
-                  </TableCell> */}
+                  </TableCell>
 
 
                   <TableCell
@@ -548,7 +439,7 @@ export default function ReportSaleCustomers() {
                     >
                       <Tooltip title="View" placement="top">
                         <IconButton
-                          href="/sell/report-sale-customer-details"
+                          href="/sell/order-sell-details"
                           aria-label="view"
                           size="small"
                           color="info"
@@ -558,7 +449,7 @@ export default function ReportSaleCustomers() {
                         </IconButton>
                       </Tooltip>
 
-                      {/* <Tooltip title="Edit" placement="top">
+                      <Tooltip title="Edit" placement="top">
                         <IconButton
                           href="/sell/order-sell-edit"
                           aria-label="edit"
@@ -568,7 +459,7 @@ export default function ReportSaleCustomers() {
                         >
                           <DriveFileRenameOutlineIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip> */}
+                      </Tooltip>
 
                       {/* <Tooltip title="Add To Cart" placement="top">
                         <IconButton
@@ -581,7 +472,7 @@ export default function ReportSaleCustomers() {
                         </IconButton>
                       </Tooltip> */}
 
-                      {/* <Tooltip title="Remove" placement="top">
+                      <Tooltip title="Remove" placement="top">
                         <IconButton
                           onClick={handleOpen}
                           aria-label="remove"
@@ -591,7 +482,7 @@ export default function ReportSaleCustomers() {
                         >
                           <DeleteIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip> */}
+                      </Tooltip>
                     </Box>
                   </TableCell>
                 </TableRow>
@@ -623,7 +514,7 @@ export default function ReportSaleCustomers() {
                   }}
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
-                  ActionsComponent={ReportSaleCustomer}
+                  ActionsComponent={OrderSell}
                   style={{ borderBottom: "none" }}
                 />
               </TableRow>
@@ -632,7 +523,7 @@ export default function ReportSaleCustomers() {
         </TableContainer>
       </Card>
 
-      {/* Create ReportSaleCustomer Modal */}
+      {/* Create OrderSell Modal */}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -787,7 +678,7 @@ export default function ReportSaleCustomers() {
                   fontSize: "17px",
                 }}
               >
-                Create ReportSaleCustomer
+                Create OrderSell
               </Typography>
 
               <IconButton
@@ -818,15 +709,15 @@ export default function ReportSaleCustomers() {
                         mb: "12px",
                       }}
                     >
-                      ReportSaleCustomer Name
+                      OrderSell Name
                     </Typography>
                     <TextField
-                      autoComplete="ReportSaleCustomer-name"
-                      name="ReportSaleCustomerName"
+                      autoComplete="OrderSell-name"
+                      name="OrderSellName"
                       required
                       fullWidth
-                      id="ReportSaleCustomerName"
-                      label="ReportSaleCustomer Name"
+                      id="OrderSellName"
+                      label="OrderSell Name"
                       autoFocus
                       InputProps={{
                         style: { borderRadius: 8 },
@@ -977,7 +868,7 @@ export default function ReportSaleCustomers() {
                         mb: "12px",
                       }}
                     >
-                      ReportSaleCustomer Description
+                      OrderSell Description
                     </Typography>
 
                     <RichTextEditor
@@ -1000,15 +891,15 @@ export default function ReportSaleCustomers() {
                         mb: "12px",
                       }}
                     >
-                      ReportSaleCustomer Image
+                      OrderSell Image
                     </Typography>
 
                     <TextField
-                      autoComplete="ReportSaleCustomer-image"
-                      name="ReportSaleCustomerImage"
+                      autoComplete="OrderSell-image"
+                      name="OrderSellImage"
                       required
                       fullWidth
-                      id="ReportSaleCustomerImage"
+                      id="OrderSellImage"
                       type="file"
                       autoFocus
                       InputProps={{
@@ -1022,8 +913,8 @@ export default function ReportSaleCustomers() {
                       }}
                     >
                       <img
-                        src="/images/ReportSaleCustomer1.png"
-                        alt="ReportSaleCustomer"
+                        src="/images/OrderSell1.png"
+                        alt="OrderSell"
                         wisth="55px"
                         className='mr-10px'
                       />
@@ -1074,7 +965,7 @@ export default function ReportSaleCustomers() {
                         }}
                         className='mr-5px'
                       />{" "}
-                      Create ReportSaleCustomer
+                      Create OrderSell
                     </Button>
                   </Grid>
                 </Grid>
