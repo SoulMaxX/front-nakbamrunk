@@ -23,7 +23,7 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-const CreateEmployee = () => {
+const EditEmployee = () => {
   const checkemail = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
   const checkphone = /^0\d{8,9}\s*$/
   const router = useRouter()
@@ -316,4 +316,4 @@ console.log(datas)
   )
 }
 
-export default CreateEmployee;
+export default EditEmployee;

@@ -61,6 +61,7 @@ const CreateEmployee = () => {
       setDatas({ ...datas, [event.target.name]: event.target.value });
     }
   };
+  //  console.log(datas)
   return (
     <>
       {/* Page title */}
@@ -250,7 +251,7 @@ const CreateEmployee = () => {
                 รูปพนักงาน
               </Typography>
               <TextField
-                // onChange={handleChange}
+                onChange={handleChange}
                 autoComplete="product-image"
                 name="photo"
                 required
@@ -278,7 +279,7 @@ const CreateEmployee = () => {
                   padding: "12px 20px",
                   color: "#fff !important"
                 }}
-                disabled={!checkemail.test(datas.email)|| !checkphone.test(datas.phoneNumber)}
+                disabled={!checkemail.test(datas.email)|| !checkphone.test(datas.phoneNumber) || datas.photo == undefined || datas.photo == '' }
 
               >
                 <AddIcon

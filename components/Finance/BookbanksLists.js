@@ -30,6 +30,9 @@ import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
+import axios from "axios";
+import { useRouter } from "next/router";
+
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -170,14 +173,19 @@ const rows = [
   
 ].sort((a, b) => (a.name < b.name ? -1 : 1));
 
-export default function BookbanksLists() {
+export default function BookbanksLists(props) {
+  const {datas} = props
+  const router = useRouter();
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [id, setId] = React.useState('');
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datas.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -206,7 +214,14 @@ export default function BookbanksLists() {
       password: data.get("password"),
     });
   };
-  // End Create new Modal
+
+  const handleDelete = (e) => {
+    axios.put(`${process.env.NEXT_PUBLIC_API}/finance/delete_bank?id=` + id, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(() => router.reload())
+  }
 
   return (
     <>
@@ -306,28 +321,6 @@ export default function BookbanksLists() {
                 >
                   เลขบัญชีธนาคาร
                 </TableCell>
-
-                {/* <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  Orders
-                </TableCell> */}
-
-                {/* <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  สถานะ
-                </TableCell> */}
-
-                {/* <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  วันที่เริ่มงาน
-                </TableCell> */}
-
                 <TableCell
                   align="right"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
@@ -339,13 +332,13 @@ export default function BookbanksLists() {
 
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(
+                ? datas.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-                : rows
+                : datas
               ).map((row) => (
-                <TableRow key={row.name}>
+                <TableRow key={row.id}>
                   <TableCell
                     align="center"
                     style={{
@@ -355,7 +348,7 @@ export default function BookbanksLists() {
                       paddingBottom: "13px",
                     }}
                   >
-                    {row.name}
+                    {row.nameAccount}
                   </TableCell>
                   <TableCell
                     align="center"
@@ -366,7 +359,7 @@ export default function BookbanksLists() {
                       paddingBottom: "13px",
                     }}
                   >
-                    {row.bank}
+                    {row.nameBank}
                   </TableCell>
                   <TableCell
                     align="center"
@@ -377,7 +370,7 @@ export default function BookbanksLists() {
                       paddingBottom: "13px",
                     }}
                   >
-                    {row.branch}
+                    {row.branchBank}
                   </TableCell>
 
                   <TableCell
@@ -401,44 +394,9 @@ export default function BookbanksLists() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.bookbank}
+                    {row.accountNumber}
                   </TableCell>
-
-                  {/* <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.orders}
-                  </TableCell> */}
-
-                  {/* <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    <span className={row.badgeClass}>{row.status}</span>
-                  </TableCell> */}
-
-                  {/* <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.joiningDate}
-                  </TableCell> */}
+              
 
                   <TableCell
                     align="right"
@@ -449,26 +407,27 @@ export default function BookbanksLists() {
                         display: "inline-block",
                       }}
                     >
-                      <Tooltip title="Remove" placement="top">
-                        <IconButton
-                          aria-label="remove"
-                          size="small"
-                          color="danger"
-                          className="danger"
-                        >
-                          <DeleteIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
 
                       <Tooltip title="Rename" placement="top">
                         <IconButton
-                          href="/finance/edit-bookbank"
+                          href={"/finance/edit-bookbank/"+row.id}
                           aria-label="rename"
                           size="small"
                           color="primary"
                           className="primary"
                         >
                           <DriveFileRenameOutlineIcon fontSize="inherit" />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Remove" placement="top">
+                        <IconButton
+                          onClick={() => { setOpen(true), setId(row.id) }}
+                          aria-label="remove"
+                          size="small"
+                          color="danger"
+                          className="danger"
+                        >
+                          <DeleteIcon fontSize="inherit" />
                         </IconButton>
                       </Tooltip>
                     </Box>
@@ -491,7 +450,7 @@ export default function BookbanksLists() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                   colSpan={8}
-                  count={rows.length}
+                  count={datas.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{
@@ -537,7 +496,7 @@ export default function BookbanksLists() {
                 fontSize: "18px",
               }}
             >
-              Create New
+              ต้องการลบ?
             </Typography>
 
             <IconButton
@@ -549,7 +508,7 @@ export default function BookbanksLists() {
             </IconButton>
           </Box>
 
-          <Box component="form" noValidate onSubmit={handleSubmit}>
+          <Box >
             <Box
               sx={{
                 background: "#fff",
@@ -557,180 +516,45 @@ export default function BookbanksLists() {
                 borderRadius: "8px",
               }}
             >
-              <Grid container alignItems="center" spacing={2}>
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Image
-                  </Typography>
-                  <TextField
-                    autoComplete="image"
-                    name="image"
-                    required
-                    fullWidth
-                    id="image"
-                    type="file"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+              <Grid item xs={12} textAlign="center">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="danger"
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Name
-                  </Typography>
-                  <TextField
-                    autoComplete="name"
-                    name="name"
-                    required
-                    fullWidth
-                    id="name"
-                    label="Name"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                  sx={{
+                    textTransform: "capitalize",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    fontSize: "13px",
+                    padding: "12px 20px",
+                    color: "#fff !important",
+                  }}
+                  className='mr-15px'
+                  onClick={handleDelete}
+                >
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    User Name
-                  </Typography>
-                  <TextField
-                    autoComplete="user-name"
-                    name="userName"
-                    required
-                    fullWidth
-                    id="userName"
-                    label="User Name"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                  ลบ
+                </Button>
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Email
-                  </Typography>
-                  <TextField
-                    autoComplete="email"
-                    name="email"
-                    required
-                    fullWidth
-                    id="email"
-                    label="example@info.com"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{
+                    textTransform: "capitalize",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    fontSize: "13px",
+                    padding: "12px 20px",
+                    color: "#fff !important",
+                  }}
+                  onClick={handleClose}
+                >
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Phone Number
-                  </Typography>
-                  <TextField
-                    autoComplete="phone"
-                    name="phone"
-                    required
-                    fullWidth
-                    id="phone"
-                    label="0018 5054 8877"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                  ยกเลิก
+                </Button>
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Balance
-                  </Typography>
-                  <TextField
-                    autoComplete="balance"
-                    name="balance"
-                    required
-                    fullWidth
-                    id="balance"
-                    label="Balance"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
 
-                <Grid item xs={12} textAlign="end">
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    sx={{
-                      mt: 1,
-                      textTransform: "capitalize",
-                      borderRadius: "8px",
-                      fontWeight: "500",
-                      fontSize: "13px",
-                      padding: "12px 20px",
-                    }}
-                  >
-                    <AddIcon
-                      sx={{
-                        position: "relative",
-                        top: "-2px",
-                      }}
-                      className='mr-5px'
-                    />{" "}
-                    Create New
-                  </Button>
-                </Grid>
               </Grid>
             </Box>
           </Box>

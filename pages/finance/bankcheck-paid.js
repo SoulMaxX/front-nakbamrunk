@@ -2,8 +2,23 @@ import React from 'react';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 import BankcheckPaidLists from '@/components/Finance/BankcheckPaidLists';
+import axios from 'axios';
 
-const BankCheck = () => {
+const BankCheckPaid = () => {
+  const [datas, setDatas] = React.useState([]);
+  
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+  React.useEffect(() => {
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/finance/get_allCP`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setDatas(result.data))
+
+  },[])
+
+  
   return (
     <>
       {/* Page title */}
@@ -17,9 +32,9 @@ const BankCheck = () => {
         </ul>
       </div>
       
-      <BankcheckPaidLists />
+      <BankcheckPaidLists  datas={datas} />
     </>
   )
 }
 
-export default BankCheck;
+export default BankCheckPaid;

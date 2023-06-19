@@ -11,26 +11,34 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
+import { useRouter } from "next/router";
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import dynamic from 'next/dynamic'
+import axios from "axios";
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-const CreateEmployee = () => {
+const CreateBankCheck = () => {
+  const [date, setDate] = React.useState(new Date());
+  const router = useRouter()
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+    data.append("date", date)
 
-  // Select dropdown
-  const [categorySelect, setCategorySelect] = React.useState('');
-  const handleChange = (event) => {
-    setCategorySelect(event.target.value);
+    axios.post(`${process.env.NEXT_PUBLIC_API}/finance/create_CR`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(() => router.back())
   };
 
   return (
@@ -72,10 +80,10 @@ const CreateEmployee = () => {
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="productName"
+                name="idRecieveCheck"
                 required
                 fullWidth
-                id="productName"
+                id="idRecieveCheck"
                 label="รหัสเช็ครับ"
                 autoFocus
                 InputProps={{
@@ -96,10 +104,10 @@ const CreateEmployee = () => {
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="productName"
+                name="idBill"
                 required
                 fullWidth
-                id="productName"
+                id="idBill"
                 label="รหัสใบวางบิล"
                 autoFocus
                 InputProps={{
@@ -120,10 +128,10 @@ const CreateEmployee = () => {
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="productName"
+                name="checkNumber"
                 required
                 fullWidth
-                id="productName"
+                id="checkNumber"
                 label="เลขที่เช็ค/ตั๋ว"
                 autoFocus
                 InputProps={{
@@ -133,31 +141,23 @@ const CreateEmployee = () => {
             </Grid>
 
 
-            
+
 
             <Grid item xs={12} md={12} lg={4}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                ลงวันที่
-              </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="ลงวันที่"
-                required
-                fullWidth
-                id="Short Description"
-                label="ลงวันที่"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <Typography
+                  as="h5"
+                  sx={{
+                    fontWeight: "500",
+                    fontSize: "14px",
+                    mb: "12px",
+                  }}
+                >
+                  ลงวันที่
+                </Typography>
+                <DatePicker name={"date"} value={date} InputProps={{ style: { borderRadius: 8 } }} renderInput={(props) => <TextField {...props} />} onChange={(e) => setDate(e.$d)} />
+
+              </LocalizationProvider>
             </Grid>
             <Grid item xs={12} md={12} lg={4}>
               <Typography
@@ -172,11 +172,11 @@ const CreateEmployee = () => {
               </Typography>
               <TextField
                 autoComplete="short-description"
-                name="จำนวนเงิน"
+                name="amount"
                 required
                 fullWidth
                 id="Short Description"
-                label="จำนวนเงิน"
+                label="amount"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -198,11 +198,11 @@ const CreateEmployee = () => {
               </Typography>
               <TextField
                 autoComplete="short-description"
-                name="ธนาคาร"
+                name="bank"
                 required
                 fullWidth
                 id="Short Description"
-                label="ธนาคาร"
+                label="bank"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -222,10 +222,10 @@ const CreateEmployee = () => {
               </Typography>
               <TextField
                 autoComplete="short-description"
-                name="สาขา"
+                name="brachBank"
                 required
                 fullWidth
-                id="Short Description"
+                id="brachBank"
                 label="สาขา"
                 autoFocus
                 InputProps={{
@@ -233,7 +233,7 @@ const CreateEmployee = () => {
                 }}
               />
             </Grid>
-          
+
 
 
             <Grid item xs={12} textAlign="end">
@@ -266,4 +266,4 @@ const CreateEmployee = () => {
   )
 }
 
-export default CreateEmployee;
+export default CreateBankCheck;
