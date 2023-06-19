@@ -12,6 +12,8 @@ import axios from 'axios';
 
 
 const SignUpForm = () => {
+  const checkemail = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+
   const [datas, setDatas] = React.useState("");
   const handleChange = (e) => {
     setDatas({ ...datas, [e.target.name]: e.target.value })
@@ -37,6 +39,7 @@ const SignUpForm = () => {
     }
 
   };
+  console.log(checkemail.test(datas.email))
 
   return (
     <>
@@ -129,6 +132,8 @@ const SignUpForm = () => {
                         InputProps={{
                           style: { borderRadius: 8 },
                         }}
+                        error={!checkemail.test(datas.email)}
+                        helperText={!checkemail.test(datas.email) ? "อีเมล์ไม่ถูกต้อง" :""}
                       />
                     </Grid>
 
@@ -302,6 +307,8 @@ const SignUpForm = () => {
                     padding: "12px 10px",
                     color: "#fff !important",
                   }}
+                disabled={!checkemail.test(datas.email)}
+
                 >
                   สมัครสมาชิก
                 </Button>

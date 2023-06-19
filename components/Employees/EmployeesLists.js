@@ -30,6 +30,8 @@ import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -178,196 +180,22 @@ const rows = [
     "bangkok",
     "1/5/2566",
   ),
-  // createData(
-  //   "Bernard Langley",
-  //   "/images/user4.png",
-  //   "@bernardlangley",
-  //   "bernardlangley@gmail.com",
-  //   "0018 9382 4820",
-  //   "$4932",
-  //   "350",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 4, 2023",
-  // ),
-  // createData(
-  //   "Kristie Hall",
-  //   "/images/user5.png",
-  //   "@kristie7hall",
-  //   "kristiehall@gmail.com",
-  //   "0018 4663 5732",
-  //   "$4922",
-  //   "384",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 5, 2023",
-  // ),
-  // createData(
-  //   "Bolton Obrien",
-  //   "/images/user6.png",
-  //   "@bolton4obrien",
-  //   "boltonobrien@gmail.com",
-  //   "0018 5743 5657",
-  //   "$4663.12",
-  //   "145",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 6, 2023",
-  // ),
-  // createData(
-  //   "Dee Alvarado",
-  //   "/images/user7.png",
-  //   "@dee3alvarado",
-  //   "deealvarado@gmail.com",
-  //   "0018 4532 6666",
-  //   "$2343.12",
-  //   "435",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 7, 2023",
-  // ),
-  // createData(
-  //   "Cervantes Kramer",
-  //   "/images/user8.png",
-  //   "@cervantes4kramer",
-  //   "cervantes4kramer@gmail.com",
-  //   "0018 54545 7878",
-  //   "$345",
-  //   "24",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 8, 2023",
-  // ),
-  // createData(
-  //   "Dejesus Michael",
-  //   "/images/user9.png",
-  //   "@dejesus1michael",
-  //   "dejesusmichael@gmail.com",
-  //   "0018 3552 6678",
-  //   "$3365.12",
-  //   "56",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 9, 2023",
-  // ),
-  // createData(
-  //   "Alissa Nelson",
-  //   "/images/user10.png",
-  //   "@alissa1nelson",
-  //   "alissa1nelson@gmail.com",
-  //   "0018 3354 6822",
-  //   "$3522.12",
-  //   "165",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 10, 2023",
-  // ),
-  // createData(
-  //   "Milton",
-  //   "/images/user11.png",
-  //   "@milton",
-  //   "milton@gmail.com",
-  //   "0018 366 2232",
-  //   "$3434",
-  //   "222",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 11, 2023",
-  // ),
-  // createData(
-  //   "Claude",
-  //   "/images/user12.png",
-  //   "@claude",
-  //   "claude@gmail.com",
-  //   "0018 4614 23211",
-  //   "$4554.12",
-  //   "673",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 12, 2023",
-  // ),
-  // createData(
-  //   "Joshua",
-  //   "/images/user13.png",
-  //   "@joshua",
-  //   "joshua@gmail.com",
-  //   "0018 3354 2532",
-  //   "$2434.12",
-  //   "463",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 13, 2023",
-  // ),
-  // createData(
-  //   "Harvey",
-  //   "/images/user14.png",
-  //   "@harvey",
-  //   "harvey@gmail.com",
-  //   "0018 3331 2224",
-  //   "$453.12",
-  //   "445",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 14, 2023",
-  // ),
-  // createData(
-  //   "Antonio",
-  //   "/images/user15.png",
-  //   "@antonio",
-  //   "antonio@gmail.com",
-  //   "0018 3354 6822",
-  //   "$3522.12",
-  //   "165",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 15, 2023",
-  // ),
-  // createData(
-  //   "Julian",
-  //   "/images/user16.png",
-  //   "@julian",
-  //   "julian@gmail.com",
-  //   "0018 4322 1231",
-  //   "$455.12",
-  //   "165",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 16, 2023",
-  // ),
-  // createData(
-  //   "Harold",
-  //   "/images/user17.png",
-  //   "@harold",
-  //   "harold@gmail.com",
-  //   "0018 455 3323",
-  //   "$3422.12",
-  //   "564",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 17, 2023",
-  // ),
-  // createData(
-  //   "Kingston",
-  //   "/images/user18.png",
-  //   "@kingston",
-  //   "kingston@info.com",
-  //   "0018 3453 4325",
-  //   "$442.12",
-  //   "6776",
-  //   "Active",
-  //   "successBadge",
-  //   "Jan 18, 2023",
-  // ),
+
 ].sort((a, b) => (a.name < b.name ? -1 : 1));
 
-export default function EmployeesLists() {
+export default function EmployeesLists(props) {
+  const { datas } = props
+  const router = useRouter();
+
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datas.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -380,6 +208,7 @@ export default function EmployeesLists() {
 
   // Create new modal
   const [open, setOpen] = React.useState(false);
+  const [id, setId] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -397,6 +226,15 @@ export default function EmployeesLists() {
     });
   };
   // End Create new Modal
+
+  const handleDelete = (e) => {
+    console.log(token)
+    axios.put(`${process.env.NEXT_PUBLIC_API}/admin/delete_Employee?id=` + id, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(() => router.reload())
+  }
 
   return (
     <>
@@ -489,21 +327,6 @@ export default function EmployeesLists() {
                 >
                   ที่อยุ่
                 </TableCell>
-
-                {/* <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  Orders
-                </TableCell> */}
-
-                {/* <TableCell
-                  align="center"
-                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
-                >
-                  สถานะ
-                </TableCell> */}
-
                 <TableCell
                   align="center"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
@@ -522,13 +345,13 @@ export default function EmployeesLists() {
 
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(
+                ? datas.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-                : rows
+                : datas
               ).map((row) => (
-                <TableRow key={row.name}>
+                <TableRow key={row.id}>
                   <TableCell
                     style={{
                       width: 250,
@@ -539,7 +362,6 @@ export default function EmployeesLists() {
                       alignItems: "center",
                     }}
                   >
-                    {/* <Checkbox {...label} size="small" /> */}
                     <Box
                       sx={{
                         display: "flex",
@@ -548,7 +370,7 @@ export default function EmployeesLists() {
                       }}
                     >
                       <img
-                        src={row.image}
+                        src={`${process.env.NEXT_PUBLIC_API}/admin/get_photo?id=` + row.id}
                         alt="User"
                         width={40}
                         height={40}
@@ -562,16 +384,7 @@ export default function EmployeesLists() {
                             fontSize: "13.5px",
                           }}
                         >
-                          {row.name}
-                        </Typography>
-
-                        <Typography
-                          sx={{
-                            fontSize: "12px",
-                            color: "#A9A9C8",
-                          }}
-                        >
-                          {row.userName}
+                          {row.name + " " + row.surname}
                         </Typography>
                       </Box>
                     </Box>
@@ -598,7 +411,7 @@ export default function EmployeesLists() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.phone}
+                    {row.phoneNumber}
                   </TableCell>
 
                   <TableCell
@@ -612,31 +425,6 @@ export default function EmployeesLists() {
                   >
                     {row.address}
                   </TableCell>
-
-                  {/* <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.orders}
-                  </TableCell> */}
-
-                  {/* <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    <span className={row.badgeClass}>{row.status}</span>
-                  </TableCell> */}
-
                   <TableCell
                     align="center"
                     style={{
@@ -646,7 +434,8 @@ export default function EmployeesLists() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.joiningDate}
+                    {new Date(row.datestart).toLocaleDateString("th-th")}
+
                   </TableCell>
 
                   <TableCell
@@ -658,26 +447,28 @@ export default function EmployeesLists() {
                         display: "inline-block",
                       }}
                     >
-                      <Tooltip title="Remove" placement="top">
-                        <IconButton
-                          aria-label="remove"
-                          size="small"
-                          color="danger"
-                          className="danger"
-                        >
-                          <DeleteIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
+
 
                       <Tooltip title="Rename" placement="top">
                         <IconButton
-                          href="/employee/edit-employee"
+                          href={"/employee/edit-employee/"+row.id}
                           aria-label="rename"
                           size="small"
                           color="primary"
                           className="primary"
                         >
                           <DriveFileRenameOutlineIcon fontSize="inherit" />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Remove" placement="top">
+                        <IconButton
+                          onClick={() => { setOpen(true), setId(row.id) }}
+                          aria-label="remove"
+                          size="small"
+                          color="danger"
+                          className="danger"
+                        >
+                          <DeleteIcon fontSize="inherit" />
                         </IconButton>
                       </Tooltip>
                     </Box>
@@ -700,7 +491,7 @@ export default function EmployeesLists() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                   colSpan={8}
-                  count={rows.length}
+                  count={datas.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{
@@ -746,7 +537,7 @@ export default function EmployeesLists() {
                 fontSize: "18px",
               }}
             >
-              Create New
+              ต้องการลบพนักงานรายนี้?
             </Typography>
 
             <IconButton
@@ -758,7 +549,7 @@ export default function EmployeesLists() {
             </IconButton>
           </Box>
 
-          <Box component="form" noValidate onSubmit={handleSubmit}>
+          <Box >
             <Box
               sx={{
                 background: "#fff",
@@ -766,180 +557,45 @@ export default function EmployeesLists() {
                 borderRadius: "8px",
               }}
             >
-              <Grid container alignItems="center" spacing={2}>
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Image
-                  </Typography>
-                  <TextField
-                    autoComplete="image"
-                    name="image"
-                    required
-                    fullWidth
-                    id="image"
-                    type="file"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+              <Grid item xs={12} textAlign="center">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="danger"
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Name
-                  </Typography>
-                  <TextField
-                    autoComplete="name"
-                    name="name"
-                    required
-                    fullWidth
-                    id="name"
-                    label="Name"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                  sx={{
+                    textTransform: "capitalize",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    fontSize: "13px",
+                    padding: "12px 20px",
+                    color: "#fff !important",
+                  }}
+                  className='mr-15px'
+                  onClick={handleDelete}
+                >
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    User Name
-                  </Typography>
-                  <TextField
-                    autoComplete="user-name"
-                    name="userName"
-                    required
-                    fullWidth
-                    id="userName"
-                    label="User Name"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                  ลบ
+                </Button>
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Email
-                  </Typography>
-                  <TextField
-                    autoComplete="email"
-                    name="email"
-                    required
-                    fullWidth
-                    id="email"
-                    label="example@info.com"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{
+                    textTransform: "capitalize",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    fontSize: "13px",
+                    padding: "12px 20px",
+                    color: "#fff !important",
+                  }}
+                  onClick={handleClose}
+                >
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Phone Number
-                  </Typography>
-                  <TextField
-                    autoComplete="phone"
-                    name="phone"
-                    required
-                    fullWidth
-                    id="phone"
-                    label="0018 5054 8877"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
+                  ยกเลิก
+                </Button>
 
-                <Grid item xs={12} md={12} lg={6}>
-                  <Typography
-                    as="h5"
-                    sx={{
-                      fontWeight: "500",
-                      fontSize: "14px",
-                      mb: "12px",
-                    }}
-                  >
-                    Balance
-                  </Typography>
-                  <TextField
-                    autoComplete="balance"
-                    name="balance"
-                    required
-                    fullWidth
-                    id="balance"
-                    label="Balance"
-                    autoFocus
-                    InputProps={{
-                      style: { borderRadius: 8 },
-                    }}
-                  />
-                </Grid>
 
-                <Grid item xs={12} textAlign="end">
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    sx={{
-                      mt: 1,
-                      textTransform: "capitalize",
-                      borderRadius: "8px",
-                      fontWeight: "500",
-                      fontSize: "13px",
-                      padding: "12px 20px",
-                    }}
-                  >
-                    <AddIcon
-                      sx={{
-                        position: "relative",
-                        top: "-2px",
-                      }}
-                      className='mr-5px'
-                    />{" "}
-                    Create New
-                  </Button>
-                </Grid>
               </Grid>
             </Box>
           </Box>
