@@ -19,15 +19,27 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-const CreateProduct = () => {
+const EditProduct = () => {
   const router = useRouter()
   const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+  const { id } = router.query
   const [datas, setDatas] = React.useState('')
+
+  React.useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/product/get_product?id=` + id, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((result) => setDatas(result.data))
+  }, [id])
+
+  console.log(datas)
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    axios.post(`${process.env.NEXT_PUBLIC_API}/product/create_product`, data, {
+    axios.put(`${process.env.NEXT_PUBLIC_API}/product/update_product?id=` + id, data, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -45,24 +57,19 @@ const CreateProduct = () => {
   // Select dropdown
   const [categorySelect, setCategorySelect] = React.useState('');
   const handleChange = (event) => {
-    if (event.target.name == "photobarcode" || event.target.name == "photoproduct") {
-      setDatas({ ...datas, [event.target.name]: event.target.files[0].name });
-    } else {
-      setDatas({ ...datas, [event.target.name]: event.target.value });
-    }
+    setDatas({ ...datas, [event.target.name]: event.target.value });
   };
 
-  console.log(datas)
   return (
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>เพิ่มสินค้า</h1>
+        <h1>แก้ไขสินค้า</h1>
         <ul>
           <li>
             <Link href="/">Dashboard</Link>
           </li>
-          <li>เพิ่มสินค้า</li>
+          <li>แก้ไขสินค้า</li>
         </ul>
       </div>
 
@@ -77,7 +84,7 @@ const CreateProduct = () => {
           className="bg-black"
         >
           <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-            เพิ่มสินค้า
+            แก้ไขสินค้า
           </Typography>
 
           <Grid container alignItems="center" spacing={2}>
@@ -93,12 +100,13 @@ const CreateProduct = () => {
                 ชื่อสินค้า
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.nameprod ?? ''}
                 autoComplete="product-name"
                 name="nameprod"
                 required
                 fullWidth
                 id="nameprod"
-                label="ชื่อสินค้า"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -117,12 +125,13 @@ const CreateProduct = () => {
                 ชื่อย่อ
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.initialsprod ?? ''}
                 autoComplete="product-name"
                 name="initialsprod"
                 required
                 fullWidth
                 id="initialsprod"
-                label="ชื่อย่อ"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -143,12 +152,13 @@ const CreateProduct = () => {
                 เบอร์แท้
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.realnum ?? ''}
                 autoComplete="short-description"
                 name="realnum"
                 required
                 fullWidth
                 id="realnum"
-                label="เบอร์แท้"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -167,12 +177,13 @@ const CreateProduct = () => {
                 เบอร์โรงงาน
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.facnum ?? ''}
                 autoComplete="short-description"
                 name="facnum"
                 required
                 fullWidth
                 id="facnum"
-                label="เบอร์โรงงาน"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -191,12 +202,13 @@ const CreateProduct = () => {
                 ขนาดสินค้า
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.sizeprod ?? ''}
                 autoComplete="short-description"
                 name="sizeprod"
                 required
                 fullWidth
                 id="sizeprod"
-                label="ขนาดสินค้า"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -215,12 +227,13 @@ const CreateProduct = () => {
                 รุ่น
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.model ?? ''}
                 autoComplete="short-description"
                 name="model"
                 required
                 fullWidth
                 id="model"
-                label="รุ่น"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -240,12 +253,13 @@ const CreateProduct = () => {
                 ยี่ห้อ
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.brand ?? ''}
                 autoComplete="short-description"
                 name="brand"
                 required
                 fullWidth
                 id="brand"
-                label="ยี่ห้อ"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -264,12 +278,13 @@ const CreateProduct = () => {
                 บริษัท
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.company ?? ''}
                 autoComplete="short-description"
                 name="company"
                 required
                 fullWidth
                 id="company"
-                label="บริษัท"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -288,12 +303,13 @@ const CreateProduct = () => {
                 แท้
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.real ?? ''}
                 autoComplete="short-description"
                 name="real"
                 required
                 fullWidth
                 id="real"
-                label="แท้"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -312,12 +328,13 @@ const CreateProduct = () => {
                 หน่วยย่อย
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.subUnit ?? ''}
                 autoComplete="short-description"
                 name="subUnit"
                 required
                 fullWidth
                 id="subUnit"
-                label="หน่วยย่อย"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -336,12 +353,13 @@ const CreateProduct = () => {
                 หน่วยใหญ่
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.bigUnit ?? ''}
                 autoComplete="short-description"
                 name="bigUnit"
                 required
                 fullWidth
                 id="bigUnit"
-                label="หน่วยใหญ่"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -360,12 +378,13 @@ const CreateProduct = () => {
                 บรรจุ
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.contain ?? ''}
                 autoComplete="short-description"
                 name="contain"
                 required
                 fullWidth
                 id="contain"
-                label="บรรจุ"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -387,12 +406,13 @@ const CreateProduct = () => {
                 หมวด
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.category ?? ''}
                 autoComplete="short-description"
                 name="category"
                 required
                 fullWidth
                 id="category"
-                label="หมวด"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -411,12 +431,13 @@ const CreateProduct = () => {
                 กลุ่ม
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.group ?? ''}
                 autoComplete="short-description"
                 name="group"
                 required
                 fullWidth
                 id="group"
-                label="กลุ่ม"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -435,12 +456,13 @@ const CreateProduct = () => {
                 หมายเหตุ
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.note ?? ''}
                 autoComplete="short-description"
                 name="note"
                 required
                 fullWidth
                 id="note"
-                label="หมายเหตุ"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -483,6 +505,8 @@ const CreateProduct = () => {
                 วันที่สินค้าเข้า
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.date ?datas.date.slice(0, 10) : ''}
                 autoComplete="short-description"
                 name="date"
                 required
@@ -539,12 +563,13 @@ const CreateProduct = () => {
                 ทุนสุทธิ
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.cost ?? ''}
                 autoComplete="ทุนสุทธิ"
                 name="cost"
                 required
                 fullWidth
                 id="cost"
-                label="$0"
                 type="number"
                 autoFocus
                 InputProps={{
@@ -564,12 +589,13 @@ const CreateProduct = () => {
                 ราคาขาย
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.sell ?? ''}
                 autoComplete="ราคาขาย"
                 name="sell"
                 required
                 fullWidth
                 id="sell"
-                label="$0"
                 type="number"
                 autoFocus
                 InputProps={{
@@ -589,12 +615,13 @@ const CreateProduct = () => {
                 ราคาขายปลีก
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.retail ?? ''}
                 autoComplete="ราคาขายปลีก"
                 name="retail"
                 required
                 fullWidth
                 id="retail"
-                label="$0"
                 type="number"
 
                 autoFocus
@@ -618,7 +645,6 @@ const CreateProduct = () => {
                 รูปสินค้า
               </Typography>
               <TextField
-                onChange={handleChange}
                 autoComplete="product-image"
                 name="photoproduct"
                 required
@@ -656,7 +682,6 @@ const CreateProduct = () => {
                 Barcode สินค้าเก่า
               </Typography>
               <TextField
-                onChange={handleChange}
                 autoComplete="product-image"
                 name="photobarcode"
                 required
@@ -693,9 +718,8 @@ const CreateProduct = () => {
                   fontWeight: "500",
                   fontSize: "13px",
                   padding: "12px 20px",
-                  color: "#fff !important",
+                  color: "#fff !important"
                 }}
-                disabled={datas.photoproduct == undefined || datas.photobarcode == undefined}
               >
                 <AddIcon
                   sx={{
@@ -703,9 +727,8 @@ const CreateProduct = () => {
                     top: "-2px",
                   }}
                   className='mr-5px'
-
                 />{" "}
-                เพิ่มสินค้า
+                แก้ไขสินค้า
               </Button>
             </Grid>
           </Grid>
@@ -715,4 +738,4 @@ const CreateProduct = () => {
   )
 }
 
-export default CreateProduct;
+export default EditProduct;

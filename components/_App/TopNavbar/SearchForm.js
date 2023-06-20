@@ -55,11 +55,12 @@ export default function SearchForm(props) {
   const { rows ,setResult} = props;
 
   const [search, setSearch] = React.useState("")
-  // const [result, setResult] = React.useState(rows)
+  // const [result, setDatas] = React.useState(rows)
   if(rows){
-
+    
     const fil = rows.filter(val => {
-      if (val.id.includes(search) || val.brand.toUpperCase().includes(search.toUpperCase()) || val.productName.includes(search) || val.carBrand.toUpperCase().includes(search.toUpperCase())) {
+      if (String(val.id).includes(search)|| String(val.brand).includes(search) || String(val.company).includes(search) 
+      || String(val.nameprod).includes(search)|| String(val.initialsprod).includes(search) || String(val.realnum).includes(search)|| String(val.facnum).includes(search)) {
         
         const newobj = { id: val.id }
         return newobj;
@@ -72,9 +73,7 @@ export default function SearchForm(props) {
       
     },[search])
     
-    // console.log(result)
   }
-  // console.log(result)
   return (
     <>
       <Search className="search-form">

@@ -43,6 +43,13 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import dynamic from 'next/dynamic'
 import SearchForm from "@/components/_App/TopNavbar/SearchForm";
 import ProductDetailsContent from "@/components/eCommerce/ProductDetails/ProductDetailsContent";
+import axios from "axios";
+import { styled } from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import CloseIcon from '@mui/icons-material/Close';
+import { useRouter } from "next/router";
+
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
@@ -62,12 +69,65 @@ const style = {
   borderRadius: "8px",
 };
 
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
+  },
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1),
+  },
+}));
+
+function BootstrapDialogTitle(props) {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+}
+
+BootstrapDialogTitle.propTypes = {
+  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+};
+
 function Row(props) {
   const { row, open3 } = props;
   // console.log(row.productName)
+  const router = useRouter();
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+  const [id, setId] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
-  // const [open3, setOpen3] = React.useState(false);
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDelete = (e) => {
+    console.log(token)
+    axios.put(`${process.env.NEXT_PUBLIC_API}/product/delete_product?id=` + id, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(() => router.reload())
+  }
   // const handleOpenprice = (e) => {
   //   setOpen3(!open3);
   // }
@@ -93,7 +153,7 @@ function Row(props) {
             fontSize: "13px",
           }}
         >
-          {row.id}
+          {row.realnum}
         </TableCell>
         <TableCell
           sx={{
@@ -102,7 +162,7 @@ function Row(props) {
             fontSize: "13px",
           }}
         >
-          {row.numFactory}
+          {row.facnum}
         </TableCell>
 
         <TableCell
@@ -116,7 +176,7 @@ function Row(props) {
 
           }}
         >
-          {row.productName}
+          {row.nameprod}
         </TableCell>
 
         <TableCell
@@ -128,7 +188,7 @@ function Row(props) {
 
           }}
         >
-          {row.carBrand}
+          {row.model}
         </TableCell>
 
         <TableCell
@@ -150,7 +210,7 @@ function Row(props) {
             fontSize: "13px",
           }}
         >
-          {open3 ? row.buyPrice : ""}
+          {open3 ? row.cost : ""}
         </TableCell>
         <TableCell
           align="center"
@@ -160,7 +220,7 @@ function Row(props) {
             fontSize: "13px",
           }}
         >
-          {row.sellPrice}
+          {row.sell}
         </TableCell>
 
         <TableCell
@@ -175,20 +235,11 @@ function Row(props) {
               display: "inline-block",
             }}
           >
-            {/* <Tooltip title="View" placement="top">
-          <IconButton
-            href="/products/product-details"
-            aria-label="view"
-            size="small"
-            color="info"
-            className="info"
-          >
-            <VisibilityIcon fontSize="inherit" />
-          </IconButton>
-        </Tooltip> */}
+
 
             <Tooltip title="Edit" placement="top">
               <IconButton
+              href={"/products/edit-product/"+row.id}
                 aria-label="edit"
                 size="small"
                 color="primary"
@@ -202,7 +253,7 @@ function Row(props) {
 
             <Tooltip title="Remove" placement="top">
               <IconButton
-                // onClick={handleOpen}
+                onClick={() => { setOpen(true), setId(row.id) }}
                 aria-label="remove"
                 size="small"
                 color="danger"
@@ -230,12 +281,102 @@ function Row(props) {
                   {row.productName}
                 </Typography>
               ))} */}
-              <ProductDetailsContent />
+              <ProductDetailsContent id={row.id}/>
 
             </Box>
           </Collapse>
         </TableCell>
       </TableRow>
+
+      <BootstrapDialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
+        <Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              background: "#EDEFF5",
+              borderRadius: "8px",
+              padding: "20px 20px",
+            }}
+          >
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              sx={{
+                fontWeight: "500",
+                fontSize: "18px",
+              }}
+            >
+              ต้องการลบ?
+            </Typography>
+
+            <IconButton
+              aria-label="remove"
+              size="small"
+              onClick={handleClose}
+            >
+              <ClearIcon />
+            </IconButton>
+          </Box>
+
+          <Box >
+            <Box
+              sx={{
+                background: "#fff",
+                padding: "20px 20px",
+                borderRadius: "8px",
+              }}
+            >
+              <Grid item xs={12} textAlign="center">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="danger"
+
+                  sx={{
+                    textTransform: "capitalize",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    fontSize: "13px",
+                    padding: "12px 20px",
+                    color: "#fff !important",
+                  }}
+                  className='mr-15px'
+                  onClick={handleDelete}
+                >
+
+                  ลบ
+                </Button>
+
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{
+                    textTransform: "capitalize",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    fontSize: "13px",
+                    padding: "12px 20px",
+                    color: "#fff !important",
+                  }}
+                  onClick={handleClose}
+                >
+
+                  ยกเลิก
+                </Button>
+
+
+              </Grid>
+            </Box>
+          </Box>
+        </Box>
+      </BootstrapDialog>
     </>
   );
 }
@@ -333,109 +474,112 @@ function createData(
   };
 }
 
-const rows = [
-  createData(
-    "1",
-    "สวปฟน",
-    "4.61992",
-    "สวิตซ์เปิดไฟหน้า",
-    "Benz IBC",
-    "DT",
-    "625.00",
-    "980.00",
-  ),
-  createData(
-    "2",
-    "ลกทว",
-    "4.50099",
-    "ลูกกระทุ้งวาล์ว",
-    "B422",
-    "DT",
-    "128.00",
-    "200.00",
-  ),
-  createData(
-    "3",
-    "กส",
-    "4.61904",
-    "ก้านสูบ",
-    "Benz IBC",
-    "DT",
-    "2685.00",
-    "",
-  ),
-  createData(
-    "4",
-    "สวปฟน",
-    "4.61992",
-    "สวิตซ์เปิดไฟหน้า",
-    "Benz IBC",
-    "DT",
-    "625.00",
-    "980.00",
-  ),
-  createData(
-    "5",
-    "ลกทว",
-    "4.50099",
-    "ลูกกระทุ้งวาล์ว",
-    "B422",
-    "DT",
-    "128.00",
-    "200.00",
-  ),
-  createData(
-    "6",
-    "กส",
-    "4.61904",
-    "ก้านสูบ",
-    "Benz IBC",
-    "DT",
-    "2685.00",
-    "",
-  ),
-  createData(
-    "7",
-    "สวปฟน",
-    "4.61992",
-    "สวิตซ์เปิดไฟหน้า",
-    "Benz IBC",
-    "DT",
-    "625.00",
-    "980.00",
-  ),
-  createData(
-    "8",
-    "ลกทว",
-    "4.50099",
-    "ลูกกระทุ้งวาล์ว",
-    "B422",
-    "DT",
-    "128.00",
-    "200.00",
-  ),
-  createData(
-    "9",
-    "กส",
-    "4.61904",
-    "ก้านสูบ",
-    "Benz IBC",
-    "DT",
-    "2685.00",
-    "",
-  ),
+// const rows = [
+//   createData(
+//     "1",
+//     "สวปฟน",
+//     "4.61992",
+//     "สวิตซ์เปิดไฟหน้า",
+//     "Benz IBC",
+//     "DT",
+//     "625.00",
+//     "980.00",
+//   ),
+//   createData(
+//     "2",
+//     "ลกทว",
+//     "4.50099",
+//     "ลูกกระทุ้งวาล์ว",
+//     "B422",
+//     "DT",
+//     "128.00",
+//     "200.00",
+//   ),
+//   createData(
+//     "3",
+//     "กส",
+//     "4.61904",
+//     "ก้านสูบ",
+//     "Benz IBC",
+//     "DT",
+//     "2685.00",
+//     "",
+//   ),
+//   createData(
+//     "4",
+//     "สวปฟน",
+//     "4.61992",
+//     "สวิตซ์เปิดไฟหน้า",
+//     "Benz IBC",
+//     "DT",
+//     "625.00",
+//     "980.00",
+//   ),
+//   createData(
+//     "5",
+//     "ลกทว",
+//     "4.50099",
+//     "ลูกกระทุ้งวาล์ว",
+//     "B422",
+//     "DT",
+//     "128.00",
+//     "200.00",
+//   ),
+//   createData(
+//     "6",
+//     "กส",
+//     "4.61904",
+//     "ก้านสูบ",
+//     "Benz IBC",
+//     "DT",
+//     "2685.00",
+//     "",
+//   ),
+//   createData(
+//     "7",
+//     "สวปฟน",
+//     "4.61992",
+//     "สวิตซ์เปิดไฟหน้า",
+//     "Benz IBC",
+//     "DT",
+//     "625.00",
+//     "980.00",
+//   ),
+//   createData(
+//     "8",
+//     "ลกทว",
+//     "4.50099",
+//     "ลูกกระทุ้งวาล์ว",
+//     "B422",
+//     "DT",
+//     "128.00",
+//     "200.00",
+//   ),
+//   createData(
+//     "9",
+//     "กส",
+//     "4.61904",
+//     "ก้านสูบ",
+//     "Benz IBC",
+//     "DT",
+//     "2685.00",
+//     "",
+//   ),
 
-]
+// ]
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
 export default function Products() {
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [datas, setDatas] = React.useState([]);
+
+  const [result, setResult] = React.useState([])
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - result.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -446,6 +590,18 @@ export default function Products() {
     setPage(0);
   };
 
+
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+  React.useEffect(() => {
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/product/get_allproduct`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => { setDatas(result.data), setResult(result.data) })
+
+  }, [])
+  // console.log({ result, datas })
   // Create Product Modal & Form
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -467,8 +623,8 @@ export default function Products() {
   };
   const [open2, setOpen2] = React.useState(false);
   const [open3, setOpen3] = React.useState(false);
- 
-  const handleOpenprice = (e)=>{
+
+  const handleOpenprice = (e) => {
     setOpen3(!open3);
   }
 
@@ -534,7 +690,7 @@ export default function Products() {
             พิมพ์แฟ้มสินค้า
           </Button>
 
-          <SearchForm />
+          <SearchForm rows={datas} setResult={setResult} />
 
           <Button
             onClick={handleOpenprice}
@@ -640,7 +796,7 @@ export default function Products() {
                   ยี่ห้อ
                 </TableCell>
 
-                 <TableCell
+                <TableCell
                   align="center"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -649,7 +805,7 @@ export default function Products() {
                 >
                   ทุนสุทธิ
                 </TableCell>
-                  
+
                 <TableCell
                   align="center"
                   sx={{
@@ -674,11 +830,11 @@ export default function Products() {
 
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(
+                ? result.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-                : rows
+                : result
               ).map((row) => (
                 <Row key={row.id} row={row} open3={open3} />
               ))}
@@ -700,7 +856,7 @@ export default function Products() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                   colSpan={8}
-                  count={rows.length}
+                  count={result.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{

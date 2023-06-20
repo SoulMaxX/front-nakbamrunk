@@ -12,8 +12,23 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import styles from "@/components/eCommerce/ProductDetails/ProductDetailsContent.module.css";
 import ProductDescription from "./ProductDescription";
 import ProductReviews from "./ProductReviews";
+import axios from "axios";
 
-const ProductDetailsContent = () => {
+const ProductDetailsContent = (props) => {
+  const [datas, setDatas] = React.useState('')
+  const { id } = props
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+  React.useEffect(() => {
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/product/get_product?id=`+id, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setDatas(result.data))
+
+  }, [id])
+
+  // console.log(datas)
   return (
     <>
       <Card
@@ -37,7 +52,7 @@ const ProductDetailsContent = () => {
               className="product-img-slider"
             >
               <SwiperSlide>
-                <img src="/images/benz.jpg" alt="product" />
+                <img src={`${process.env.NEXT_PUBLIC_API}/product/get_photoproduct?id=`+id} alt="product" />
               </SwiperSlide>
 
               {/* <SwiperSlide>
@@ -55,58 +70,56 @@ const ProductDetailsContent = () => {
 
 
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                เบอร์โรงงาน:  4.61992
+                เบอร์แท้ : {datas.realnum}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                เบอร์แท้ : 1
+                เบอร์โรงงาน:  {datas.facnum}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 หมวด : 1
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                ชื่อสินค้า : สวิตซ์เปิดไฟหน้า
-              </Typography>
-
-
-
-              <Typography fontSize="15px" fontWeight="500" mb="15px">
-                รุ่น:  Benz IBC
-              </Typography>
-              <Typography fontSize="15px" fontWeight="500" mb="15px">
-                ยี่ห้อ:  DT
-              </Typography>
-              <Typography fontSize="15px" fontWeight="500" mb="15px">
-                บริษัท:  DT
-              </Typography>
-              <Typography fontSize="15px" fontWeight="500" mb="15px">
-                แท้:  N
-              </Typography>
-              <Typography fontSize="15px" fontWeight="500" mb="15px">
-                หน่วยย่อย:  อัน
-              </Typography>
-              <Typography fontSize="15px" fontWeight="500" mb="15px">
-                หน่วยใหญ่:
-              </Typography>
-              <Typography fontSize="15px" fontWeight="500" mb="15px">
-                บรรจุ:
+                ชื่อสินค้า : {datas.nameprod}
               </Typography>
 
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                ขนาดสินค้า:
+                รุ่น:  {datas.model}
+              </Typography>
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
+                ยี่ห้อ:  {datas.brand}
+              </Typography>
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
+                บริษัท:  {datas.company}
+              </Typography>
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
+                แท้:  {datas.real}
+              </Typography>
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
+                หน่วยย่อย:  {datas.subUnit}
+              </Typography>
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
+                หน่วยใหญ่: {datas.bigUnit}
+              </Typography>
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
+                บรรจุ: {datas.contain}
+              </Typography>
+
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
+                ขนาดสินค้า:  {datas.contain}
               </Typography>
 
 
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                ทุนสุทธิ:  625.00
+                ทุนสุทธิ:  {datas.cost}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                ราคาขาย:  980.00
+                ราคาขาย:  {datas.sell}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                ราคาขายปลีก:  900.00
+                ราคาขายปลีก: {datas.retail} 
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                ราคาขายรวมภาษี:  1050.00
+                ราคาขายรวมภาษี:  {datas.sell*1.07}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 จำนวนสินค้าคงเหลือ:  10 ชิ้น
