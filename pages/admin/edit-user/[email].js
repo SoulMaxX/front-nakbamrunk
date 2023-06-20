@@ -63,6 +63,10 @@ const CreateEmployee = () => {
       }
     }).then(result => setRoles(result.data) )
   }, [])
+
+  const handleClose = ()=>{
+    router.back()
+  };
   return (
     <>
       {/* Page title */}
@@ -200,9 +204,9 @@ const CreateEmployee = () => {
                 บันทึก
               </Button>
               <Button
-                type="submit"
                 variant="contained"
                 color="danger"
+                onClick={handleClose}
 
                 sx={{
                   textTransform: "capitalize",

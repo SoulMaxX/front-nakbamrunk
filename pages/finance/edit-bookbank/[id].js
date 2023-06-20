@@ -11,38 +11,61 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
+import { useRouter } from "next/router";
 
 import dynamic from 'next/dynamic'
+import axios from "axios";
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
 const CreateEmployee = () => {
+  const router = useRouter()
+  const { id } = router.query
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+  const [datas, setDatas] = React.useState('');
+
+  React.useEffect(() => {
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/finance/get_bank?id=` + id, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setDatas(result.data))
+  }, [id])
+
+
+
+  const handleChange = (event) => {
+    setDatas({ ...datas, [event.target.name]: event.target.value });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    axios.put(`${process.env.NEXT_PUBLIC_API}/finance/update_bank?id=` + id, datas, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(() => router.back())
   };
 
-  // Select dropdown
-  const [categorySelect, setCategorySelect] = React.useState('');
-  const handleChange = (event) => {
-    setCategorySelect(event.target.value);
+  const handleClose = ()=>{
+    router.back()
   };
 
   return (
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>แก้ไขเช็ครับ</h1>
+        <h1>แก้ไขบัญชีธนาคาร</h1>
         <ul>
           <li>
             <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>แก้ไขเช็ครับ</li>
+          <li>แก้ไขบัญชีธนาคาร</li>
         </ul>
       </div>
 
@@ -68,15 +91,16 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                ผังบัญชี
+                ชื่อบัญชี
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.nameAccount ?? ""}
                 autoComplete="product-name"
-                name="productName"
+                name="nameAccount"
                 required
                 fullWidth
-                id="productName"
-                label="ผังบัญชี"
+                id="nameAccount"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -92,91 +116,17 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                เลขที่เช็ค/ตั๋ว
+                ชื่อธนาคาร
               </Typography>
               <TextField
+                onChange={handleChange}
+
+                value={datas.nameBank ?? ""}
                 autoComplete="product-name"
-                name="productName"
+                name="nameBank"
                 required
                 fullWidth
-                id="productName"
-                label="เลขที่เช็ค/ตั๋ว"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
-
-
-
-
-            <Grid item xs={12} md={12} lg={5}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                ลงวันที่
-              </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="ลงวันที่"
-                required
-                fullWidth
-                id="Short Description"
-                label="ลงวันที่"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} md={12} lg={5}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                จำนวนเงิน
-              </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="จำนวนเงิน"
-                required
-                fullWidth
-                id="Short Description"
-                label="จำนวนเงิน"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} md={12} lg={5}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                ธนาคาร
-              </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="ธนาคาร"
-                required
-                fullWidth
-                id="Short Description"
-                label="ธนาคาร"
+                id="nameBank"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -195,19 +145,21 @@ const CreateEmployee = () => {
                 สาขา
               </Typography>
               <TextField
-                autoComplete="short-description"
-                name="สาขา"
+                value={datas.branchBank ?? ""}
+                onChange={handleChange}
+                autoComplete="product-name"
+                name="branchBank"
                 required
                 fullWidth
-                id="Short Description"
-                label="สาขา"
+                id="branchBank"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-            {/* <Grid item xs={12} md={12} lg={6}>
+
+            <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"
                 sx={{
@@ -216,23 +168,22 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                Email
+                ประเภทบัญชี
               </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="Email"
-                required
-                fullWidth
-                id="Short Description"
-                label="Email"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
+
+              <Select
+                value={datas.type ?? ""}
+                name="type"
+                labelId="demo-simple-select-label"
+                id="type"
+                onChange={handleChange}
+              >
+                <MenuItem value={"ออมทรัพย์"}>ออมทรัพย์</MenuItem>
+                <MenuItem value={"กระแสรายวัน"}>กระแสรายวัน</MenuItem>
+              </Select>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} md={12} lg={5}>
               <Typography
                 as="h5"
                 sx={{
@@ -241,22 +192,23 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                รูปพนักงาน
+                เลขบัญชีธนาคาร
               </Typography>
               <TextField
-                autoComplete="product-image"
-                name="productImage"
+                inputProps={{ maxLength: 10 }}
+                value={datas.accountNumber ?? ""}
+                onChange={handleChange}
+                autoComplete="short-description"
+                name="accountNumber"
                 required
                 fullWidth
-                id="productImage"
-                type="file"
+                id="accountNumber"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
-
-            </Grid>  */}
+            </Grid>
 
 
             <Grid item xs={12} textAlign="end">
@@ -279,10 +231,10 @@ const CreateEmployee = () => {
                 บันทึก
               </Button>
               <Button
-                type="submit"
+                // type="submit"
                 variant="contained"
                 color="danger"
-
+                onClick={handleClose}
                 sx={{
                   textTransform: "capitalize",
                   borderRadius: "8px",

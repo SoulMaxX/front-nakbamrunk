@@ -13,26 +13,43 @@ import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 
 import dynamic from 'next/dynamic'
+import axios from "axios";
+import { useRouter } from "next/router";
+
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-const CreateEmployee = () => {
+const CreateBookBank = () => {
+  const [datas, setDatas] = React.useState("");
+  const [type, setType] = React.useState("");
+  const router = useRouter()
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    axios.post(`${process.env.NEXT_PUBLIC_API}/finance/create_bank`, datas, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(() => router.back())
+    // console.log({
+    //   nameBank: data.get("nameBank"),
+    //   type: data.get("type"),
+    // });
   };
+  console.log(datas)
 
   // Select dropdown
-  const [categorySelect, setCategorySelect] = React.useState('');
   const handleChange = (event) => {
-    setCategorySelect(event.target.value);
+    setDatas({ ...datas, [event.target.name]: event.target.value });
   };
-
+  const handleChangeType = (event) => {
+    setType(event.target.value);
+  };
   return (
     <>
       {/* Page title */}
@@ -71,11 +88,12 @@ const CreateEmployee = () => {
                 ชื่อบัญชี
               </Typography>
               <TextField
+                onChange={handleChange}
                 autoComplete="product-name"
-                name="productName"
+                name="nameAccount"
                 required
                 fullWidth
-                id="productName"
+                id="nameAccount"
                 label="ชื่อบัญชี"
                 autoFocus
                 InputProps={{
@@ -95,11 +113,12 @@ const CreateEmployee = () => {
                 ชื่อธนาคาร
               </Typography>
               <TextField
+                onChange={handleChange}
                 autoComplete="product-name"
-                name="productName"
+                name="nameBank"
                 required
                 fullWidth
-                id="productName"
+                id="nameBank"
                 label="ชื่อธนาคาร"
                 autoFocus
                 InputProps={{
@@ -119,11 +138,12 @@ const CreateEmployee = () => {
                 สาขา
               </Typography>
               <TextField
+                onChange={handleChange}
                 autoComplete="product-name"
-                name="productName"
+                name="branchBank"
                 required
                 fullWidth
-                id="productName"
+                id="branchBank"
                 label="สาขา"
                 autoFocus
                 InputProps={{
@@ -144,27 +164,16 @@ const CreateEmployee = () => {
               >
                 ประเภทบัญชี
               </Typography>
-              {/* <TextField
-                autoComplete="short-description"
-                name="ประเภทบัญชี"
-                required
-                fullWidth
-                id="Short Description"
-                label="ประเภทบัญชี"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              /> */}
-              {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
+
               <Select
+                name="type"
                 labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                defaultValue={1}
+                id="type"
+                value={datas?.type ?? ""}
                 onChange={handleChange}
               >
-                <MenuItem value={1}>ออมทรัพย์</MenuItem>
-                <MenuItem value={2}>กระแสรายวัน</MenuItem>
+                <MenuItem value={"ออมทรัพย์"}>ออมทรัพย์</MenuItem>
+                <MenuItem value={"กระแสรายวัน"}>กระแสรายวัน</MenuItem>
               </Select>
             </Grid>
 
@@ -180,11 +189,13 @@ const CreateEmployee = () => {
                 เลขบัญชีธนาคาร
               </Typography>
               <TextField
+                inputProps={{ maxLength: 10 }}
+                onChange={handleChange}
                 autoComplete="short-description"
-                name="เลขบัญชีธนาคาร"
+                name="accountNumber"
                 required
                 fullWidth
-                id="Short Description"
+                id="accountNumber"
                 label="เลขบัญชีธนาคาร"
                 autoFocus
                 InputProps={{
@@ -192,57 +203,6 @@ const CreateEmployee = () => {
                 }}
               />
             </Grid>
-            {/* <Grid item xs={12} md={12} lg={6}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                Email
-              </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="Email"
-                required
-                fullWidth
-                id="Short Description"
-                label="Email"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                รูปพนักงาน
-              </Typography>
-              <TextField
-                autoComplete="product-image"
-                name="productImage"
-                required
-                fullWidth
-                id="productImage"
-                type="file"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-
-            </Grid>  */}
-
 
             <Grid item xs={12} textAlign="end">
               <Button
@@ -274,4 +234,4 @@ const CreateEmployee = () => {
   )
 }
 
-export default CreateEmployee;
+export default CreateBookBank;

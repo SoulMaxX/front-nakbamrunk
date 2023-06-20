@@ -11,38 +11,79 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
+import { useRouter } from "next/router";
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import dynamic from 'next/dynamic'
+import axios from "axios";
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-const CreateEmployee = () => {
+const EditEmployee = () => {
+  const checkemail = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+  const checkphone = /^0\d{8,9}\s*$/
+  const router = useRouter()
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+  const [date, setDate] = React.useState('');
+  const [datas, setDatas] = React.useState('');
+  const { id } = router.query
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    data.append("datestart", date)
     console.log({
+      name: data.get("name"),
+      surname: data.get("surname"),
+      phoneNumber: data.get("phoneNumber"),
+      address: data.get("address"),
       email: data.get("email"),
-      password: data.get("password"),
+      photo: data.get("photo"),
+      datestart: data.get("datestart"),
     });
+
+    axios.put(`${process.env.NEXT_PUBLIC_API}/admin/update_Employee?id=` + id, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(() => router.back())
   };
 
-  // Select dropdown
-  const [categorySelect, setCategorySelect] = React.useState('');
+  React.useEffect(() => {
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/admin/get_Employee?id=` + id, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => {setDatas(result.data),setDate(result.data?.datestart)})
+
+  }, [id])
+console.log(datas)
+
   const handleChange = (event) => {
-    setCategorySelect(event.target.value);
-  };
+    if (event.target.name == "productImage") {
+      setDatas({ ...datas, [event.target.name]: event.target.files[0].name });
+    } else {
+      setDatas({ ...datas, [event.target.name]: event.target.value });
+    }
+    
 
+  };
   return (
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>แก้ไขเช็คจ่าย</h1>
+        <h1>แก้ไขพนักงาน</h1>
         <ul>
           <li>
             <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>แก้ไขเช็คจ่าย</li>
+          <li>แก้ไขพนักงาน</li>
         </ul>
       </div>
 
@@ -59,7 +100,7 @@ const CreateEmployee = () => {
 
 
           <Grid container alignItems="center" spacing={2}>
-            <Grid item xs={12} md={12} lg={5}>
+            <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -68,22 +109,24 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                ผังบัญชี
+                ชื่อ
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas?.name ? datas?.name : ""}
                 autoComplete="product-name"
-                name="productName"
+                name="name"
                 required
                 fullWidth
-                id="productName"
-                label="ผังบัญชี"
+                id="name"
+                // label="ชื่อ"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={5}>
+            <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -92,15 +135,17 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                เลขที่เช็ค/ตั๋ว
+                นามสกุล
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.surname ? datas.surname : ""}
                 autoComplete="product-name"
-                name="productName"
+                name="surname"
                 required
                 fullWidth
-                id="productName"
-                label="เลขที่เช็ค/ตั๋ว"
+                id="surname"
+                // label="นามสกุล"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -109,9 +154,7 @@ const CreateEmployee = () => {
             </Grid>
 
 
-
-
-            <Grid item xs={12} md={12} lg={5}>
+            <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -120,22 +163,26 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                ลงวันที่
+                เบอร์โทรศัพท์
               </Typography>
               <TextField
+                value={datas.phoneNumber ? datas.phoneNumber : ""}
+                onChange={handleChange}
                 autoComplete="short-description"
-                name="ลงวันที่"
+                name="phoneNumber"
                 required
                 fullWidth
                 id="Short Description"
-                label="ลงวันที่"
+                // label="phoneNumber"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
+                error={!checkphone.test(datas.phoneNumber)}
+                helperText={!checkphone.test(datas.phoneNumber) ? "เบอร์โทรศัพท์ไม่ถูกต้อง" :""}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={5}>
+            <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -144,70 +191,24 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                จำนวนเงิน
+                ที่อยู่
               </Typography>
               <TextField
+                value={datas.address ? datas.address : ""}
+                onChange={handleChange}
                 autoComplete="short-description"
-                name="จำนวนเงิน"
+                name="address"
                 required
                 fullWidth
                 id="Short Description"
-                label="จำนวนเงิน"
+                label="address"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={5}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                ธนาคาร
-              </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="ธนาคาร"
-                required
-                fullWidth
-                id="Short Description"
-                label="ธนาคาร"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} md={12} lg={5}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                สาขา
-              </Typography>
-              <TextField
-                autoComplete="short-description"
-                name="สาขา"
-                required
-                fullWidth
-                id="Short Description"
-                label="สาขา"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
-            {/* <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -219,17 +220,41 @@ const CreateEmployee = () => {
                 Email
               </Typography>
               <TextField
+                value={datas.email ? datas.email : ""}
+
+                onChange={handleChange}
                 autoComplete="short-description"
-                name="Email"
+                name="email"
                 required
                 fullWidth
                 id="Short Description"
-                label="Email"
+                label="email"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
+
+                error={!checkemail.test(datas.email)}
+                helperText={!checkemail.test(datas.email) ? "อีเมล์ไม่ถูกต้อง" :""}
               />
+
+            </Grid>
+            <Grid item xs={6}>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <Typography
+                  as="h5"
+                  sx={{
+                    fontWeight: "500",
+                    fontSize: "14px",
+                    mb: "12px",
+                  }}
+                >
+                  เริ่มงานวันที่
+                </Typography>
+                <DatePicker name={"datestart"} value={datas.datestart} InputProps={{ style: { borderRadius: 8 } }} renderInput={(props) => <TextField {...props} />} onChange={(e) => setDatas({ ...datas, ["datestart"]: e.$d }, setDate(e.$d))} />
+
+              </LocalizationProvider>
             </Grid>
 
             <Grid item xs={12}>
@@ -244,11 +269,12 @@ const CreateEmployee = () => {
                 รูปพนักงาน
               </Typography>
               <TextField
+                // onChange={handleChange}
                 autoComplete="product-image"
-                name="productImage"
+                name="photo"
                 required
                 fullWidth
-                id="productImage"
+                id="photo"
                 type="file"
                 autoFocus
                 InputProps={{
@@ -256,33 +282,13 @@ const CreateEmployee = () => {
                 }}
               />
 
-            </Grid>  */}
+            </Grid>
 
 
             <Grid item xs={12} textAlign="end">
-
               <Button
                 type="submit"
                 variant="contained"
-                sx={{
-                  textTransform: "capitalize",
-                  borderRadius: "8px",
-                  fontWeight: "500",
-                  fontSize: "13px",
-                  padding: "12px 20px",
-                  color: "#fff !important",
-                  marginRight: "10px"
-
-                }}
-              >
-
-                บันทึก
-              </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                color="danger"
-
                 sx={{
                   textTransform: "capitalize",
                   borderRadius: "8px",
@@ -291,9 +297,16 @@ const CreateEmployee = () => {
                   padding: "12px 20px",
                   color: "#fff !important"
                 }}
+                disabled={!checkemail.test(datas.email)|| !checkphone.test(datas.phoneNumber)}
               >
-
-                ยกเลิก
+                <AddIcon
+                  sx={{
+                    position: "relative",
+                    top: "-2px",
+                  }}
+                  className='mr-5px'
+                />{" "}
+                บันทึก
               </Button>
             </Grid>
           </Grid>
@@ -303,4 +316,4 @@ const CreateEmployee = () => {
   )
 }
 
-export default CreateEmployee;
+export default EditEmployee;

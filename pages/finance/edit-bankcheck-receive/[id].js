@@ -11,38 +11,69 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
+import { useRouter } from "next/router";
+
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import dynamic from 'next/dynamic'
+import axios from "axios";
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-const CreateEmployee = () => {
+const EditBankCheck = () => {
+  const [date, setDate] = React.useState(new Date());
+  const [datas, setDatas] = React.useState("");
+
+  const router = useRouter()
+  const { id } = router.query
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
+  React.useEffect(() => {
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/finance/get_CR?id=` + id, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setDatas(result.data))
+  }, [id])
+
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    data.append("date", date)
+
+    axios.put(`${process.env.NEXT_PUBLIC_API}/finance/update_CR?id=` + id, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(() => router.back())
   };
 
-  // Select dropdown
-  const [categorySelect, setCategorySelect] = React.useState('');
+
   const handleChange = (event) => {
-    setCategorySelect(event.target.value);
-  };
+    setDatas({ ...datas, [event.target.name]: event.target.value })
+  }
+
+  const handleClose = () => {
+    router.back()
+  }
 
   return (
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>แก้ไขบัญชีธนาคาร</h1>
+        <h1>แก้ไขเช็ครับ</h1>
         <ul>
           <li>
             <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>แก้ไขบัญชีธนาคาร</li>
+          <li>แก้ไขเช็ครับ</li>
         </ul>
       </div>
 
@@ -59,7 +90,7 @@ const CreateEmployee = () => {
 
 
           <Grid container alignItems="center" spacing={2}>
-            <Grid item xs={12} md={12} lg={5}>
+            <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
                 sx={{
@@ -68,83 +99,23 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                ชื่อบัญชี
+                รหัสเช็ครับ
               </Typography>
               <TextField
-                autoComplete="product-name"
-                name="productName"
-                required
-                fullWidth
-                id="productName"
-                label="ชื่อบัญชี"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} md={12} lg={5}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                ชื่อธนาคาร
-              </Typography>
-              <TextField
-                autoComplete="product-name"
-                name="productName"
-                required
-                fullWidth
-                id="productName"
-                label="ชื่อธนาคาร"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid>
-
-
-            <Grid item xs={12} md={12} lg={2}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                ประเภทบัญชี
-              </Typography>
-              {/* <TextField
-                autoComplete="short-description"
-                name="ประเภทบัญชี"
-                required
-                fullWidth
-                id="Short Description"
-                label="ประเภทบัญชี"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              /> */}
-              {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                defaultValue={1}
                 onChange={handleChange}
-              >
-                <MenuItem value={1}>ออมทรัพย์</MenuItem>
-                <MenuItem value={2}>กระแสรายวัน</MenuItem>
-              </Select>
+                value={datas.idRecieveCheck ?? ""}
+                autoComplete="product-name"
+                name="idRecieveCheck"
+                required
+                fullWidth
+                id="idRecieveCheck"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
             </Grid>
-
-            <Grid item xs={12} md={12} lg={5}>
+            <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
                 sx={{
@@ -153,22 +124,92 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                เลขบัญชีธนาคาร
+                รหัสใบวางบิล
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.idBill ?? ""}
+                autoComplete="product-name"
+                name="idBill"
+                required
+                fullWidth
+                id="idBill"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={4}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                เลขที่เช็ค/ตั๋ว
+              </Typography>
+              <TextField
+                onChange={handleChange}
+                value={datas.checkNumber ?? ""}
+                autoComplete="product-name"
+                name="checkNumber"
+                required
+                fullWidth
+                id="checkNumber"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={12} lg={4}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <Typography
+                  as="h5"
+                  sx={{
+                    fontWeight: "500",
+                    fontSize: "14px",
+                    mb: "12px",
+                  }}
+                >
+                  ลงวันที่
+                </Typography>
+                <DatePicker name={"date"} value={datas.date} InputProps={{ style: { borderRadius: 8 } }} renderInput={(props) => <TextField {...props} />} onChange={(e) => { setDatas({ ...datas, ["date"]: e.$d }), setDate(e.$d) }} />
+
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12} md={12} lg={4}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                จำนวนเงิน
+              </Typography>
+              <TextField
+                onChange={handleChange}
+                value={datas.amount ?? ""}
                 autoComplete="short-description"
-                name="เลขบัญชีธนาคาร"
+                name="amount"
                 required
                 fullWidth
                 id="Short Description"
-                label="เลขบัญชีธนาคาร"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-            {/* <Grid item xs={12} md={12} lg={6}>
+            <Grid item xs={12} md={12} lg={4}>
+            </Grid>
+            <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
                 sx={{
@@ -177,23 +218,23 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                Email
+                ธนาคาร
               </Typography>
               <TextField
+                onChange={handleChange}
+                value={datas.bank ?? ""}
                 autoComplete="short-description"
-                name="Email"
+                name="bank"
                 required
                 fullWidth
                 id="Short Description"
-                label="Email"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-
-            <Grid item xs={12}>
+            <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
                 sx={{
@@ -202,23 +243,22 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                รูปพนักงาน
+                สาขา
               </Typography>
               <TextField
-                autoComplete="product-image"
-                name="productImage"
+                onChange={handleChange}
+                value={datas.brachBank ?? ""}
+                autoComplete="short-description"
+                name="brachBank"
                 required
                 fullWidth
-                id="productImage"
-                type="file"
+                id="brachBank"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
-
-            </Grid>  */}
-
+            </Grid>
 
             <Grid item xs={12} textAlign="end">
 
@@ -240,10 +280,9 @@ const CreateEmployee = () => {
                 บันทึก
               </Button>
               <Button
-                type="submit"
+                onClick={handleClose}
                 variant="contained"
                 color="danger"
-
                 sx={{
                   textTransform: "capitalize",
                   borderRadius: "8px",
@@ -264,4 +303,4 @@ const CreateEmployee = () => {
   )
 }
 
-export default CreateEmployee;
+export default EditBankCheck;
