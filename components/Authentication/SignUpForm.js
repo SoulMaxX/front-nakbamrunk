@@ -39,7 +39,7 @@ const SignUpForm = () => {
     }
 
   };
-  console.log(checkemail.test(datas.email))
+  // console.log(checkemail.test(datas.email))
 
   return (
     <>
@@ -118,6 +118,34 @@ const SignUpForm = () => {
                           display: "block",
                         }}
                       >
+                        Username
+                      </Typography>
+
+                      <TextField
+                        onChange={handleChange}
+                        required
+                        fullWidth
+                        id="username"
+                        label="Username"
+                        name="username"
+                        // autoComplete="username"
+                        InputProps={{
+                          style: { borderRadius: 8 },
+                        }}
+                        // error={!checkemail.test(datas.email)}
+                        // helperText={!checkemail.test(datas.email) ? "อีเมล์ไม่ถูกต้อง" :""}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography
+                        component="label"
+                        sx={{
+                          fontWeight: "500",
+                          fontSize: "14px",
+                          mb: "10px",
+                          display: "block",
+                        }}
+                      >
                         Email
                       </Typography>
 
@@ -132,8 +160,8 @@ const SignUpForm = () => {
                         InputProps={{
                           style: { borderRadius: 8 },
                         }}
-                        error={!checkemail.test(datas.email)}
-                        helperText={!checkemail.test(datas.email) ? "อีเมล์ไม่ถูกต้อง" :""}
+                        // error={!checkemail.test(datas.email)}
+                        // helperText={!checkemail.test(datas.email) ? "อีเมล์ไม่ถูกต้อง" :""}
                       />
                     </Grid>
 
@@ -255,7 +283,7 @@ const SignUpForm = () => {
                           display: "block",
                         }}
                       >
-                        ที่อยุ่
+                        ที่อยู่
                       </Typography>
 
                       <TextField
@@ -263,7 +291,7 @@ const SignUpForm = () => {
                         required
                         fullWidth
                         id="address"
-                        label="ที่อยุ่"
+                        label="ที่อยู่"
                         name="address"
                         autoComplete="family-name"
                         InputProps={{
@@ -307,7 +335,7 @@ const SignUpForm = () => {
                     padding: "12px 10px",
                     color: "#fff !important",
                   }}
-                disabled={!checkemail.test(datas.email)}
+                // disabled={!checkemail.test(datas.email)}
 
                 >
                   สมัครสมาชิก

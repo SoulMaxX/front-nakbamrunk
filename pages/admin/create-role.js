@@ -114,6 +114,7 @@ const token = typeof window !== "undefined" ? window.localStorage.getItem("token
               <FormControlLabel control={<Checkbox value={1} name="menuBuy2" onChange={handleChange}/>} label="Create" />
               <FormControlLabel control={<Checkbox value={1} name="menuBuy3" onChange={handleChange}/>} label="Edit" />
               <FormControlLabel control={<Checkbox value={1} name="menuBuy4" onChange={handleChange}/>} label="Delete" />
+              <FormControlLabel control={<Checkbox value={1} name="menuBuy5" onChange={handleChange}/>} label="Cost" />
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
               <Typography
@@ -130,6 +131,7 @@ const token = typeof window !== "undefined" ? window.localStorage.getItem("token
               <FormControlLabel control={<Checkbox value={1} name="menuSell2" onChange={handleChange} />} label="Create" />
               <FormControlLabel control={<Checkbox value={1} name="menuSell3" onChange={handleChange} />} label="Edit" />
               <FormControlLabel control={<Checkbox value={1} name="menuSell4" onChange={handleChange} />} label="Delete" />
+              <FormControlLabel control={<Checkbox value={1} name="menuSell5" onChange={handleChange} />} label="Cost" />
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
               <Typography
@@ -146,6 +148,7 @@ const token = typeof window !== "undefined" ? window.localStorage.getItem("token
               <FormControlLabel control={<Checkbox value={1} name="menuProduct2" onChange={handleChange} />} label="Create" />
               <FormControlLabel control={<Checkbox value={1} name="menuProduct3" onChange={handleChange} />} label="Edit" />
               <FormControlLabel control={<Checkbox value={1} name="menuProduct4" onChange={handleChange} />} label="Delete" />
+              <FormControlLabel control={<Checkbox value={1} name="menuProduct5" onChange={handleChange} />} label="Cost" />
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
               <Typography

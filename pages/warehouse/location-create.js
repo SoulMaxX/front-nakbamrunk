@@ -12,9 +12,11 @@ import Select from '@mui/material/Select';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 import Paper from '@mui/material/Paper';
+import { useRouter } from "next/router";
 
 
 import dynamic from 'next/dynamic'
+import axios from "axios";
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
@@ -30,9 +32,23 @@ const rows = [
 ];
 
 const CreateOfferSell = () => {
+  const router = useRouter()
+
+  const [warehouse, setWarehouse] = React.useState([]);
+
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
+    axios.post(`${process.env.NEXT_PUBLIC_API}/warehouse/create_locationprod`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(() => router.back())
+
     console.log({
       email: data.get("email"),
       password: data.get("password"),
@@ -40,13 +56,23 @@ const CreateOfferSell = () => {
   };
 
   // Select dropdown
-  const [categorySelect, setCategorySelect] = React.useState('');
+  const [warehouseSelect, setWarehouseSelect] = React.useState('');
   const handleChange = (event) => {
-    setCategorySelect(event.target.value);
+    setWarehouseSelect(event.target.value);
   };
 
 
+  React.useEffect(() => {
 
+    axios.get(`${process.env.NEXT_PUBLIC_API}/warehouse/get_allwarehouse`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setWarehouse(result.data))
+
+  }, [])
+
+  // console.log(warehouse)
   return (
     <>
       {/* Page title */}
@@ -75,7 +101,7 @@ const CreateOfferSell = () => {
           </Typography>
 
           <Grid container alignItems="center" spacing={2}>
-            <Grid item xs={12} md={12} lg={3}>
+            <Grid item xs={12} md={12} lg={4}  >
               <Typography
                 as="h5"
                 sx={{
@@ -86,18 +112,24 @@ const CreateOfferSell = () => {
               >
                 รหัสคลังสินค้า
               </Typography>
-              <TextField
-                autoComplete="product-name"
-                name="productName"
-                required
-                fullWidth
-                id="productName"
-                label="รหัสคลังสินค้า"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
+
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
+                  <Select
+                    // labelId="demo-simple-select-label"
+                    name="warehouseId"
+                    id="warehouseId"
+                    value={warehouseSelect}
+                    // label="Age"
+                    onChange={handleChange}
+                  >
+                    {warehouse.map((e) =>
+                      <MenuItem key={e.id} value={e.id ?? ""}>{"รหัสคลัง: " + (e.id ?? "") + " " + "ชื่อคลัง: " + (e.namewarehouse ?? "")}</MenuItem>
+                    )}
+                  </Select>
+                </FormControl>
+              </Box>
             </Grid>
             <Grid item xs={12} md={12} lg={3}>
               <Typography
@@ -112,10 +144,10 @@ const CreateOfferSell = () => {
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="productName"
+                name="idlocationprod"
                 required
                 fullWidth
-                id="productName"
+                id="idlocationprod"
                 label="รหัสตำแหน่งสินค้า"
                 autoFocus
                 InputProps={{
@@ -136,10 +168,10 @@ const CreateOfferSell = () => {
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="shortName"
+                name="locationprod"
                 required
                 fullWidth
-                id="shortName"
+                id="locationprod"
                 label="ชื่อตำแหน่งสินค้า"
                 autoFocus
                 InputProps={{

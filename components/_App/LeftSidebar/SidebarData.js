@@ -325,10 +325,10 @@ export const SidebarData = [
         title: "รายงานสินค้าคงเหลือ",
         path: "/products/report-products-store/",
       },
-      {
-        title: "รายงานสินค้า+Vatคงเหลือ",
-        path: "/products/report-products-store-vat/",
-      },
+      // {
+      //   title: "รายงานสินค้า+Vatคงเหลือ",
+      //   path: "/products/report-products-store-vat/",
+      // },
       // {
       //   title: "รายงานสินค้าเข้า-ออก",
       //   path: "/products/report-products-in-out/",
@@ -382,6 +382,18 @@ export const SidebarData = [
       {
         title: "สินค้าเข้า-ออกคลัง",
         path: "/warehouse/warehouse-in-out/",
+      },
+      {
+        title: "รายการใบเบิกของ",
+        path: "/warehouse/requisition/",
+      },
+      {
+        title: "รายงานสินค้าMin",
+        path: "/warehouse/report-min-stock/",
+      },
+      {
+        title: "รายงานสินค้าDeadStock",
+        path: "/warehouse/report-dead-stock/",
       },
     
     ],

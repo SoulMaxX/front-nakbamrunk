@@ -41,6 +41,7 @@ import PrintIcon from '@mui/icons-material/Print';
 
 import dynamic from 'next/dynamic'
 import SearchForm from "@/components/_App/TopNavbar/SearchForm";
+import axios from "axios";
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
@@ -160,6 +161,9 @@ const rows = [
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
 export default function Locations() {
+  const [datas, setDatas] = React.useState([]);
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -197,6 +201,18 @@ export default function Locations() {
     setCategorySelect(event.target.value);
   };
 
+  
+  React.useEffect(() => {
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/warehouse/get_alllocationprod`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setDatas(result.data))
+
+  }, [])
+
+  console.log(datas)
   return (
     <>
       {/* Page title */}
@@ -380,11 +396,11 @@ export default function Locations() {
 
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(
+                ? datas.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-                : rows
+                : datas
               ).map((row) => (
                 <TableRow key={row.id} className={styles.Location} >
                   <TableCell

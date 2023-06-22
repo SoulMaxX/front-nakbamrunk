@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Fade, IconButton, Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, colors } from "@mui/material";
+import { Box, Checkbox, Fade, FormControlLabel, IconButton, Modal, Radio, RadioGroup, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, colors } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -46,7 +46,7 @@ const rows = [
 
 ];
 
-const CreateOfferSell = () => {
+const CreateOrderSell = () => {
   const [open, setOpen] = React.useState(false);
   const handlerOpen = (e) => {
     setOpen(true);
@@ -64,13 +64,25 @@ const CreateOfferSell = () => {
   };
 
   // Select dropdown
-  const [categorySelect, setCategorySelect] = React.useState('');
+  const [otherProd, setOtherProd] = React.useState('');
+  
   const handleChange = (event) => {
-    setCategorySelect(event.target.value);
+    setOtherProd({ ...otherProd, [event.target.name]: event.target.value });
   };
+
   const [discount, setDiscount] = React.useState('');
   const [total, setTotal] = React.useState(0);
   const [tax, setTax] = React.useState(0);
+  const [vat, setVat] = React.useState(0);
+
+  const handleChangeVat = (event) => {
+    if (event.target.checked == true) {
+      setVat(event.target.value)
+    } else {
+      setVat(0)
+    }
+  }
+  console.log(vat)
 
   const handleDiscount = (event, id) => {
     let name = "dc" + id
@@ -194,7 +206,21 @@ const CreateOfferSell = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={10}>
+
+
+            <Grid item xs={12} md={12} lg={2}>
+              <FormControlLabel control={<Checkbox value={7} name="vat" onChange={handleChangeVat} />} label="Vat" />
+              {/* <FormControlLabel control={<Checkbox value={1} name="no-vat" onChange={handleChange} />} label="ไม่Vat" /> */}
+
+              {/* <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                defaultValue="female"
+                name="radio-buttons-group"
+                onChange={handleChange}
+              >
+                <FormControlLabel value="vat"  control={<Radio />}label="Vat"  />
+                <FormControlLabel value="no-vat"  control={<Radio />} label="ไม่Vat" />
+              </RadioGroup> */}
             </Grid>
             {/* <Grid item xs={12} md={12} lg={2}>
 
@@ -391,7 +417,7 @@ const CreateOfferSell = () => {
                 </Table>
               </TableContainer>
             </Grid>
-            <Grid item xs={12} md={12} lg={12}>
+            <Grid item xs={12} md={12} lg={1}>
               <Typography
                 as="h5"
                 sx={{
@@ -400,9 +426,20 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ยอดรวม {total.toFixed(2)} บาท
+                สิ้นค้าอื่นๆ
               </Typography>
-
+              <TextField
+                onChange={handleChange}
+                autoComplete="product-name"
+                name="othernameprod"
+                fullWidth
+                id="othernameprod"
+                label="ชื่อสินค้า"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
             </Grid>
             <Grid item xs={12} md={12} lg={1}>
               <Typography
@@ -413,9 +450,86 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ภาษี
+                จำนวน
               </Typography>
               <TextField
+                onChange={handleChange}
+                autoComplete="product-name"
+                name="otherqty"
+                fullWidth
+                id="otherqty"
+                label="จำนวน"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={1}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ราคา
+              </Typography>
+              <TextField
+                onChange={handleChange}
+                autoComplete="product-name"
+                name="otherprice"
+                fullWidth
+                id="otherprice"
+                label="ราคา"
+                autoFocus
+                InputProps={{
+                  style: { borderRadius: 8 },
+                }}
+              />
+            </Grid>
+            <Grid item xs={12} md={12} lg={2}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+
+              >
+                จำนวนเงิน {otherProd.otherprice != undefined ?otherProd.otherprice * otherProd.otherqty : 0} บาท
+              </Typography>
+
+            </Grid>
+            <Grid item xs={12} md={12} lg={12}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ยอดรวม { ((otherProd.otherprice != undefined ? Number(otherProd.otherprice) * Number(otherProd.otherqty): 0) + Number(total)).toFixed(2)} บาท
+              </Typography>
+
+            </Grid>
+            <Grid item xs={12} md={12} lg={5} >
+
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                ภาษี {(((vat / 100)) * ((otherProd.otherprice != undefined ? Number(otherProd.otherprice) * Number(otherProd.otherqty): 0) + Number(total))).toFixed(2)} บาท
+              </Typography>
+              {/* <TextField
+                open={false}
                 onChange={(e) => setTax(e.target.value)}
                 autoComplete="product-name"
                 name="shortName"
@@ -427,7 +541,7 @@ const CreateOfferSell = () => {
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
-              />
+              /> */}
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
               <Typography
@@ -438,7 +552,7 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ยอดรวมทั้งสิ้น {(((tax / 100)+1) * total).toFixed(2)} บาท
+                ยอดรวมทั้งสิ้น {(((vat / 100)+1) * ((otherProd.otherprice != undefined ? Number(otherProd.otherprice) * Number(otherProd.otherqty): 0) + Number(total))).toFixed(2)} บาท
               </Typography>
 
             </Grid>
@@ -691,4 +805,4 @@ const CreateOfferSell = () => {
   )
 }
 
-export default CreateOfferSell;
+export default CreateOrderSell;

@@ -12,9 +12,10 @@ import Select from '@mui/material/Select';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 import Paper from '@mui/material/Paper';
-
+import { useRouter } from "next/router";
 
 import dynamic from 'next/dynamic'
+import axios from "axios";
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
@@ -29,20 +30,33 @@ const rows = [
 
 ];
 
-const CreateOfferSell = () => {
+const CreateWarehouse = () => {
+  const router = useRouter()
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
+    axios.post(`${process.env.NEXT_PUBLIC_API}/warehouse/create_warehouse`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(() => router.back())
+
     console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+      idwarehouse: data.get("idwarehouse"),
+      type: data.get("type"),
+      namewarehouse: data.get("namewarehouse"),
+      address: data.get("address"),
     });
   };
 
   // Select dropdown
-  const [categorySelect, setCategorySelect] = React.useState('');
+  const [type, setType] = React.useState('');
   const handleChange = (event) => {
-    setCategorySelect(event.target.value);
+    setType(event.target.value);
   };
 
 
@@ -88,10 +102,10 @@ const CreateOfferSell = () => {
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="productName"
+                name="idwarehouse"
                 required
                 fullWidth
-                id="productName"
+                id="idwarehouse"
                 label="รหัสคลังสินค้า"
                 autoFocus
                 InputProps={{
@@ -113,10 +127,10 @@ const CreateOfferSell = () => {
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="productName"
+                name="namewarehouse"
                 required
                 fullWidth
-                id="productName"
+                id="namewarehouse"
                 label="ชื่อคลังสินค้า"
                 autoFocus
                 InputProps={{
@@ -138,10 +152,10 @@ const CreateOfferSell = () => {
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="shortName"
+                name="address"
                 required
                 fullWidth
-                id="shortName"
+                id="address"
                 label="ที่อยู่"
                 autoFocus
                 InputProps={{
@@ -165,14 +179,15 @@ const CreateOfferSell = () => {
                 <FormControl fullWidth>
                   {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // value={age}
+                    // labelId="demo-simple-select-label"
+                    name="type"
+                    id="type"
+                    value={type}
                     // label="Age"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Vat</MenuItem>
-                    <MenuItem value={20}>ไม่Vat</MenuItem>
+                    <MenuItem value={"+Vat"}>+Vat</MenuItem>
+                    <MenuItem value={"ไม่Vat"}>ไม่Vat</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -209,4 +224,4 @@ const CreateOfferSell = () => {
   )
 }
 
-export default CreateOfferSell;
+export default CreateWarehouse;

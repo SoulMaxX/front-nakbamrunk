@@ -12,37 +12,67 @@ import Select from '@mui/material/Select';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 import Paper from '@mui/material/Paper';
-
+import { useRouter } from "next/router";
 
 import dynamic from 'next/dynamic'
+import axios from "axios";
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-function createData(id,name, quantity , unit, price, discount) {
-  return { id,name, quantity , unit, price, discount };
+function createData(id, name, quantity, unit, price, discount) {
+  return { id, name, quantity, unit, price, discount };
 }
 
 const rows = [
-  createData(1,'ถังลม 30 ลิตร', 1,"ถัง", 8500, 5),
-  createData(5,'ค่าส่ง', 1, "",6500, ""),
- 
+  createData(1, 'ถังลม 30 ลิตร', 1, "ถัง", 8500, 5),
+  createData(5, 'ค่าส่ง', 1, "", 6500, ""),
+
 ];
 
-const CreateOfferSell = () => {
+const CreateWarehouse = () => {
+  const [datas, setDatas] = React.useState('')
+  const router = useRouter()
+  const { id } = router.query
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
+  React.useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/warehouse/get_warehouse?id=` + id, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((result) => setDatas(result.data))
+  }, [id])
+
+  console.log(datas)
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    axios.put(`${process.env.NEXT_PUBLIC_API}/warehouse/update_warehouse?id=` + id, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(() => router.back())
+
     console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+      idwarehouse: data.get("idwarehouse"),
+      type: data.get("type"),
+      namewarehouse: data.get("namewarehouse"),
+      address: data.get("address"),
     });
   };
 
   // Select dropdown
-  const [categorySelect, setCategorySelect] = React.useState('');
+  // const [type, setType] = React.useState('');
   const handleChange = (event) => {
-    setCategorySelect(event.target.value);
+    if(event.target.name === "idwarehouse"){
+      setDatas({...datas,["id"]:event.target.value,["idwarehouse"]:event.target.value});
+    }else{
+      setDatas({...datas,[event.target.name]:event.target.value});
+    }
   };
 
 
@@ -51,12 +81,12 @@ const CreateOfferSell = () => {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>เพิ่มคลังสินค้า</h1>
+        <h1>แก้ไขคลังสินค้า</h1>
         <ul>
           <li>
             <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>เพิ่มคลังสินค้า</li>
+          <li>แก้ไขคลังสินค้า</li>
         </ul>
       </div>
 
@@ -71,7 +101,7 @@ const CreateOfferSell = () => {
           className="bg-black"
         >
           <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-            เพิ่มคลังสินค้า
+            แก้ไขคลังสินค้า
           </Typography>
 
           <Grid container alignItems="center" spacing={2}>
@@ -87,19 +117,20 @@ const CreateOfferSell = () => {
                 รหัสคลังสินค้า
               </Typography>
               <TextField
+              onChange={handleChange}
+                value={datas?.id ?? ""}
                 autoComplete="product-name"
-                name="productName"
+                name="idwarehouse"
                 required
                 fullWidth
-                id="productName"
-                label="รหัสคลังสินค้า"
+                id="idwarehouse"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-        
+
             <Grid item xs={12} md={12} lg={4}>
               <Typography
                 as="h5"
@@ -112,19 +143,20 @@ const CreateOfferSell = () => {
                 ชื่อคลังสินค้า
               </Typography>
               <TextField
+              onChange={handleChange}
+                value={datas?.namewarehouse ?? ""}
                 autoComplete="product-name"
-                name="productName"
+                name="namewarehouse"
                 required
                 fullWidth
-                id="productName"
-                label="ชื่อคลังสินค้า"
+                id="namewarehouse"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-        
+
             <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
@@ -137,12 +169,13 @@ const CreateOfferSell = () => {
                 ที่อยู่
               </Typography>
               <TextField
+                value={datas?.address ?? ""}
+                onChange={handleChange}
                 autoComplete="product-name"
-                name="shortName"
+                name="address"
                 required
                 fullWidth
-                id="shortName"
-                label="ที่อยู่"
+                id="address"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -165,43 +198,25 @@ const CreateOfferSell = () => {
                 <FormControl fullWidth>
                   {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // value={age}
+                    // labelId="demo-simple-select-label"
+                    name="type"
+                    id="type"
+                    value={datas?.type ?? ""}
                     // label="Age"
                     onChange={handleChange}
                   >
-                    <MenuItem value={10}>Vat</MenuItem>
-                    <MenuItem value={20}>ไม่Vat</MenuItem>
+                    <MenuItem value={"+Vat"}>+Vat</MenuItem>
+                    <MenuItem value={"ไม่Vat"}>ไม่Vat</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
             </Grid>
-            
+
 
             <Grid item xs={12} textAlign="end">
-            <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                  textTransform: "capitalize",
-                  borderRadius: "8px",
-                  fontWeight: "500",
-                  fontSize: "13px",
-                  padding: "12px 20px",
-                  color: "#fff !important",
-                  marginRight: "10px"
-
-                }}
-              >
-
-                บันทึก
-              </Button>
               <Button
                 type="submit"
                 variant="contained"
-                color="danger"
-
                 sx={{
                   textTransform: "capitalize",
                   borderRadius: "8px",
@@ -211,8 +226,14 @@ const CreateOfferSell = () => {
                   color: "#fff !important"
                 }}
               >
-
-                ยกเลิก
+                <AddIcon
+                  sx={{
+                    position: "relative",
+                    top: "-2px",
+                  }}
+                  className='mr-5px'
+                />{" "}
+                แก้ไขคลังสินค้า
               </Button>
             </Grid>
           </Grid>
@@ -222,4 +243,4 @@ const CreateOfferSell = () => {
   )
 }
 
-export default CreateOfferSell;
+export default CreateWarehouse;

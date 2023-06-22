@@ -2,8 +2,23 @@ import React from 'react';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 import CustomersLists from '@/components/Customers/CustomersLists';
+import axios from 'axios';
 
 const Customers = () => {
+  const [datas, setDatas] = React.useState([]);
+  
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
+  React.useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/customer/get_allcustomer`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setDatas(result.data))
+
+  },[])
+
+  // console.log(datas)
   return (
     <>
       {/* Page title */}
@@ -17,7 +32,7 @@ const Customers = () => {
         </ul>
       </div>
       
-      <CustomersLists />
+      <CustomersLists datas={datas}/>
     </>
   )
 }

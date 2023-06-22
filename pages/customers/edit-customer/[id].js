@@ -73,12 +73,12 @@ const CreateCustomer = () => {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>เพิ่มข้อมูลลูกค้า</h1>
+        <h1>แก้ไขข้อมูลลูกค้า</h1>
         <ul>
           <li>
             <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>เพิ่มข้อมูลลูกค้า</li>
+          <li>แก้ไขข้อมูลลูกค้า</li>
         </ul>
       </div>
 
@@ -579,7 +579,7 @@ const CreateCustomer = () => {
                   }}
                   className='mr-5px'
                 />{" "}
-                เพิ่มข้อมูลลูกค้า
+                แก้ไขข้อมูลลูกค้า
               </Button>
             </Grid>
           </Grid>

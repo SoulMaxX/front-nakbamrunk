@@ -23,11 +23,12 @@ const SignInForm = () => {
     axios.post(`${process.env.NEXT_PUBLIC_API}/auth/login`, datas)
       .then(response => {
         if (response.status == 200) {
-          console.log(response.data)
+          console.log(response)
           localStorage.setItem("token",response.data[0])
           localStorage.setItem("role",response.data[1])
           localStorage.setItem("email",response.data[2])
           localStorage.setItem("name",response.data[3])
+          localStorage.setItem("username",response.data[4])
           window.location.href = '/'
         }
       }
@@ -118,17 +119,17 @@ const SignInForm = () => {
                           display: "block",
                         }}
                       >
-                        Email
+                        Username
                       </Typography>
 
                       <TextField
                         onChange={handleChange}
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
+                        id="username"
+                        label="Username"
+                        name="username"
+                        // autoComplete="username"
                         InputProps={{
                           style: { borderRadius: 8 },
                         }}

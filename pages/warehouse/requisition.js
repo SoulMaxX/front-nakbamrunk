@@ -174,15 +174,23 @@ Warehouse.propTypes = {
 
 function createData(
   id,
+  date,
   name,
-  address,
-  type
+  idprod,
+  nameprod,
+  qty,
+  emp,
+  note
 ) {
   return {
     id,
+    date,
     name,
-    address,
-    type
+    idprod,
+    nameprod,
+    qty,
+    emp,
+    note
 
   };
 }
@@ -190,9 +198,12 @@ function createData(
 const rows = [
   createData(
     "1",
+    "22/6/2566",
     "คลัง1",
-    "ธนบุรี ",
-    "Vat ",
+    "ไฟหน้า ",
+    "100",
+    "หนักงาน1",
+    "",
   ),
 
 ]
@@ -246,7 +257,7 @@ export default function Warehouses() {
       headers: {
         Authorization: `Bearer ${token}`
       }
-    }).then(result => {setDatas(result.data),setResult(result.data)})
+    }).then(result => { setDatas(result.data), setResult(result.data) })
 
   }, [])
   const handleDelete = (e) => {
@@ -262,12 +273,12 @@ export default function Warehouses() {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>คลังสินค้า</h1>
+        <h1>รายการใบเบิกของ</h1>
         <ul>
           <li>
             <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>คลังสินค้า</li>
+          <li>รายการใบเบิกของ</li>
         </ul>
       </div>
 
@@ -318,9 +329,9 @@ export default function Warehouses() {
             พิมพ์แฟ้มสินค้า
           </Button> */}
 
-          <SearchForm  rows={datas} setResult={setResult}/>
+          <SearchForm rows={datas} setResult={setResult} />
 
-          <Button
+          {/* <Button
             // onClick={handleOpen}
             href="/warehouse/warehouse-create/"
             variant="contained"
@@ -338,7 +349,7 @@ export default function Warehouses() {
               className='mr-5px'
             />{" "}
             เพิ่มคลังสินค้า
-          </Button>
+          </Button> */}
         </Box>
 
         <TableContainer
@@ -359,10 +370,18 @@ export default function Warehouses() {
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
-                    width: "170px"
                   }}
                 >
-                  รหัสคลังสินค้า
+                  รหัสใบเบิกสินค้า
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  วันที่เบิกสินค้า
                 </TableCell>
 
 
@@ -377,14 +396,14 @@ export default function Warehouses() {
                   ชื่อคลัง
                 </TableCell>
 
-                <TableCell
+                {/* <TableCell
                   align="center"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
                   }}
                 >
-                  ที่อยู่
+                  รหัสสินค้า
                 </TableCell>
                 <TableCell
                   align="center"
@@ -393,7 +412,34 @@ export default function Warehouses() {
                     fontSize: "13.5px",
                   }}
                 >
-                  ประเภทคลัง
+                  ชื่อสินค้า
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  จำนวน
+                </TableCell> */}
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ชื่อผู้เบิก
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  หมายเหตุ
                 </TableCell>
 
 
@@ -411,17 +457,16 @@ export default function Warehouses() {
 
             <TableBody>
               {(rowsPerPage > 0
-                ? result.slice(
+                ? rows.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-                : result
+                : rows
               ).map((row) => (
                 <TableRow key={row.id} className={styles.Warehouse} >
                   <TableCell
                     align="center"
                     sx={{
-                      width: 100,
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
@@ -429,6 +474,16 @@ export default function Warehouses() {
                   >
                     {row.id}
                   </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.date}
+                  </TableCell>
 
 
 
@@ -440,7 +495,7 @@ export default function Warehouses() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.namewarehouse}
+                    {row.name}
                   </TableCell>
 
                   <TableCell
@@ -450,11 +505,10 @@ export default function Warehouses() {
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
-                      width: 150,
 
                     }}
                   >
-                    {row.address}
+                    {row.qty}
                   </TableCell>
                   <TableCell
                     align="center"
@@ -463,12 +517,35 @@ export default function Warehouses() {
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
-                      width: 150,
 
                     }}
                   >
-                    {row.type}
+                    {row.note}
                   </TableCell>
+                  {/* <TableCell
+                    align="center"
+
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+
+                    }}
+                  >
+                    {row.emp}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+
+                    }}
+                  >
+                    {row.note}
+                  </TableCell> */}
 
 
 
@@ -484,9 +561,11 @@ export default function Warehouses() {
                         display: "inline-block",
                       }}
                     >
-                      {/* <Tooltip title="View" placement="top">
+                    
+
+                      <Tooltip title="View" placement="top">
                         <IconButton
-                          href="/sell/order-sell-details"
+                          href="/warehouse/requisition-detail"
                           aria-label="view"
                           size="small"
                           color="info"
@@ -494,11 +573,11 @@ export default function Warehouses() {
                         >
                           <VisibilityIcon fontSize="inherit" />
                         </IconButton>
-                      </Tooltip> */}
+                      </Tooltip>
 
                       <Tooltip title="Edit" placement="top">
                         <IconButton
-                          href={"/warehouse/edit-warehouse/"+row.id}
+                          href={"/warehouse/edit-warehouse/" + row.id}
                           aria-label="edit"
                           size="small"
                           color="primary"
@@ -508,16 +587,7 @@ export default function Warehouses() {
                         </IconButton>
                       </Tooltip>
 
-                      {/* <Tooltip title="Add To Cart" placement="top">
-                        <IconButton
-                          aria-label="Add To Cart"
-                          size="small"
-                          color="success"
-                          className="success"
-                        >
-                          <ShoppingCartIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip> */}
+
 
                       <Tooltip title="Remove" placement="top">
                         <IconButton

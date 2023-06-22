@@ -30,8 +30,8 @@ const Profile = () => {
     setAnchorEl(null);
   };
   React.useEffect(() => {
-    const name = localStorage.getItem("name")
-    setName(name)
+    const username = localStorage.getItem("username")
+    setName(username)
     
     const token = localStorage.getItem("token")
     if(!token){

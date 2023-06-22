@@ -359,9 +359,9 @@ export default function RolesLists(props) {
                       paddingBottom: "13px",
                     }}
                   >
-                    เมนูการซื้อ: {row.menuBuy.view == 1 ? "view" : ""} {row.menuBuy.create == 1 ? "create" : ""} {row.menuBuy.edit == 1 ? "edit" : ""} {row.menuBuy.delete == 1 ? "delete" : ""}<br />
-                    เมนูการขาย: {row.menuSell.view == 1 ? "view" : ""} {row.menuSell.create == 1 ? "create" : ""} {row.menuSell.edit == 1 ? "edit" : ""} {row.menuSell.delete == 1 ? "delete" : ""}<br />
-                    เมนูจัดการสินค้า: {row.menuProduct.view == 1 ? "view" : ""} {row.menuProduct.create == 1 ? "create" : ""} {row.menuProduct.edit == 1 ? "edit" : ""} {row.menuProduct.delete == 1 ? "delete" : ""}<br />
+                    เมนูการซื้อ: {row.menuBuy.view == 1 ? "view" : ""} {row.menuBuy.create == 1 ? "create" : ""} {row.menuBuy.edit == 1 ? "edit" : ""} {row.menuBuy.delete == 1 ? "delete" : ""} {row.menuBuy.cost == 1 ? "cost" : ""}<br />
+                    เมนูการขาย: {row.menuSell.view == 1 ? "view" : ""} {row.menuSell.create == 1 ? "create" : ""} {row.menuSell.edit == 1 ? "edit" : ""} {row.menuSell.delete == 1 ? "delete" : ""} {row.menuSell.cost == 1 ? "cost" : ""}<br />
+                    เมนูจัดการสินค้า: {row.menuProduct.view == 1 ? "view" : ""} {row.menuProduct.create == 1 ? "create" : ""} {row.menuProduct.edit == 1 ? "edit" : ""} {row.menuProduct.delete == 1 ? "delete" : ""} {row.menuProduct.cost == 1 ? "cost" : ""}<br />
                     เมนูจัดการคลังสินค้า: {row.menuWarehouse.view == 1 ? "view" : ""} {row.menuWarehouse.create == 1 ? "create" : ""} {row.menuWarehouse.edit == 1 ? "edit" : ""} {row.menuWarehouse.delete == 1 ? "delete" : ""}<br />
                     เมนูลูกค้า: {row.menuCustomer.view == 1 ? "view" : ""} {row.menuCustomer.create == 1 ? "create" : ""} {row.menuCustomer.edit == 1 ? "edit" : ""} {row.menuCustomer.delete == 1 ? "delete" : ""}<br />
                     เมนูเจ้าหนี้: {row.menuCreditor.view == 1 ? "view" : ""} {row.menuCreditor.create == 1 ? "create" : ""} {row.menuCreditor.edit == 1 ? "edit" : ""} {row.menuCreditor.delete == 1 ? "delete" : ""}<br />

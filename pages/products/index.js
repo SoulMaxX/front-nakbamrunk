@@ -222,6 +222,45 @@ function Row(props) {
         >
           {row.sell}
         </TableCell>
+        <TableCell
+          align="center"
+          sx={{
+            borderBottom: "1px solid #F7FAFF",
+            padding: "8px 10px",
+            fontSize: "13px",
+          }}
+        >
+          {new Date(row.createdAt).toLocaleDateString("th-Th")}
+        </TableCell>
+        <TableCell
+          align="center"
+          sx={{
+            borderBottom: "1px solid #F7FAFF",
+            padding: "8px 10px",
+            fontSize: "13px",
+          }}
+        >
+          {new Date(row.createdAt).toLocaleDateString("th-Th")}
+        </TableCell>
+        <TableCell
+          align="center"
+          sx={{
+            borderBottom: "1px solid #F7FAFF",
+            padding: "8px 10px",
+            fontSize: "13px",
+          }}
+        >
+          <TextField
+            // name={"discount" + row.id}
+            id="min"
+            type="number"
+            InputProps={{
+              style: { borderRadius: 8 },
+              inputProps: { min: 0, max: 100 }
+            }}
+            // onChange={event => handleDiscount(event, row.id)}
+          />
+        </TableCell>
 
         <TableCell
           align="right"
@@ -239,7 +278,7 @@ function Row(props) {
 
             <Tooltip title="Edit" placement="top">
               <IconButton
-              href={"/products/edit-product/"+row.id}
+                href={"/products/edit-product/" + row.id}
                 aria-label="edit"
                 size="small"
                 color="primary"
@@ -281,7 +320,7 @@ function Row(props) {
                   {row.productName}
                 </Typography>
               ))} */}
-              <ProductDetailsContent id={row.id}/>
+              <ProductDetailsContent id={row.id} />
 
             </Box>
           </Collapse>
@@ -814,6 +853,33 @@ export default function Products() {
                   }}
                 >
                   ราคาขาย
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  วันของเข้าล่าสุด
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  วันที่ขายล่าสุด
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ระบุยอด min สินค้า
                 </TableCell>
 
                 <TableCell

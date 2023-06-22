@@ -304,6 +304,12 @@ export default function AdminsLists(props) {
                   align="center"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
+                  Username
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
+                >
                   Name
                 </TableCell>
 
@@ -366,9 +372,21 @@ export default function AdminsLists(props) {
                 )
                 : datas
               ).map((row) => (
-                <TableRow key={row.email}>
+                <TableRow key={row.username}>
 
 
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderBottom: "1px solid #F7FAFF",
+                      fontSize: "13px",
+                      paddingTop: "13px",
+                      paddingBottom: "13px",
+                      width: "100px"
+                    }}
+                  >
+                    {row.username}
+                  </TableCell>
                   <TableCell
                     align="center"
                     style={{
@@ -445,7 +463,7 @@ export default function AdminsLists(props) {
 
                       <Tooltip title="Rename" placement="top">
                         <IconButton
-                          href={"/admin/edit-user/" + row.email}
+                          href={"/admin/edit-user/" + row.username}
                           aria-label="rename"
                           size="small"
                           color="primary"

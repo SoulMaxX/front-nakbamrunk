@@ -22,11 +22,11 @@ const token = typeof window !== "undefined" ? window.localStorage.getItem("token
 
 const CreateEmployee = () => {
   const router = useRouter()
-  const { email } = router.query
+  const { username } = router.query
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.put(`${process.env.NEXT_PUBLIC_API}/auth/update_role_by_email`,{email,roleSelect}, {
+    axios.put(`${process.env.NEXT_PUBLIC_API}/auth/update_role_by_username`,{username,roleSelect}, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -45,17 +45,16 @@ const CreateEmployee = () => {
     // setRoleSelect({...roleSelect,[event.target.name]:event.target.value});
     setRoleSelect(event.target.value);
   };
-  console.log(roleSelect)
 
   React.useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_API}/auth/getoneuser/` + email, {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/auth/getoneuser/` + username, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     }).then(result => {setDatas(result.data)
       // ,setRoleSelect(result.data)
     })
-  }, [email])
+  }, [username])
   React.useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_API}/role/get_all_role`, {
       headers: {
@@ -67,6 +66,7 @@ const CreateEmployee = () => {
   const handleClose = ()=>{
     router.back()
   };
+
   return (
     <>
       {/* Page title */}
@@ -102,7 +102,7 @@ const CreateEmployee = () => {
                   mb: "12px",
                 }}
               >
-                Name: {datas.name}
+                Username: {datas.username}
               </Typography>
               {/* <TextField
                 autoComplete="product-name"
@@ -119,7 +119,7 @@ const CreateEmployee = () => {
             </Grid>
 
 
-            <Grid item xs={12} md={12} lg={6}>
+            {/* <Grid item xs={12} md={12} lg={6}>
               <Typography
                 as="h5"
                 sx={{
@@ -130,7 +130,7 @@ const CreateEmployee = () => {
               >
                 Email: {datas.email}
               </Typography>
-              {/* <TextField
+              <TextField
                 autoComplete="short-description"
                 name="Email"
                 required
@@ -141,8 +141,8 @@ const CreateEmployee = () => {
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
-              /> */}
-            </Grid>
+              />
+            </Grid> */}
 
             <Grid item xs={12} md={12} lg={1}>
 

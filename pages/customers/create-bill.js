@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Checkbox, FormControlLabel } from "@mui/material";
+import { Box, Checkbox, FormControlLabel, ListItemText, OutlinedInput } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -18,6 +18,18 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
 })
 
 const CreateBill = () => {
+
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -28,11 +40,35 @@ const CreateBill = () => {
   };
 
   // Select dropdown
-  const [categorySelect, setCategorySelect] = React.useState('');
+  // const [categorySelect, setCategorySelect] = React.useState('');
+  // const handleChange = (event) => {
+  //   setCategorySelect(event.target.value);
+  // };
+  const [billVat, setBillVat] = React.useState([]);
+
   const handleChange = (event) => {
-    setCategorySelect(event.target.value);
+    const {
+      target: { value },
+    } = event;
+    setBillVat(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
   };
-const bill = ["รหัสบิล"+1+" ยอดรวม 5,000 บาท","รหัสบิล"+2+" ยอดรวม 15,000 บาท"]
+  const [billNoVat, setBillNoVat] = React.useState([]);
+
+  const handleChangeNoVat = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setBillNoVat(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
+  console.log(billVat)
+  const bill = ["รหัสบิล" + 1 + " ยอดรวม 5,000 บาท", "รหัสบิล" + 2 + " ยอดรวม 15,000 บาท"]
   return (
     <>
       {/* Page title */}
@@ -122,11 +158,11 @@ const bill = ["รหัสบิล"+1+" ยอดรวม 5,000 บาท","�
               </Typography>
               
             </Grid> */}
-          
-           
-          
-            <Grid item xs={12} md={12} lg={12}>
-            <Typography
+
+
+
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
                 as="h5"
                 sx={{
                   fontWeight: "500",
@@ -134,12 +170,70 @@ const bill = ["รหัสบิล"+1+" ยอดรวม 5,000 บาท","�
                   mb: "12px",
                 }}
               >
-                รหัสบิล :
+                บิลVat :
               </Typography>
-              {bill.map((bill)=><FormControlLabel control={<Checkbox  />} label={bill} />)}
-            {/* <FormControlLabel control={<Checkbox  />} label="1" />
-            <FormControlLabel control={<Checkbox  />} label="2" />
-            <FormControlLabel control={<Checkbox  />} label="3" /> */}
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Vat</InputLabel>
+                <Select
+                  labelId="demo-multiple-checkbox-label"
+                  id="demo-multiple-checkbox"
+                  multiple
+                  value={billVat}
+                  onChange={handleChange}
+                  input={<OutlinedInput label="Tag" />}
+                  renderValue={(selected) => selected.join(', ')}
+                  MenuProps={MenuProps}
+                >
+                  {bill.map(result =>
+                  (
+                    <MenuItem key={result} value={result}>
+                      <Checkbox checked={billVat.indexOf(result) > -1} />
+                      <ListItemText primary={result} />
+                    </MenuItem>
+                  )
+                  )}
+
+                </Select>
+              </FormControl>
+
+
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+                บิลไม่Vat :
+              </Typography>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Vat</InputLabel>
+                <Select
+                  labelId="demo-multiple-checkbox-label"
+                  id="demo-multiple-checkbox"
+                  multiple
+                  value={billNoVat}
+                  onChange={handleChangeNoVat}
+                  input={<OutlinedInput label="Tag" />}
+                  renderValue={(selected) => selected.join(', ')}
+                  MenuProps={MenuProps}
+                >
+                  {bill.map(result =>
+                  (
+                    <MenuItem key={result} value={result}>
+                      <Checkbox checked={billNoVat.indexOf(result) > -1} />
+                      <ListItemText primary={result} />
+                    </MenuItem>
+                  )
+                  )}
+
+                </Select>
+              </FormControl>
+
+
             </Grid>
             <Grid item xs={12} md={12} lg={6}>
               <Typography
