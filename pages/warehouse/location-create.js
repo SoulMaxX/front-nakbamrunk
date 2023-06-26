@@ -47,7 +47,8 @@ const CreateOfferSell = () => {
       headers: {
         Authorization: `Bearer ${token}`
       }
-    }).then(() => router.back())
+    })
+    .then(() => router.back())
 
     console.log({
       email: data.get("email"),

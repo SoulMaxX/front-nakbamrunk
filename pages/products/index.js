@@ -222,7 +222,7 @@ function Row(props) {
         >
           {row.sell}
         </TableCell>
-        <TableCell
+        {/* <TableCell
           align="center"
           sx={{
             borderBottom: "1px solid #F7FAFF",
@@ -260,7 +260,7 @@ function Row(props) {
             }}
             // onChange={event => handleDiscount(event, row.id)}
           />
-        </TableCell>
+        </TableCell> */}
 
         <TableCell
           align="right"
@@ -854,7 +854,7 @@ export default function Products() {
                 >
                   ราคาขาย
                 </TableCell>
-                <TableCell
+                {/* <TableCell
                   align="center"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -880,7 +880,7 @@ export default function Products() {
                   }}
                 >
                   ระบุยอด min สินค้า
-                </TableCell>
+                </TableCell> */}
 
                 <TableCell
                   align="right"

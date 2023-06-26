@@ -136,7 +136,9 @@ function createData(
   productName,
   carBrand,
   brand,
-  amount
+  amount,
+  createAt,
+  updateAt,
   // buyPrice,
   // sellPrice,
 ) {
@@ -148,7 +150,9 @@ function createData(
     productName,
     carBrand,
     brand,
-    amount
+    amount,
+    createAt,
+    updateAt,
     // buyPrice,
     // sellPrice,
   };
@@ -163,6 +167,8 @@ const rows = [
     "Benz IBC",
     "DT",
     "1,000 ชิ้น",
+    "20/6/2566",
+    "22/6/2566",
     // "625.00",
     // "980.00",
   ),
@@ -174,6 +180,8 @@ const rows = [
     "B422",
     "DT",
     "500 ชิ้น",
+    "20/6/2566",
+    "22/6/2566",
     // "128.00",
     // "200.00",
   ),
@@ -185,230 +193,12 @@ const rows = [
     "Benz IBC",
     "DT",
     "100 ชิ้น",
+    "19/6/2566",
+    "23/6/2566",
     // "2685.00",
     // "",
   ),
-  createData(
-    "4",
-    "สวปฟน",
-    "4.61992",
-    "สวิตซ์เปิดไฟหน้า",
-    "Benz IBC",
-    "DT",
-    "1,000 ชิ้น",
-    // "625.00",
-    // "980.00",
-  ),
-  createData(
-    "5",
-    "ลกทว",
-    "4.50099",
-    "ลูกกระทุ้งวาล์ว",
-    "B422",
-    "DT",
-    "500 ชิ้น",
-    // "128.00",
-    // "200.00",
-  ),
-  createData(
-    "6",
-    "กส",
-    "4.61904",
-    "ก้านสูบ",
-    "Benz IBC",
-    "DT",
-    "100 ชิ้น",
-    // "2685.00",
-    // "",
-  ),
-  createData(
-    "7",
-    "สวปฟน",
-    "4.61992",
-    "สวิตซ์เปิดไฟหน้า",
-    "Benz IBC",
-    "DT",
-    "1,000 ชิ้น",
-    // "625.00",
-    // "980.00",
-  ),
-  createData(
-    "8",
-    "ลกทว",
-    "4.50099",
-    "ลูกกระทุ้งวาล์ว",
-    "B422",
-    "DT",
-    "500 ชิ้น",
-    // "128.00",
-    // "200.00",
-  ),
-  createData(
-    "9",
-    "กส",
-    "4.61904",
-    "ก้านสูบ",
-    "Benz IBC",
-    "DT",
-    "100 ชิ้น",
-    // "2685.00",
-    // "",
-  ),
-  // createData(
-  //   "2",
-  //   // "/images/product2.png",
-  //   "Smart Camera XD6",
-  //   "Camera",
-  //   "$189.50",
-  //   "50",
-  //   "Out of Stock",
-  //   "5.0 (40 votes)"
-  // ),
-  // createData(
-  //   "3",
-  //   "/images/product3.png",
-  //   // "Pixi 8 Wireless Airphone",
-  //   "Phone",
-  //   "$250.50",
-  //   "45",
-  //   "400",
-  //   "5.0 (15 votes)"
-  // ),
-  // createData(
-  //   "/images/product4.png",
-  //   "Jebble Smart Watch",
-  //   "Watch",
-  //   "$289.50",
-  //   "100",
-  //   "200",
-  //   "5.0 (99 votes)"
-  // ),
-  // createData(
-  //   "/images/product5.png",
-  //   "Admas Airpod x-Zon",
-  //   "Airpod",
-  //   "$289.50",
-  //   "120",
-  //   "Out of Stock",
-  //   "5.0 (150 votes)"
-  // ),
-  // createData(
-  //   "/images/product6.png",
-  //   "Smart Watch F8 Pro",
-  //   "Watch",
-  //   "$289.50",
-  //   "20",
-  //   "100",
-  //   "5.0 (5 votes)"
-  // ),
-  // createData(
-  //   "/images/product7.png",
-  //   "Nord Fold ZL",
-  //   "Pone",
-  //   "$289.50",
-  //   "55",
-  //   "108",
-  //   "5.0 (11 votes)"
-  // ),
-  // createData(
-  //   "/images/product8.png",
-  //   "Wall Clock Cimbina",
-  //   "Clock",
-  //   "$289.50",
-  //   "40",
-  //   "100",
-  //   "5.0 (4 votes)"
-  // ),
-  // createData(
-  //   "/images/product9.png",
-  //   "Galaxo T6 Munsun",
-  //   "Smart Phone",
-  //   "$289.50",
-  //   "50",
-  //   "130",
-  //   "5.0 (55 votes)"
-  // ),
-  // createData(
-  //   "/images/product1.png",
-  //   "Macbook Pro",
-  //   "Laptop",
-  //   "$1,299.00",
-  //   "120",
-  //   "1500",
-  //   "5.0 (150 votes)"
-  // ),
-  // createData(
-  //   "/images/product2.png",
-  //   "iphone 14 pro max",
-  //   "Phone",
-  //   "$1029",
-  //   "200",
-  //   "599",
-  //   "5.0 (200 votes)"
-  // ),
-  // createData(
-  //   "/images/product3.png",
-  //   "HeadPhone",
-  //   "HeadPhone",
-  //   "$100.50",
-  //   "25",
-  //   "50",
-  //   "5.0 (61 votes)"
-  // ),
-  // createData(
-  //   "/images/product4.png",
-  //   "Superstar shoes",
-  //   "shoes",
-  //   "$59.50",
-  //   "45",
-  //   "50",
-  //   "5.0 (45 votes)"
-  // ),
-  // createData(
-  //   "/images/product5.png",
-  //   "Nike shirts",
-  //   "Shirts",
-  //   "$30.50",
-  //   "32",
-  //   "40",
-  //   "5.0 (22 votes)"
-  // ),
-  // createData(
-  //   "/images/product6.png",
-  //   "Nike caps",
-  //   "Caps",
-  //   "$15.50",
-  //   "33",
-  //   "50",
-  //   "5.0 (3 votes)"
-  // ),
-  // createData(
-  //   "/images/product7.png",
-  //   "Hoodie (Blue)",
-  //   "Hoodie",
-  //   "$59.50",
-  //   "30",
-  //   "55",
-  //   "5.0 (44 votes)"
-  // ),
-  // createData(
-  //   "/images/product8.png",
-  //   "Wall Clock China",
-  //   "Clock",
-  //   "$100.50",
-  //   "30",
-  //   "230",
-  //   "5.0 (45 votes)"
-  // ),
-  // createData(
-  //   "/images/product9.png",
-  //   "Galaxo T6 Munsun 2",
-  //   "Phone",
-  //   "$220.50",
-  //   "22",
-  //   "50",
-  //   "5.0 (24 votes)"
-  // ),
+  
 ]
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
@@ -501,7 +291,7 @@ export default function Products() {
             เพิ่มสินค้า
           </Button> */}
         </Box>
-        
+
 
         <TableContainer
           component={Paper}
@@ -524,7 +314,7 @@ export default function Products() {
                 >
                   เบอร์แท้
                 </TableCell>
-                
+
 
                 <TableCell
                   sx={{
@@ -592,7 +382,33 @@ export default function Products() {
                 >
                   ราคาขาย
                 </TableCell> */}
-
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  วันของเข้าล่าสุด
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  วันที่ขายล่าสุด
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ระบุยอด min สินค้า
+                </TableCell>
                 <TableCell
                   align="right"
                   sx={{
@@ -729,7 +545,45 @@ export default function Products() {
                   >
                     {row.sellPrice}
                   </TableCell> */}
-
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.createAt}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    {row.updateAt}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    <TextField
+                      // name={"discount" + row.id}
+                      id="min"
+                      type="number"
+                      InputProps={{
+                        style: { borderRadius: 8 },
+                        inputProps: { min: 0, max: 100 }
+                      }}
+                    // onChange={event => handleDiscount(event, row.id)}
+                    />
+                  </TableCell>
                   <TableCell
                     align="right"
                     sx={{
@@ -826,7 +680,7 @@ export default function Products() {
         </TableContainer>
       </Card>
 
-      
+
     </>
   );
 }

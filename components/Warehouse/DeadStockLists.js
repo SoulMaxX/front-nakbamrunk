@@ -291,6 +291,13 @@ export default function DeadStockLists() {
 
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
+                  รหัสสินค้า
+                </TableCell>
+                <TableCell
+                  align="center"
+
+                  sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
+                >
                   เบอร์แท้
                 </TableCell>
                 <TableCell
@@ -402,6 +409,17 @@ export default function DeadStockLists() {
                     </Box>
                   </TableCell> */}
 
+                  <TableCell
+                    align="center"
+                    style={{
+                      borderBottom: "1px solid #F7FAFF",
+                      fontSize: "13px",
+                      paddingTop: "13px",
+                      paddingBottom: "13px",
+                    }}
+                  >
+                    {row.id}
+                  </TableCell>
                   <TableCell
                     align="center"
                     style={{

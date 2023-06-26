@@ -23,12 +23,12 @@ const RequisitionDetail = () => {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>ผู้ใช้งาน</h1>
+        <h1>รายละเอียกรายการเบิกสินค้า</h1>
         <ul>
           <li>
             <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>ผู้ใช้งาน</li>
+          <li>รายละเอียกรายการเบิกสินค้า</li>
         </ul>
       </div>
       

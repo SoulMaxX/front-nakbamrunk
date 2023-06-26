@@ -21,8 +21,10 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
 
 const CreateCustomer = () => {
   const router = useRouter()
+  const { id } = router.query
   const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
   const [emp, setEmp] = React.useState([]);
+  const [pay, setPay] = React.useState(0);
   const [datas, setDatas] = React.useState('');
 
   React.useEffect(() => {
@@ -34,24 +36,36 @@ const CreateCustomer = () => {
     }).then(result => setEmp(result.data))
 
   }, [])
+  React.useEffect(() => {
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/customer/get_customer?id=` + id, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => { setDatas(result.data), setPay(result?.data?.payinmounth) })
+
+  }, [id])
 
   // console.log(emp)
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    data.append("payinmounth", datas)
-    axios.post(`${process.env.NEXT_PUBLIC_API}/customer/create_customer`, data, {
+    // data.append("payinmounth", pay)
+
+    console.log({
+      payinmounth: data.get("payinmounth"),
+      sale: data.get("sale"),
+      Email: data.get("email"),
+    });
+
+    console.log(data)
+    axios.put(`${process.env.NEXT_PUBLIC_API}/customer/update_customer?id=` + id, datas, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
-    .then(() => router.back())
+      .then(() => router.back())
 
-    // console.log({
-    //   payinmounth: data.get("payinmounth"),
-    //   sale: data.get("sale"),
-    //   datecut: data.get("datecut"),
-    // });
   };
 
   // Select dropdown
@@ -60,15 +74,27 @@ const CreateCustomer = () => {
     setEmpSelect(event.target.value);
   };
 
-  const handleChange = (event) => {
-    if (event.target.name == "payinmounth" &&  datas == 1) {
-      setDatas(0);
+  const handleChangePay = (event) => {
+    if (event.target.name == "payinmounth" && event.target.checked == true) {
+      setDatas({ ...datas, ["payinmounth" ]: 1 })
+      setPay(1);
     } else {
-      setDatas(event.target.value);
+      setDatas({ ...datas, ["payinmounth" ]: 0 })
+      setPay(0);
     }
   };
 
-  console.log(datas)
+  const handleChange = (event) => {
+    // if (event.target.name == "payinmounth" && event.target.checked == false) {
+    //   setDatas({ ...datas, ["payinmounth"]: true })
+
+      // }else if(event.target.name == "payinmounth" && event.target.value == 1) {
+      //   setDatas({ ...datas, ["payinmounth"]: true})
+
+      setDatas({ ...datas, [event.target.name]: event.target.value })
+    console.log("check" + event.target.checked)
+  };
+  console.log(empSelect)
   return (
     <>
       {/* Page title */}
@@ -107,12 +133,13 @@ const CreateCustomer = () => {
                 รหัสลูกค้า
               </Typography>
               <TextField
+                value={datas.id ?? ""}
+                onChange={handleChange}
                 autoComplete="product-name"
                 name="id"
                 required
                 fullWidth
                 id="id"
-                label="รหัสลูกค้า"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -133,12 +160,13 @@ const CreateCustomer = () => {
                 ชื่อ
               </Typography>
               <TextField
+                value={datas.name ?? ""}
+                onChange={handleChange}
                 autoComplete="product-name"
                 name="name"
                 required
                 fullWidth
                 id="name"
-                label="ชื่อ"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -157,12 +185,14 @@ const CreateCustomer = () => {
                 ที่อยุ่
               </Typography>
               <TextField
+                value={datas.address ?? ""}
+                onChange={handleChange}
+
                 autoComplete="product-name"
                 name="address"
                 required
                 fullWidth
                 id="address"
-                label="ที่อยุ่"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -181,12 +211,14 @@ const CreateCustomer = () => {
                 เลขประจำตัวผู้เสียภาษี
               </Typography>
               <TextField
+                value={datas.taxnumber ?? ""}
+                onChange={handleChange}
+
                 autoComplete="product-name"
                 name="taxnumber"
                 required
                 fullWidth
                 id="taxnumber"
-                label="เลขประจำตัวผู้เสียภาษี"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -209,12 +241,14 @@ const CreateCustomer = () => {
                 ผู้ติดต่อ
               </Typography>
               <TextField
+                value={datas.contact ?? ""}
+                onChange={handleChange}
+
                 autoComplete="short-description"
                 name="contact"
                 required
                 fullWidth
                 id="contact"
-                label="ผู้ติดต่อ"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -233,12 +267,13 @@ const CreateCustomer = () => {
                 Email
               </Typography>
               <TextField
+                value={datas.email ?? ""}
+                onChange={handleChange}
                 autoComplete="short-description"
                 name="email"
                 required
                 fullWidth
                 id="email"
-                label="Email"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -257,12 +292,14 @@ const CreateCustomer = () => {
                 เบอร์โทรศัพท์
               </Typography>
               <TextField
+                value={datas.tel ?? ""}
+                onChange={handleChange}
+
                 autoComplete="short-description"
                 name="tel"
                 required
                 fullWidth
                 id="tel"
-                label="เบอร์โทรศัพท์"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -281,12 +318,14 @@ const CreateCustomer = () => {
                 เบอร์แฟกซ์
               </Typography>
               <TextField
+                value={datas.faxnumber ?? ""}
+                onChange={handleChange}
+
                 autoComplete="short-description"
                 name="faxnumber"
                 required
                 fullWidth
                 id="faxnumber"
-                label="เบอร์แฟกซ์"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -311,10 +350,8 @@ const CreateCustomer = () => {
                 sx={{ width: "200px" }}
                 id="sale"
                 name="sale"
-                label="Sales"
-                onChange={handleChangeEmp}
-                // defaultValue={1}
-                value={empSelect}
+                onChange={handleChange}
+                value={datas.sale?? ""}
               >
                 {emp.map((e) =>
                   // console.log(e)
@@ -336,12 +373,14 @@ const CreateCustomer = () => {
                 วงเงิน
               </Typography>
               <TextField
+                value={datas.limit ?? ""}
+                onChange={handleChange}
+
                 autoComplete="short-description"
                 name="limit"
                 required
                 fullWidth
                 id="limit"
-                label="วงเงิน"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -360,12 +399,14 @@ const CreateCustomer = () => {
                 เครดิตวัน
               </Typography>
               <TextField
+                value={datas.creditday ?? ""}
+                onChange={handleChange}
+
                 autoComplete="short-description"
                 name="creditday"
                 required
                 fullWidth
                 id="creditday"
-                label="เครดิตวัน"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -384,12 +425,14 @@ const CreateCustomer = () => {
                 เครติดเดือน
               </Typography>
               <TextField
+                value={datas.creditmount ?? ""}
+                onChange={handleChange}
+
                 autoComplete="short-description"
                 name="creditmount"
                 required
                 fullWidth
                 id="creditmount"
-                label="เครติดเดือน"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -398,7 +441,7 @@ const CreateCustomer = () => {
             </Grid>
 
             <Grid item xs={12} md={12} lg={2}>
-              <FormControlLabel name="payinmounth" style={{ marginTop: "30px" }} control={<Checkbox value={1} name="payinmounth" onChange={handleChange} />} label="ชำระสิ้นเดือน" />
+              <FormControlLabel style={{ marginTop: "30px" }} control={<Checkbox checked={pay == 1 ?? true} value={1} name="payinmounth" onChange={handleChangePay} />} label="ชำระสิ้นเดือน" />
             </Grid>
             <Grid item xs={12} md={12} lg={6}></Grid>
 
@@ -414,12 +457,14 @@ const CreateCustomer = () => {
                 ตัดวันที่
               </Typography>
               <TextField
+                value={(datas.datecut)?.slice(0, 10) ?? ""}
+                onChange={handleChange}
+
                 autoComplete="short-description"
                 name="datecut"
                 required
                 fullWidth
                 id="datecut"
-                // label="ตัดวันที่"
                 type="date"
                 autoFocus
                 InputProps={{
@@ -428,30 +473,7 @@ const CreateCustomer = () => {
               />
             </Grid>
 
-            {/* <Grid item xs={12} md={12} lg={6}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-              </Typography>
-              <FormLabel id="demo-radio-buttons-group-label">ราคาสินค้า</FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="ราคาขาย1"
-                name="radio-buttons-group"
-                row
-              >
-                <FormControlLabel value="ราคาขาย1" control={<Radio />} label="ราคาขาย1" />
-                <FormControlLabel value="ราคาขาย2" control={<Radio />} label="ราคาขาย2" />
-                <FormControlLabel value="ราคาขาย3" control={<Radio />} label="ราคาขาย3" />
-                <FormControlLabel value="ราคาขาย4" control={<Radio />} label="ราคาขาย4" />
-                <FormControlLabel value="ราคาขาย5" control={<Radio />} label="ราคาขาย5" />
-              </RadioGroup>
-            </Grid> */}
+
             <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"
@@ -464,12 +486,14 @@ const CreateCustomer = () => {
                 บวกเพิ่ม %
               </Typography>
               <TextField
+                value={datas.interest ?? ""}
+                onChange={handleChange}
+
                 autoComplete="short-description"
                 name="interest"
                 required
                 fullWidth
                 id="interest"
-                label="บวกเพิ่ม %"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -488,12 +512,16 @@ const CreateCustomer = () => {
                 วันที่เริ่ม
               </Typography>
               <TextField
+                value={(datas.datestart)?.slice(0, 10) ?? ""}
+                onChange={handleChange}
+
                 autoComplete="short-description"
                 name="datestart"
                 required
                 fullWidth
                 id="datestart"
-                label="วันที่เริ่ม"
+                type="date"
+
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -512,12 +540,16 @@ const CreateCustomer = () => {
                 วันที่สิ้นสุด
               </Typography>
               <TextField
+                value={(datas.dateend)?.slice(0, 10) ?? ""}
+                onChange={handleChange}
+
                 autoComplete="short-description"
                 name="dateend"
                 required
                 fullWidth
                 id="dateend"
-                label="วันที่สิ้นสุด"
+                type="date"
+
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -541,6 +573,9 @@ const CreateCustomer = () => {
                 หมายเหตุ
               </Typography>
               <TextareaAutosize
+                value={datas.note ?? ""}
+                onChange={handleChange}
+
                 name="note"
                 aria-label="minimum height"
                 minRows={3}

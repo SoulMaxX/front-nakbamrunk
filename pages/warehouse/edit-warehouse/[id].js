@@ -182,7 +182,7 @@ const CreateWarehouse = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={12} lg={4}  >
+            {/* <Grid item xs={12} md={12} lg={4}  >
               <Typography
                 as="h5"
                 sx={{
@@ -196,13 +196,10 @@ const CreateWarehouse = () => {
 
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                  {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
                   <Select
-                    // labelId="demo-simple-select-label"
                     name="type"
                     id="type"
                     value={datas?.type ?? ""}
-                    // label="Age"
                     onChange={handleChange}
                   >
                     <MenuItem value={"+Vat"}>+Vat</MenuItem>
@@ -210,7 +207,7 @@ const CreateWarehouse = () => {
                   </Select>
                 </FormControl>
               </Box>
-            </Grid>
+            </Grid> */}
 
 
             <Grid item xs={12} textAlign="end">

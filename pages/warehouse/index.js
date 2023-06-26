@@ -386,7 +386,7 @@ export default function Warehouses() {
                 >
                   ที่อยู่
                 </TableCell>
-                <TableCell
+                {/* <TableCell
                   align="center"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -394,7 +394,7 @@ export default function Warehouses() {
                   }}
                 >
                   ประเภทคลัง
-                </TableCell>
+                </TableCell> */}
 
 
                 <TableCell
@@ -456,7 +456,7 @@ export default function Warehouses() {
                   >
                     {row.address}
                   </TableCell>
-                  <TableCell
+                  {/* <TableCell
                     align="center"
 
                     sx={{
@@ -468,7 +468,7 @@ export default function Warehouses() {
                     }}
                   >
                     {row.type}
-                  </TableCell>
+                  </TableCell> */}
 
 
 

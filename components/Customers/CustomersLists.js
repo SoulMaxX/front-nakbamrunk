@@ -477,7 +477,7 @@ export default function CustomersLists(props) {
 
                       <Tooltip title="Rename" placement="top">
                         <IconButton
-                        href={"/customers/edit-customers/"+row.id}
+                        href={"/customers/edit-customer/"+row.id}
                           aria-label="rename"
                           size="small"
                           color="primary"
