@@ -94,10 +94,10 @@ const CreateProduct = () => {
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="nameprod"
+                name="name"
                 required
                 fullWidth
-                id="nameprod"
+                id="name"
                 label="ชื่อสินค้า"
                 autoFocus
                 InputProps={{
@@ -118,10 +118,10 @@ const CreateProduct = () => {
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="initialsprod"
+                name="initials"
                 required
                 fullWidth
-                id="initialsprod"
+                id="initials"
                 label="ชื่อย่อ"
                 autoFocus
                 InputProps={{
@@ -471,7 +471,7 @@ const CreateProduct = () => {
                 }}
               />
             </Grid> */}
-            <Grid item xs={12} md={12} lg={3}>
+            {/* <Grid item xs={12} md={12} lg={3}>
               <Typography
                 as="h5"
                 sx={{
@@ -496,7 +496,7 @@ const CreateProduct = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
 
             {/* <Grid item xs={12}>
               <Typography
@@ -527,7 +527,7 @@ const CreateProduct = () => {
               </FormControl>
             </Grid> */}
 
-            <Grid item xs={12} md={12} lg={3}>
+            {/* <Grid item xs={12} md={12} lg={3}>
               <Typography
                 as="h5"
                 sx={{
@@ -551,7 +551,7 @@ const CreateProduct = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={12} lg={3}>
               <Typography
                 as="h5"
@@ -561,14 +561,14 @@ const CreateProduct = () => {
                   mb: "12px",
                 }}
               >
-                ราคาขาย
+                ราคาปลีก
               </Typography>
               <TextField
                 autoComplete="ราคาขาย"
-                name="sell"
+                name="sell1"
                 required
                 fullWidth
-                id="sell"
+                id="sell1"
                 label="$0"
                 type="number"
                 autoFocus
@@ -586,14 +586,14 @@ const CreateProduct = () => {
                   mb: "12px",
                 }}
               >
-                ราคาขายปลีก
+                ราคาส่ง
               </Typography>
               <TextField
-                autoComplete="ราคาขายปลีก"
-                name="retail"
+                autoComplete="ราคาขาย2"
+                name="sell2"
                 required
                 fullWidth
-                id="retail"
+                id="sell2"
                 label="$0"
                 type="number"
 
@@ -603,6 +603,7 @@ const CreateProduct = () => {
                 }}
               />
             </Grid>
+            
 
 
 

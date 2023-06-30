@@ -8,12 +8,12 @@ const BillsMonth = () => {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>รายงานใบวางบิลครบกำหมด</h1>
+        <h1>รายงานใบวางบิลครบกำหนด</h1>
         <ul>
           <li>
             <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>รายงานใบวางบิลครบกำหมด</li>
+          <li>รายงานใบวางบิลครบกำหนด</li>
         </ul>
       </div>
       

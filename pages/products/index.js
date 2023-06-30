@@ -153,6 +153,15 @@ function Row(props) {
             fontSize: "13px",
           }}
         >
+          {row.id}
+        </TableCell>
+        <TableCell
+          sx={{
+            borderBottom: "1px solid #F7FAFF",
+            padding: "8px 10px",
+            fontSize: "13px",
+          }}
+        >
           {row.realnum}
         </TableCell>
         <TableCell
@@ -176,7 +185,7 @@ function Row(props) {
 
           }}
         >
-          {row.nameprod}
+          {row.name}
         </TableCell>
 
         <TableCell
@@ -220,7 +229,7 @@ function Row(props) {
             fontSize: "13px",
           }}
         >
-          {row.sell}
+          {row.sell1}
         </TableCell>
         {/* <TableCell
           align="center"
@@ -786,6 +795,14 @@ export default function Products() {
                   }}
                 >
 
+                </TableCell>
+                <TableCell
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  รหัสสินค้า
                 </TableCell>
                 <TableCell
                   sx={{

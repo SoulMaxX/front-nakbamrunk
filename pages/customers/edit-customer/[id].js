@@ -76,10 +76,10 @@ const CreateCustomer = () => {
 
   const handleChangePay = (event) => {
     if (event.target.name == "payinmounth" && event.target.checked == true) {
-      setDatas({ ...datas, ["payinmounth" ]: 1 })
+      setDatas({ ...datas, ["payinmounth"]: 1 })
       setPay(1);
     } else {
-      setDatas({ ...datas, ["payinmounth" ]: 0 })
+      setDatas({ ...datas, ["payinmounth"]: 0 })
       setPay(0);
     }
   };
@@ -88,10 +88,10 @@ const CreateCustomer = () => {
     // if (event.target.name == "payinmounth" && event.target.checked == false) {
     //   setDatas({ ...datas, ["payinmounth"]: true })
 
-      // }else if(event.target.name == "payinmounth" && event.target.value == 1) {
-      //   setDatas({ ...datas, ["payinmounth"]: true})
+    // }else if(event.target.name == "payinmounth" && event.target.value == 1) {
+    //   setDatas({ ...datas, ["payinmounth"]: true})
 
-      setDatas({ ...datas, [event.target.name]: event.target.value })
+    setDatas({ ...datas, [event.target.name]: event.target.value })
     console.log("check" + event.target.checked)
   };
   console.log(empSelect)
@@ -133,13 +133,13 @@ const CreateCustomer = () => {
                 รหัสลูกค้า
               </Typography>
               <TextField
-                value={datas.id ?? ""}
+                value={datas.idcustomer ?? ""}
                 onChange={handleChange}
                 autoComplete="product-name"
-                name="id"
+                name="idcustomer"
                 required
                 fullWidth
-                id="id"
+                id="idcustomer"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -351,7 +351,7 @@ const CreateCustomer = () => {
                 id="sale"
                 name="sale"
                 onChange={handleChange}
-                value={datas.sale?? ""}
+                value={datas.sale ?? ""}
               >
                 {emp.map((e) =>
                   // console.log(e)
@@ -471,8 +471,7 @@ const CreateCustomer = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
-
+            </Grid>         
 
             <Grid item xs={12} md={12} lg={2}>
               <Typography

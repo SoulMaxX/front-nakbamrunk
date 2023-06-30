@@ -131,12 +131,14 @@ ReportSaleEmployeee.propTypes = {
 
 function createData(
   id,
-  name,
+  date,
+  sup,
   amount,
 ) {
   return {
     id,
-    name,
+    date,
+    sup,
     amount,
   };
 }
@@ -145,12 +147,15 @@ const rows = [
   createData(
     "1",
     "20/5/2566",
-    "8,500.00",
+    "a",
+    "8,500.00"
   ),
   createData(
     "1",
     "21/5/2566",
+    "b",
     "10,000.00",
+
   ),
 
 ]
@@ -480,15 +485,15 @@ export default function ReportSaleEmployeees() {
                 >
                   รหัสใบสั่งขาย
                 </TableCell> */}
-                {/* <TableCell
+                <TableCell
                   align="center"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
                   }}
                 >
-                  วันที่
-                </TableCell> */}
+                  เลขที่บิล
+                </TableCell>
 
                 <TableCell
                   align="center"
@@ -500,6 +505,15 @@ export default function ReportSaleEmployeees() {
                   วันที่
                 </TableCell>
 
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                   ชื่อ supplier
+                </TableCell>
                 <TableCell
                   align="center"
                   sx={{
@@ -543,17 +557,16 @@ export default function ReportSaleEmployeees() {
                   >
                     {row.id}
                   </TableCell> */}
-                  {/* <TableCell
+                  <TableCell
                     align="center"
                     sx={{
-                      width: 100,
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
                     }}
                   >
-                    {row.date}
-                  </TableCell> */}
+                    {row.id}
+                  </TableCell>
 
 
                   <TableCell
@@ -564,7 +577,7 @@ export default function ReportSaleEmployeees() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.name}
+                    {row.date}
                   </TableCell>
 
                   <TableCell
@@ -574,7 +587,18 @@ export default function ReportSaleEmployeees() {
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
-                      width: 150,
+
+                    }}
+                  >
+                    {row.sup}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
 
                     }}
                   >
@@ -583,57 +607,7 @@ export default function ReportSaleEmployeees() {
 
 
 
-                  {/* <TableCell
-                    align="right"
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        display: "inline-block",
-                      }}
-                    >
-                      <Tooltip title="View" placement="top">
-                        <IconButton
-                          href="/sell/order-sell-details"
-                          aria-label="view"
-                          size="small"
-                          color="info"
-                          className="info"
-                        >
-                          <VisibilityIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
-
-                      <Tooltip title="Edit" placement="top">
-                        <IconButton
-                          href="/sell/order-sell-edit"
-                          aria-label="edit"
-                          size="small"
-                          color="primary"
-                          className="primary"
-                        >
-                          <DriveFileRenameOutlineIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
-
-              
-
-                      <Tooltip title="Remove" placement="top">
-                        <IconButton
-                          onClick={handleOpen}
-                          aria-label="remove"
-                          size="small"
-                          color="danger"
-                          className="danger"
-                        >
-                          <DeleteIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
-                    </Box>
-                  </TableCell> */}
+                 
                 </TableRow>
               ))}
 

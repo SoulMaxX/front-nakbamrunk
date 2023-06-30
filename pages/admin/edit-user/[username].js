@@ -173,7 +173,7 @@ const CreateEmployee = () => {
                   >
                     {roles.map(result => (
 
-                      <MenuItem key={result.id} value={result.id}>{result.id}</MenuItem>
+                      <MenuItem key={result.id} value={result.id}>{result.name}</MenuItem>
                     ))}
                     {/* <MenuItem value={2}>2</MenuItem>
                     <MenuItem value={3}>3</MenuItem> */}

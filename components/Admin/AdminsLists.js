@@ -214,7 +214,7 @@ export default function AdminsLists(props) {
   //   }).then(result => setDatas(result.data))
 
   // }, [])
-  // console.log(datas);
+  console.log(datas);
   // console.log(rows);
   const handleDelete = () => {
     axios.delete(`${process.env.NEXT_PUBLIC_API}/auth/delete_user/` + id, {
@@ -420,7 +420,7 @@ export default function AdminsLists(props) {
                       fontSize: "13px",
                     }}
                   >
-                    {row.roleId}
+                    {row.role.name}
                   </TableCell>
 
 

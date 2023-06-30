@@ -131,11 +131,13 @@ ReportSaleEmployeee.propTypes = {
 
 function createData(
   id,
+  date,
   name,
   amount,
 ) {
   return {
     id,
+    date,
     name,
     amount,
   };
@@ -145,11 +147,13 @@ const rows = [
   createData(
     "1",
     "20/5/2566",
+    "a",
     "8,500.00",
   ),
   createData(
-    "1",
+    "2",
     "21/5/2566",
+    "b",
     "10,000.00",
   ),
 
@@ -470,7 +474,7 @@ export default function ReportSaleEmployeees() {
           >
             <TableHead sx={{ background: "#F7FAFF" }}>
               <TableRow>
-                {/* <TableCell
+                <TableCell
                   align="center"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -478,17 +482,9 @@ export default function ReportSaleEmployeees() {
                     width: "150px"
                   }}
                 >
-                  รหัสใบสั่งขาย
-                </TableCell> */}
-                {/* <TableCell
-                  align="center"
-                  sx={{
-                    borderBottom: "1px solid #F7FAFF",
-                    fontSize: "13.5px",
-                  }}
-                >
-                  วันที่
-                </TableCell> */}
+                  รหัสบิล
+                </TableCell>
+
 
                 <TableCell
                   align="center"
@@ -500,6 +496,15 @@ export default function ReportSaleEmployeees() {
                   วันที่
                 </TableCell>
 
+                <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  ชื่อลูกค้า
+                </TableCell>
                 <TableCell
                   align="center"
                   sx={{
@@ -511,15 +516,7 @@ export default function ReportSaleEmployeees() {
                 </TableCell>
 
 
-                {/* <TableCell
-                  align="right"
-                  sx={{
-                    borderBottom: "1px solid #F7FAFF",
-                    fontSize: "13.5px",
-                  }}
-                >
-                  Actions
-                </TableCell> */}
+
               </TableRow>
             </TableHead>
 
@@ -532,28 +529,17 @@ export default function ReportSaleEmployeees() {
                 : rows
               ).map((row) => (
                 <TableRow key={row.name} className={styles.ReportSaleEmployeee} >
-                  {/* <TableCell
+                  <TableCell
                     align="center"
                     sx={{
-                      width: 100,
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
                     }}
                   >
                     {row.id}
-                  </TableCell> */}
-                  {/* <TableCell
-                    align="center"
-                    sx={{
-                      width: 100,
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.date}
-                  </TableCell> */}
+                  </TableCell>
+
 
 
                   <TableCell
@@ -564,7 +550,7 @@ export default function ReportSaleEmployeees() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.name}
+                    {row.date}
                   </TableCell>
 
                   <TableCell
@@ -574,7 +560,18 @@ export default function ReportSaleEmployeees() {
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
-                      width: 150,
+
+                    }}
+                  >
+                    {row.name}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
 
                     }}
                   >

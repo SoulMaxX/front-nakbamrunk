@@ -130,18 +130,20 @@ Product.propTypes = {
 };
 
 function createData(
-  
+
   id,
   date,
   quantity,
-  idOrder
+  idOrder,
+  name
 
 ) {
   return {
     id,
     date,
     quantity,
-    idOrder
+    idOrder,
+    name
   };
 }
 
@@ -150,15 +152,18 @@ const rows = [
     "1",
     "10/5/2566",
     "2",
-    "5"
+    "5",
+    "a"
   ),
   createData(
     "2",
     "22/5/2566",
     "10",
-    "8"
+    "8",
+    "b"
+
   ),
-  
+
 ]
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
@@ -239,7 +244,7 @@ export default function Products() {
             สินค้า
           </Typography> */}
 
-         
+
         </Box>
 
         <TableContainer
@@ -269,24 +274,17 @@ export default function Products() {
                     fontSize: "13.5px",
                   }}
                 >
-                 กำหนดส่ง
+                  กำหนดส่ง
                 </TableCell>
 
-                {/* <TableCell
-                  sx={{
-                    borderBottom: "1px solid #F7FAFF",
-                    fontSize: "13.5px",
-                  }}
-                >
-                 จำนวน
-                </TableCell> */}
+
                 <TableCell
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
                   }}
                 >
-                 รหัสใบสั่งขาย
+                  รหัสใบสั่งขาย
                 </TableCell>
                 <TableCell
                   sx={{
@@ -294,10 +292,18 @@ export default function Products() {
                     fontSize: "13.5px",
                   }}
                 >
-                 Actions
+                  ชื่อลูกค้า
+                </TableCell>
+                <TableCell
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  Actions
                 </TableCell>
 
-               
+
               </TableRow>
             </TableHead>
 
@@ -352,17 +358,9 @@ export default function Products() {
                     </Box>
                   </TableCell>
 
-                  {/* <TableCell
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.quantity}
-                  </TableCell> */}
+
                   <TableCell
-                  
+
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
@@ -371,66 +369,19 @@ export default function Products() {
                   >
                     <a href={`/products/${row.idOrder}`}>
 
-                    {row.idOrder}
+                      {row.idOrder}
                     </a>
                   </TableCell>
 
-                  {/* <TableCell
-
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                      width: 150,
-
-                    }}
-                  >
-                    {row.productName}
-                  </TableCell>
-
                   <TableCell
-                    align="center"
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
-
                     }}
                   >
-                    {row.carBrand}
+                    {row.name}
                   </TableCell>
-
-                  <TableCell
-                    align="center"
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.brand}
-                  </TableCell>
-
-                  <TableCell
-                    align="center"
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.buyPrice}
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    sx={{
-                      borderBottom: "1px solid #F7FAFF",
-                      padding: "8px 10px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.sellPrice}
-                  </TableCell> */}
 
                   <TableCell
                     align="right"
@@ -455,7 +406,7 @@ export default function Products() {
                           <VisibilityIcon fontSize="inherit" />
                         </IconButton>
                       </Tooltip>
-{/* 
+                      {/* 
                       <Tooltip title="Edit" placement="top">
                         <IconButton
                         href="/sell/send-status"
@@ -468,7 +419,7 @@ export default function Products() {
                         </IconButton>
                       </Tooltip> */}
 
-                
+
 
                       {/* <Tooltip title="Remove" placement="top">
                         <IconButton
@@ -588,7 +539,7 @@ export default function Products() {
                     >
                       ลบสินค้ารหัส : 123
                     </Typography>
-                   
+
                   </Grid>
 
 
@@ -633,7 +584,7 @@ export default function Products() {
                         color: "#fff !important",
                       }}
                     >
-                      
+
                       ลบสินค้า
                     </Button>
                   </Grid>

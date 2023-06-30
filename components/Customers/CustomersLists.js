@@ -316,11 +316,13 @@ export default function CustomersLists(props) {
             <TableHead sx={{ background: "#F7FAFF" }}>
               <TableRow>
                 <TableCell
+                  align="center"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
                   รหัสลูกค้า
                 </TableCell>
                 <TableCell
+                  align="center"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
                   ชื่อ
@@ -378,7 +380,7 @@ export default function CustomersLists(props) {
 
 
                   <TableCell
-                    align="center"
+                    align="left"
                     style={{
                       borderBottom: "1px solid #F7FAFF",
                       fontSize: "13px",
@@ -386,11 +388,11 @@ export default function CustomersLists(props) {
                       paddingBottom: "13px",
                     }}
                   >
-                    {row.id}
+                    {row.idcustomer}
                   </TableCell>
 
                   <TableCell
-                    align="center"
+                    align="left"
                     style={{
                       borderBottom: "1px solid #F7FAFF",
                       fontSize: "13px",
@@ -402,7 +404,7 @@ export default function CustomersLists(props) {
                   </TableCell>
 
                   <TableCell
-                    align="center"
+                    align="left"
                     style={{
                       borderBottom: "1px solid #F7FAFF",
                       fontSize: "13px",
@@ -414,7 +416,7 @@ export default function CustomersLists(props) {
                   </TableCell>
 
                   <TableCell
-                    align="center"
+                    align="left"
                     style={{
                       borderBottom: "1px solid #F7FAFF",
                       paddingTop: "13px",
@@ -426,7 +428,7 @@ export default function CustomersLists(props) {
                   </TableCell>
 
                   <TableCell
-                    align="center"
+                    align="left"
                     style={{
                       borderBottom: "1px solid #F7FAFF",
                       paddingTop: "13px",
@@ -438,7 +440,7 @@ export default function CustomersLists(props) {
                   </TableCell>
 
                   <TableCell
-                    align="center"
+                    align="left"
                     style={{
                       borderBottom: "1px solid #F7FAFF",
                       paddingTop: "13px",
@@ -464,7 +466,7 @@ export default function CustomersLists(props) {
                     >
                       <Tooltip title="View" placement="top">
                         <IconButton
-                          href="/ecommerce/product-details"
+                          href={"/customers/customer-details/"+row.id}
                           aria-label="view"
                           size="small"
                           color="info"

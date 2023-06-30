@@ -410,6 +410,15 @@ export default function Products() {
                   ระบุยอด min สินค้า
                 </TableCell>
                 <TableCell
+                  align="center"
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  จำนวนสินค้าราคาส่ง
+                </TableCell>
+                <TableCell
                   align="right"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -576,6 +585,25 @@ export default function Products() {
                     <TextField
                       // name={"discount" + row.id}
                       id="min"
+                      type="number"
+                      InputProps={{
+                        style: { borderRadius: 8 },
+                        inputProps: { min: 0, max: 100 }
+                      }}
+                    // onChange={event => handleDiscount(event, row.id)}
+                    />
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      borderBottom: "1px solid #F7FAFF",
+                      padding: "8px 10px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    <TextField
+                      // name={"discount" + row.id}
+                      id="wholesale-price"
                       type="number"
                       InputProps={{
                         style: { borderRadius: 8 },

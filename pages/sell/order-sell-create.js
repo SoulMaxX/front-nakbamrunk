@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Checkbox, Fade, FormControlLabel, IconButton, Modal, Radio, RadioGroup, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, colors } from "@mui/material";
+import { Box, Checkbox, Fade, FormControlLabel, FormLabel, IconButton, Modal, Radio, RadioGroup, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, colors } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -65,7 +65,7 @@ const CreateOrderSell = () => {
 
   // Select dropdown
   const [otherProd, setOtherProd] = React.useState('');
-  
+
   const handleChange = (event) => {
     setOtherProd({ ...otherProd, [event.target.name]: event.target.value });
   };
@@ -417,6 +417,8 @@ const CreateOrderSell = () => {
                 </Table>
               </TableContainer>
             </Grid>
+
+
             <Grid item xs={12} md={12} lg={1}>
               <Typography
                 as="h5"
@@ -499,7 +501,7 @@ const CreateOrderSell = () => {
                 }}
 
               >
-                จำนวนเงิน {otherProd.otherprice != undefined ?otherProd.otherprice * otherProd.otherqty : 0} บาท
+                จำนวนเงิน {otherProd.otherprice != undefined ? otherProd.otherprice * otherProd.otherqty : 0} บาท
               </Typography>
 
             </Grid>
@@ -512,7 +514,7 @@ const CreateOrderSell = () => {
                   mb: "12px",
                 }}
               >
-                ยอดรวม { ((otherProd.otherprice != undefined ? Number(otherProd.otherprice) * Number(otherProd.otherqty): 0) + Number(total)).toFixed(2)} บาท
+                ยอดรวม {((otherProd.otherprice != undefined ? Number(otherProd.otherprice) * Number(otherProd.otherqty) : 0) + Number(total)).toFixed(2)} บาท
               </Typography>
 
             </Grid>
@@ -526,7 +528,7 @@ const CreateOrderSell = () => {
                   mb: "12px",
                 }}
               >
-                ภาษี {(((vat / 100)) * ((otherProd.otherprice != undefined ? Number(otherProd.otherprice) * Number(otherProd.otherqty): 0) + Number(total))).toFixed(2)} บาท
+                ภาษี {(((vat / 100)) * ((otherProd.otherprice != undefined ? Number(otherProd.otherprice) * Number(otherProd.otherqty) : 0) + Number(total))).toFixed(2)} บาท
               </Typography>
               {/* <TextField
                 open={false}
@@ -552,7 +554,7 @@ const CreateOrderSell = () => {
                   mb: "12px",
                 }}
               >
-                ยอดรวมทั้งสิ้น {(((vat / 100)+1) * ((otherProd.otherprice != undefined ? Number(otherProd.otherprice) * Number(otherProd.otherqty): 0) + Number(total))).toFixed(2)} บาท
+                ยอดรวมทั้งสิ้น {(((vat / 100) + 1) * ((otherProd.otherprice != undefined ? Number(otherProd.otherprice) * Number(otherProd.otherqty) : 0) + Number(total))).toFixed(2)} บาท
               </Typography>
 
             </Grid>
@@ -580,6 +582,22 @@ const CreateOrderSell = () => {
                 }}
               />
             </Grid> */}
+            <Grid item xs={12} md={12} lg={12}>
+
+              <FormControl lg={12}>
+                <FormLabel sx={{fontWeight: "500",fontSize: "14px", color: "black"}} id="demo-row-radio-buttons-group-label">ราคาขาย</FormLabel>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="row-radio-buttons-group"
+                >
+                  <FormControlLabel value="female" control={<Radio />} label="ราคาขาย" />
+                  <FormControlLabel value="male" control={<Radio />} label="ราคาขาย1" />
+                  <FormControlLabel value="other" control={<Radio />} label="ราคาขาย2" />
+
+                </RadioGroup>
+              </FormControl>
+            </Grid>
             <Grid item xs={12} md={12} lg={1}>
               <Typography
                 as="h5"

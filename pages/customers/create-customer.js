@@ -39,19 +39,19 @@ const CreateCustomer = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    data.append("payinmounth", datas)
+    // data.append("payinmounth", datas)
     axios.post(`${process.env.NEXT_PUBLIC_API}/customer/create_customer`, data, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
-    .then(() => router.back())
+      .then(() => router.back())
 
-    // console.log({
-    //   payinmounth: data.get("payinmounth"),
-    //   sale: data.get("sale"),
-    //   datecut: data.get("datecut"),
-    // });
+    console.log({
+      payinmounth: data.get("payinmounth"),
+      // sale: data.get("sale"),
+      // datecut: data.get("datecut"),
+    });
   };
 
   // Select dropdown
@@ -61,14 +61,14 @@ const CreateCustomer = () => {
   };
 
   const handleChange = (event) => {
-    if (event.target.name == "payinmounth" &&  datas == 1) {
+    if (event.target.name == "payinmounth" && datas == 1) {
       setDatas(0);
     } else {
       setDatas(event.target.value);
     }
   };
 
-  console.log(datas)
+  // console.log(datas)
   return (
     <>
       {/* Page title */}
@@ -93,7 +93,6 @@ const CreateCustomer = () => {
           className="bg-black"
         >
 
-
           <Grid container alignItems="center" spacing={2}>
             <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -108,10 +107,10 @@ const CreateCustomer = () => {
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="id"
+                name="idcustomer"
                 required
                 fullWidth
-                id="id"
+                id="idcustomer"
                 label="รหัสลูกค้า"
                 autoFocus
                 InputProps={{
@@ -381,7 +380,7 @@ const CreateCustomer = () => {
                   mb: "12px",
                 }}
               >
-                เครติดเดือน
+                เครดิตเดือน
               </Typography>
               <TextField
                 autoComplete="short-description"
@@ -428,30 +427,6 @@ const CreateCustomer = () => {
               />
             </Grid>
 
-            {/* <Grid item xs={12} md={12} lg={6}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-              </Typography>
-              <FormLabel id="demo-radio-buttons-group-label">ราคาสินค้า</FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="ราคาขาย1"
-                name="radio-buttons-group"
-                row
-              >
-                <FormControlLabel value="ราคาขาย1" control={<Radio />} label="ราคาขาย1" />
-                <FormControlLabel value="ราคาขาย2" control={<Radio />} label="ราคาขาย2" />
-                <FormControlLabel value="ราคาขาย3" control={<Radio />} label="ราคาขาย3" />
-                <FormControlLabel value="ราคาขาย4" control={<Radio />} label="ราคาขาย4" />
-                <FormControlLabel value="ราคาขาย5" control={<Radio />} label="ราคาขาย5" />
-              </RadioGroup>
-            </Grid> */}
             <Grid item xs={12} md={12} lg={2}>
               <Typography
                 as="h5"
@@ -493,7 +468,8 @@ const CreateCustomer = () => {
                 required
                 fullWidth
                 id="datestart"
-                label="วันที่เริ่ม"
+                type="date"
+
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -517,7 +493,8 @@ const CreateCustomer = () => {
                 required
                 fullWidth
                 id="dateend"
-                label="วันที่สิ้นสุด"
+                type="date"
+
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },

@@ -101,12 +101,12 @@ const EditProduct = () => {
               </Typography>
               <TextField
                 onChange={handleChange}
-                value={datas.nameprod ?? ''}
+                value={datas.name ?? ''}
                 autoComplete="product-name"
-                name="nameprod"
+                name="name"
                 required
                 fullWidth
-                id="nameprod"
+                id="name"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -126,12 +126,12 @@ const EditProduct = () => {
               </Typography>
               <TextField
                 onChange={handleChange}
-                value={datas.initialsprod ?? ''}
+                value={datas.initials ?? ''}
                 autoComplete="product-name"
-                name="initialsprod"
+                name="initials"
                 required
                 fullWidth
-                id="initialsprod"
+                id="initials"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -493,7 +493,7 @@ const EditProduct = () => {
                 }}
               />
             </Grid> */}
-            <Grid item xs={12} md={12} lg={3}>
+            {/* <Grid item xs={12} md={12} lg={3}>
               <Typography
                 as="h5"
                 sx={{
@@ -520,7 +520,7 @@ const EditProduct = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
 
             {/* <Grid item xs={12}>
               <Typography
@@ -551,7 +551,7 @@ const EditProduct = () => {
               </FormControl>
             </Grid> */}
 
-            <Grid item xs={12} md={12} lg={3}>
+            {/* <Grid item xs={12} md={12} lg={3}>
               <Typography
                 as="h5"
                 sx={{
@@ -576,7 +576,7 @@ const EditProduct = () => {
                   style: { borderRadius: 8 },
                 }}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12} md={12} lg={3}>
               <Typography
                 as="h5"
@@ -586,16 +586,16 @@ const EditProduct = () => {
                   mb: "12px",
                 }}
               >
-                ราคาขาย
+                ราคาปลีก
               </Typography>
               <TextField
                 onChange={handleChange}
-                value={datas.sell ?? ''}
+                value={datas.sell1 ?? ''}
                 autoComplete="ราคาขาย"
-                name="sell"
+                name="sell1"
                 required
                 fullWidth
-                id="sell"
+                id="sell1"
                 type="number"
                 autoFocus
                 InputProps={{
@@ -612,25 +612,25 @@ const EditProduct = () => {
                   mb: "12px",
                 }}
               >
-                ราคาขายปลีก
+                ราคาส่ง
               </Typography>
               <TextField
                 onChange={handleChange}
-                value={datas.retail ?? ''}
-                autoComplete="ราคาขายปลีก"
-                name="retail"
+                value={datas.sell2 ?? ''}
+                autoComplete="ราคาขาย"
+                name="sell2"
                 required
                 fullWidth
-                id="retail"
+                id="sell2"
                 type="number"
-
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
               />
             </Grid>
-
+           
+  
 
 
             <Grid item xs={12}>

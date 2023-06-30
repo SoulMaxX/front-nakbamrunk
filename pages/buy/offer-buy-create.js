@@ -317,12 +317,21 @@ const CreateOfferSell = () => {
                         <TableCell align="right">{row.name}</TableCell>
                         <TableCell align="right">{row.quantity}</TableCell>
                         <TableCell align="right">{row.unit}</TableCell>
-                        <TableCell align="right">{row.price}</TableCell>
+                        <TableCell align="right"><TextField
+                          // name={"discount" + row.id}
+                          id="min"
+                          type="number"
+                          InputProps={{
+                            style: { borderRadius: 8 },
+                            inputProps: { min: 0, max: 100 }
+                          }}
+                        // onChange={event => handleDiscount(event, row.id)}
+                        /></TableCell>
                         {/* <TableCell align="right">{row.discount}</TableCell>
                         <TableCell align="right">{row.price*(row.discount/100)}</TableCell>
                         <TableCell align="right">{row.tax}</TableCell> */}
                         {/* <TableCell align="right">{(row.quantity*row.price)-row.price*(row.discount/100)}</TableCell> */}
-                        <TableCell align="right">{(row.quantity*row.price)}</TableCell>
+                        <TableCell align="right">0</TableCell>
                         <TableCell align="center"><Button>เพิ่ม</Button><Button>ลด</Button></TableCell>
                       </TableRow>
                     ))}

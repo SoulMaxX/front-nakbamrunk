@@ -76,10 +76,13 @@ const ProductDetailsContent = (props) => {
                 เบอร์โรงงาน:  {datas.facnum}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                หมวด : 1
+                หมวด : {datas.group}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                ชื่อสินค้า : {datas.nameprod}
+                ชื่อสินค้า : {datas.name}
+              </Typography>
+              <Typography fontSize="15px" fontWeight="500" mb="15px">
+                ชื่อย่อ : {datas.initials}
               </Typography>
 
               <Typography fontSize="15px" fontWeight="500" mb="15px">

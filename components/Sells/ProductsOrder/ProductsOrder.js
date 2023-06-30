@@ -110,7 +110,7 @@ BootstrapDialogTitle.propTypes = {
 };
 
 function Row(props) {
-  const { row, open3 } = props;
+  const { row, open3, cart, setCart, handleClick, handlerClose ,customerDetail} = props;
   // console.log(row.productName)
   const router = useRouter();
   const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
@@ -118,21 +118,15 @@ function Row(props) {
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
-  const handleDelete = (e) => {
-    console.log(token)
-    axios.put(`${process.env.NEXT_PUBLIC_API}/product/delete_product?id=` + id, {}, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }).then(() => router.reload())
-  }
+
   // const handleOpenprice = (e) => {
   //   setOpen3(!open3);
   // }
+
   return (
     <>
       <TableRow key={row.id} className={styles.Product}>
@@ -147,6 +141,15 @@ function Row(props) {
           >
             {open2 ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
+        </TableCell>
+        <TableCell
+          sx={{
+            borderBottom: "1px solid #F7FAFF",
+            padding: "8px 10px",
+            fontSize: "13px",
+          }}
+        >
+          {row.id}
         </TableCell>
         <TableCell
           sx={{
@@ -178,7 +181,7 @@ function Row(props) {
 
           }}
         >
-          {row.nameprod}
+          {row.name}
         </TableCell>
 
         <TableCell
@@ -222,7 +225,7 @@ function Row(props) {
             fontSize: "13px",
           }}
         >
-          {row.sell}
+          {row.sell1}
         </TableCell>
 
         <TableCell
@@ -241,6 +244,7 @@ function Row(props) {
 
             <Tooltip title="add" placement="top">
               <AddShoppingCartIcon
+                onClick={() => { handleClick(row), handlerClose() }}
                 aria-label="add"
                 size="small"
                 color="primary"
@@ -280,95 +284,7 @@ function Row(props) {
         </TableCell>
       </TableRow>
 
-      <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              background: "#EDEFF5",
-              borderRadius: "8px",
-              padding: "20px 20px",
-            }}
-          >
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              sx={{
-                fontWeight: "500",
-                fontSize: "18px",
-              }}
-            >
-              ต้องการลบ?
-            </Typography>
 
-            <IconButton
-              aria-label="remove"
-              size="small"
-              onClick={handleClose}
-            >
-              <ClearIcon />
-            </IconButton>
-          </Box>
-
-          <Box >
-            <Box
-              sx={{
-                background: "#fff",
-                padding: "20px 20px",
-                borderRadius: "8px",
-              }}
-            >
-              <Grid item xs={12} textAlign="center">
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="danger"
-
-                  sx={{
-                    textTransform: "capitalize",
-                    borderRadius: "8px",
-                    fontWeight: "500",
-                    fontSize: "13px",
-                    padding: "12px 20px",
-                    color: "#fff !important",
-                  }}
-                  className='mr-15px'
-                  onClick={handleDelete}
-                >
-
-                  ลบ
-                </Button>
-
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  sx={{
-                    textTransform: "capitalize",
-                    borderRadius: "8px",
-                    fontWeight: "500",
-                    fontSize: "13px",
-                    padding: "12px 20px",
-                    color: "#fff !important",
-                  }}
-                  onClick={handleClose}
-                >
-
-                  ยกเลิก
-                </Button>
-
-
-              </Grid>
-            </Box>
-          </Box>
-        </Box>
-      </BootstrapDialog>
     </>
   );
 }
@@ -466,109 +382,31 @@ function createData(
   };
 }
 
-// const rows = [
-//   createData(
-//     "1",
-//     "สวปฟน",
-//     "4.61992",
-//     "สวิตซ์เปิดไฟหน้า",
-//     "Benz IBC",
-//     "DT",
-//     "625.00",
-//     "980.00",
-//   ),
-//   createData(
-//     "2",
-//     "ลกทว",
-//     "4.50099",
-//     "ลูกกระทุ้งวาล์ว",
-//     "B422",
-//     "DT",
-//     "128.00",
-//     "200.00",
-//   ),
-//   createData(
-//     "3",
-//     "กส",
-//     "4.61904",
-//     "ก้านสูบ",
-//     "Benz IBC",
-//     "DT",
-//     "2685.00",
-//     "",
-//   ),
-//   createData(
-//     "4",
-//     "สวปฟน",
-//     "4.61992",
-//     "สวิตซ์เปิดไฟหน้า",
-//     "Benz IBC",
-//     "DT",
-//     "625.00",
-//     "980.00",
-//   ),
-//   createData(
-//     "5",
-//     "ลกทว",
-//     "4.50099",
-//     "ลูกกระทุ้งวาล์ว",
-//     "B422",
-//     "DT",
-//     "128.00",
-//     "200.00",
-//   ),
-//   createData(
-//     "6",
-//     "กส",
-//     "4.61904",
-//     "ก้านสูบ",
-//     "Benz IBC",
-//     "DT",
-//     "2685.00",
-//     "",
-//   ),
-//   createData(
-//     "7",
-//     "สวปฟน",
-//     "4.61992",
-//     "สวิตซ์เปิดไฟหน้า",
-//     "Benz IBC",
-//     "DT",
-//     "625.00",
-//     "980.00",
-//   ),
-//   createData(
-//     "8",
-//     "ลกทว",
-//     "4.50099",
-//     "ลูกกระทุ้งวาล์ว",
-//     "B422",
-//     "DT",
-//     "128.00",
-//     "200.00",
-//   ),
-//   createData(
-//     "9",
-//     "กส",
-//     "4.61904",
-//     "ก้านสูบ",
-//     "Benz IBC",
-//     "DT",
-//     "2685.00",
-//     "",
-//   ),
-
-// ]
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
-export default function Products() {
+export default function ProductsOrder(props) {
+  const { cart, setCart, handlerClose ,customerDetail} = props
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [datas, setDatas] = React.useState([]);
+  // const [cart, setCart] = React.useState([]);
 
   const [result, setResult] = React.useState([])
 
+ 
+
+  const handleClick = (item) => {
+    const exist = cart.find((x) => x.id === item.id);
+
+    if(exist){
+      setCart(cart.map(x => x.id === item.id ? { ...exist, quantity: exist.quantity + 1 ,price:  exist.sell1} : x))
+    }else{
+
+      setCart([...cart, { ...item, quantity: 1, discount: 0 ,price: item.sell1}])
+    }
+
+  }
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - result.length) : 0;
@@ -596,8 +434,8 @@ export default function Products() {
   // console.log({ result, datas })
   // Create Product Modal & Form
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -620,6 +458,7 @@ export default function Products() {
     setOpen3(!open3);
   }
 
+  // console.log(cart)
 
   return (
     <>
@@ -684,7 +523,15 @@ export default function Products() {
                     fontSize: "13.5px",
                   }}
                 >
-
+                  
+                </TableCell>
+                <TableCell
+                  sx={{
+                    borderBottom: "1px solid #F7FAFF",
+                    fontSize: "13.5px",
+                  }}
+                >
+                  รหัสสินค้า
                 </TableCell>
                 <TableCell
                   sx={{
@@ -774,7 +621,7 @@ export default function Products() {
                 )
                 : result
               ).map((row) => (
-                <Row key={row.id} row={row} open3={open3} />
+                <Row key={row.id} row={row} open3={open3} cart={cart} setCart={setCart} handleClick={handleClick} handlerClose={handlerClose} customerDetail={customerDetail} />
               ))}
 
 
@@ -814,457 +661,7 @@ export default function Products() {
         </TableContainer>
       </Card>
 
-      {/* Create Product Modal */}
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <Box sx={style} className="bg-black">
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                background: "#EDEFF5",
-                borderRadius: "8px",
-                padding: "20px 20px",
-              }}
-              className="bg-black"
-            >
-              <Typography
-                id="modal-modal-title"
-                variant="h6"
-                component="h2"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "17px",
-                }}
-              >
-                ลบสินค้า
-              </Typography>
 
-              <IconButton
-                aria-label="remove"
-                size="small"
-                onClick={handleClose}
-              >
-                <ClearIcon />
-              </IconButton>
-            </Box>
-
-            <Box component="form" noValidate onSubmit={handleSubmit}>
-              <Box
-                sx={{
-                  background: "#fff",
-                  padding: "30px 20px",
-                  borderRadius: "8px",
-                }}
-                className="dark-BG-101010"
-              >
-                <Grid container alignItems="center" spacing={2}>
-                  <Grid item xs={12} md={12} lg={6}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      ลบสินค้ารหัส : 123
-                    </Typography>
-
-                  </Grid>
-
-
-
-
-                  <Grid item xs={12} textAlign="end">
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      sx={{
-                        textTransform: "capitalize",
-                        borderRadius: "8px",
-                        fontWeight: "500",
-                        fontSize: "13px",
-                        padding: "12px 20px",
-                        color: "#fff !important",
-                      }}
-                      onClick={handleClose}
-                      className='mr-15px'
-                    >
-                      <ClearIcon
-                        sx={{
-                          position: "relative",
-                          top: "-1px",
-                        }}
-                        className='mr-5px'
-                      />{" "}
-                      Cancel
-                    </Button>
-
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="danger"
-
-                      sx={{
-                        textTransform: "capitalize",
-                        borderRadius: "8px",
-                        fontWeight: "500",
-                        fontSize: "13px",
-                        padding: "12px 20px",
-                        color: "#fff !important",
-                      }}
-                    >
-
-                      ลบสินค้า
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Box>
-          </Box>
-        </Fade>
-      </Modal>
-      {/* <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={open}>
-          <Box sx={style} className="bg-black">
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                background: "#EDEFF5",
-                borderRadius: "8px",
-                padding: "20px 20px",
-              }}
-              className="bg-black"
-            >
-              <Typography
-                id="modal-modal-title"
-                variant="h6"
-                component="h2"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "17px",
-                }}
-              >
-                Create Product
-              </Typography>
-
-              <IconButton
-                aria-label="remove"
-                size="small"
-                onClick={handleClose}
-              >
-                <ClearIcon />
-              </IconButton>
-            </Box>
-
-            <Box component="form" noValidate onSubmit={handleSubmit}>
-              <Box
-                sx={{
-                  background: "#fff",
-                  padding: "30px 20px",
-                  borderRadius: "8px",
-                }}
-                className="dark-BG-101010"
-              >
-                <Grid container alignItems="center" spacing={2}>
-                  <Grid item xs={12} md={12} lg={6}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Product Name
-                    </Typography>
-                    <TextField
-                      autoComplete="product-name"
-                      name="productName"
-                      required
-                      fullWidth
-                      id="productName"
-                      label="Product Name"
-                      autoFocus
-                      InputProps={{
-                        style: { borderRadius: 8 },
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={12} lg={6}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Short Description
-                    </Typography>
-                    <TextField
-                      autoComplete="short-description"
-                      name="Short Description"
-                      required
-                      fullWidth
-                      id="Short Description"
-                      label="Short Description"
-                      autoFocus
-                      InputProps={{
-                        style: { borderRadius: 8 },
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Category
-                    </Typography>
-
-                    <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">Select</InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={categorySelect}
-                        label="Category"
-                        onChange={handleChange}
-                      >
-                        <MenuItem value={10}>Laptop</MenuItem>
-                        <MenuItem value={20}>Camera</MenuItem>
-                        <MenuItem value={30}>Smart Watch</MenuItem>
-                        <MenuItem value={30}>iPhone</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
-
-                  <Grid item xs={12} md={12} lg={6}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Price
-                    </Typography>
-
-                    <TextField
-                      autoComplete="price"
-                      name="price"
-                      required
-                      fullWidth
-                      id="price"
-                      label="$0"
-                      type="number"
-                      autoFocus
-                      InputProps={{
-                        style: { borderRadius: 8 },
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={12} lg={6}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Discount Price
-                    </Typography>
-
-                    <TextField
-                      autoComplete="discount-price"
-                      name="DiscountPrice"
-                      required
-                      fullWidth
-                      id="DiscountPrice"
-                      label="$0"
-                      type="number"
-                      autoFocus
-                      InputProps={{
-                        style: { borderRadius: 8 },
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Stock
-                    </Typography>
-
-                    <TextField
-                      autoComplete="stock"
-                      name="stock"
-                      required
-                      fullWidth
-                      id="stock"
-                      label="5"
-                      autoFocus
-                      InputProps={{
-                        style: { borderRadius: 8 },
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Product Description
-                    </Typography>
-
-                    <RichTextEditor
-                      id="rte"
-                      controls={[
-                        ['bold', 'italic', 'underline', 'link', 'image'],
-                        ['unorderedList', 'h1', 'h2', 'h3'],
-                        ['sup', 'sub'],
-                        ['alignLeft', 'alignCenter', 'alignRight'],
-                      ]}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      Product Image
-                    </Typography>
-
-                    <TextField
-                      autoComplete="product-image"
-                      name="productImage"
-                      required
-                      fullWidth
-                      id="productImage"
-                      type="file"
-                      autoFocus
-                      InputProps={{
-                        style: { borderRadius: 8 },
-                      }}
-                    />
-
-                    <Box
-                      sx={{
-                        mt: '15px'
-                      }}
-                    >
-                      <img
-                        src="/images/product1.png"
-                        alt="product"
-                        wisth="55px"
-                        className='mr-10px'
-                      />
-                    </Box>
-                  </Grid>
-
-                  <Grid item xs={12} textAlign="end">
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      sx={{
-                        textTransform: "capitalize",
-                        borderRadius: "8px",
-                        fontWeight: "500",
-                        fontSize: "13px",
-                        padding: "12px 20px",
-                        color: "#fff !important",
-                      }}
-                      onClick={handleClose}
-                      className='mr-15px'
-                    >
-                      <ClearIcon
-                        sx={{
-                          position: "relative",
-                          top: "-1px",
-                        }}
-                        className='mr-5px'
-                      />{" "}
-                      Cancel
-                    </Button>
-
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      sx={{
-                        textTransform: "capitalize",
-                        borderRadius: "8px",
-                        fontWeight: "500",
-                        fontSize: "13px",
-                        padding: "12px 20px",
-                        color: "#fff !important",
-                      }}
-                    >
-                      <AddIcon
-                        sx={{
-                          position: "relative",
-                          top: "-1px",
-                        }}
-                        className='mr-5px'
-                      />{" "}
-                      Create Product
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Box>
-          </Box>
-        </Fade>
-      </Modal> */}
     </>
   );
 }
