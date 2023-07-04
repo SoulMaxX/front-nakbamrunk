@@ -4,6 +4,7 @@ import styles from '@/styles/PageTitle.module.css'
 import OfferSellDetails from '@/components/Sells/OfferSellDetails/OfferSellDetails';
   
 export default function ProductDetails() {
+ 
   return (
     <>
       {/* Page title */}
@@ -17,7 +18,7 @@ export default function ProductDetails() {
         </ul>
       </div>
 
-      <OfferSellDetails />
+      <OfferSellDetails datas={datas}/>
     </>
   );
 }

@@ -110,7 +110,7 @@ BootstrapDialogTitle.propTypes = {
 };
 
 function Row(props) {
-  const { row, open3, cart, setCart, handleClick, handlerClose ,customerDetail} = props;
+  const { row, open3, cart, setCart, handleClick, handlerClose, customerDetail } = props;
   // console.log(row.productName)
   const router = useRouter();
   const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
@@ -385,7 +385,7 @@ function createData(
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
 export default function ProductsOrder(props) {
-  const { cart, setCart, handlerClose ,customerDetail} = props
+  const { cart, setCart, handlerClose, customerDetail } = props
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -394,16 +394,16 @@ export default function ProductsOrder(props) {
 
   const [result, setResult] = React.useState([])
 
- 
+
 
   const handleClick = (item) => {
-    const exist = cart.find((x) => x.id === item.id);
+    const exist = cart.find((x) => x.productId === item.id || x.id === item.id);
 
-    if(exist){
-      setCart(cart.map(x => x.id === item.id ? { ...exist, quantity: exist.quantity + 1 ,price:  exist.sell1} : x))
-    }else{
+    if (exist) {
+      setCart(cart.map(x => x.productId === item.id || x.id === item.id ? { ...exist, quantity: exist.quantity + 1, price: exist.sell1 } : x))
+    } else {
 
-      setCart([...cart, { ...item, quantity: 1, discount: 0 ,price: item.sell1}])
+      setCart([...cart, { ...item, quantity: 1, discount: 0, price: item.sell1 }])
     }
 
   }
@@ -523,7 +523,7 @@ export default function ProductsOrder(props) {
                     fontSize: "13.5px",
                   }}
                 >
-                  
+
                 </TableCell>
                 <TableCell
                   sx={{
