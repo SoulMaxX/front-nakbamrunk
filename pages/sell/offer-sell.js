@@ -53,7 +53,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  height: "30%",
+  height: "25%",
   maxWidth: '300px',
   width: '100%',
   overflow: "auto",
@@ -365,7 +365,7 @@ export default function OfferSells() {
 
             <TableBody>
               {(rowsPerPage > 0
-                ? datas?.slice(
+                ? datas.sort((a, b) => (a.id < b.id ? -1 : 1))?.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )

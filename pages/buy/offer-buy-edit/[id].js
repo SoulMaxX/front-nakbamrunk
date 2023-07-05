@@ -48,7 +48,7 @@ const rows = [
 
 ];
 
-const CreateOfferSell = () => {
+const EditOfferSell = () => {
   const [open, setOpen] = React.useState(false);
   const [creditor, setCreditor] = React.useState([]);
   const [creditorDetail, setCreditorDetail] = React.useState('');
@@ -58,8 +58,12 @@ const CreateOfferSell = () => {
   const [discount, setDiscount] = React.useState('');
   const [total, setTotal] = React.useState(0);
   const [totalNewProd, setTotalNewProd] = React.useState(0);
+  const [vat, setVat] = React.useState(0);
 
+  const [datas, setDatas] = React.useState('');
   const router = useRouter()
+  const { id } = router.query
+
   const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
 
   const handlerOpen = (e) => {
@@ -74,20 +78,19 @@ const CreateOfferSell = () => {
     data.append("creditorId", creditorDetail[0].id)
     data.append("product", JSON.stringify(cart))
     // data.append("addproduct", JSON.stringify(otherProd))
-    data.append("total",(( Number(total) + Number(totalNewProd))).toFixed(2))
+    data.append("total", ((Number(total) + Number(totalNewProd))).toFixed(2))
 
-    axios.post(`${process.env.NEXT_PUBLIC_API}/buy/create_buyquotation`, data, {
+    axios.post(`${process.env.NEXT_PUBLIC_API}/buy/update_buyquotation?id=` + id, data, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
-    // .then((result) => console.log(result))
-    .then(() => router.back())
+      .then((result) => console.log(result))
+    // .then(() => router.back())
 
     console.log({
-      product: data.get("product"),
-      addproduct: data.get("addproduct"),
-      // password: data.get("password"),
+      addproduct: data.get("product"),
+      vat: data.get("vat"),
     });
 
   };
@@ -102,7 +105,8 @@ const CreateOfferSell = () => {
   const handleAdd = (event) => {
     setOtherProd([...otherProd, { name: "", quantity: "", price: "", total: 0 }]);
   };
-  const handleRemove = (index) => {
+  const handleRemove = (e,index) => {
+    console.log(index)
     const list = [...otherProd]
     list.splice(index, 1)
     setOtherProd(list)
@@ -114,13 +118,12 @@ const CreateOfferSell = () => {
     setOtherProd(list);
     list[index]["total"] = list[index].quantity * list[index].price
     setOtherProd(list);
-
-
-    // console.log(list[0].otherqty*list[0].otherprice)
   };
 
-  console.log(otherProd);
 
+  const handleChangeData = (event) => {
+    setDatas({ ...datas, [event.target.name]: event.target.value })
+  };
 
   React.useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_API}/creditor/get_allcreditor`, {
@@ -131,10 +134,26 @@ const CreateOfferSell = () => {
       .then((result) => setCreditor(result.data))
   }, [])
 
+  React.useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/buy/get_buyquotation?id=` + id, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => { setDatas(result.data), setCreditorDetail([result.data?.creditor]), setCart(result.data?.prodbuyquotations), setOtherProd(result.data?.otherproducts), setVat(result.data?.vat) })
+  }, [id])
 
 
+  const handleChangeVat = (event) => {
+    if (event.target.checked == true) {
+      setVat(event.target.value)
+      setDatas({ ...datas, vat: event.target.value })
+    } else {
+      setDatas({ ...datas, vat: 0 })
+      setVat(0)
+    }
+  }
 
-  
+
 
   const handlePrice = (event, id) => {
     const exist = cart.find((x) => x.id === id);
@@ -142,7 +161,6 @@ const CreateOfferSell = () => {
 
   };
 
-  console.log(cart)
   let table = typeof window != "undefined" ? document.getElementById('item') : "";
   let sum = 0
 
@@ -152,13 +170,13 @@ const CreateOfferSell = () => {
       sum = price + sum;
     }
     setTotal(sum)
-  }, [cart])
+  }, [cart, discount])
 
   let sumNewProd = 0
   React.useEffect(() => {
 
-    for (let index = 0; index < otherProd.length; index++) {
-      const sumProd = otherProd[index].total
+    for (let index = 0; index < otherProd?.length; index++) {
+      const sumProd = otherProd[index]?.quantity * otherProd[index]?.price
       sumNewProd = sumProd + sumNewProd
       setTotalNewProd(sumNewProd)
     }
@@ -177,17 +195,17 @@ const CreateOfferSell = () => {
     // }
   }
 
-  console.log(creditorDetail)
+  console.log(datas)
   return (
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>เพิ่มใบเสนอราคา</h1>
+        <h1>แก้ใบเสนอราคา</h1>
         <ul>
           <li>
             <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>เพิ่มใบเสนอราคา</li>
+          <li>แก้ใบเสนอราคา</li>
         </ul>
       </div>
 
@@ -202,7 +220,7 @@ const CreateOfferSell = () => {
           className="bg-black"
         >
           <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-            เพิ่มใบเสนอราคา
+            แก้ใบเสนอราคา
           </Typography>
 
           <Grid container alignItems="center" spacing={2}>
@@ -216,7 +234,7 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                รหัสSupplier
+                ชื่อลูกค้า
               </Typography>
               {/* <TextField
                 autoComplete="product-name"
@@ -231,6 +249,7 @@ const CreateOfferSell = () => {
                 }}
               /> */}
               <Autocomplete
+                value={creditorDetail[0]?.name ?? ""}
                 onChange={(evnet, value) => setCreditorDetail(creditor.filter(cust => cust.name == value))}
                 freeSolo
                 options={creditor.map((cust) => cust.name)}
@@ -241,6 +260,7 @@ const CreateOfferSell = () => {
 
 
             <Grid item xs={12} md={12} lg={2}>
+              {/* <FormControlLabel control={<Checkbox checked={vat == 7} value={7} name="vat" onChange={handleChangeVat} />} label="Vat" /> */}
 
             </Grid>
             <Grid item xs={12} md={12} lg={6}>
@@ -335,7 +355,7 @@ const CreateOfferSell = () => {
               </Typography>
 
               <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 700 }} aria-label="simple table" className="dark-table" id="item">
+                <Table sx={{ minWidth: 650 }} aria-label="simple table" className="dark-table" id="item">
                   <TableHead>
                     <TableRow>
                       <TableCell>รหัสสินค้า</TableCell>
@@ -351,45 +371,44 @@ const CreateOfferSell = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {cart.map((row) => (
+                    {cart?.map((row) => (
                       <TableRow
-                        key={row?.id}
-                        // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        key={row?.productId ?? row?.id}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                       >
                         <TableCell component="th" scope="row">
-                          {row?.id}
+                          {row?.productId ?? row?.id}
                         </TableCell>
-                        <TableCell align="right">{row?.name}</TableCell>
+                        <TableCell align="right">{row?.product?.name ?? row?.name}</TableCell>
                         <TableCell align="right" sx={{ width: "150px" }}><TextField
-                          name={"quantity" + row?.id}
+                          name={"quantity" + (row?.productId ?? row?.id)}
                           id="quantity"
                           type="number"
                           InputProps={{
                             style: { borderRadius: 8 },
-                            inputProps: { min: 0 }
+                            inputProps: { min: 0}
                           }}
                           // defaultValue={0}
-                          value={row?.quantity}
-                        onChange={event => qtyItem(event, row?.id)}
+                          value={row?.amount ?? row?.quantity}
+                          onChange={event => qtyItem(event, row?.id)}
                         /></TableCell>
-                        <TableCell align="right">{row?.subUnit}</TableCell>
+                        <TableCell align="right">{row?.product?.subUnit ?? row?.subUnit}</TableCell>
                         {/* <TableCell align="right" style={{ ...row?.warehouse <= 10 ? { color: "red" } : "" }} >{row?.warehouse}</TableCell> */}
-                        {/* <TableCell align="right">{row?.sell1}</TableCell> */}
+                        {/* <TableCell align="right">{row?.product?.sell1 ?? row?.sell1}</TableCell> */}
                         <TableCell align="right" sx={{ width: "150px" }}> <TextField
                           name={"price" + row?.id}
                           id="price"
-                          // type="number"
+                          type="number"
                           InputProps={{
                             style: { borderRadius: 8 },
                             inputProps: { min: 0}
                           }}
-                          defaultValue={0}
-                          // value={row?.discount}
+                          value={row?.price}
                           onChange={event => handlePrice(event, row?.id)}
                         /></TableCell>
 
-                        {/* <TableCell align="right">{(((typeof window !== "undefined") ? document.getElementsByName("discount" + row?.id)[0]?.value / 100 : 0) * (row?.quantity * row?.price)).toFixed(2)}</TableCell> */}
-                        <TableCell align="right">{(((typeof window !== "undefined") ? (isNaN(document.getElementsByName("price" + row?.id)[0]?.value) ? 0 : document.getElementsByName("price" + row?.id)[0]?.value) : 0 )* row?.quantity ).toFixed(2)}</TableCell>
+                        {/* <TableCell align="right">{(((typeof window !== "undefined") ? document.getElementsByName("discount" + row?.id)[0]?.value / 100 : 0) * ((row?.amount ?? row?.quantity) * (row?.price ?? row?.sell1))).toFixed(2)}</TableCell> */}
+                        <TableCell align="right">{(((typeof window !== "undefined") ? (isNaN(document.getElementsByName("price" + row?.id)[0]?.value) ? 0 : document.getElementsByName("price" + row?.id)[0]?.value) : 0 )* row?.quantity ).toFixed(2)}</TableCell>                   
                         <TableCell align="center" >
                           {/* <Button onClick={() => increase(row)}>เพิ่ม</Button> */}
                           <Button onClick={() => deleteItem(row)}>ลบ</Button>
@@ -401,7 +420,7 @@ const CreateOfferSell = () => {
               </TableContainer>
             </Grid>
 
-            {otherProd.map((prod, index) => (
+            {otherProd?.map((prod, index) => (
               <Grid key={index} container spacing={2} sx={{ padding: "10px" }}>
                 <Grid item xs={12} md={12} lg={3}>
                   <Typography
@@ -415,13 +434,12 @@ const CreateOfferSell = () => {
                     สินค้าอื่นๆ
                   </Typography>
                   <TextField
-                    // value={prod.othernameprod}
+                    value={prod?.name ?? ""}
                     onChange={(event) => handleChange(event, index)}
                     autoComplete="product-name"
                     name="name"
                     fullWidth
                     id="name"
-                    label="ชื่อสินค้า"
                     autoFocus
                     InputProps={{
                       style: { borderRadius: 8 },
@@ -440,15 +458,14 @@ const CreateOfferSell = () => {
                     จำนวน
                   </Typography>
                   <TextField
+                    value={prod?.quantity ?? ""}
                     onChange={(event) => handleChange(event, index)}
                     autoComplete="product-name"
                     name="quantity"
                     fullWidth
                     id="quantity"
-                    label="จำนวน"
                     type="number"
                     autoFocus
-                    defaultValue={0}
                     InputProps={{
                       style: { borderRadius: 8 },
                     }}
@@ -466,14 +483,13 @@ const CreateOfferSell = () => {
                     ราคา
                   </Typography>
                   <TextField
+                    value={prod?.price ?? ""}
                     onChange={(event) => handleChange(event, index)}
                     autoComplete="product-name"
                     name="price"
                     fullWidth
                     id="price"
-                    label="ราคา"
                     autoFocus
-                    defaultValue={0}
                     type="number"
                     InputProps={{
                       style: { borderRadius: 8 },
@@ -492,15 +508,12 @@ const CreateOfferSell = () => {
                     }}
 
                   >
-                    จำนวนเงิน {prod.total} บาท
+                    จำนวนเงิน {prod?.total ?? prod?.price * prod?.quantity} บาท
                   </Typography>
-
                 </Grid>
                 <Grid item xs={12} md={12} lg={2} >
-
                   <Button
-
-                    onClick={handleRemove}
+                    onClick={e=>handleRemove(e,otherProd.indexOf(prod))}
                     variant="contained"
                     sx={{
                       textTransform: "capitalize",
@@ -534,11 +547,11 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ยอดรวม {( Number(total) + Number(totalNewProd)).toFixed(2)} บาท
+                ยอดรวม {(Number(total) + Number(totalNewProd)).toFixed(2)} บาท
               </Typography>
 
-            </Grid>
-            <Grid item xs={12} md={12} lg={5} >
+            </Grid> */}
+            {/* <Grid item xs={12} md={12} lg={5} >
 
               <Typography
                 as="h5"
@@ -548,9 +561,9 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ภาษี {(((0 / 100)) * ( Number(total) + Number(totalNewProd))).toFixed(2)} บาท
+                ภาษี {(((vat / 100)) * (Number(total) + Number(totalNewProd))).toFixed(2)} บาท
               </Typography>
-             
+       
             </Grid> */}
             <Grid item xs={12} md={12} lg={12}>
               <Typography
@@ -561,12 +574,27 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ยอดรวมทั้งสิ้น {(((0 / 100) + 1) * ( Number(total) + Number(totalNewProd))).toFixed(2)} บาท
+                ยอดรวมทั้งสิ้น {((Number(total) + Number(totalNewProd))).toFixed(2)} บาท
               </Typography>
 
             </Grid>
 
-           
+            {/* <Grid item xs={12} md={12} lg={12}>
+
+              <FormControl lg={12}>
+                <FormLabel sx={{ fontWeight: "500", fontSize: "14px", color: "black" }} id="demo-row-radio-buttons-group-label">ราคาขาย</FormLabel>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="row-radio-buttons-group"
+                >
+                  <FormControlLabel value="female" control={<Radio />} label="ราคาขาย1" />
+                  <FormControlLabel value="male" control={<Radio />} label="ราคาขาย2" />
+                  <FormControlLabel value="other" control={<Radio />} label="ราคาขาย3" />
+
+                </RadioGroup>
+              </FormControl>
+            </Grid> */}
             {/* <Grid item xs={12} md={12} lg={1}>
               <Typography
                 as="h5"
@@ -579,11 +607,12 @@ const CreateOfferSell = () => {
                 ส่งมอบใน
               </Typography>
               <TextField
+                value={datas?.deliver ?? ""}
+                onChange={handleChangeData}
                 autoComplete="product-name"
                 name="deliver"
                 fullWidth
                 id="deliver"
-                label="วัน"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -602,6 +631,8 @@ const CreateOfferSell = () => {
                 เงื่อนไขการชำระ
               </Typography>
               <TextField
+                value={datas?.paycodition ?? ""}
+                onChange={handleChangeData}
                 autoComplete="product-name"
                 name="paycodition"
                 fullWidth
@@ -626,12 +657,13 @@ const CreateOfferSell = () => {
                 เครดิต
               </Typography>
               <TextField
+                value={datas?.credit ?? ""}
+                onChange={handleChangeData}
                 autoComplete="product-name"
                 name="credit"
                 required
                 fullWidth
                 id="credit"
-                label="วัน"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -650,6 +682,8 @@ const CreateOfferSell = () => {
                 รับประกัน
               </Typography>
               <TextField
+                value={datas?.guarantee ?? ""}
+                onChange={handleChangeData}
                 autoComplete="product-name"
                 name="guarantee"
                 required
@@ -662,30 +696,7 @@ const CreateOfferSell = () => {
                 }}
               />
             </Grid> */}
-            {/* <Grid item xs={12} md={12} lg={2}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                ชื่อผู้เสนอ
-              </Typography>
-              <TextField
-                autoComplete="product-name"
-                name="shortName"
-                required
-                fullWidth
-                id="shortName"
-                label="ชื่อผู้เสนอ"
-                autoFocus
-                InputProps={{
-                  style: { borderRadius: 8 },
-                }}
-              />
-            </Grid> */}
+
 
             <Grid item xs={12} md={12} lg={12}>
               <Typography
@@ -699,12 +710,13 @@ const CreateOfferSell = () => {
                 หมายเหตุ
               </Typography>
               <TextField
+                value={datas?.note ?? ""}
+                onChange={handleChangeData}
                 autoComplete="short-description"
                 name="note"
                 required
                 fullWidth
                 id="note"
-                label="หมายเหตุ"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -725,14 +737,7 @@ const CreateOfferSell = () => {
                   color: "#fff !important"
                 }}
               >
-                <AddIcon
-                  sx={{
-                    position: "relative",
-                    top: "-2px",
-                  }}
-                  className='mr-5px'
-                />{" "}
-                เพิ่มใบเสนอราคา
+                บันทึก
               </Button>
             </Grid>
           </Grid>
@@ -792,4 +797,4 @@ const CreateOfferSell = () => {
   )
 }
 
-export default CreateOfferSell;
+export default EditOfferSell;

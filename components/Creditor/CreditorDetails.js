@@ -12,7 +12,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 import axios from "axios";
 
-const CustomerDetails = (props) => {
+const CreditorDetails = (props) => {
   const { datas } = props
 
 
@@ -39,7 +39,7 @@ const CustomerDetails = (props) => {
 
 
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                รหัสลูกค้า : {datas.idcustomer}
+                รหัสเจ้าหนี้ : {datas.idcreditor}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
                 ชื่อ:  {datas.name}
@@ -106,4 +106,4 @@ const CustomerDetails = (props) => {
   );
 };
 
-export default CustomerDetails;
+export default CreditorDetails;

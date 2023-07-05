@@ -29,8 +29,10 @@ import Checkbox from '@mui/material/Checkbox';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
-import CloseIcon from '@mui/icons-material/Close'; 
+import CloseIcon from '@mui/icons-material/Close';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import axios from "axios";
+import { useRouter } from "next/router";
 
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -41,7 +43,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   height: "30%",
-  maxWidth: '400px',
+  maxWidth: '300px',
   width: '100%',
   overflow: "auto",
   bgcolor: "background.paper",
@@ -158,7 +160,7 @@ CreditorsLists.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(id,name, address, companyCode,  phone,email) {
+function createData(id, name, address, companyCode, phone, email) {
   return {
     id,
     name,
@@ -166,7 +168,7 @@ function createData(id,name, address, companyCode,  phone,email) {
     companyCode,
     phone,
     email,
-   
+
   };
 }
 
@@ -195,13 +197,17 @@ const rows = [
     "085058877",
     "jordan@gmail.com",
   ),
-  
+
 ].sort((a, b) => (a.name < b.name ? -1 : 1));
 
-export default function CreditorsListss() {
+export default function CreditorsListss(props) {
+  const { datas } = props;
+  const router = useRouter()
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [id, setId] = React.useState('');
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -215,7 +221,7 @@ export default function CreditorsListss() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
- 
+
   // Create new modal
   const [open, setOpen] = React.useState(false);
 
@@ -225,7 +231,7 @@ export default function CreditorsListss() {
   const handleClose = () => {
     setOpen(false);
   };
- 
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -235,7 +241,15 @@ export default function CreditorsListss() {
     });
   };
   // End Create new Modal
+  const handleDelete = (e) => {
+    axios.put(`${process.env.NEXT_PUBLIC_API}/creditor/delete_creditor?id=` + id, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(() => router.reload())
+  }
 
+  console.log(datas)
   return (
     <>
       <Card
@@ -294,8 +308,8 @@ export default function CreditorsListss() {
             boxShadow: "none",
           }}
         >
-          <Table 
-            sx={{ minWidth:800 }} 
+          <Table
+            sx={{ minWidth: 800 }}
             aria-label="custom pagination table"
             className="dark-table"
           >
@@ -312,7 +326,7 @@ export default function CreditorsListss() {
                   ชื่อ
                 </TableCell>
 
-               
+
 
                 <TableCell
                   align="center"
@@ -341,7 +355,7 @@ export default function CreditorsListss() {
                   Email
                 </TableCell>
 
-                
+
 
                 <TableCell
                   align="right"
@@ -354,14 +368,14 @@ export default function CreditorsListss() {
 
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(
-                    page * rowsPerPage,
-                    page * rowsPerPage + rowsPerPage
-                  )
-                : rows
+                ? datas.slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                )
+                : datas
               ).map((row) => (
                 <TableRow key={row.name}>
-                  
+
 
                   <TableCell
                     align="center"
@@ -408,7 +422,7 @@ export default function CreditorsListss() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.companyCode}
+                    {row.taxnumber}
                   </TableCell>
 
                   <TableCell
@@ -420,7 +434,7 @@ export default function CreditorsListss() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.phone}
+                    {row.tel}
                   </TableCell>
 
                   <TableCell
@@ -435,9 +449,7 @@ export default function CreditorsListss() {
                     {row.email}
                   </TableCell>
 
-            
 
-           
 
                   <TableCell
                     align="right"
@@ -448,9 +460,9 @@ export default function CreditorsListss() {
                         display: "inline-block",
                       }}
                     >
-                       <Tooltip title="View" placement="top">
+                      <Tooltip title="View" placement="top">
                         <IconButton
-                          href="/ecommerce/product-details"
+                          href={"/creditor/creditor-details/" + row.id}
                           aria-label="view"
                           size="small"
                           color="info"
@@ -459,10 +471,11 @@ export default function CreditorsListss() {
                           <VisibilityIcon fontSize="inherit" />
                         </IconButton>
                       </Tooltip>
-                      
-                    
+
+
                       <Tooltip title="Rename" placement="top">
                         <IconButton
+                          href={"/creditor/edit-creditor/" + row.id}
                           aria-label="rename"
                           size="small"
                           color="primary"
@@ -474,7 +487,7 @@ export default function CreditorsListss() {
 
                       <Tooltip title="Remove" placement="top">
                         <IconButton
-                        onClick={handleClickOpen}
+                          onClick={() => { setOpen(true), setId(row.id) }}
                           aria-label="remove"
                           size="small"
                           color="danger"
@@ -483,7 +496,7 @@ export default function CreditorsListss() {
                           <DeleteIcon fontSize="inherit" />
                         </IconButton>
                       </Tooltip>
-                      
+
                     </Box>
                   </TableCell>
                 </TableRow>
@@ -504,7 +517,7 @@ export default function CreditorsListss() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                   colSpan={8}
-                  count={rows.length}
+                  count={datas.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{
@@ -524,127 +537,95 @@ export default function CreditorsListss() {
         </TableContainer>
       </Card>
 
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={open}
+      <BootstrapDialog
         onClose={handleClose}
-        closeAfterTransition
-        // BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
+        aria-labelledby="customized-dialog-title"
+        open={open}
       >
-        <Fade in={open}>
-          <Box sx={style} className="bg-black">
+        <Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              background: "#EDEFF5",
+              borderRadius: "8px",
+              padding: "20px 20px",
+            }}
+          >
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              sx={{
+                fontWeight: "500",
+                fontSize: "18px",
+              }}
+            >
+              ต้องการลบ?
+            </Typography>
+
+            <IconButton
+              aria-label="remove"
+              size="small"
+              onClick={handleClose}
+            >
+              <ClearIcon />
+            </IconButton>
+          </Box>
+
+          <Box >
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                background: "#EDEFF5",
-                borderRadius: "8px",
+                background: "#fff",
                 padding: "20px 20px",
+                borderRadius: "8px",
               }}
-              className="bg-black"
             >
-              <Typography
-                id="modal-modal-title"
-                variant="h6"
-                component="h2"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "17px",
-                }}
-              >
-                ลบรายชื่อเจ้าหนี้
-              </Typography>
+              <Grid item xs={12} textAlign="center">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="danger"
 
-              <IconButton
-                aria-label="remove"
-                size="small"
-                onClick={handleClose}
-              >
-                <ClearIcon />
-              </IconButton>
-            </Box>
+                  sx={{
+                    textTransform: "capitalize",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    fontSize: "13px",
+                    padding: "12px 20px",
+                    color: "#fff !important",
+                  }}
+                  className='mr-15px'
+                  onClick={handleDelete}
+                >
 
-            <Box component="form" noValidate onSubmit={handleSubmit}>
-              <Box
-                sx={{
-                  background: "#fff",
-                  padding: "30px 20px",
-                  borderRadius: "8px",
-                }}
-                className="dark-BG-101010"
-              >
-                <Grid container alignItems="center" spacing={2}>
-                  <Grid item xs={12} md={12} lg={6}>
-                    <Typography
-                      as="h5"
-                      sx={{
-                        fontWeight: "500",
-                        fontSize: "14px",
-                        mb: "12px",
-                      }}
-                    >
-                      ลบรายชื่อเจ้าหนี้รหัส : 123
-                    </Typography>
-                   
-                  </Grid>
+                  ลบ
+                </Button>
+
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{
+                    textTransform: "capitalize",
+                    borderRadius: "8px",
+                    fontWeight: "500",
+                    fontSize: "13px",
+                    padding: "12px 20px",
+                    color: "#fff !important",
+                  }}
+                  onClick={handleClose}
+                >
+
+                  ยกเลิก
+                </Button>
 
 
-
-
-                  <Grid item xs={12} textAlign="end">
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      sx={{
-                        textTransform: "capitalize",
-                        borderRadius: "8px",
-                        fontWeight: "500",
-                        fontSize: "13px",
-                        padding: "12px 20px",
-                        color: "#fff !important",
-                      }}
-                      onClick={handleClose}
-                      className='mr-15px'
-                    >
-                      <ClearIcon
-                        sx={{
-                          position: "relative",
-                          top: "-1px",
-                        }}
-                        className='mr-5px'
-                      />{" "}
-                      ยกเลิก
-                    </Button>
-
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="danger"
-
-                      sx={{
-                        textTransform: "capitalize",
-                        borderRadius: "8px",
-                        fontWeight: "500",
-                        fontSize: "13px",
-                        padding: "12px 20px",
-                        color: "#fff !important",
-                      }}
-                    >
-                      
-                      ลบรายชื่อเจ้าหนี้
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Box>
+              </Grid>
             </Box>
           </Box>
-        </Fade>
-      </Modal>
-      </>
+        </Box>
+      </BootstrapDialog>
+    </>
   );
 }

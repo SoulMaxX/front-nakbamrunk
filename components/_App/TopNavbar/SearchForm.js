@@ -60,7 +60,7 @@ export default function SearchForm(props) {
     
     const fil = rows.filter(val => {
       if (String(val.id).includes(search)|| String(val.brand).includes(search) || String(val.company).includes(search) 
-      || String(val.nameprod).includes(search)|| String(val.initialsprod).includes(search) || String(val.realnum).includes(search)|| String(val.facnum).includes(search)
+      || String(val.name).includes(search)|| String(val.initialsprod).includes(search) || String(val.realnum).includes(search)|| String(val.facnum).includes(search)
       || String(val.namewarehouse).includes(search)|| String(val.type).includes(search)) {
         
         const newobj = { id: val.id }

@@ -2,8 +2,21 @@ import React from 'react';
 import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 import CreditorsLists from '@/components/Creditor/CreditorsLists';
+import axios from 'axios';
 
 const Customers = () => {
+  const [datas, setDatas] = React.useState([]);
+
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
+  React.useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/creditor/get_allcreditor`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setDatas(result.data))
+
+  }, [])
   return (
     <>
       {/* Page title */}
@@ -16,8 +29,8 @@ const Customers = () => {
           <li>เจ้าหนี้</li>
         </ul>
       </div>
-      
-      <CreditorsLists />
+
+      <CreditorsLists datas={datas} />
     </>
   )
 }

@@ -41,7 +41,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   height: "30%",
-  maxWidth: '400px',
+  maxWidth: '500px',
   width: '100%',
   overflow: "auto",
   bgcolor: "background.paper",
