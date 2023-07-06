@@ -6,6 +6,7 @@ import axios from 'axios';
 
 const Employees = () => {
   const [datas, setDatas] = React.useState([]);
+  const [role, setRole] = React.useState([]);
   
   const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
   React.useEffect(() => {
@@ -16,7 +17,14 @@ const Employees = () => {
       }
     }).then(result => setDatas(result.data))
 
+    axios.get(`${process.env.NEXT_PUBLIC_API}/role/get_role`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setRole(result.data))
+
   },[])
+  // console.log(role?.menuEmployee?.view == 0);
   return (
     <>
       {/* Page title */}
@@ -30,7 +38,7 @@ const Employees = () => {
         </ul>
       </div>
       
-      <EmployeesLists  datas={datas}/>
+      <EmployeesLists  datas={datas} role={role}/>
     </>
   )
 }

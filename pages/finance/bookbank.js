@@ -7,7 +7,8 @@ import axios from 'axios';
 const Bookbanks = () => {
 
   const [datas, setDatas] = React.useState([]);
-  
+  const [role, setRole] = React.useState([]);
+
   const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
   React.useEffect(() => {
 
@@ -16,8 +17,13 @@ const Bookbanks = () => {
         Authorization: `Bearer ${token}`
       }
     }).then(result => setDatas(result.data))
+    axios.get(`${process.env.NEXT_PUBLIC_API}/role/get_role`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setRole(result.data))
 
-  },[])
+  }, [])
   return (
     <>
       {/* Page title */}
@@ -30,8 +36,8 @@ const Bookbanks = () => {
           <li>การเงิน</li>
         </ul>
       </div>
-      
-      <BookbanksLists datas={datas} />
+
+      <BookbanksLists datas={datas} role={role} />
     </>
   )
 }

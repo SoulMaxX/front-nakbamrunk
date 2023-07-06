@@ -145,10 +145,10 @@ const CreateOfferSell = () => {
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="idlocationprod"
+                name="idlocation"
                 required
                 fullWidth
-                id="idlocationprod"
+                id="idlocation"
                 label="รหัสตำแหน่งสินค้า"
                 autoFocus
                 InputProps={{

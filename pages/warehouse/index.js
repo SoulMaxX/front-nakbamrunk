@@ -427,7 +427,7 @@ export default function Warehouses() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.id}
+                    {row.idwarehouse}
                   </TableCell>
 
 

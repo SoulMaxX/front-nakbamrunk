@@ -145,7 +145,7 @@ EmployeesList.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(name, bank,branch, type, bookbank) {
+function createData(name, bank, branch, type, bookbank) {
   return {
     name,
     bank,
@@ -170,11 +170,11 @@ const rows = [
     "กระแสรายวัน",
     "1111111111",
   ),
-  
+
 ].sort((a, b) => (a.name < b.name ? -1 : 1));
 
 export default function BookbanksLists(props) {
-  const {datas} = props
+  const { datas, role } = props
   const router = useRouter();
   const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
 
@@ -255,7 +255,7 @@ export default function BookbanksLists(props) {
           </Typography>
 
           <Button
-            href="/finance/create-bookbank"
+            href={role.menuFinance?.create == 0 ? "" : "/finance/create-bookbank"}
             // onClick={handleClickOpen}
             variant="contained"
             sx={{
@@ -266,6 +266,7 @@ export default function BookbanksLists(props) {
               padding: "12px 20px",
               color: "#fff !important",
             }}
+            disabled={role.menuFinance?.create == 0}
           >
             <AddIcon
               sx={{ position: "relative", top: "-1px" }}
@@ -329,122 +330,126 @@ export default function BookbanksLists(props) {
                 </TableCell>
               </TableRow>
             </TableHead>
-
-            <TableBody>
-              {(rowsPerPage > 0
-                ? datas.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
-                : datas
-              ).map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      fontSize: "13px",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                    }}
-                  >
-                    {row.nameAccount}
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      fontSize: "13px",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                    }}
-                  >
-                    {row.nameBank}
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      fontSize: "13px",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                    }}
-                  >
-                    {row.branchBank}
-                  </TableCell>
-
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.type}
-                  </TableCell>
-
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.accountNumber}
-                  </TableCell>
-              
-
-                  <TableCell
-                    align="right"
-                    sx={{ borderBottom: "1px solid #F7FAFF" }}
-                  >
-                    <Box
-                      sx={{
-                        display: "inline-block",
+            {role.menuFinance?.delete == 0 ? "" :
+              <TableBody>
+                {(rowsPerPage > 0
+                  ? datas.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                  : datas
+                ).map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "13px",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
                       }}
                     >
+                      {row.nameAccount}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "13px",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
+                      }}
+                    >
+                      {row.nameBank}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "13px",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
+                      }}
+                    >
+                      {row.branchBank}
+                    </TableCell>
 
-                      <Tooltip title="Rename" placement="top">
-                        <IconButton
-                          href={"/finance/edit-bookbank/"+row.id}
-                          aria-label="rename"
-                          size="small"
-                          color="primary"
-                          className="primary"
-                        >
-                          <DriveFileRenameOutlineIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Remove" placement="top">
-                        <IconButton
-                          onClick={() => { setOpen(true), setId(row.id) }}
-                          aria-label="remove"
-                          size="small"
-                          color="danger"
-                          className="danger"
-                        >
-                          <DeleteIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              ))}
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
+                        fontSize: "13px",
+                      }}
+                    >
+                      {row.type}
+                    </TableCell>
 
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell
-                    colSpan={7}
-                    style={{ borderBottom: "1px solid #F7FAFF" }}
-                  />
-                </TableRow>
-              )}
-            </TableBody>
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
+                        fontSize: "13px",
+                      }}
+                    >
+                      {row.accountNumber}
+                    </TableCell>
 
+
+                    <TableCell
+                      align="right"
+                      sx={{ borderBottom: "1px solid #F7FAFF" }}
+                    >
+                      <Box
+                        sx={{
+                          display: "inline-block",
+                        }}
+                      >
+
+                        <Tooltip title="Rename" placement="top">
+                          <IconButton
+                            href={role.menuFinance?.edit == 0 ? "" : ("/finance/edit-bookbank/" + row.id)}
+                            aria-label="rename"
+                            size="small"
+                            color="primary"
+                            className="primary"
+                            disabled={role.menuFinance?.edit == 0}
+
+                          >
+                            <DriveFileRenameOutlineIcon fontSize="inherit" />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Remove" placement="top">
+                          <IconButton
+                            onClick={() => { setOpen(true), setId(row.id) }}
+                            aria-label="remove"
+                            size="small"
+                            color="danger"
+                            className="danger"
+                            disabled={role.menuFinance?.delete == 0}
+
+                          >
+                            <DeleteIcon fontSize="inherit" />
+                          </IconButton>
+                        </Tooltip>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                ))}
+
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 53 * emptyRows }}>
+                    <TableCell
+                      colSpan={7}
+                      style={{ borderBottom: "1px solid #F7FAFF" }}
+                    />
+                  </TableRow>
+                )}
+              </TableBody>
+            }
             <TableFooter>
               <TableRow>
                 <TablePagination

@@ -21,6 +21,7 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
 })
 
 const CreateBookBank = () => {
+  const [role, setRole] = React.useState([]);
   const [datas, setDatas] = React.useState("");
   const [type, setType] = React.useState("");
   const router = useRouter()
@@ -41,8 +42,19 @@ const CreateBookBank = () => {
     //   type: data.get("type"),
     // });
   };
-  console.log(datas)
 
+  React.useEffect(() => {
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/role/get_role`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setRole(result.data))
+
+  }, [])
+  if (role.menuFinance?.create == 0) {
+    router.back()
+  }
   // Select dropdown
   const handleChange = (event) => {
     setDatas({ ...datas, [event.target.name]: event.target.value });

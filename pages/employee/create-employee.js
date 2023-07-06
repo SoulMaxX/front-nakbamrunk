@@ -53,6 +53,7 @@ const CreateEmployee = () => {
   };
 
 
+  const [role, setRole] = React.useState([]);
   const [datas, setDatas] = React.useState('');
   const handleChange = (event) => {
     if (event.target.name == "productImage") {
@@ -61,7 +62,20 @@ const CreateEmployee = () => {
       setDatas({ ...datas, [event.target.name]: event.target.value });
     }
   };
-  //  console.log(datas)
+
+  React.useEffect(() => {
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/role/get_role`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setRole(result.data))
+
+  }, [])
+  if (role.menuEmployee?.create == 0) {
+    router.back()
+  }
+  //  console.log(role)
   return (
     <>
       {/* Page title */}

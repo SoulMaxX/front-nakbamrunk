@@ -420,7 +420,7 @@ export default function Locations() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.warehouse}
+                    {row.warehouse.namewarehouse}
                   </TableCell>
 
 
@@ -433,7 +433,7 @@ export default function Locations() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.name}
+                    {row.idlocation}
                   </TableCell>
 
                   <TableCell
@@ -446,7 +446,7 @@ export default function Locations() {
 
                     }}
                   >
-                    {row.id}
+                    {row.locationprod}
                   </TableCell>
                   <TableCell
                     align="center"

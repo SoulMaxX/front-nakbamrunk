@@ -41,6 +41,8 @@ import PrintIcon from '@mui/icons-material/Print';
 
 import dynamic from 'next/dynamic'
 import SearchForm from "@/components/_App/TopNavbar/SearchForm";
+import axios from "axios";
+import { useRouter } from "next/router";
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
@@ -130,7 +132,7 @@ Product.propTypes = {
 };
 
 function createData(
-  
+
   id,
   productName,
   quantity,
@@ -158,14 +160,32 @@ const rows = [
     "10",
     "8"
   ),
-  
+
 ]
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
 export default function Products() {
   // Table
+  const [datas, setDatas] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const router = useRouter()
+  const { id } = router.query
+
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
+  React.useEffect(() => {
+    if (router.isReady) {
+
+      axios.get(`${process.env.NEXT_PUBLIC_API}/buy/get_recieve?id=` + id, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(result => setDatas(result.data.prodbuyorders))
+
+    }
+  }, [id])
+  console.log(datas);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -239,7 +259,7 @@ export default function Products() {
             สินค้า
           </Typography> */}
 
-         
+
         </Box>
 
         <TableContainer
@@ -269,7 +289,7 @@ export default function Products() {
                     fontSize: "13.5px",
                   }}
                 >
-                 ชื่อสินค้า
+                  ชื่อสินค้า
                 </TableCell>
 
                 {/* <TableCell
@@ -286,30 +306,31 @@ export default function Products() {
                     fontSize: "13.5px",
                   }}
                 >
-                 จำนวน
+                  จำนวน
                 </TableCell>
-                <TableCell
+                {/* <TableCell
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
                   }}
                 >
-                 Actions
-                </TableCell>
+                  Actions
+                </TableCell> */}
 
-               
+
               </TableRow>
             </TableHead>
 
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(
+
+                ? datas.sort((a, b) => (a.productId < b.productId ? -1 : 1)).slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-                : rows
+                : datas
               ).map((row) => (
-                <TableRow key={row.id} className={styles.Product} >
+                <TableRow key={row.productId} className={styles.Product} >
                   <TableCell
                     align="center"
                     sx={{
@@ -319,7 +340,7 @@ export default function Products() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.id}
+                    {row.productId}
                   </TableCell>
                   <TableCell
                     sx={{
@@ -347,7 +368,7 @@ export default function Products() {
                         }}
                         className='ml-10px'
                       >
-                        {row.productName}
+                        {row.product.name}
                       </Typography>
                     </Box>
                   </TableCell>
@@ -362,14 +383,14 @@ export default function Products() {
                     {row.quantity}
                   </TableCell> */}
                   <TableCell
-                  
+
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
                     }}
-                  >            
-                    {row.quantity}
+                  >
+                    {row.quantity +" " +row.product.subUnit}
                   </TableCell>
 
                   {/* <TableCell
@@ -429,7 +450,7 @@ export default function Products() {
                     {row.sellPrice}
                   </TableCell> */}
 
-                  <TableCell
+                  {/* <TableCell
                     align="right"
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
@@ -441,21 +462,11 @@ export default function Products() {
                         display: "inline-block",
                       }}
                     >
-                      {/* <Tooltip title="View" placement="top">
-                        <IconButton
-                          href="/sell/order-sell-details"
-                          aria-label="view"
-                          size="small"
-                          color="info"
-                          className="info"
-                        >
-                          <VisibilityIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip> */}
+                      
 
                       <Tooltip title="Edit" placement="top">
                         <IconButton
-                        href="/sell/send-status"
+                          href="/sell/send-status"
                           aria-label="edit"
                           size="small"
                           color="primary"
@@ -465,21 +476,11 @@ export default function Products() {
                         </IconButton>
                       </Tooltip>
 
-                
 
-                      {/* <Tooltip title="Remove" placement="top">
-                        <IconButton
-                          onClick={handleOpen}
-                          aria-label="remove"
-                          size="small"
-                          color="danger"
-                          className="danger"
-                        >
-                          <DeleteIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip> */}
+
+                 
                     </Box>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
 
@@ -585,7 +586,7 @@ export default function Products() {
                     >
                       ลบสินค้ารหัส : 123
                     </Typography>
-                   
+
                   </Grid>
 
 
@@ -630,7 +631,7 @@ export default function Products() {
                         color: "#fff !important",
                       }}
                     >
-                      
+
                       ลบสินค้า
                     </Button>
                   </Grid>

@@ -41,6 +41,7 @@ import PrintIcon from '@mui/icons-material/Print';
 
 import dynamic from 'next/dynamic'
 import SearchForm from "@/components/_App/TopNavbar/SearchForm";
+import axios from "axios";
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
@@ -130,7 +131,7 @@ Product.propTypes = {
 };
 
 function createData(
-  
+
   id,
   date,
   quantity,
@@ -158,16 +159,26 @@ const rows = [
     "10",
     "8"
   ),
-  
+
 ]
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
 export default function Products() {
   // Table
+  const [datas, setDatas] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   // Avoid a layout jump when reaching the last page with empty rows.
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+  React.useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/buy/get_allbuyorder`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => { setDatas(result.data) })
+  }, [])
+
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -194,11 +205,7 @@ export default function Products() {
     });
   };
 
-  // Select dropdown
-  const [categorySelect, setCategorySelect] = React.useState('');
-  const handleChange = (event) => {
-    setCategorySelect(event.target.value);
-  };
+
 
   return (
     <>
@@ -239,7 +246,7 @@ export default function Products() {
             สินค้า
           </Typography> */}
 
-         
+
         </Box>
 
         <TableContainer
@@ -269,7 +276,7 @@ export default function Products() {
                     fontSize: "13.5px",
                   }}
                 >
-                 กำหนดส่ง
+                  กำหนดส่ง
                 </TableCell>
 
                 {/* <TableCell
@@ -286,7 +293,7 @@ export default function Products() {
                     fontSize: "13.5px",
                   }}
                 >
-                 รหัสใบสั่งซื้อ
+                  รหัสใบสั่งซื้อ
                 </TableCell>
                 <TableCell
                   sx={{
@@ -294,20 +301,20 @@ export default function Products() {
                     fontSize: "13.5px",
                   }}
                 >
-                 Actions
+                  Actions
                 </TableCell>
 
-               
+
               </TableRow>
             </TableHead>
 
             <TableBody>
               {(rowsPerPage > 0
-                ? rows.slice(
+                ? datas.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-                : rows
+                : datas
               ).map((row) => (
                 <TableRow key={row.id} className={styles.Product} >
                   {/* <TableCell
@@ -347,7 +354,7 @@ export default function Products() {
                         }}
                         className='ml-10px'
                       >
-                        {row.date}
+                        {new Date(row.createdAt).toLocaleDateString("th-TH")}
                       </Typography>
                     </Box>
                   </TableCell>
@@ -362,16 +369,15 @@ export default function Products() {
                     {row.quantity}
                   </TableCell> */}
                   <TableCell
-                  
+
                     sx={{
                       borderBottom: "1px solid #F7FAFF",
                       padding: "8px 10px",
                       fontSize: "13px",
                     }}
                   >
-                    <a href={`/products/${row.idOrder}`}>
-
-                    {row.idOrder}
+                    <a href={"/buy/order-buy-details/" + row.id}>
+                      {row.id}
                     </a>
                   </TableCell>
 
@@ -446,7 +452,7 @@ export default function Products() {
                     >
                       <Tooltip title="View" placement="top">
                         <IconButton
-                          href="/buy/receive-details"
+                          href={"/buy/receive-details/" + row.id}
                           aria-label="view"
                           size="small"
                           color="info"
@@ -455,7 +461,7 @@ export default function Products() {
                           <VisibilityIcon fontSize="inherit" />
                         </IconButton>
                       </Tooltip>
-{/* 
+                      {/* 
                       <Tooltip title="Edit" placement="top">
                         <IconButton
                         href="/sell/send-status"
@@ -468,7 +474,7 @@ export default function Products() {
                         </IconButton>
                       </Tooltip> */}
 
-                
+
 
                       {/* <Tooltip title="Remove" placement="top">
                         <IconButton
@@ -501,7 +507,7 @@ export default function Products() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                   colSpan={8}
-                  count={rows.length}
+                  count={datas.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{
@@ -588,7 +594,7 @@ export default function Products() {
                     >
                       ลบสินค้ารหัส : 123
                     </Typography>
-                   
+
                   </Grid>
 
 
@@ -633,7 +639,7 @@ export default function Products() {
                         color: "#fff !important",
                       }}
                     >
-                      
+
                       ลบสินค้า
                     </Button>
                   </Grid>

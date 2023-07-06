@@ -78,7 +78,7 @@ const EditOfferSell = () => {
     data.append("creditorId", creditorDetail[0].id)
     data.append("product", JSON.stringify(cart))
     // data.append("addproduct", JSON.stringify(otherProd))
-    data.append("total", ((Number(total) + Number(totalNewProd))).toFixed(2))
+    data.append("total", ((Number(total == 0 ? datas.total : total) + Number(totalNewProd))).toFixed(2))
 
     axios.post(`${process.env.NEXT_PUBLIC_API}/buy/update_buyquotation?id=` + id, data, {
       headers: {
@@ -139,7 +139,7 @@ const EditOfferSell = () => {
       headers: {
         Authorization: `Bearer ${token}`
       }
-    }).then(result => { setDatas(result.data), setCreditorDetail([result.data?.creditor]), setCart(result.data?.prodbuyquotations), setOtherProd(result.data?.otherproducts), setVat(result.data?.vat) })
+    }).then(result => { setDatas(result.data), setCreditorDetail([result.data?.creditor]), setCart(result.data?.prodbuyquotations), setOtherProd(result.data?.otherproducts), setTotal(result.data?.total) })
   }, [id])
 
 
@@ -195,7 +195,6 @@ const EditOfferSell = () => {
     // }
   }
 
-  console.log(datas)
   return (
     <>
       {/* Page title */}
@@ -408,7 +407,7 @@ const EditOfferSell = () => {
                         /></TableCell>
 
                         {/* <TableCell align="right">{(((typeof window !== "undefined") ? document.getElementsByName("discount" + row?.id)[0]?.value / 100 : 0) * ((row?.amount ?? row?.quantity) * (row?.price ?? row?.sell1))).toFixed(2)}</TableCell> */}
-                        <TableCell align="right">{(((typeof window !== "undefined") ? (isNaN(document.getElementsByName("price" + row?.id)[0]?.value) ? 0 : document.getElementsByName("price" + row?.id)[0]?.value) : 0 )* row?.quantity ).toFixed(2)}</TableCell>                   
+                        <TableCell align="right">{(((typeof window !== "undefined") ? (isNaN(document.getElementsByName("price" + row?.id)[0]?.value) ? 0 : document.getElementsByName("price" + row?.id)[0]?.value) : 0) * row?.quantity).toFixed(2)}</TableCell>
                         <TableCell align="center" >
                           {/* <Button onClick={() => increase(row)}>เพิ่ม</Button> */}
                           <Button onClick={() => deleteItem(row)}>ลบ</Button>
@@ -574,7 +573,7 @@ const EditOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ยอดรวมทั้งสิ้น {((Number(total) + Number(totalNewProd))).toFixed(2)} บาท
+                ยอดรวมทั้งสิ้น {((Number(total == 0 ? datas.total : total) + Number(totalNewProd))).toFixed(2)} บาท
               </Typography>
 
             </Grid>

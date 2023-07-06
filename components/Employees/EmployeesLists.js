@@ -184,7 +184,7 @@ const rows = [
 ].sort((a, b) => (a.name < b.name ? -1 : 1));
 
 export default function EmployeesLists(props) {
-  const { datas } = props
+  const { datas, role } = props
   const router = useRouter();
 
   const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
@@ -266,9 +266,8 @@ export default function EmployeesLists(props) {
           >
             รายชื่อพนักงาน
           </Typography>
-
           <Button
-            href="/employee/create-employee"
+            href={role.menuEmployee?.create == 0 ? "" : "/employee/create-employee"}
             // onClick={handleClickOpen}
             variant="contained"
             sx={{
@@ -279,6 +278,7 @@ export default function EmployeesLists(props) {
               padding: "12px 20px",
               color: "#fff !important",
             }}
+            disabled={role.menuEmployee?.create == 0}
           >
             <AddIcon
               sx={{ position: "relative", top: "-1px" }}
@@ -342,150 +342,158 @@ export default function EmployeesLists(props) {
                 </TableCell>
               </TableRow>
             </TableHead>
-
-            <TableBody>
-              {(rowsPerPage > 0
-                ? datas.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
-                : datas
-              ).map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell
-                    style={{
-                      width: 250,
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box
-                      sx={{
+            {role.menuEmployee?.view == 0 ? "" :
+              <TableBody>
+                {(rowsPerPage > 0
+                  ? datas.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                  : datas
+                ).map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell
+                      style={{
+                        width: 250,
+                        borderBottom: "1px solid #F7FAFF",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
                         display: "flex",
                         alignItems: "center",
-                        ml: '10px'
                       }}
                     >
-                      <img
-                        src={`${process.env.NEXT_PUBLIC_API}/admin/get_photo?id=` + row.id}
-                        alt="User"
-                        width={40}
-                        height={40}
-                        className="borRadius100"
-                      />
-                      <Box className='ml-10px'>
-                        <Typography
-                          as="h5"
-                          sx={{
-                            fontWeight: "500",
-                            fontSize: "13.5px",
-                          }}
-                        >
-                          {row.name + " " + row.surname}
-                        </Typography>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          ml: '10px'
+                        }}
+                      >
+                        <img
+                          src={`${process.env.NEXT_PUBLIC_API}/admin/get_photo?id=` + row.id}
+                          alt="User"
+                          width={40}
+                          height={40}
+                          className="borRadius100"
+                        />
+                        <Box className='ml-10px'>
+                          <Typography
+                            as="h5"
+                            sx={{
+                              fontWeight: "500",
+                              fontSize: "13.5px",
+                            }}
+                          >
+                            {row.name + " " + row.surname}
+                          </Typography>
+                        </Box>
                       </Box>
-                    </Box>
-                  </TableCell>
+                    </TableCell>
 
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      fontSize: "13px",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                    }}
-                  >
-                    {row.email}
-                  </TableCell>
-
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.phoneNumber}
-                  </TableCell>
-
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.address}
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {new Date(row.datestart).toLocaleDateString("th-th")}
-
-                  </TableCell>
-
-                  <TableCell
-                    align="right"
-                    sx={{ borderBottom: "1px solid #F7FAFF" }}
-                  >
-                    <Box
-                      sx={{
-                        display: "inline-block",
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "13px",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
                       }}
                     >
+                      {row.email}
+                    </TableCell>
+
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
+                        fontSize: "13px",
+                      }}
+                    >
+                      {row.phoneNumber}
+                    </TableCell>
+
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
+                        fontSize: "13px",
+                      }}
+                    >
+                      {row.address}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
+                        fontSize: "13px",
+                      }}
+                    >
+                      {new Date(row.datestart).toLocaleDateString("th-th")}
+
+                    </TableCell>
+
+                    <TableCell
+                      align="right"
+                      sx={{ borderBottom: "1px solid #F7FAFF" }}
+                    >
+                      <Box
+                        sx={{
+                          display: "inline-block",
+                        }}
+                      >
+
+                        <Tooltip title="Rename" placement="top">
+                          <IconButton
+                            href={role.menuEmployee?.edit == 0 ? "" : "/employee/edit-employee/" + row.id}
+                            aria-label="rename"
+                            size="small"
+                            color="primary"
+                            className="primary"
+                            // component="div"
+                            disabled={role.menuEmployee?.edit == 0}
+                          >
+                            <DriveFileRenameOutlineIcon fontSize="inherit" />
+                          </IconButton>
+                        </Tooltip>
 
 
-                      <Tooltip title="Rename" placement="top">
-                        <IconButton
-                          href={"/employee/edit-employee/"+row.id}
-                          aria-label="rename"
-                          size="small"
-                          color="primary"
-                          className="primary"
-                        >
-                          <DriveFileRenameOutlineIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Remove" placement="top">
-                        <IconButton
-                          onClick={() => { setOpen(true), setId(row.id) }}
-                          aria-label="remove"
-                          size="small"
-                          color="danger"
-                          className="danger"
-                        >
-                          <DeleteIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              ))}
 
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell
-                    colSpan={7}
-                    style={{ borderBottom: "1px solid #F7FAFF" }}
-                  />
-                </TableRow>
-              )}
-            </TableBody>
+                        <Tooltip title="Remove" placement="top">
+                          <IconButton
+                            onClick={() => { setOpen(true), setId(row.id) }}
+                            aria-label="remove"
+                            size="small"
+                            color="danger"
+                            className="danger"
+                            // component="div"
+                            disabled={role.menuEmployee?.delete == 0}
 
+                          >
+                            <DeleteIcon fontSize="inherit" />
+                          </IconButton>
+                        </Tooltip>
+
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                ))}
+
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 53 * emptyRows }}>
+                    <TableCell
+                      colSpan={7}
+                      style={{ borderBottom: "1px solid #F7FAFF" }}
+                    />
+                  </TableRow>
+                )}
+              </TableBody>
+            }
             <TableFooter>
               <TableRow>
                 <TablePagination

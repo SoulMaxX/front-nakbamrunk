@@ -118,7 +118,7 @@ const CreateWarehouse = () => {
               </Typography>
               <TextField
               onChange={handleChange}
-                value={datas?.id ?? ""}
+                value={datas?.idwarehouse ?? ""}
                 autoComplete="product-name"
                 name="idwarehouse"
                 required

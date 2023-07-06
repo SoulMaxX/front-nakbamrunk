@@ -14,17 +14,49 @@ import Paper from '@mui/material/Paper';
 
 // import ProductDescription from "./ProductDescription";
 // import ProductReviews from "./ProductReviews";
-function createData(id, name, quantity, unit, price, discount) {
-  return { id, name, quantity, unit, price, discount };
+// function createData(id, name, quantity, unit, price, discount) {
+//   return { id, name, quantity, unit, price, discount };
+// }
+
+// const rows = [
+//   createData(1, 'ถังลม 30 ลิตร', 1, "ถัง", 8500, 5),
+//   createData(5, 'ค่าส่ง', 1, "", 6500, ""),
+
+// ];
+
+function numberWithCommas(x) {
+  return x?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-const rows = [
-  createData(1, 'ถังลม 30 ลิตร', 1, "ถัง", 8500, 5),
-  createData(5, 'ค่าส่ง', 1, "", 6500, ""),
+const OrderBuyDetails = (props) => {
+  const { datas } = props
+  const [total, setTotal] = React.useState(0)
+  const [dc, setDc] = React.useState(0)
+  let table = typeof window != "undefined" ? document.getElementById('item') : "";
+  let sum = 0
+  let dcsum = 0
 
-];
+  // console.log(table.rows?.length)
+  // console.log(table.rows[1].cells[7].innerText)
+  React.useEffect(() => {
+    for (let index = 1; index < table?.rows?.length; index++) {
+      // console.log(table?.rows?.length)
+      let price = table.rows[index].cells[4].innerText
+      let num = Number(price.replace(/\,/g, ''));
+      sum = Number(num + sum);
+    }
+    setTotal(sum)
 
-const OrderBuyDetails = () => {
+    // for (let index = 1; index < table?.rows?.length; index++) {
+    //   // console.log(table?.rows?.length)
+    //   let price = table.rows[index].cells[6].innerText
+    //   let num = Number(price.replace(/\,/g, ''));
+    //   dcsum = Number(num + dcsum);
+    // }
+    // setDc(dcsum)
+  }, [datas])
+
+  console.log(datas)
   return (
     <>
       <Card
@@ -57,16 +89,16 @@ const OrderBuyDetails = () => {
           <Grid item xs={12} md={12} lg={12} xl={12}>
             <Box>
               <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-                รหัสใบสั่งซื้อ : 1
+                รหัสใบเสนอซื้อ : {datas?.id}
               </Typography>
               <Typography fontWeight="500" fontSize="16px" mb="10px">
-                วันที่ : 16/5/2566
+                วันที่ : {new Date(datas?.createdAt).toLocaleDateString("th-TH")}
               </Typography>
               <Typography fontWeight="500" fontSize="16px" mb="10px">
-                รหัสเจ้าหนี้ : บจ. อุบล-เขมราฐ
+               ชื่อเจ้าหนี้ : {datas?.creditor?.name}
               </Typography>
               <Typography fontWeight="500" fontSize="16px" mb="10px">
-                เบอร์โทรศัพท์: 0898955929
+                เบอร์โทรศัพท์: {datas?.creditor?.tel}
               </Typography>
 
               <Grid item xs={12} md={12} lg={12}>
@@ -82,7 +114,7 @@ const OrderBuyDetails = () => {
                 </Typography>
 
                 <TableContainer component={Paper}>
-                  <Table sx={{ minWidth: 650 }} aria-label="simple table" className="dark-table">
+                  <Table sx={{ minWidth: 650 }} aria-label="simple table" className="dark-table" id="item">
                     <TableHead>
                       <TableRow>
                         <TableCell>รหัสสินค้า</TableCell>
@@ -90,53 +122,50 @@ const OrderBuyDetails = () => {
                         <TableCell align="right">จำนวน</TableCell>
                         <TableCell align="right">หน่วย</TableCell>
                         <TableCell align="right">ราคา</TableCell>
-                        <TableCell align="right">ส่วนลด</TableCell>
-                        <TableCell align="right">ลดรวม</TableCell>
+                        {/* <TableCell align="right">ส่วนลด</TableCell>
+                        <TableCell align="right">ลดรวม</TableCell> */}
                         <TableCell align="right">จำนวนเงิน</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {rows.map((row) => (
+                      {datas?.prodbuyorders?.map((row) => (
                         <TableRow
                           key={row.id}
                           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                           <TableCell component="th" scope="row">
-                            {row.id}
+                            {row.product.id}
                           </TableCell>
-                          <TableCell align="right">{row.name}</TableCell>
-                          <TableCell align="right">{row.quantity}</TableCell>
-                          <TableCell align="right">{row.unit}</TableCell>
-                          <TableCell align="right">{row.price}</TableCell>
-                          <TableCell align="right">{row.discount}</TableCell>
-                          <TableCell align="right">{row.price * (row.discount / 100)}</TableCell>
-                          <TableCell align="right">{(row.quantity * row.price) - row.price * (row.discount / 100)}</TableCell>
+                          <TableCell align="right">{row.product.name}</TableCell>
+                          <TableCell align="right">{numberWithCommas(row.quantity)}</TableCell>
+                          <TableCell align="right">{row.product.subUnit}</TableCell>
+                          <TableCell align="right">{numberWithCommas(row.price)}</TableCell>
+                          {/* <TableCell align="right">{numberWithCommas(row.discount)}</TableCell>
+                          <TableCell align="right">{numberWithCommas((row.quantity * row.price) * (row.discount / 100))}</TableCell> */}
+                          <TableCell align="right">{numberWithCommas((row.quantity * row.price) - (row.quantity * row.price) * (row.discount / 100))}</TableCell>
                         </TableRow>
                       ))}
+                      {/* {datas[0]?.otherproducts.map((row) => (
+                        <TableRow
+                          key={row.id}
+                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                          <TableCell component="th" scope="row">
+                            {row?.id}
+                          </TableCell>
+                          <TableCell align="right">{row.name}</TableCell>
+                          <TableCell align="right">{numberWithCommas(row.quantity)}</TableCell>
+                          <TableCell align="right"></TableCell>
+                          <TableCell align="right">{numberWithCommas(row.price)}</TableCell>
+                          <TableCell align="right"></TableCell>
+                          <TableCell align="right"></TableCell>
+                          <TableCell align="right">{numberWithCommas(row.quantity * row.price)}</TableCell>
+                        </TableRow>
+                      ))} */}
                     </TableBody>
                   </Table>
                 </TableContainer>
               </Grid>
-
-              {/* <Grid item xs={12} md={12} lg={12}>
-
-
-                <Typography margin={"20px"} align="end" fontSize="15px" fontWeight="500" mb="15px">
-                  ลดรวม 0 บาท
-                </Typography>
-                <Typography margin={"20px"} align="end" fontSize="15px" fontWeight="500" mb="15px">
-                  ยอดรวมทั้งสิ้น 15000 บาท
-                </Typography>
-                <Typography margin={"20px"} align="end" fontSize="15px" fontWeight="500" mb="15px">
-                  ยอดรวมทั้งสิ้น 0 บาท
-                </Typography>
-                <Typography margin={"20px"} align="end" fontSize="15px" fontWeight="500" mb="15px">
-                  ยอดรวมทั้งสิ้น 15000 บาท
-                </Typography>
-                <Typography margin={"20px"} align="end" fontSize="15px" fontWeight="500" mb="15px">
-                  ยกเว้นภาษี 0.00 บาท
-                </Typography>
-              </Grid> */}
 
 
               <TableContainer
@@ -152,7 +181,7 @@ const OrderBuyDetails = () => {
                 >
                   <TableBody>
 
-                    <TableRow
+                    {/* <TableRow
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell
@@ -170,7 +199,7 @@ const OrderBuyDetails = () => {
                       </TableCell>
 
                       <TableCell
-                      
+
                         align="right"
                         sx={{
                           borderBottom: "1px solid #F7FAFF",
@@ -179,7 +208,7 @@ const OrderBuyDetails = () => {
                           fontWeight: '500'
                         }}
                       >
-                        0 บาท
+                        {numberWithCommas(Number(dc).toFixed(2))} บาท
                       </TableCell>
                     </TableRow>
 
@@ -208,7 +237,7 @@ const OrderBuyDetails = () => {
                           fontWeight: '500'
                         }}
                       >
-                        15,000 บาท
+                        {numberWithCommas(Number(total).toFixed(2))} บาท
                       </TableCell>
                     </TableRow>
 
@@ -237,9 +266,9 @@ const OrderBuyDetails = () => {
                           fontWeight: '500'
                         }}
                       >
-                        0 บาท
+                        {numberWithCommas(Number(total * ((datas[0]?.vat ?? 0) / 100)).toFixed(2))} บาท
                       </TableCell>
-                    </TableRow>
+                    </TableRow> */}
 
                     <TableRow
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -254,7 +283,7 @@ const OrderBuyDetails = () => {
                           fontWeight: '500'
                         }}
                       >
-                         ยอดรวมทั้งสิ้น  :
+                        ยอดรวมทั้งสิ้น  :
                       </TableCell>
 
                       <TableCell
@@ -263,17 +292,18 @@ const OrderBuyDetails = () => {
                           borderBottom: "1px solid #F7FAFF",
                           fontSize: "16px",
                           padding: "8px 10px",
-                          fontWeight: '500'
+                          fontWeight: '500',
+                          width: '150px'
                         }}
                       >
-                       15,000 บาท
+                        {numberWithCommas(Number(datas?.total).toFixed(2))} บาท
                       </TableCell>
                     </TableRow>
 
-                    <TableRow
+                    {/* <TableRow
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell 
+                      <TableCell
                         align="right"
                         colSpan={3}
                         sx={{
@@ -299,33 +329,31 @@ const OrderBuyDetails = () => {
                       >
                         0.00 บาท
                       </TableCell>
-                    </TableRow>
+                    </TableRow> */}
                   </TableBody>
                 </Table>
               </TableContainer>
-            
-              {/* <Typography  fontSize="15px" fontWeight="500" mb="15px">
-                ยืนราคา:  
-              </Typography> */}
+
+
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                ส่งมอบใน: 
+                ส่งมอบใน: {datas?.deliver}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                เงื่อนไขการชำระ: 
+                เงื่อนไขการชำระ: {datas?.paycodition}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                เครดิต: 
+                เครดิต: {datas?.credit}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                รับประกัน:
+                รับประกัน:  {datas?.guarantee}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                ชื่อผู้เสนอ:
+                ชื่อผู้เสนอ:   {datas?.nameproponent}
               </Typography>
 
-              
+
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                หมายเหตุ:
+                หมายเหตุ: {datas?.note}
               </Typography>
 
               <Button
@@ -341,14 +369,14 @@ const OrderBuyDetails = () => {
                 }}
                 className="mr-10px"
               >
-                พิมพ์ใบสั่งซื้อ
+                พิมพ์ใบเสนอขาย
               </Button>
-             
+
             </Box>
           </Grid>
         </Grid>
 
-      
+
 
 
       </Card>
