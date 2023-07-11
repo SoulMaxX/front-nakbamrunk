@@ -137,12 +137,12 @@ const OrderBuyDetails = (props) => {
                             {row.product.id}
                           </TableCell>
                           <TableCell align="right">{row.product.name}</TableCell>
-                          <TableCell align="right">{numberWithCommas(row.quantity)}</TableCell>
+                          <TableCell align="right">{numberWithCommas(row.amount)}</TableCell>
                           <TableCell align="right">{row.product.subUnit}</TableCell>
                           <TableCell align="right">{numberWithCommas(row.price)}</TableCell>
                           {/* <TableCell align="right">{numberWithCommas(row.discount)}</TableCell>
-                          <TableCell align="right">{numberWithCommas((row.quantity * row.price) * (row.discount / 100))}</TableCell> */}
-                          <TableCell align="right">{numberWithCommas((row.quantity * row.price) - (row.quantity * row.price) * (row.discount / 100))}</TableCell>
+                          <TableCell align="right">{numberWithCommas((row.amount * row.price) * (row.discount / 100))}</TableCell> */}
+                          <TableCell align="right">{numberWithCommas((row.amount * row.price) - (row.amount * row.price) * (row.discount / 100))}</TableCell>
                         </TableRow>
                       ))}
                       {/* {datas[0]?.otherproducts.map((row) => (

@@ -100,7 +100,7 @@ const CreateOrderBuy = () => {
 
 
   const handleAdd = (event) => {
-    setOtherProd([...otherProd, { name: "", quantity: "", price: "", total: 0 }]);
+    setOtherProd([...otherProd, { name: "", amount: "", price: "", total: 0 }]);
   };
   const handleRemove = (index) => {
     const list = [...otherProd]
@@ -112,7 +112,7 @@ const CreateOrderBuy = () => {
     const list = [...otherProd]
     list[index][name] = value
     setOtherProd(list);
-    list[index]["total"] = list[index].quantity * list[index].price
+    list[index]["total"] = list[index].amount * list[index].price
     setOtherProd(list);
 
 
@@ -166,7 +166,7 @@ const CreateOrderBuy = () => {
 
   const qtyItem = (event, id) => {
     const exist = cart.find((x) => x.id === id);
-    setCart(cart.map(x => x.id === id ? { ...exist, quantity: event.target.value } : x))
+    setCart(cart.map(x => x.id === id ? { ...exist, amount: Number(event.target.value) } : x))
   }
   const deleteItem = (product) => {
     const exist = cart.find((x) => x.id === product.id);
@@ -361,15 +361,15 @@ const CreateOrderBuy = () => {
                         </TableCell>
                         <TableCell align="right">{row?.name}</TableCell>
                         <TableCell align="right" sx={{ width: "150px" }}><TextField
-                          name={"quantity" + row?.id}
-                          id="quantity"
+                          name={"amount" + row?.id}
+                          id="amount"
                           type="number"
                           InputProps={{
                             style: { borderRadius: 8 },
                             inputProps: { min: 0 }
                           }}
                           // defaultValue={0}
-                          value={row?.quantity}
+                          value={row?.amount}
                         onChange={event => qtyItem(event, row?.id)}
                         /></TableCell>
                         <TableCell align="right">{row?.subUnit}</TableCell>
@@ -389,7 +389,7 @@ const CreateOrderBuy = () => {
                         /></TableCell>
 
                         {/* <TableCell align="right">{(((typeof window !== "undefined") ? document.getElementsByName("discount" + row?.id)[0]?.value / 100 : 0) * (row?.quantity * row?.price)).toFixed(2)}</TableCell> */}
-                        <TableCell align="right">{(((typeof window !== "undefined") ? (isNaN(document.getElementsByName("price" + row?.id)[0]?.value) ? 0 : document.getElementsByName("price" + row?.id)[0]?.value) : 0 )* row?.quantity ).toFixed(2)}</TableCell>
+                        <TableCell align="right">{(((typeof window !== "undefined") ? (isNaN(document.getElementsByName("price" + row?.id)[0]?.value) ? 0 : document.getElementsByName("price" + row?.id)[0]?.value) : 0 )* row?.amount ).toFixed(2)}</TableCell>
                         <TableCell align="center" >
                           {/* <Button onClick={() => increase(row)}>เพิ่ม</Button> */}
                           <Button onClick={() => deleteItem(row)}>ลบ</Button>
@@ -442,9 +442,9 @@ const CreateOrderBuy = () => {
                   <TextField
                     onChange={(event) => handleChange(event, index)}
                     autoComplete="product-name"
-                    name="quantity"
+                    name="amount"
                     fullWidth
-                    id="quantity"
+                    id="amount"
                     label="จำนวน"
                     type="number"
                     autoFocus

@@ -84,8 +84,8 @@ const EditOfferSell = () => {
         Authorization: `Bearer ${token}`
       }
     })
-      .then((result) => console.log(result))
-    // .then(() => router.back())
+      // .then((result) => console.log(result))
+    .then(() => router.back())
 
     console.log({
       addproduct: data.get("product"),
@@ -102,7 +102,7 @@ const EditOfferSell = () => {
 
 
   const handleAdd = (event) => {
-    setOtherProd([...otherProd, { name: "", quantity: "", price: "", total: 0 }]);
+    setOtherProd([...otherProd, { name: "", amount: "", price: "", total: 0 }]);
   };
   const handleRemove = (e,index) => {
     console.log(index)
@@ -115,7 +115,7 @@ const EditOfferSell = () => {
     const list = [...otherProd]
     list[index][name] = value
     setOtherProd(list);
-    list[index]["total"] = list[index].quantity * list[index].price
+    list[index]["total"] = list[index].amount * list[index].price
     setOtherProd(list);
   };
 
@@ -165,7 +165,7 @@ const EditOfferSell = () => {
 
   React.useEffect(() => {
     for (let index = 1; index < table.rows.length; index++) {
-      let price = isNaN(Number(table.rows[index].cells[8].innerText)) ? ((cart[index - 1].price * cart[index - 1].quantity) - ((cart[index - 1].price * cart[index - 1].quantity) * (cart[index - 1].discount / 100))) : Number(table.rows[index].cells[8].innerText)
+      let price = isNaN(Number(table.rows[index].cells[8].innerText)) ? ((cart[index - 1].price * cart[index - 1].amount) - ((cart[index - 1].price * cart[index - 1].amount) * (cart[index - 1].discount / 100))) : Number(table.rows[index].cells[8].innerText)
       sum = price + sum;
     }
     setTotal(sum)
@@ -175,7 +175,7 @@ const EditOfferSell = () => {
   React.useEffect(() => {
 
     for (let index = 0; index < otherProd?.length; index++) {
-      const sumProd = otherProd[index]?.quantity * otherProd[index]?.price
+      const sumProd = otherProd[index]?.amount * otherProd[index]?.price
       sumNewProd = sumProd + sumNewProd
       setTotalNewProd(sumNewProd)
     }
@@ -183,7 +183,7 @@ const EditOfferSell = () => {
 
   const qtyItem = (event, id) => {
     const exist = cart.find((x) => x.id === id);
-    setCart(cart.map(x => x.id === id ? { ...exist, quantity: event.target.value } : x))
+    setCart(cart.map(x => x.id === id ? { ...exist, amount: event.target.value } : x))
   }
   const deleteItem = (product) => {
     const exist = cart.find((x) => x.id === product.id);
@@ -380,15 +380,15 @@ const EditOfferSell = () => {
                         </TableCell>
                         <TableCell align="right">{row?.product?.name ?? row?.name}</TableCell>
                         <TableCell align="right"><TextField
-                          name={"quantity" + (row?.productId ?? row?.id)}
-                          id="quantity"
+                          name={"amount" + (row?.productId ?? row?.id)}
+                          id="amount"
                           type="number"
                           InputProps={{
                             style: { borderRadius: 8 },
                             inputProps: { min: 0, max: 100 }
                           }}
                           // defaultValue={0}
-                          value={row?.amount ?? row?.quantity}
+                          value={row?.amount ?? row?.amount}
                           onChange={event => qtyItem(event, row?.id)}
                         /></TableCell>
                         <TableCell align="right">{row?.product?.subUnit ?? row?.subUnit}</TableCell>
@@ -407,8 +407,8 @@ const EditOfferSell = () => {
                           onChange={event => handleDiscount(event, row?.id)}
                         /></TableCell>
 
-                        <TableCell align="right">{(((typeof window !== "undefined") ? document.getElementsByName("discount" + row?.id)[0]?.value / 100 : 0) * ((row?.amount ?? row?.quantity) * (row?.price ?? row?.sell1))).toFixed(2)}</TableCell>
-                        <TableCell align="right">{(((row?.amount ?? row?.quantity) * (row?.price ?? row?.sell1)) - ((row?.price ?? row?.sell1) * (row?.amount ?? row?.quantity)) * ((typeof window !== "undefined") ? document.getElementsByName("discount" + row?.id)[0]?.value / 100 : 0)).toFixed(2)}</TableCell>
+                        <TableCell align="right">{(((typeof window !== "undefined") ? document.getElementsByName("discount" + row?.id)[0]?.value / 100 : 0) * ((row?.amount ?? row?.amount) * (row?.price ?? row?.sell1))).toFixed(2)}</TableCell>
+                        <TableCell align="right">{(((row?.amount ?? row?.amount) * (row?.price ?? row?.sell1)) - ((row?.price ?? row?.sell1) * (row?.amount ?? row?.amount)) * ((typeof window !== "undefined") ? document.getElementsByName("discount" + row?.id)[0]?.value / 100 : 0)).toFixed(2)}</TableCell>
                         <TableCell align="center" >
                           {/* <Button onClick={() => increase(row)}>เพิ่ม</Button> */}
                           <Button onClick={() => deleteItem(row)}>ลบ</Button>
@@ -458,12 +458,12 @@ const EditOfferSell = () => {
                     จำนวน
                   </Typography>
                   <TextField
-                    value={prod?.quantity ?? ""}
+                    value={prod?.amount ?? ""}
                     onChange={(event) => handleChange(event, index)}
                     autoComplete="product-name"
-                    name="quantity"
+                    name="amount"
                     fullWidth
-                    id="quantity"
+                    id="amount"
                     type="number"
                     autoFocus
                     InputProps={{
@@ -508,7 +508,7 @@ const EditOfferSell = () => {
                     }}
 
                   >
-                    จำนวนเงิน {prod?.total ?? prod?.price * prod?.quantity} บาท
+                    จำนวนเงิน {prod?.total ?? prod?.price * prod?.amount} บาท
                   </Typography>
                 </Grid>
                 <Grid item xs={12} md={12} lg={2} >

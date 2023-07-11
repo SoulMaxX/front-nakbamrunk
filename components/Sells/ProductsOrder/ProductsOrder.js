@@ -51,6 +51,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import { useRouter } from "next/router";
+import { Numbers } from "@mui/icons-material";
 
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
@@ -400,10 +401,10 @@ export default function ProductsOrder(props) {
     const exist = cart.find((x) => x.productId === item.id || x.id === item.id);
 
     if (exist) {
-      setCart(cart.map(x => x.productId === item.id || x.id === item.id ? { ...exist, quantity: exist.quantity + 1, price: exist.sell1 ?? exist.product.sell1 } : x))
+      setCart(cart.map(x => x.productId === item.id || x.id === item.id ? { ...exist, amount: Number(exist.amount + 1), price: exist.price ?? exist.sell1 ?? exist.product.sell1 } : x))
     } else {
 
-      setCart([...cart, { ...item, quantity: 1, discount: 0, price: item.sell1 }])
+      setCart([...cart, { ...item, amount: 1, discount: 0, price: item.sell1 }])
     }
 
   }

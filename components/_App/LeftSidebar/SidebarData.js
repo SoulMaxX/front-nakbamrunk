@@ -174,7 +174,7 @@ export const SidebarData = [
   // },
   {
     title: "การซื้อ",
-    path: "",
+    path: "/buy/offer-buy/",
     icon: <ShoppingCartIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -231,7 +231,7 @@ export const SidebarData = [
   },
   {
     title: "การขาย",
-    path: "",
+    path: "/sell/offer-sell/",
     icon: <ShoppingCartIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -303,7 +303,7 @@ export const SidebarData = [
   },
   {
     title: "จัดการสินค้า",
-    path: "",
+    path: "/products/",
     icon: <StorefrontIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -361,7 +361,7 @@ export const SidebarData = [
   },
   {
     title: "จัดการคลังสินค้า",
-    path: "",
+    path: "/warehouse/",
     icon: <StorefrontIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -400,7 +400,7 @@ export const SidebarData = [
   },
   {
     title: "ลูกค้า",
-    path: "",
+    path: "/customers/",
     icon: <PersonIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -456,7 +456,7 @@ export const SidebarData = [
   },
   {
     title: "เจ้าหนี้",
-    path: "",
+    path: "/creditor/",
     icon: <PersonIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -499,7 +499,7 @@ export const SidebarData = [
   },
   {
     title: "การเงิน",
-    path: "",
+    path: "/finance/bookbank/",
     icon: <AccountBalanceIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -523,7 +523,7 @@ export const SidebarData = [
   },
   {
     title: "ธุรการ",
-    path: "",
+    path: "/employee/employees/",
     icon: <PersonIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,
@@ -539,7 +539,7 @@ export const SidebarData = [
   },
   {
     title: "จัดการระบบ",
-    path: "",
+    path: "/admin/users/",
     icon: <SettingsIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
     iconOpened: <KeyboardArrowDownIcon />,

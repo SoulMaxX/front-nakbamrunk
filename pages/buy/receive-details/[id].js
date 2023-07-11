@@ -181,7 +181,7 @@ export default function Products() {
         headers: {
           Authorization: `Bearer ${token}`
         }
-      }).then(result => setDatas(result.data.prodbuyorders))
+      }).then(result => {result.data.prodbuyorders != undefined ?setDatas(result.data.prodbuyorders):""})
 
     }
   }, [id])
@@ -189,7 +189,7 @@ export default function Products() {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datas.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -324,7 +324,7 @@ export default function Products() {
             <TableBody>
               {(rowsPerPage > 0
 
-                ? datas.sort((a, b) => (a.productId < b.productId ? -1 : 1)).slice(
+                ? datas.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
@@ -390,7 +390,7 @@ export default function Products() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.quantity +" " +row.product.subUnit}
+                    {row.amountnow +" " +row.product.subUnit}
                   </TableCell>
 
                   {/* <TableCell
@@ -499,7 +499,7 @@ export default function Products() {
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                   colSpan={8}
-                  count={rows.length}
+                  count={datas.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   SelectProps={{

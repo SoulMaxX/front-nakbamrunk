@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box } from "@mui/material";
+import { Autocomplete, Box } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -13,26 +13,92 @@ import Link from 'next/link';
 import styles from '@/styles/PageTitle.module.css'
 
 import dynamic from 'next/dynamic'
+import axios from "axios";
+import { useRouter } from "next/router";
 const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
 const WarehouseIn = () => {
+
+  const router = useRouter()
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    data.append('locationprodId', locationSelect)
+    data.append('productId', idprod)
+    axios.post(`${process.env.NEXT_PUBLIC_API}/warehouse/create_productin`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    // .then((result) => console.log(result))
+    .then(() => router.back())
+    .catch(e => {
+      if (e.response.status == 400) { alert(e.response.data.error) }
+    })
+    // console.log({
+    //   warehouseId: data.get("warehouseId"),
+    //   locationprodId: data.get("locationprodId"),
+    //   productId: data.get("productId"),
+    //   amount: data.get("amount"),
+    //   note: data.get("note"),
+    // });
   };
 
   // Select dropdown
-  const [categorySelect, setCategorySelect] = React.useState('');
-  const handleChange = (event) => {
-    setCategorySelect(event.target.value);
-  };
+  const [warehouse, setWarehouse] = React.useState([]);
+  const [location, setLocation] = React.useState([]);
+  const [product, setProduct] = React.useState([]);
+  const [idprod, setIdProd] = React.useState('');
+  const [warehouseSelect, setWarehouseSelect] = React.useState('');
+  const [locationSelect, setLocationSelect] = React.useState('');
 
+  const handleWarehouse = (event) => {
+    setWarehouseSelect(event.target.value);
+    // setWarehouseSelect({[event.target.name]:event.target.value});
+  };
+  const handleLocation = (event) => {
+    setLocationSelect(event.target.value);
+  };
+  const handleProduct = (event, value) => {
+    if(value != null){
+      const idprod = value.split(" ")
+      setIdProd(idprod[1]);
+    }
+  };
+  console.log(idprod);
+  React.useEffect(() => {
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/warehouse/get_allwarehouse`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => { setWarehouse(result.data) })
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/product/get_allproduct`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => { setProduct(result.data) })
+
+  }, [])
+  React.useEffect(() => {
+
+    axios.post(`${process.env.NEXT_PUBLIC_API}/warehouse/get_locationprod_warehouse`, { warehouseId: warehouseSelect }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(result => { setLocation(result.data) })
+
+  }, [warehouseSelect])
+
+  console.log(warehouseSelect);
+  console.log(location);
   return (
     <>
       {/* Page title */}
@@ -62,7 +128,7 @@ const WarehouseIn = () => {
 
           <Grid container alignItems="center" spacing={2}>
             <Grid item xs={12} md={12} lg={4}
-        
+
             >
               <Typography
                 as="h5"
@@ -79,22 +145,23 @@ const WarehouseIn = () => {
                 <FormControl fullWidth>
                   {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // value={age}
+                    // labelId="demo-simple-select-label"
+                    name="warehouseId"
+                    id="warehouseId"
+                    value={warehouseSelect}
                     // label="Age"
-                    onChange={handleChange}
+                    onChange={handleWarehouse}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {warehouse.map((e) =>
+                      <MenuItem key={e.id} value={e.id ?? ""}>{"รหัสคลัง: " + (e.id ?? "") + " " + "ชื่อคลัง: " + (e.namewarehouse ?? "")}</MenuItem>
+                    )}
                   </Select>
                 </FormControl>
               </Box>
             </Grid>
 
             <Grid item xs={12} md={12} lg={4}
-         
+
             >
               <Typography
                 as="h5"
@@ -111,15 +178,16 @@ const WarehouseIn = () => {
                 <FormControl fullWidth>
                   {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // value={age}
+                    // labelId="demo-simple-select-label"
+                    name="locationId"
+                    id="locationId"
+                    value={locationSelect}
                     // label="Age"
-                    onChange={handleChange}
+                    onChange={handleLocation}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {location.sort((a, b) => (a.id < b.id ? -1 : 1))?.map((e) =>
+                      <MenuItem key={e.id} value={e.id ?? ""}>{"รหัสตำแหน่ง: " + (e.idlocation ?? "") + " " + "ชื่อตำแหน่ง: " + (e.locationprod ?? "")}</MenuItem>
+                    )}
                   </Select>
                 </FormControl>
               </Box>
@@ -135,7 +203,13 @@ const WarehouseIn = () => {
               >
                 รหัสสินค้า
               </Typography>
-              <TextField
+              <Autocomplete
+                onChange={(evnet, value) => handleProduct(evnet, value)}
+                freeSolo
+                options={product.map((item) => "รหัสสินค้า " + item.id + " ชื่อสินค้า " + item.name)}
+                renderInput={(params) => <TextField name="prodId" id="prodId" InputProps={{ style: { borderRadius: 8 } }} {...params} />}
+              />
+              {/* <TextField
                 autoComplete="product-name"
                 name="productName"
                 required
@@ -146,7 +220,7 @@ const WarehouseIn = () => {
                 InputProps={{
                   style: { borderRadius: 8 },
                 }}
-              />
+              /> */}
             </Grid>
 
             <Grid item xs={12} md={12} lg={3}>
@@ -162,10 +236,10 @@ const WarehouseIn = () => {
               </Typography>
               <TextField
                 autoComplete="short-description"
-                name="จำนวนสินค้า"
+                name="amount"
                 required
                 fullWidth
-                id="Short Description"
+                id="amount"
                 label="จำนวนสินค้า"
                 autoFocus
                 InputProps={{
@@ -236,10 +310,10 @@ const WarehouseIn = () => {
               </Typography>
               <TextField
                 autoComplete="short-description"
-                name="หมายเหตุ"
+                name="note"
                 required
                 fullWidth
-                id="Short Description"
+                id="note"
                 label="หมายเหตุ"
                 autoFocus
                 InputProps={{

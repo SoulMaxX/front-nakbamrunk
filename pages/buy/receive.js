@@ -172,7 +172,7 @@ export default function Products() {
   // Avoid a layout jump when reaching the last page with empty rows.
   const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
   React.useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_API}/buy/get_allbuyorder`, {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/buy/get_allrecieve`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -310,7 +310,7 @@ export default function Products() {
 
             <TableBody>
               {(rowsPerPage > 0
-                ? datas.slice(
+                ? datas?.sort((a, b) => (a.createdAt < b.createdAt ? -1 : 1)).slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )

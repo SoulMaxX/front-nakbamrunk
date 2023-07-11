@@ -100,7 +100,7 @@ const CreateOfferSell = () => {
 
 
   const handleAdd = (event) => {
-    setOtherProd([...otherProd, { name: "", quantity: "", price: "", total: 0 }]);
+    setOtherProd([...otherProd, { name: "", amount: "", price: "", total: 0 }]);
   };
   const handleRemove = (index) => {
     const list = [...otherProd]
@@ -112,7 +112,7 @@ const CreateOfferSell = () => {
     const list = [...otherProd]
     list[index][name] = value
     setOtherProd(list);
-    list[index]["total"] = list[index].quantity * list[index].price
+    list[index]["total"] = list[index].amount * list[index].price
     setOtherProd(list);
 
 
@@ -173,7 +173,7 @@ const CreateOfferSell = () => {
 
   const qtyItem = (event, id) => {
     const exist = cart.find((x) => x.id === id);
-    setCart(cart.map(x => x.id === id ? { ...exist, quantity: event.target.value } : x))
+    setCart(cart.map(x => x.id === id ? { ...exist, amount: Number(event.target.value) } : x))
   }
   const deleteItem = (product) => {
     const exist = cart.find((x) => x.id === product.id);
@@ -368,15 +368,15 @@ const CreateOfferSell = () => {
                         </TableCell>
                         <TableCell align="right">{row?.name}</TableCell>
                         <TableCell align="right"><TextField
-                          name={"quantity" + row?.id}
-                          id="quantity"
+                          name={"amount" + row?.id}
+                          id="amount"
                           type="number"
                           InputProps={{
                             style: { borderRadius: 8 },
                             inputProps: { min: 0, max: 100 }
                           }}
                           // defaultValue={0}
-                          value={row?.quantity}
+                          value={row?.amount}
                         onChange={event => qtyItem(event, row?.id)}
                         /></TableCell>
                         <TableCell align="right">{row?.subUnit}</TableCell>
@@ -395,8 +395,8 @@ const CreateOfferSell = () => {
                           onChange={event => handleDiscount(event, row?.id)}
                         /></TableCell>
 
-                        <TableCell align="right">{(((typeof window !== "undefined") ? document.getElementsByName("discount" + row?.id)[0]?.value / 100 : 0) * (row?.quantity * row?.price)).toFixed(2)}</TableCell>
-                        <TableCell align="right">{((row?.quantity * row?.price) - (row?.price * row?.quantity) * ((typeof window !== "undefined") ? document.getElementsByName("discount" + row?.id)[0]?.value / 100 : 0)).toFixed(2)}</TableCell>
+                        <TableCell align="right">{(((typeof window !== "undefined") ? document.getElementsByName("discount" + row?.id)[0]?.value / 100 : 0) * (row?.amount * row?.price)).toFixed(2)}</TableCell>
+                        <TableCell align="right">{((row?.amount * row?.price) - (row?.price * row?.amount) * ((typeof window !== "undefined") ? document.getElementsByName("discount" + row?.id)[0]?.value / 100 : 0)).toFixed(2)}</TableCell>
                         <TableCell align="center" >
                           {/* <Button onClick={() => increase(row)}>เพิ่ม</Button> */}
                           <Button onClick={() => deleteItem(row)}>ลบ</Button>
@@ -449,9 +449,9 @@ const CreateOfferSell = () => {
                   <TextField
                     onChange={(event) => handleChange(event, index)}
                     autoComplete="product-name"
-                    name="quantity"
+                    name="amount"
                     fullWidth
-                    id="quantity"
+                    id="amount"
                     label="จำนวน"
                     type="number"
                     autoFocus
