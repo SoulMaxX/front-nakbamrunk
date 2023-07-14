@@ -144,9 +144,9 @@ BankCheckLists.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-function createData(id,idbill,name, bankcheck, date, amount, bank) {
+function createData(id, idbill, name, bankcheck, date, amount, bank) {
   return {
-    id,idbill,name, bankcheck, date, amount, bank
+    id, idbill, name, bankcheck, date, amount, bank
   };
 }
 
@@ -174,7 +174,7 @@ const rows = [
 export default function BookbanksLists(props) {
   const router = useRouter();
 
-  const {datas}= props
+  const { datas, role } = props
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -241,11 +241,11 @@ export default function BookbanksLists(props) {
               fontWeight: 500,
             }}
           >
-            
+
           </Typography>
 
           <Button
-            href="/finance/create-bankcheck-paid"
+            href={role.menuFinance?.create == 0 ? "" : "/finance/create-bankcheck-paid"}
             // onClick={handleClickOpen}
             variant="contained"
             sx={{
@@ -256,6 +256,7 @@ export default function BookbanksLists(props) {
               padding: "12px 20px",
               color: "#fff !important",
             }}
+            disabled={role.menuFinance?.create == 0}
           >
             <AddIcon
               sx={{ position: "relative", top: "-1px" }}
@@ -278,7 +279,7 @@ export default function BookbanksLists(props) {
           >
             <TableHead sx={{ background: "#F7FAFF" }}>
               <TableRow>
-              <TableCell
+                <TableCell
                   align="center"
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
@@ -333,143 +334,150 @@ export default function BookbanksLists(props) {
                 </TableCell>
               </TableRow>
             </TableHead>
-
-            <TableBody>
-              {(rowsPerPage > 0
-                ? datas.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
-                : datas
-              ).map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      fontSize: "13px",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                    }}
-                  >
-                    {row.idPayCheck}
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      fontSize: "13px",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                    }}
-                  >
-                    {row.idBill}
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      fontSize: "13px",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                    }}
-                  >
-                    {row.name}
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      fontSize: "13px",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                    }}
-                  >
-                    {row.checkNumber}
-                  </TableCell>
-
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {new Date(row.date).toLocaleDateString("th-th")}
-                  </TableCell>
-
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.amount}
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    style={{
-                      borderBottom: "1px solid #F7FAFF",
-                      paddingTop: "13px",
-                      paddingBottom: "13px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    {row.bank}
-                  </TableCell>
-
-                  <TableCell
-                    align="right"
-                    sx={{ borderBottom: "1px solid #F7FAFF" }}
-                  >
-                    <Box
-                      sx={{
-                        display: "inline-block",
+            {role.menuFinance?.view == 0 ? "" :
+              <TableBody>
+                {(rowsPerPage > 0
+                  ? datas.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                  : datas
+                ).map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "13px",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
                       }}
                     >
+                      {row.idPayCheck}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "13px",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
+                      }}
+                    >
+                      {row.idBill}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "13px",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
+                      }}
+                    >
+                      {row.name}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        fontSize: "13px",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
+                      }}
+                    >
+                      {row.checkNumber}
+                    </TableCell>
 
-                      <Tooltip title="Rename" placement="top">
-                        <IconButton
-                          href={"/finance/edit-bankcheck-paid/"+row.id}
-                          aria-label="rename"
-                          size="small"
-                          color="primary"
-                          className="primary"
-                        >
-                          <DriveFileRenameOutlineIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Remove" placement="top">
-                        <IconButton
-                          onClick={() => { setOpen(true), setId(row.id) }}
-                          aria-label="remove"
-                          size="small"
-                          color="danger"
-                          className="danger"
-                        >
-                          <DeleteIcon fontSize="inherit" />
-                        </IconButton>
-                      </Tooltip>
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              ))}
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
+                        fontSize: "13px",
+                      }}
+                    >
+                      {new Date(row.date).toLocaleDateString("th-th")}
+                    </TableCell>
 
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell
-                    colSpan={7}
-                    style={{ borderBottom: "1px solid #F7FAFF" }}
-                  />
-                </TableRow>
-              )}
-            </TableBody>
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
+                        fontSize: "13px",
+                      }}
+                    >
+                      {row.amount}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      style={{
+                        borderBottom: "1px solid #F7FAFF",
+                        paddingTop: "13px",
+                        paddingBottom: "13px",
+                        fontSize: "13px",
+                      }}
+                    >
+                      {row.bank}
+                    </TableCell>
 
+                    <TableCell
+                      align="right"
+                      sx={{ borderBottom: "1px solid #F7FAFF" }}
+                    >
+                      <Box
+                        sx={{
+                          display: "inline-block",
+                        }}
+                      >
+
+                        <Tooltip title="Rename" placement="top">
+                          <span>
+                            <IconButton
+                              href={role.menuFinance?.edit == 0 ? "" : "/finance/edit-bankcheck-paid/" + row.id}
+                              aria-label="rename"
+                              size="small"
+                              color="primary"
+                              className="primary"
+                              disabled={role.menuFinance?.edit == 0}
+                            >
+                              <DriveFileRenameOutlineIcon fontSize="inherit" />
+                            </IconButton>
+                          </span>
+                        </Tooltip>
+                        <Tooltip title="Remove" placement="top">
+                          <span>
+                            <IconButton
+                              onClick={() => { setOpen(true), setId(row.id) }}
+                              aria-label="remove"
+                              size="small"
+                              color="danger"
+                              className="danger"
+                              disabled={role.menuFinance?.delete == 0}
+
+                            >
+                              <DeleteIcon fontSize="inherit" />
+                            </IconButton>
+                          </span>
+                        </Tooltip>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                ))}
+
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 53 * emptyRows }}>
+                    <TableCell
+                      colSpan={7}
+                      style={{ borderBottom: "1px solid #F7FAFF" }}
+                    />
+                  </TableRow>
+                )}
+              </TableBody>
+            }
             <TableFooter>
               <TableRow>
                 <TablePagination

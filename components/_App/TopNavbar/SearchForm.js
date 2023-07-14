@@ -56,12 +56,17 @@ export default function SearchForm(props) {
 
   const [search, setSearch] = React.useState("")
   // const [result, setDatas] = React.useState(rows)
+  // console.log(rows);
   if(rows){
     
     const fil = rows.filter(val => {
-      if (String(val.id).includes(search)|| String(val.brand).includes(search) || String(val.company).includes(search) 
+      if (String(val.id).includes(search)|| String(val.brand).includes(search)|| String(val.model).includes(search) || String(val.company).includes(search) 
       || String(val.name).includes(search)|| String(val.initialsprod).includes(search) || String(val.realnum).includes(search)|| String(val.facnum).includes(search)
-      || String(val.namewarehouse).includes(search)|| String(val.type).includes(search)) {
+      || String(val.namewarehouse).includes(search)|| String(val.type).includes(search)
+      || String(val.product?.name).includes(search)||String(val.product?.id).includes(search)
+      ||String(val.product?.brand).includes(search)||String(val.product?.facnum).includes(search)
+      ||String(val.warehouse?.namewarehouse).includes(search)||String(val.locationprod?.locationprod).includes(search)
+      ) {
         
         const newobj = { id: val.id }
         return newobj;

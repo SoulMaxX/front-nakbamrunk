@@ -420,7 +420,7 @@ export default function AdminsLists(props) {
                       fontSize: "13px",
                     }}
                   >
-                    {row.role.name ?? ""}
+                    {row?.role?.name != null ? row.role.name : ""}
                   </TableCell>
 
 

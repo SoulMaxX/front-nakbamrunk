@@ -162,6 +162,7 @@ const rows = [
 
 export default function Locations() {
   const [datas, setDatas] = React.useState([]);
+  const [result, setResult] = React.useState([]);
   const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
 
   // Table
@@ -204,15 +205,15 @@ export default function Locations() {
 
   React.useEffect(() => {
 
-    axios.get(`${process.env.NEXT_PUBLIC_API}/warehouse/get_alllocationprod`, {
+    axios.get(`${process.env.NEXT_PUBLIC_API}/warehouse/get_alllocationamount`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
-    }).then(result => setDatas(result.data))
+    }).then(result => {setDatas(result.data) ,setResult(result.data)})
 
   }, [])
 
-  console.log(datas)
+  console.log(result)
   return (
     <>
       {/* Page title */}
@@ -273,7 +274,7 @@ export default function Locations() {
             พิมพ์แฟ้มสินค้า
           </Button> */}
 
-          <SearchForm />
+          <SearchForm rows={datas} setResult={setResult}/>
           <Box>
 
             <Button
@@ -310,7 +311,7 @@ export default function Locations() {
                 sx={{ position: "relative", top: "-1px" }}
                 className='mr-5px'
               />{" "}
-              เพิ่มตำแหน่งสินค้า
+              เพิ่มตำแหน่ง
             </Button>
           </Box>
 
@@ -350,7 +351,7 @@ export default function Locations() {
                     width: "170px"
                   }}
                 >
-                  รหัสตำแหน่งสินค้า
+                  รหัสตำแหน่ง
                 </TableCell>
                 <TableCell
                   align="center"
@@ -360,7 +361,7 @@ export default function Locations() {
 
                   }}
                 >
-                  ตำแหน่งสินค้า
+                  ชื่อตำแหน่ง
                 </TableCell>
                 <TableCell
                   align="center"
@@ -405,11 +406,11 @@ export default function Locations() {
 
             <TableBody>
               {(rowsPerPage > 0
-                ? datas.slice(
+                ? result.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-                : datas
+                : result
               ).map((row) => (
                 <TableRow key={row.id} className={styles.Location} >
                   <TableCell
@@ -433,7 +434,7 @@ export default function Locations() {
                       fontSize: "13px",
                     }}
                   >
-                    {row.idlocation}
+                    {row.locationprod.idlocation}
                   </TableCell>
 
                   <TableCell
@@ -446,7 +447,7 @@ export default function Locations() {
 
                     }}
                   >
-                    {row.locationprod}
+                    {row.locationprod.locationprod}
                   </TableCell>
                   <TableCell
                     align="center"
@@ -458,7 +459,7 @@ export default function Locations() {
 
                     }}
                   >
-                    {row.item}
+                    {row.product.name}
                   </TableCell>
                   <TableCell
                     align="center"
@@ -470,7 +471,7 @@ export default function Locations() {
 
                     }}
                   >
-                    {row.quantity}
+                    {row.amount}
                   </TableCell>
 
                   <TableCell

@@ -1024,7 +1024,7 @@ export default function Products() {
                         mb: "12px",
                       }}
                     >
-                      ลบสินค้ารหัส : 123
+                      ลบสินค้า
                     </Typography>
 
                   </Grid>

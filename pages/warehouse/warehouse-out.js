@@ -17,6 +17,8 @@ import ClearIcon from "@mui/icons-material/Clear";
 
 import dynamic from 'next/dynamic'
 import ProductsOrder from "@/components/Sells/ProductsOrder/ProductsOrder";
+import axios from "axios";
+import ProductsInWarehouse from "@/components/Warehouse/ProductsInWarehouse";
 
 const style = {
   position: "absolute",
@@ -36,13 +38,13 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
   ssr: false,
 })
 
-function createData(num, id, name,brand, quantity, unit, warehouse, location) {
-  return { num, id, name,brand, quantity, unit, warehouse, location };
+function createData(num, id, name, brand, quantity, unit, warehouse, location) {
+  return { num, id, name, brand, quantity, unit, warehouse, location };
 }
 
 const rows = [
-  createData(1, 4622, 'จานคลัช',"DT", 1, "แผ่น", 5, "B30-32"),
-  createData(2, "HTP-LR036L", 'ไฟท้าย scania ซ้าย',"DT", 1, "อัน", "50", ""),
+  createData(1, 4622, 'จานคลัช', "DT", 1, "แผ่น", 5, "B30-32"),
+  createData(2, "HTP-LR036L", 'ไฟท้าย scania ซ้าย', "DT", 1, "อัน", "50", ""),
 
 ];
 
@@ -65,27 +67,34 @@ const CreateOrderSell = () => {
 
   // Select dropdown
   const [otherProd, setOtherProd] = React.useState('');
+  const [warehouse, setWarehouse] = React.useState([]);
+  const [warehouseSelect, setWarehouseSelect] = React.useState('');
+
+  const [total, setTotal] = React.useState(0);
+  const [cart, setCart] = React.useState([]);
+  const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
 
   const handleChange = (event) => {
     setOtherProd({ ...otherProd, [event.target.name]: event.target.value });
   };
 
-  const [discount, setDiscount] = React.useState('');
-  const [total, setTotal] = React.useState(0);
-  const [tax, setTax] = React.useState(0);
-  const [vat, setVat] = React.useState(0);
+  React.useEffect(() => {
 
-  const handleChangeVat = (event) => {
-    if (event.target.checked == true) {
-      setVat(event.target.value)
-    } else {
-      setVat(0)
-    }
-  }
-  console.log(vat)
+    axios.get(`${process.env.NEXT_PUBLIC_API}/warehouse/get_allwarehouse`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => { setWarehouse(result.data) })
+
+  }, [])
+
+  const handleWarehouse = (event) => {
+    setWarehouseSelect(event.target.value);
+    // setWarehouseSelect({[event.target.name]:event.target.value});
+  };
 
 
-
+console.log(cart);
   return (
     <>
       {/* Page title */}
@@ -132,15 +141,16 @@ const CreateOrderSell = () => {
                 <FormControl fullWidth>
                   {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // value={age}
+                    // labelId="demo-simple-select-label"
+                    name="warehouseId"
+                    id="warehouseId"
+                    value={warehouseSelect}
                     // label="Age"
-                    onChange={handleChange}
+                    onChange={handleWarehouse}
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {warehouse.map((e) =>
+                      <MenuItem key={e.id} value={e.id ?? ""}>{"รหัสคลัง: " + (e.idwarehouse ?? "") + " " + "ชื่อคลัง: " + (e.namewarehouse ?? "")}</MenuItem>
+                    )}
                   </Select>
                 </FormControl>
               </Box>
@@ -202,7 +212,7 @@ const CreateOrderSell = () => {
                       <TableCell align="right">หน่วย</TableCell>
                       <TableCell align="right">จำนวนสินค้าคงเหลือ</TableCell>
                       <TableCell align="right">ตำแหน่ง</TableCell>
-                      <TableCell align="right">หมายเหตุ</TableCell>                 
+                      <TableCell align="right">หมายเหตุ</TableCell>
                       <TableCell align="center">Actions</TableCell>
                     </TableRow>
                   </TableHead>
@@ -214,7 +224,7 @@ const CreateOrderSell = () => {
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                       >
                         <TableCell align="left">{row.num}</TableCell>
-                        <TableCell align="left">{row.id}<br/>{row.name} </TableCell>
+                        <TableCell align="left">{row.id}<br />{row.name} </TableCell>
                         <TableCell align="left">{row.brand}</TableCell>
                         <TableCell align="right" sx={{ width: "100px" }}> <TextField
                           name={"discount" + row.id}
@@ -230,7 +240,7 @@ const CreateOrderSell = () => {
                         <TableCell align="right" style={{ ...row.warehouse <= 10 ? { color: "red" } : "" }} >{row.warehouse}</TableCell>
                         <TableCell align="right"  >{row.location}</TableCell>
                         <TableCell align="right" sx={{ width: "300px" }}> <TextField
-                          name="note" 
+                          name="note"
                           id="note"
                           type="text"
                           InputProps={{
@@ -395,7 +405,8 @@ const CreateOrderSell = () => {
               </IconButton>
 
             </Box>
-            <ProductsOrder></ProductsOrder>
+            <ProductsInWarehouse warehouseSelect={warehouseSelect} cart={cart} setCart={setCart} handlerClose={handlerClose}></ProductsInWarehouse>
+            {/* <ProductsOrder cart={cart} setCart={setCart} handlerClose={handlerClose}></ProductsOrder> */}
           </Box>
         </Fade>
       </Modal>

@@ -7,6 +7,7 @@ import axios from 'axios';
 const BankCheck = () => {
   
   const [datas, setDatas] = React.useState([]);
+  const [role, setRole] = React.useState([]);
   
   const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
   React.useEffect(() => {
@@ -16,6 +17,12 @@ const BankCheck = () => {
         Authorization: `Bearer ${token}`
       }
     }).then(result => setDatas(result.data))
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/role/get_role`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setRole(result.data))
 
   },[])
   return (
@@ -31,7 +38,7 @@ const BankCheck = () => {
         </ul>
       </div>
       
-      <BankcheckLists datas={datas}/>
+      <BankcheckLists datas={datas} role={role}/>
     </>
   )
 }

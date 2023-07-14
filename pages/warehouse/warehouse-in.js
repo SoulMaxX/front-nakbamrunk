@@ -53,6 +53,7 @@ const WarehouseIn = () => {
   const [warehouse, setWarehouse] = React.useState([]);
   const [location, setLocation] = React.useState([]);
   const [product, setProduct] = React.useState([]);
+  const [recieve, setRecieve] = React.useState([]);
   const [idprod, setIdProd] = React.useState('');
   const [warehouseSelect, setWarehouseSelect] = React.useState('');
   const [locationSelect, setLocationSelect] = React.useState('');
@@ -85,6 +86,12 @@ const WarehouseIn = () => {
       }
     }).then(result => { setProduct(result.data) })
 
+    axios.get(`${process.env.NEXT_PUBLIC_API}/buy/get_allprod`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => { setRecieve(result.data) })
+
   }, [])
   React.useEffect(() => {
 
@@ -98,7 +105,7 @@ const WarehouseIn = () => {
   }, [warehouseSelect])
 
   console.log(warehouseSelect);
-  console.log(location);
+  console.log(recieve);
   return (
     <>
       {/* Page title */}
@@ -153,7 +160,7 @@ const WarehouseIn = () => {
                     onChange={handleWarehouse}
                   >
                     {warehouse.map((e) =>
-                      <MenuItem key={e.id} value={e.id ?? ""}>{"รหัสคลัง: " + (e.id ?? "") + " " + "ชื่อคลัง: " + (e.namewarehouse ?? "")}</MenuItem>
+                      <MenuItem key={e.id} value={e.id ?? ""}>{"รหัสคลัง: " + (e.ididwarehouse ?? "") + " " + "ชื่อคลัง: " + (e.namewarehouse ?? "")}</MenuItem>
                     )}
                   </Select>
                 </FormControl>
@@ -206,7 +213,7 @@ const WarehouseIn = () => {
               <Autocomplete
                 onChange={(evnet, value) => handleProduct(evnet, value)}
                 freeSolo
-                options={product.map((item) => "รหัสสินค้า " + item.id + " ชื่อสินค้า " + item.name)}
+                options={recieve.map((item) => "รหัสใบสั่งซื้อ " + item.buyorderId + " ชื่อสินค้า " + item.product.name+"/"+ item.product.brand+"/"+ item.product.model)}
                 renderInput={(params) => <TextField name="prodId" id="prodId" InputProps={{ style: { borderRadius: 8 } }} {...params} />}
               />
               {/* <TextField

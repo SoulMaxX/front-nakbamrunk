@@ -449,34 +449,38 @@ export default function EmployeesLists(props) {
                       >
 
                         <Tooltip title="Rename" placement="top">
-                          <IconButton
-                            href={role.menuEmployee?.edit == 0 ? "" : "/employee/edit-employee/" + row.id}
-                            aria-label="rename"
-                            size="small"
-                            color="primary"
-                            className="primary"
-                            // component="div"
-                            disabled={role.menuEmployee?.edit == 0}
-                          >
-                            <DriveFileRenameOutlineIcon fontSize="inherit" />
-                          </IconButton>
+                          <span>
+                            <IconButton
+                              href={role.menuEmployee?.edit == 0 ? "" : "/employee/edit-employee/" + row.id}
+                              aria-label="rename"
+                              size="small"
+                              color="primary"
+                              className="primary"
+                              // component="div"
+                              disabled={role.menuEmployee?.edit == 0}
+                            >
+                              <DriveFileRenameOutlineIcon fontSize="inherit" />
+                            </IconButton>
+                          </span>
                         </Tooltip>
 
 
 
                         <Tooltip title="Remove" placement="top">
-                          <IconButton
-                            onClick={() => { setOpen(true), setId(row.id) }}
-                            aria-label="remove"
-                            size="small"
-                            color="danger"
-                            className="danger"
-                            // component="div"
-                            disabled={role.menuEmployee?.delete == 0}
+                          <span>
+                            <IconButton
+                              onClick={() => { setOpen(true), setId(row.id) }}
+                              aria-label="remove"
+                              size="small"
+                              color="danger"
+                              className="danger"
+                              // component="div"
+                              disabled={role.menuEmployee?.delete == 0}
 
-                          >
-                            <DeleteIcon fontSize="inherit" />
-                          </IconButton>
+                            >
+                              <DeleteIcon fontSize="inherit" />
+                            </IconButton>
+                          </span>
                         </Tooltip>
 
                       </Box>

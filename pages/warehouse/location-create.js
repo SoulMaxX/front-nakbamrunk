@@ -141,7 +141,7 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                รหัสตำแหน่งสินค้า
+                รหัสตำแหน่ง
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -149,7 +149,7 @@ const CreateOfferSell = () => {
                 required
                 fullWidth
                 id="idlocation"
-                label="รหัสตำแหน่งสินค้า"
+                label="รหัสตำแหน่ง"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -165,7 +165,7 @@ const CreateOfferSell = () => {
                   mb: "12px",
                 }}
               >
-                ชื่อตำแหน่งสินค้า
+                ชื่อตำแหน่ง
               </Typography>
               <TextField
                 autoComplete="product-name"
@@ -173,7 +173,7 @@ const CreateOfferSell = () => {
                 required
                 fullWidth
                 id="locationprod"
-                label="ชื่อตำแหน่งสินค้า"
+                label="ชื่อตำแหน่ง"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },

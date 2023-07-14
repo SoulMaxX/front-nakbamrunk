@@ -133,13 +133,13 @@ const CreateCustomer = () => {
                 รหัสลูกค้า
               </Typography>
               <TextField
-                value={datas.idcustomer ?? ""}
+                value={datas.idcreditor ?? ""}
                 onChange={handleChange}
                 autoComplete="product-name"
-                name="idcustomer"
+                name="idcreditor"
                 required
                 fullWidth
-                id="idcustomer"
+                id="idcreditor"
                 autoFocus
                 InputProps={{
                   style: { borderRadius: 8 },
@@ -333,33 +333,7 @@ const CreateCustomer = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={12} lg={6}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                {/* ที่อยู่ */}
-              </Typography>
-              <InputLabel id="demo-simple-select-label">Sales</InputLabel>
-              <Select
-                // labelId="demo-simple-select-label"
-                sx={{ width: "200px" }}
-                id="sale"
-                name="sale"
-                onChange={handleChange}
-                value={datas.sale ?? ""}
-              >
-                {emp.map((e) =>
-                  // console.log(e)
-                  <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
-                )}
-              </Select>
-
-            </Grid>
+          
 
             <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -386,6 +360,30 @@ const CreateCustomer = () => {
                   style: { borderRadius: 8 },
                 }}
               />
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              {/* <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+              </Typography>
+              <InputLabel id="demo-simple-select-label">Sales</InputLabel>
+              <Select
+                sx={{ width: "200px" }}
+                id="sale"
+                name="sale"
+                onChange={handleChange}
+                value={datas.sale ?? ""}
+              >
+                {emp.map((e) =>
+                  <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
+                )}
+              </Select> */}
+
             </Grid>
             <Grid item xs={12} md={12} lg={2}>
               <Typography

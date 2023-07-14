@@ -25,6 +25,8 @@ const RichTextEditor = dynamic(() => import('@mantine/rte'), {
 
 const CreateBankCheck = () => {
   const [date, setDate] = React.useState(new Date());
+  const [role, setRole] = React.useState([]);
+
   const router = useRouter()
   const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
 
@@ -40,6 +42,19 @@ const CreateBankCheck = () => {
     })
       .then(() => router.back())
   };
+
+  React.useEffect(() => {
+
+    axios.get(`${process.env.NEXT_PUBLIC_API}/role/get_role`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(result => setRole(result.data))
+
+  }, [])
+  if (role.menuFinance?.create == 0) {
+    router.back()
+  }
 
   return (
     <>

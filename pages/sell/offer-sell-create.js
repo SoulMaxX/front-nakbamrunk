@@ -72,6 +72,7 @@ const CreateOfferSell = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    data.append("customerId", customerDetail[0].id)
     data.append("product", JSON.stringify(cart))
     data.append("addproduct", JSON.stringify(otherProd))
     data.append("total",(((vat / 100) + 1) * ( Number(total) + Number(totalNewProd))).toFixed(2))
@@ -84,11 +85,10 @@ const CreateOfferSell = () => {
     // .then((result) => console.log(result))
     .then(() => router.back())
 
-    console.log({
-      product: data.get("product"),
-      addproduct: data.get("addproduct"),
-      // password: data.get("password"),
-    });
+    // console.log({
+    //   namecustomer: data.get("namecustomer"),
+    //   customerId: data.get("customerId"),
+    // });
 
   };
 

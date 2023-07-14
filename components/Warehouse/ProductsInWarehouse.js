@@ -131,7 +131,7 @@ function Row(props) {
   return (
     <>
       <TableRow key={row.id} className={styles.Product}>
-        <TableCell width={"50px"} sx={{
+        {/* <TableCell width={"50px"} sx={{
           borderBottom: "1px solid #F7FAFF",
           padding: "8px 10px",
         }}>
@@ -142,17 +142,18 @@ function Row(props) {
           >
             {open2 ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
-        </TableCell>
+        </TableCell> */}
         <TableCell
+          align="center"
           sx={{
             borderBottom: "1px solid #F7FAFF",
             padding: "8px 10px",
             fontSize: "13px",
           }}
         >
-          {row.id}
+          {row.product.id}
         </TableCell>
-        <TableCell
+        {/* <TableCell
           sx={{
             borderBottom: "1px solid #F7FAFF",
             padding: "8px 10px",
@@ -160,7 +161,7 @@ function Row(props) {
           }}
         >
           {row.realnum}
-        </TableCell>
+        </TableCell> */}
         <TableCell
           sx={{
             borderBottom: "1px solid #F7FAFF",
@@ -168,7 +169,7 @@ function Row(props) {
             fontSize: "13px",
           }}
         >
-          {row.facnum}
+          {row.product.facnum}
         </TableCell>
 
         <TableCell
@@ -182,10 +183,10 @@ function Row(props) {
 
           }}
         >
-          {row.name}
+          {row.product.name}
         </TableCell>
 
-        <TableCell
+        {/* <TableCell
           align="center"
           sx={{
             borderBottom: "1px solid #F7FAFF",
@@ -195,6 +196,17 @@ function Row(props) {
           }}
         >
           {row.model}
+        </TableCell> */}
+
+        <TableCell
+          align="center"
+          sx={{
+            borderBottom: "1px solid #F7FAFF",
+            padding: "8px 10px",
+            fontSize: "13px",
+          }}
+        >
+          {row.product.brand}
         </TableCell>
 
         <TableCell
@@ -205,18 +217,7 @@ function Row(props) {
             fontSize: "13px",
           }}
         >
-          {row.brand}
-        </TableCell>
-
-        <TableCell
-          align="center"
-          sx={{
-            borderBottom: "1px solid #F7FAFF",
-            padding: "8px 10px",
-            fontSize: "13px",
-          }}
-        >
-          {open3 ? row.cost : ""}
+          {row.amount}
         </TableCell>
         <TableCell
           align="center"
@@ -226,7 +227,7 @@ function Row(props) {
             fontSize: "13px",
           }}
         >
-          {row.sell1}
+          {row.locationprod.locationprod}
         </TableCell>
 
         <TableCell
@@ -262,7 +263,7 @@ function Row(props) {
           </Box>
         </TableCell>
       </TableRow>
-      <TableRow>
+      {/* <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6} sx={{
           borderBottom: "1px solid #F7FAFF",
           padding: "8px 10px",
@@ -273,17 +274,17 @@ function Row(props) {
                 ข้อมูลสินค้า
               </Typography>
 
-              {/* {rows.map((data) => (
+              {rows.map((data) => (
                 <Typography key={row.id} variant="h6" gutterBottom component="div" >
                   {row.productName}
                 </Typography>
-              ))} */}
+              ))}
               <ProductDetailsContent id={row.id} />
 
             </Box>
           </Collapse>
         </TableCell>
-      </TableRow>
+      </TableRow> */}
 
 
     </>
@@ -385,8 +386,8 @@ function createData(
 
 // .sort((a, b) => (a.category < b.category ? -1 : 1));
 
-export default function ProductsOrder(props) {
-  const { cart, setCart, handlerClose, customerDetail } = props
+export default function ProductsInWarehouse(props) {
+  const { cart, setCart, handlerClose, customerDetail ,warehouseSelect } = props
   // Table
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -401,7 +402,7 @@ export default function ProductsOrder(props) {
     const exist = cart.find((x) => x.productId === item.id || x.id === item.id);
 
     if (exist) {
-      setCart(cart.map(x => x.productId === item.id || x.id === item.id ? { ...exist, amount: Number(exist.amount) + Number(1), price: exist.price ?? exist.sell1 ?? exist.product.sell1 } : x))
+      setCart(cart.map(x => x.productId === item.id || x.id === item.id ? { ...exist, amount: Number(exist.amount + 1), price: exist.price ?? exist.sell1 ?? exist.product.sell1 } : x))
     } else {
 
       setCart([...cart, { ...item, amount: 1, discount: 0, price: item.sell1 }])
@@ -421,18 +422,19 @@ export default function ProductsOrder(props) {
     setPage(0);
   };
 
-
+console.log(warehouseSelect);
   const token = typeof window !== "undefined" ? window.localStorage.getItem("token") : ""
   React.useEffect(() => {
 
-    axios.get(`${process.env.NEXT_PUBLIC_API}/product/get_allproduct`, {
+    axios.post(`${process.env.NEXT_PUBLIC_API}/warehouse/get_alllocationamountinwarehouse`, {"warehouseId": warehouseSelect}, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     }).then(result => { setDatas(result.data), setResult(result.data) })
 
   }, [])
-  // console.log({ result, datas })
+  
+  console.log({ result, datas })
   // Create Product Modal & Form
   const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
@@ -488,7 +490,7 @@ export default function ProductsOrder(props) {
 
           <SearchForm rows={datas} setResult={setResult} />
 
-          <Button
+          {/* <Button
             onClick={handleOpenprice}
             variant="contained"
             sx={{
@@ -501,7 +503,7 @@ export default function ProductsOrder(props) {
             }}
           >
             ราคาทุน
-          </Button>
+          </Button> */}
 
         </Box>
 
@@ -518,14 +520,14 @@ export default function ProductsOrder(props) {
           >
             <TableHead sx={{ background: "#F7FAFF" }}>
               <TableRow>
-                <TableCell
+                {/* <TableCell
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
                   }}
                 >
 
-                </TableCell>
+                </TableCell> */}
                 <TableCell
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -534,14 +536,14 @@ export default function ProductsOrder(props) {
                 >
                   รหัสสินค้า
                 </TableCell>
-                <TableCell
+                {/* <TableCell
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
                     fontSize: "13.5px",
                   }}
                 >
                   เบอร์แท้
-                </TableCell>
+                </TableCell> */}
 
                 <TableCell
                   sx={{
@@ -562,7 +564,7 @@ export default function ProductsOrder(props) {
                   ชื่อสินค้า
                 </TableCell>
 
-                <TableCell
+                {/* <TableCell
                   align="center"
                   sx={{
                     borderBottom: "1px solid #F7FAFF",
@@ -570,7 +572,7 @@ export default function ProductsOrder(props) {
                   }}
                 >
                   รุ่น
-                </TableCell>
+                </TableCell> */}
 
                 <TableCell
                   align="center"
@@ -589,7 +591,7 @@ export default function ProductsOrder(props) {
                     fontSize: "13.5px",
                   }}
                 >
-                  ทุนสุทธิ
+                  จำนวน
                 </TableCell>
 
                 <TableCell
@@ -599,7 +601,7 @@ export default function ProductsOrder(props) {
                     fontSize: "13.5px",
                   }}
                 >
-                  ราคาขาย
+                  ตำแหน่ง
                 </TableCell>
 
                 <TableCell

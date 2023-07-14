@@ -28,7 +28,7 @@ function numberWithCommas(x) {
   return x?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-const OfferSellDetails = (props) => {
+const PoDetails = (props) => {
   const { datas } = props
   const [total, setTotal] = React.useState(0)
   const [dc, setDc] = React.useState(0)
@@ -89,16 +89,16 @@ const OfferSellDetails = (props) => {
           <Grid item xs={12} md={12} lg={12} xl={12}>
             <Box>
               <Typography as="h4" fontWeight="500" fontSize="18px" mb="10px">
-                รหัสใบเสนอราคาขาย : {datas[0]?.id}
+                รหัสใบPO : {datas?.id}
               </Typography>
               <Typography fontWeight="500" fontSize="16px" mb="10px">
-                วันที่ : {new Date(datas[0]?.createdAt).toLocaleDateString("th-TH")}
+                วันที่ : {new Date(datas?.createdAt).toLocaleDateString("th-TH")}
               </Typography>
               <Typography fontWeight="500" fontSize="16px" mb="10px">
-                รหัสลูกค้า : {datas[0]?.customer?.name}
+                รหัสลูกค้า : {datas?.customer?.name}
               </Typography>
               <Typography fontWeight="500" fontSize="16px" mb="10px">
-                เบอร์โทรศัพท์: {datas[0]?.customer?.tel}
+                เบอร์โทรศัพท์: {datas?.customer?.tel}
               </Typography>
 
               <Grid item xs={12} md={12} lg={12}>
@@ -128,7 +128,7 @@ const OfferSellDetails = (props) => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {datas[0]?.prodsellquotations.map((row) => (
+                      {datas?.prodsellpos?.map((row) => (
                         <TableRow
                           key={row.id}
                           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -145,7 +145,7 @@ const OfferSellDetails = (props) => {
                           <TableCell align="right">{numberWithCommas((row.amount * row.price) - (row.amount * row.price) * (row.discount / 100))}</TableCell>
                         </TableRow>
                       ))}
-                      {datas[0]?.otherproducts.map((row) => (
+                      {datas?.otherproducts?.map((row) => (
                         <TableRow
                           key={row.id}
                           sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -295,7 +295,7 @@ const OfferSellDetails = (props) => {
                           fontWeight: '500'
                         }}
                       >
-                        {numberWithCommas(Number(datas[0]?.total).toFixed(2))} บาท
+                        {numberWithCommas(Number(total).toFixed(2))} บาท
                       </TableCell>
                     </TableRow>
 
@@ -335,24 +335,24 @@ const OfferSellDetails = (props) => {
 
 
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                ส่งมอบใน: {datas[0]?.deliver}
+                ส่งมอบใน: {datas?.deliver}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                เงื่อนไขการชำระ: {datas[0]?.paycodition}
+                เงื่อนไขการชำระ: {datas?.paycodition}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                เครดิต: {datas[0]?.credit}
+                เครดิต: {datas?.credit}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                รับประกัน:  {datas[0]?.guarantee}
+                รับประกัน:  {datas?.guarantee}
               </Typography>
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                ชื่อผู้เสนอ:   {datas[0]?.nameproponent}
+                ชื่อผู้เสนอ:   {datas?.nameproponent}
               </Typography>
 
 
               <Typography fontSize="15px" fontWeight="500" mb="15px">
-                หมายเหตุ: {datas[0]?.note}
+                หมายเหตุ: {datas?.note}
               </Typography>
 
               <Button
@@ -383,4 +383,4 @@ const OfferSellDetails = (props) => {
   );
 };
 
-export default OfferSellDetails;
+export default PoDetails;

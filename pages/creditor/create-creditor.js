@@ -107,10 +107,10 @@ const CreateCustomer = () => {
               </Typography>
               <TextField
                 autoComplete="product-name"
-                name="idcustomer"
+                name="idcreditor"
                 required
                 fullWidth
-                id="idcustomer"
+                id="idcreditor"
                 label="รหัสเจ้าหนี้"
                 autoFocus
                 InputProps={{
@@ -293,35 +293,7 @@ const CreateCustomer = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={12} lg={6}>
-              <Typography
-                as="h5"
-                sx={{
-                  fontWeight: "500",
-                  fontSize: "14px",
-                  mb: "12px",
-                }}
-              >
-                {/* ที่อยู่ */}
-              </Typography>
-              <InputLabel id="demo-simple-select-label">Sales</InputLabel>
-              <Select
-                // labelId="demo-simple-select-label"
-                sx={{ width: "200px" }}
-                id="sale"
-                name="sale"
-                label="Sales"
-                onChange={handleChangeEmp}
-                // defaultValue={1}
-                value={empSelect}
-              >
-                {emp.map((e) =>
-                  // console.log(e)
-                  <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
-                )}
-              </Select>
-
-            </Grid>
+         
 
             <Grid item xs={12} md={12} lg={6}>
               <Typography
@@ -346,6 +318,31 @@ const CreateCustomer = () => {
                   style: { borderRadius: 8 },
                 }}
               />
+            </Grid>
+            <Grid item xs={12} md={12} lg={6}>
+              {/* <Typography
+                as="h5"
+                sx={{
+                  fontWeight: "500",
+                  fontSize: "14px",
+                  mb: "12px",
+                }}
+              >
+              </Typography>
+              <InputLabel id="demo-simple-select-label">Sales</InputLabel>
+              <Select
+                sx={{ width: "200px" }}
+                id="sale"
+                name="sale"
+                label="Sales"
+                onChange={handleChangeEmp}
+                value={empSelect}
+              >
+                {emp.map((e) =>
+                  <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
+                )}
+              </Select> */}
+
             </Grid>
             <Grid item xs={12} md={12} lg={2}>
               <Typography

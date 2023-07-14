@@ -211,7 +211,7 @@ export default function CreditorsListss(props) {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datas.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -278,7 +278,7 @@ export default function CreditorsListss(props) {
               fontWeight: 500,
             }}
           >
-            รายชื่อเจ้าหนี้
+            รายชื่อSupplier
           </Typography>
 
           <Button
@@ -298,7 +298,7 @@ export default function CreditorsListss(props) {
               sx={{ position: "relative", top: "-1px" }}
               className='mr-5px'
             />{" "}
-            เพิ่มข้อมูลเจ้าหนี้
+            เพิ่มข้อมูลSupplier
           </Button>
         </Box>
 
@@ -318,7 +318,7 @@ export default function CreditorsListss(props) {
                 <TableCell
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
                 >
-                  รหัสเจ้าหนี้
+                  รหัสSupplier
                 </TableCell>
                 <TableCell
                   sx={{ borderBottom: "1px solid #F7FAFF", fontSize: "13.5px" }}
@@ -386,7 +386,7 @@ export default function CreditorsListss(props) {
                       paddingBottom: "13px",
                     }}
                   >
-                    {row.id}
+                    {row.idcreditor}
                   </TableCell>
 
                   <TableCell

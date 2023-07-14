@@ -330,7 +330,7 @@ export default function BookbanksLists(props) {
                 </TableCell>
               </TableRow>
             </TableHead>
-            {role.menuFinance?.delete == 0 ? "" :
+            {role.menuFinance?.view == 0 ? "" :
               <TableBody>
                 {(rowsPerPage > 0
                   ? datas.slice(
@@ -410,30 +410,34 @@ export default function BookbanksLists(props) {
                       >
 
                         <Tooltip title="Rename" placement="top">
-                          <IconButton
-                            href={role.menuFinance?.edit == 0 ? "" : ("/finance/edit-bookbank/" + row.id)}
-                            aria-label="rename"
-                            size="small"
-                            color="primary"
-                            className="primary"
-                            disabled={role.menuFinance?.edit == 0}
+                          <span>
+                            <IconButton
+                              href={role.menuFinance?.edit == 0 ? "" : ("/finance/edit-bookbank/" + row.id)}
+                              aria-label="rename"
+                              size="small"
+                              color="primary"
+                              className="primary"
+                              disabled={role.menuFinance?.edit == 0}
 
-                          >
-                            <DriveFileRenameOutlineIcon fontSize="inherit" />
-                          </IconButton>
+                            >
+                              <DriveFileRenameOutlineIcon fontSize="inherit" />
+                            </IconButton>
+                          </span>
                         </Tooltip>
                         <Tooltip title="Remove" placement="top">
-                          <IconButton
-                            onClick={() => { setOpen(true), setId(row.id) }}
-                            aria-label="remove"
-                            size="small"
-                            color="danger"
-                            className="danger"
-                            disabled={role.menuFinance?.delete == 0}
+                          <span>
+                            <IconButton
+                              onClick={() => { setOpen(true), setId(row.id) }}
+                              aria-label="remove"
+                              size="small"
+                              color="danger"
+                              className="danger"
+                              disabled={role.menuFinance?.delete == 0}
 
-                          >
-                            <DeleteIcon fontSize="inherit" />
-                          </IconButton>
+                            >
+                              <DeleteIcon fontSize="inherit" />
+                            </IconButton>
+                          </span>
                         </Tooltip>
                       </Box>
                     </TableCell>

@@ -175,7 +175,7 @@ export default function OfferSells() {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - datas.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -213,12 +213,12 @@ export default function OfferSells() {
     <>
       {/* Page title */}
       <div className={styles.pageTitle}>
-        <h1>ใบเสนอราคาซื้อ</h1>
+        <h1>ใบขอราคา</h1>
         <ul>
           <li>
             <Link href="/">หน้าหลัก</Link>
           </li>
-          <li>ใบเสนอราคาซื้อ</li>
+          <li>ใบขอราคา</li>
         </ul>
       </div>
 
@@ -288,7 +288,7 @@ export default function OfferSells() {
               sx={{ position: "relative", top: "-1px" }}
               className='mr-5px'
             />{" "}
-            เพิ่มใบเสนอราคา
+            เพิ่มใบขอราคา
           </Button>
         </Box>
 
@@ -313,7 +313,7 @@ export default function OfferSells() {
                     width: "150px"
                   }}
                 >
-                  รหัสใบเสนอราคา
+                  รหัสใบขอราคา
                 </TableCell>
                 <TableCell
                   align="center"

@@ -32,14 +32,16 @@ const Profile = () => {
   React.useEffect(() => {
     const username = localStorage.getItem("username")
     setName(username)
-    
+
     const token = localStorage.getItem("token")
-    if(!token){
-    window.location.href = `${process.env.NEXT_PUBLIC_IP}/authentication/sign-in/`
+    const role = localStorage.getItem("role")
+    if (!token || role == "null") {
+      window.location.href = `${process.env.NEXT_PUBLIC_IP}/authentication/sign-in/`
+      localStorage.clear()
     }
   })
 
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     localStorage.clear()
     window.location.href = 'authentication/sign-in/'
   }

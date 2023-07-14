@@ -182,7 +182,7 @@ export const SidebarData = [
     subNav: [
       
       {
-        title: "ใบเสนอราคาซื้อ",
+        title: "ใบขอราคา",
         path: "/buy/offer-buy/",
       },
       {
@@ -455,7 +455,7 @@ export const SidebarData = [
     ],
   },
   {
-    title: "เจ้าหนี้",
+    title: "Supplier",
     path: "/creditor/",
     icon: <PersonIcon />,
     iconClosed: <KeyboardArrowRightIcon />,
@@ -464,15 +464,15 @@ export const SidebarData = [
     subNav: [
 
       {
-        title: "ข้อมูลเจ้าหนี้",
+        title: "ข้อมูลSupplier",
         path: "/creditor/",
       },
       {
-        title: "ใบวางบิลเจ้าหนี้",
+        title: "ใบวางบิลSupplier",
         path: "/creditor/bills/",
       },
       {
-        title: "ใบวางบิลเจ้าหนี้+ภาษี",
+        title: "ใบวางบิลSupplier+ภาษี",
         path: "/creditor/bills-tax/",
       },
       {
@@ -484,7 +484,7 @@ export const SidebarData = [
         path: "/creditor/report-payment",
       },
       {
-        title: "รายงานยอดค้างชำระเจ้าหนี้",
+        title: "รายงานยอดค้างชำระSupplier",
         path: "/creditor/report-creditor",
       },
       // {
